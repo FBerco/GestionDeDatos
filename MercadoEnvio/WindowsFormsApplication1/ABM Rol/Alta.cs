@@ -10,16 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.ABM_Rol
 {
-    public partial class Form1 : Form
     {
-        public Form1()
         {
             InitializeComponent();
-        }
-
-        private void btn_Alta_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

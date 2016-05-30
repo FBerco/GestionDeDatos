@@ -1,6 +1,6 @@
 ﻿namespace GDD.ABM_Rol
 {
-    partial class Form1
+    partial class Home
     {
         /// <summary>
         /// Required designer variable.
@@ -28,26 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Alta = new System.Windows.Forms.Button();
+            this.btnRol = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btn_Alta
+            // btnRol
             // 
-            this.btn_Alta.Location = new System.Drawing.Point(95, 28);
-            this.btn_Alta.Name = "btn_Alta";
-            this.btn_Alta.Size = new System.Drawing.Size(75, 23);
-            this.btn_Alta.TabIndex = 0;
-            this.btn_Alta.Text = "Alta";
-            this.btn_Alta.UseVisualStyleBackColor = true;
-            this.btn_Alta.Click += new System.EventHandler(this.btn_Alta_Click);
+            this.btnRol.Location = new System.Drawing.Point(90, 31);
+            this.btnRol.Name = "btnRol";
+            this.btnRol.Size = new System.Drawing.Size(75, 23);
+            this.btnRol.TabIndex = 0;
+            this.btnRol.Text = "Alta";
+            this.btnRol.UseVisualStyleBackColor = true;
+            this.btnRol.Click += new System.EventHandler(this.btnRol_Click);
             // 
-            // Form1
+            // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.btn_Alta);
-            this.Name = "Form1";
+            this.Controls.Add(this.btnRol);
+            this.Name = "Home";
             this.Text = "ABM Rol";
             this.ResumeLayout(false);
 
@@ -55,6 +55,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btn_Alta;
+        private System.Windows.Forms.Button btnRol;
     }
 }

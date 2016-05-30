@@ -16,5 +16,10 @@ namespace GDD.Generar_Publicación
         {
             InitializeComponent();
         }
+
+        private void btn_Rol_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

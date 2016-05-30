@@ -28,11 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btn_Rol = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btn_Rol
+            // 
+            this.btn_Rol.Location = new System.Drawing.Point(93, 30);
+            this.btn_Rol.Name = "btn_Rol";
+            this.btn_Rol.Size = new System.Drawing.Size(75, 23);
+            this.btn_Rol.TabIndex = 0;
+            this.btn_Rol.Text = "ABM Rol";
+            this.btn_Rol.UseVisualStyleBackColor = true;
+            this.btn_Rol.Click += new System.EventHandler(this.btn_Rol_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.btn_Rol);
+            this.Name = "Form1";
+            this.Text = "Home";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btn_Rol;
     }
 }

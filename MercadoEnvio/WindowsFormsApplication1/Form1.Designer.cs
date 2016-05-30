@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace GDD
 {
     partial class Form1
     {

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1.Facturas
+﻿namespace GDD.Facturas
 {
     partial class Form1
     {

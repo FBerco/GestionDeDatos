@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1.Calificar
+﻿namespace GDD.Calificar
 {
     partial class Form1
     {

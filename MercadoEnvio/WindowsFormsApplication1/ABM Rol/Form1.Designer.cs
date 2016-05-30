@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1.ABM_Rol
+﻿namespace GDD.ABM_Rol
 {
     partial class Form1
     {
@@ -28,11 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btn_Alta = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btn_Alta
+            // 
+            this.btn_Alta.Location = new System.Drawing.Point(95, 28);
+            this.btn_Alta.Name = "btn_Alta";
+            this.btn_Alta.Size = new System.Drawing.Size(75, 23);
+            this.btn_Alta.TabIndex = 0;
+            this.btn_Alta.Text = "Alta";
+            this.btn_Alta.UseVisualStyleBackColor = true;
+            this.btn_Alta.Click += new System.EventHandler(this.btn_Alta_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.btn_Alta);
+            this.Name = "Form1";
+            this.Text = "ABM Rol";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btn_Alta;
     }
 }

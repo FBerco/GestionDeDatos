@@ -86,6 +86,12 @@
     <Compile Include="ABM Usuario\DatosCliente.Designer.cs">
       <DependentUpon>DatosCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM Usuario\DatosEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Usuario\DatosEmpresa.Designer.cs">
+      <DependentUpon>DatosEmpresa.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM Usuario\Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Usuario\DatosCliente.resx">
       <DependentUpon>DatosCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Usuario\DatosEmpresa.resx">
+      <DependentUpon>DatosEmpresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Usuario\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>

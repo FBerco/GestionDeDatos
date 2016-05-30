@@ -10,7 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.ABM_Rol
 {
+    public partial class frmAlta : Form
     {
+        public frmAlta()
         {
             InitializeComponent();
         }

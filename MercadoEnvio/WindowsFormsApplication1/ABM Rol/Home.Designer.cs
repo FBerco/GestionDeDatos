@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.btnRol = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnBaja = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnRol
@@ -41,11 +43,31 @@
             this.btnRol.UseVisualStyleBackColor = true;
             this.btnRol.Click += new System.EventHandler(this.btnRol_Click);
             // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(90, 72);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(75, 23);
+            this.btnModificar.TabIndex = 1;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            // 
+            // btnBaja
+            // 
+            this.btnBaja.Location = new System.Drawing.Point(90, 152);
+            this.btnBaja.Name = "btnBaja";
+            this.btnBaja.Size = new System.Drawing.Size(75, 23);
+            this.btnBaja.TabIndex = 2;
+            this.btnBaja.Text = "Baja";
+            this.btnBaja.UseVisualStyleBackColor = true;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.btnBaja);
+            this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnRol);
             this.Name = "Home";
             this.Text = "ABM Rol";
@@ -56,5 +78,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnRol;
+        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnBaja;
     }
 }

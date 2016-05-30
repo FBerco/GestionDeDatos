@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace GDD.ABM_Rol
 {
-    public partial class frmAlta : Form
+    public partial class Baja : Form
     {
-        public frmAlta()
+        public Baja()
         {
             InitializeComponent();
-        }
-
-        private void btnCrear_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

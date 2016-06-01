@@ -10,11 +10,19 @@ using System.Windows.Forms;
 
 namespace GDD.ABM_Rubro
 {
-    public partial class Form1 : Form
+    public partial class Home : Form
     {
-        public Form1()
+        public Home()
         {
             InitializeComponent();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
+
+

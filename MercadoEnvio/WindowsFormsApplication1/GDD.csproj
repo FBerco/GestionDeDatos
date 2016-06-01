@@ -68,11 +68,11 @@
     <Compile Include="ABM Rol\Modificar.Designer.cs">
       <DependentUpon>Modificar.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Rubro\Form1.cs">
+    <Compile Include="ABM Rubro\Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Rubro\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM Rubro\Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\Alta.cs">
       <SubType>Form</SubType>
@@ -98,7 +98,7 @@
     <Compile Include="ABM Usuario\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Visibilidad\Form1.cs">
+    <Compile Include="ABM Visibilidad\Home.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ABM Visibilidad\Form1.Designer.cs">
@@ -164,8 +164,8 @@
     <EmbeddedResource Include="ABM Rol\Modificar.resx">
       <DependentUpon>Modificar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM Rubro\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ABM Rubro\Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Usuario\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>

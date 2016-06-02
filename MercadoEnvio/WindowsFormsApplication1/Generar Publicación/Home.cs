@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GDD.ABM_Usuario
+namespace GDD.Generar_Publicación
 {
     public partial class Home : Form
     {
@@ -17,10 +17,10 @@ namespace GDD.ABM_Usuario
             InitializeComponent();
         }
 
-        private void btnAlta_Click(object sender, EventArgs e)
-        {
+      
 
-        }
+        
 
     }
+    
 }

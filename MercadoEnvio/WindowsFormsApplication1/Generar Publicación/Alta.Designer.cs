@@ -50,6 +50,7 @@
             this.rbtnSi = new System.Windows.Forms.RadioButton();
             this.rbtnNo = new System.Windows.Forms.RadioButton();
             this.btnConfirmar = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.gbPublicacion.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -264,11 +265,22 @@
             this.btnConfirmar.Text = "Confirmar";
             this.btnConfirmar.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(37, 405);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(402, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "dependiendo si se quiere dar de alta o modificar una public, el text del boton ca" +
+    "mbia";
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(658, 375);
+            this.ClientSize = new System.Drawing.Size(658, 489);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnConfirmar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.lstVisibilidad);
@@ -323,5 +335,6 @@
         private System.Windows.Forms.RadioButton rbtnNo;
         private System.Windows.Forms.RadioButton rbtnSi;
         private System.Windows.Forms.Button btnConfirmar;
+        private System.Windows.Forms.Label label7;
     }
 }

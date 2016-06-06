@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 namespace GDD
@@ -42,7 +41,7 @@ namespace GDD
                 command.Parameters.Add(parametro);
             }
 
-            SqlDataReader result = command.ExecuteReader();
+            SqlDataReader result = command.ExecuteReader(); 
             DB.Close();
             return result;
         }

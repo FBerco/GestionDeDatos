@@ -17,28 +17,28 @@ namespace GDD
         }
 
         //SP: StoredProcedure
-        public static void ExecuteNonQuery(string SP, List<SqlParameter> parametros = null)
+        public static void ExecuteNonQuery(string SP, Dictionary<string, object> parametros = null)
         {
             DB.Open();
             SqlCommand command = new SqlCommand(SP, DB);
             command.CommandType = System.Data.CommandType.StoredProcedure;
             foreach (var parametro in parametros)
             {
-                command.Parameters.Add(parametro);
+                command.Parameters.Add(new SqlParameter(parametro.Key, parametro.Value));
             }
 
             command.ExecuteNonQuery();
             DB.Close();
         }
 
-        public static SqlDataReader ExecuteReader(string SP, List<SqlParameter> parametros = null)
+        public static SqlDataReader ExecuteReader(string SP, Dictionary<string, object> parametros = null)
         {
             DB.Open();
             SqlCommand command = new SqlCommand(SP, DB);
             command.CommandType = System.Data.CommandType.StoredProcedure;
             foreach (var parametro in parametros)
             {
-                command.Parameters.Add(parametro);
+                command.Parameters.Add(new SqlParameter(parametro.Key, parametro.Value));
             }
 
             SqlDataReader result = command.ExecuteReader(); 

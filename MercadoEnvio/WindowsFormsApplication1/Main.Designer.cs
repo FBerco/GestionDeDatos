@@ -1,6 +1,6 @@
 ﻿namespace GDD
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Variable del diseñador requerida.
@@ -41,14 +41,14 @@
             this.btnRol.UseVisualStyleBackColor = true;
             this.btnRol.Click += new System.EventHandler(this.btnRol_Click);
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.btnRol);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Main";
+            this.Text = "Main";
             this.ResumeLayout(false);
 
         }

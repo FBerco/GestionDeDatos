@@ -16,7 +16,7 @@ namespace GDD
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Generar_Publicación.Home());
+            Application.Run(new Main());
         }
     }
 }

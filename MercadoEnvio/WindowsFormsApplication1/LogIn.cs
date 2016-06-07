@@ -15,5 +15,18 @@ namespace GDD
         {
             InitializeComponent();
         }
+
+        private void btnLoguear_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, string> parametros = new Dictionary<string, string>();
+            var username = txtUsername.Text;
+            var password= txtPassword.Text;
+            if (username != null && password != null)
+            {
+                parametros.Add("@Username", username);
+                parametros.Add("@Password", password);
+            }
+            lblError.Text = "Ingresar Username y Password por favor.";
+        }
     }
 }

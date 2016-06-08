@@ -35,7 +35,7 @@
             // 
             // btnRol
             // 
-            this.btnRol.Location = new System.Drawing.Point(90, 31);
+            this.btnRol.Location = new System.Drawing.Point(105, 38);
             this.btnRol.Name = "btnRol";
             this.btnRol.Size = new System.Drawing.Size(75, 23);
             this.btnRol.TabIndex = 0;
@@ -45,7 +45,7 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(90, 72);
+            this.btnModificar.Location = new System.Drawing.Point(105, 101);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
             this.btnModificar.TabIndex = 1;
@@ -54,7 +54,7 @@
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(90, 152);
+            this.btnBaja.Location = new System.Drawing.Point(105, 159);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(75, 23);
             this.btnBaja.TabIndex = 2;

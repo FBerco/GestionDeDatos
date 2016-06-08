@@ -18,13 +18,19 @@ namespace GDD
 
         private void btnLoguear_Click(object sender, EventArgs e)
         {
-            Dictionary<string, string> parametros = new Dictionary<string, string>();
             var username = txtUsername.Text;
             var password= txtPassword.Text;
             if (username != null && password != null)
             {
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
                 parametros.Add("@Username", username);
                 parametros.Add("@Password", password);
+                var usuario = DBHelper.ExecuteReader("Usuario_LogIn", parametros);
+                if (usuario != null)
+                {
+                    //Sigo adelante
+                }
+                lblError.Text = "no existe usuario";
             }
             lblError.Text = "Ingresar Username y Password por favor.";
         }

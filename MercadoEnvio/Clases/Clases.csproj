@@ -42,6 +42,7 @@
     <Compile Include="Calificacion.cs" />
     <Compile Include="Factura.cs" />
     <Compile Include="Funcion.cs" />
+    <Compile Include="ItemFactura.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>

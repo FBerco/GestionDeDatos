@@ -1,4 +1,5 @@
-﻿namespace Clases
+﻿using System;
+namespace Clases
 {
     public class Usuario
     {

@@ -19,8 +19,8 @@ namespace GDD.Calificar
 
         private void btnCalificar_Click(object sender, EventArgs e)
         {
-            var venta = lstVentas.SelectedItem;
-            var estrellas = lstEstrellas.SelectedItem;
+            var venta = cmbVentas.SelectedItem;
+            var estrellas = cmbEstrellas.SelectedItem;
             if (venta != null && estrellas != null)
             {
                 var detalle = txtDetalle.Text;

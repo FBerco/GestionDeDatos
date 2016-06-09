@@ -28,22 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstVentas = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCalificar = new System.Windows.Forms.Button();
-            this.lstEstrellas = new System.Windows.Forms.ListBox();
             this.txtDetalle = new System.Windows.Forms.TextBox();
+            this.cmbVentas = new System.Windows.Forms.ComboBox();
+            this.cmbEstrellas = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // lstVentas
-            // 
-            this.lstVentas.FormattingEnabled = true;
-            this.lstVentas.Location = new System.Drawing.Point(136, 24);
-            this.lstVentas.Name = "lstVentas";
-            this.lstVentas.Size = new System.Drawing.Size(120, 95);
-            this.lstVentas.TabIndex = 0;
             // 
             // label1
             // 
@@ -82,20 +74,6 @@
             this.btnCalificar.UseVisualStyleBackColor = true;
             this.btnCalificar.Click += new System.EventHandler(this.btnCalificar_Click);
             // 
-            // lstEstrellas
-            // 
-            this.lstEstrellas.FormattingEnabled = true;
-            this.lstEstrellas.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.lstEstrellas.Location = new System.Drawing.Point(136, 125);
-            this.lstEstrellas.Name = "lstEstrellas";
-            this.lstEstrellas.Size = new System.Drawing.Size(120, 95);
-            this.lstEstrellas.TabIndex = 5;
-            // 
             // txtDetalle
             // 
             this.txtDetalle.Location = new System.Drawing.Point(136, 230);
@@ -103,20 +81,43 @@
             this.txtDetalle.Name = "txtDetalle";
             this.txtDetalle.Size = new System.Drawing.Size(100, 20);
             this.txtDetalle.TabIndex = 6;
-            
+            // 
+            // cmbVentas
+            // 
+            this.cmbVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVentas.FormattingEnabled = true;
+            this.cmbVentas.Location = new System.Drawing.Point(181, 24);
+            this.cmbVentas.Name = "cmbVentas";
+            this.cmbVentas.Size = new System.Drawing.Size(121, 21);
+            this.cmbVentas.TabIndex = 7;
+            // 
+            // cmbEstrellas
+            // 
+            this.cmbEstrellas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstrellas.FormattingEnabled = true;
+            this.cmbEstrellas.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cmbEstrellas.Location = new System.Drawing.Point(181, 123);
+            this.cmbEstrellas.Name = "cmbEstrellas";
+            this.cmbEstrellas.Size = new System.Drawing.Size(121, 21);
+            this.cmbEstrellas.TabIndex = 8;
             // 
             // frmCalificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(325, 350);
+            this.Controls.Add(this.cmbEstrellas);
+            this.Controls.Add(this.cmbVentas);
             this.Controls.Add(this.txtDetalle);
-            this.Controls.Add(this.lstEstrellas);
             this.Controls.Add(this.btnCalificar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lstVentas);
             this.Name = "frmCalificar";
             this.Text = "Calificar";
             this.ResumeLayout(false);
@@ -126,12 +127,12 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lstVentas;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCalificar;
-        private System.Windows.Forms.ListBox lstEstrellas;
         private System.Windows.Forms.TextBox txtDetalle;
+        private System.Windows.Forms.ComboBox cmbVentas;
+        private System.Windows.Forms.ComboBox cmbEstrellas;
     }
 }

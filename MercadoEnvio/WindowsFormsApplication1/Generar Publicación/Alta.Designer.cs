@@ -38,7 +38,7 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtStock = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
@@ -47,8 +47,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.lstVisibilidad = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbtnSi = new System.Windows.Forms.RadioButton();
             this.rbtnNo = new System.Windows.Forms.RadioButton();
+            this.rbtnSi = new System.Windows.Forms.RadioButton();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.gbPublicacion.SuspendLayout();
@@ -155,12 +155,12 @@
             this.txtStock.Size = new System.Drawing.Size(26, 20);
             this.txtStock.TabIndex = 8;
             // 
-            // dateTimePicker1
+            // dtpFecha
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(157, 120);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(221, 20);
-            this.dateTimePicker1.TabIndex = 9;
+            this.dtpFecha.Location = new System.Drawing.Point(157, 120);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(221, 20);
+            this.dtpFecha.TabIndex = 9;
             // 
             // label3
             // 
@@ -234,17 +234,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "¿Permitir preguntas?";
             // 
-            // rbtnSi
-            // 
-            this.rbtnSi.AutoSize = true;
-            this.rbtnSi.Location = new System.Drawing.Point(11, 19);
-            this.rbtnSi.Name = "rbtnSi";
-            this.rbtnSi.Size = new System.Drawing.Size(34, 17);
-            this.rbtnSi.TabIndex = 0;
-            this.rbtnSi.TabStop = true;
-            this.rbtnSi.Text = "Si";
-            this.rbtnSi.UseVisualStyleBackColor = true;
-            // 
             // rbtnNo
             // 
             this.rbtnNo.AutoSize = true;
@@ -256,6 +245,17 @@
             this.rbtnNo.Text = "No";
             this.rbtnNo.UseVisualStyleBackColor = true;
             // 
+            // rbtnSi
+            // 
+            this.rbtnSi.AutoSize = true;
+            this.rbtnSi.Location = new System.Drawing.Point(11, 19);
+            this.rbtnSi.Name = "rbtnSi";
+            this.rbtnSi.Size = new System.Drawing.Size(34, 17);
+            this.rbtnSi.TabIndex = 0;
+            this.rbtnSi.TabStop = true;
+            this.rbtnSi.Text = "Si";
+            this.rbtnSi.UseVisualStyleBackColor = true;
+            // 
             // btnConfirmar
             // 
             this.btnConfirmar.Location = new System.Drawing.Point(207, 319);
@@ -264,6 +264,7 @@
             this.btnConfirmar.TabIndex = 18;
             this.btnConfirmar.Text = "Confirmar";
             this.btnConfirmar.UseVisualStyleBackColor = true;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
             // 
             // label7
             // 
@@ -290,7 +291,7 @@
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpFecha);
             this.Controls.Add(this.txtStock);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescripcion);
@@ -323,7 +324,7 @@
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtStock;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtPrecio;

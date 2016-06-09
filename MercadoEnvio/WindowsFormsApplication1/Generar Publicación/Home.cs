@@ -55,8 +55,22 @@ namespace GDD.Generar_Publicación
 
         private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string textoSeleccionado = cmbEstado.Text;
-            switch (textoSeleccionado) 
+
+            var estadoSeleccionado = cmbEstado.Text;
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@EstadoPublicacion", estadoSeleccionado);            
+            var publicacion = DBHelper.ExecuteReader("Publicacion_GetByFilter", parametros);
+            //publicacion es un sqldatareader, tengo que parsearlo a una lista
+            if (publicacion != null)
+            {
+                //dgvPublicaciones.DataSource = 
+            }
+            else
+            {  
+               var texto = string.Format("No hay publicaciones en estado {0}", estadoSeleccionado);
+               lblError.Text = texto;      
+            }
+            switch (estadoSeleccionado) 
             {
                 case "Borrador":
                     btnModificar.Enabled = true;

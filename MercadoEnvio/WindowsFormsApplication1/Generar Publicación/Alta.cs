@@ -51,7 +51,7 @@ namespace GDD.Generar_Publicación
                     }
                     else
                     {
-                       MessageBox.Show = "Seleccionar tipo de publicacion";     
+                       MessageBox.Show("Seleccionar tipo de publicacion");     
                     }
                 }
             }

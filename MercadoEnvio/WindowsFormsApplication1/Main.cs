@@ -30,5 +30,17 @@ namespace GDD
 
         }
 
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCalificacion_Click(object sender, EventArgs e)
+        {
+            GDD.Calificar.frmCalificar calificar = new Calificar.frmCalificar();
+            calificar.Show();
+            this.Hide();
+        }
+
     }
 }

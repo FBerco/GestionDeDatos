@@ -117,18 +117,15 @@
     <Compile Include="ABM Visibilidad\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-
     <Compile Include="Calificar\Home.cs">
       <SubType>Form</SubType>
     </Compile>
-
     <Compile Include="ABM Visibilidad\Modificar.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ABM Visibilidad\Modificar.Designer.cs">
       <DependentUpon>Modificar.cs</DependentUpon>
     </Compile>
- 
     <Compile Include="Calificar\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
@@ -230,7 +227,6 @@
     <EmbeddedResource Include="ABM Visibilidad\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-
     <EmbeddedResource Include="Calificar\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
@@ -286,7 +282,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Clases\Clases.csproj">
+      <Project>{61eec4b1-783e-4914-9eba-e598e5609742}</Project>
+      <Name>Clases</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

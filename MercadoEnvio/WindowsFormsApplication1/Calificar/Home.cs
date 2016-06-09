@@ -31,8 +31,10 @@ namespace GDD.Calificar
                     parametros.Add("@Venta", venta);
                     parametros.Add("@Detalle", detalle);
                     DBHelper.ExecuteNonQuery("Calificacion_Add", parametros);
+                    MessageBox.Show("Calificado con exito", "Exito");
+                    cmbVentas.Items.Remove(venta);
                 }
-                MessageBox.Show("El detalle tiene que ser como maximo 140");
+                MessageBox.Show("El detalle tiene que ser como maximo 140", "Error");
             }
             MessageBox.Show("Seleccionar venta y estrellas", "Error");
         }

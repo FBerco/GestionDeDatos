@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstNombreVisibilidad = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtComisionXTipoPublicacion = new System.Windows.Forms.TextBox();
@@ -38,18 +38,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // listBox1
+            // lstNombreVisibilidad
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(243, 30);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(129, 17);
-            this.listBox1.TabIndex = 0;
+            this.lstNombreVisibilidad.FormattingEnabled = true;
+            this.lstNombreVisibilidad.Location = new System.Drawing.Point(243, 30);
+            this.lstNombreVisibilidad.Name = "lstNombreVisibilidad";
+            this.lstNombreVisibilidad.Size = new System.Drawing.Size(129, 17);
+            this.lstNombreVisibilidad.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 34);
+            this.label1.Location = new System.Drawing.Point(16, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 13);
             this.label1.TabIndex = 1;
@@ -115,7 +115,7 @@
             this.Controls.Add(this.txtComisionXTipoPublicacion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lstNombreVisibilidad);
             this.Name = "frmModificar";
             this.Text = "Modificar";
             this.ResumeLayout(false);
@@ -125,7 +125,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstNombreVisibilidad;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtComisionXTipoPublicacion;

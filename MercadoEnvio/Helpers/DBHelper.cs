@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace GDD
+namespace Helpers
 {
     //http://www.codeproject.com/Articles/4416/Beginners-guide-to-accessing-SQL-Server-through-C
     public static class DBHelper

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calificacion.cs" />
+    <Compile Include="Estado.cs" />
     <Compile Include="Factura.cs" />
     <Compile Include="Funcion.cs" />
     <Compile Include="ItemFactura.cs" />

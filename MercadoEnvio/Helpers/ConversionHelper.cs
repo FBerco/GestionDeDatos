@@ -168,7 +168,7 @@ namespace Helpers
                     FacturaId = (int)rdr["item_factura"],
                     Id = (int)rdr["item_id"],
                     Cantidad = (int)rdr["item_cantidad"],
-                    PrecioUnitario = (int)rdr["item_precioUnitario"],
+                    PrecioUnitario = (int)rdr["item_precio_unitario"],
                 });
             }
             return list;

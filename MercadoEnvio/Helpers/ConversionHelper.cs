@@ -247,6 +247,26 @@ namespace Helpers
         }
         #endregion
 
+        #region FUNCION
+        public static Funcion ToFuncion(this SqlDataReader rdr)
+        {
+            return rdr.ToFunciones().FirstOrDefault();
+        }
+        public static List<Funcion> ToFunciones(this SqlDataReader rdr)
+        {
+            List<Funcion> list = new List<Funcion>();
+            while (rdr.Read())
+            {
+                list.Add(new Funcion()
+                {
+                    Id = (int)rdr["func_id"],
+                    Descripcion = (string)rdr["func_descripcion"]
+                });
+            }
+            return list;
+        }
+        #endregion
+
         #region RUBRO
         public static Rubro ToRubro(this SqlDataReader rdr)
         {

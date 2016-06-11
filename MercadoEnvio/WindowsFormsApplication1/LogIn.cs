@@ -29,11 +29,13 @@ namespace GDD
                 var usuario = DBHelper.ExecuteReader("Usuario_LogIn", parametros).ToUsuario();
                 if (usuario != null)
                 {
-                    //Sigo adelante
+                    Main main = new Main(usuario);
+                    main.Show();
+                    Hide();
                 }
-                lblError.Text = "no existe usuario";
+                MessageBox.Show("No existe usuario.", "Error");
             }
-            lblError.Text = "Ingresar Username y Password por favor.";
+            MessageBox.Show("Ingresar Username y Password por favor.","Error");
         }
     }
 }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.ComprarOfertar
 {
-    public partial class frmComprarOfertar : Form
+    public partial class frmHome : Form
     {
-        public frmComprarOfertar()
+        public frmHome()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace GDD.Listado_Estadistico
 {
-    partial class frmEstadisticas
+    partial class frmHome
     {
         /// <summary>
         /// Required designer variable.
@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // frmEstadisticas
+            // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "frmEstadisticas";
+            this.Name = "frmHome";
             this.Text = "Form1";
             this.ResumeLayout(false);
 

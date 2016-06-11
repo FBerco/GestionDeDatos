@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace GDD.Calificar
 {
-    public partial class frmCalificar : Form
+    public partial class frmHome : Form
     {
-        public frmCalificar()
+        public frmHome()
         {
             InitializeComponent();
         }

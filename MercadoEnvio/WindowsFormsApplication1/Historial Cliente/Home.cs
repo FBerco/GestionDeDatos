@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.Historial_Cliente
 {
-    public partial class frmHistorialCliente : Form
+    public partial class frmHome : Form
     {
-        public frmHistorialCliente()
+        public frmHome()
         {
             InitializeComponent();
         }

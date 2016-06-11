@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.Facturas
 {
-    public partial class frmFacturas : Form
+    public partial class frmHome : Form
     {
-        public frmFacturas()
+        public frmHome()
         {
             InitializeComponent();
         }

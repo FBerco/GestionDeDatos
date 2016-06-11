@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.Listado_Estadistico
 {
-    public partial class frmEstadisticas : Form
+    public partial class frmHome : Form
     {
-        public frmEstadisticas()
+        public frmHome()
         {
             InitializeComponent();
         }

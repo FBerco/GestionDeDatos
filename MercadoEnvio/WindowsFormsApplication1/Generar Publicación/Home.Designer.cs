@@ -1,6 +1,6 @@
 ﻿namespace GDD.Generar_Publicación
 {
-    partial class Home
+    partial class frmHome
     {
         /// <summary>
         /// Required designer variable.
@@ -119,7 +119,7 @@
             this.lblError.Size = new System.Drawing.Size(0, 13);
             this.lblError.TabIndex = 13;
             // 
-            // Home
+            // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -132,7 +132,7 @@
             this.Controls.Add(this.cmbEstado);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAlta);
-            this.Name = "Home";
+            this.Name = "frmHome";
             this.Text = "Home";
             this.Load += new System.EventHandler(this.Home_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).EndInit();

@@ -1,6 +1,6 @@
 ﻿namespace GDD.ABM_Usuario
 {
-    partial class Home
+    partial class frmHome
     {
         /// <summary>
         /// Required designer variable.
@@ -247,7 +247,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
             // 
-            // Home
+            // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -258,7 +258,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAlta);
-            this.Name = "Home";
+            this.Name = "frmHome";
             this.Text = "ABM Usuario";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

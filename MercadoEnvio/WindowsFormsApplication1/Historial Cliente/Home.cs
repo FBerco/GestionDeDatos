@@ -8,11 +8,11 @@ using System.Text;
 
 using System.Windows.Forms;
 
-namespace GDD.Listado_Estadistico
+namespace GDD.Historial_Cliente
 {
-    public partial class Form1 : Form
+    public partial class frmHistorialCliente : Form
     {
-        public Form1()
+        public frmHistorialCliente()
         {
             InitializeComponent();
         }

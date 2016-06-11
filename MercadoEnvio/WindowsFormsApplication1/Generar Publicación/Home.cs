@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace GDD.Generar_Publicación
 {
-    public partial class Home : Form
+    public partial class frmHome : Form
     {
-        public Home()
+        public frmHome()
         {
             InitializeComponent();
         }

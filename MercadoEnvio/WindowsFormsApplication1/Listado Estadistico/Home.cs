@@ -8,11 +8,11 @@ using System.Text;
 
 using System.Windows.Forms;
 
-namespace GDD.Facturas
+namespace GDD.Listado_Estadistico
 {
-    public partial class Form1 : Form
+    public partial class frmEstadisticas : Form
     {
-        public Form1()
+        public frmEstadisticas()
         {
             InitializeComponent();
         }

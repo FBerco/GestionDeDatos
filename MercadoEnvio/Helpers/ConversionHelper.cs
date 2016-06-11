@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Data.SqlClient;
 using Clases;
 
@@ -9,7 +8,6 @@ namespace Helpers
 {
     public static class ConversionHelper
     {
-
         #region USUARIO
         public static Usuario ToUsuario(this SqlDataReader rdr) {
             return rdr.ToUsuarios().FirstOrDefault();
@@ -72,14 +70,14 @@ namespace Helpers
                     //Username = (string)rdr["usua_username"],
                     //Activo = (bool)rdr["usua_activo"],
                     //Password = (string)rdr["usua_password"],
-                    RazonSocial = (string)rdr["empr_razonSocial"],
+                    RazonSocial = (string)rdr["empr_razon_social"],
                     Mail = (string)rdr["empr_mail"],
                     Telefono = (string)rdr["empr_telefono"],
                     Direccion = (string)rdr["empr_direccion"],
                     CodigoPostal = (int)rdr["empr_codigoPostal"],
                     Ciudad = (string)rdr["empr_ciudad"],
                     Cuit = (int)rdr["empr_cuit"],
-                    NombreContacto = (string)rdr["empr_nombreContacto"],
+                    NombreContacto = (string)rdr["empr_nombre_contacto"],
                     ReputacionTotal = (int)rdr["empr_reputacion_total"],
                     ReputacionCantVotos = (int)rdr["empr_reputacion_cantidadVotos"],
                     RubroId = (int)rdr["empr_rubroId"],
@@ -194,6 +192,122 @@ namespace Helpers
                     Fecha = (DateTime)rdr["ofer_fecha"],
                     PublicacionId = (int)rdr["ofer_publid"],
                     ClienteId = (int)rdr["ofer_cliente"],
+                });
+            }
+            return list;
+        }
+        #endregion
+
+        #region PUBLICACION
+        public static Publicacion ToPublicacion(this SqlDataReader rdr)
+        {
+            return rdr.ToPublicaciones().FirstOrDefault();
+        }
+        public static List<Publicacion> ToPublicaciones(this SqlDataReader rdr)
+        {
+            List<Publicacion> list = new List<Publicacion>();
+            while (rdr.Read())
+            {
+                list.Add(new Publicacion()
+                {
+                    Id = (int)rdr["publ_id"],
+                    Tipo = (string)rdr["publ_tipo"],
+                    FechaInicio = (DateTime)rdr["publ_fecha_inicio"],
+                    FechaVencimiento = (DateTime)rdr["publ_fecha_vencimiento"],
+                    Descripcion = (string)rdr["publ_descripcion"],
+                    UsuarioId = (int)rdr["publ_usuario"],
+                    RubroId = (int)rdr["publ_rubro"],
+                    EstadoId = (int)rdr["publ_estado"],
+                    Stock = (int)rdr["publ_stock"],
+                    Precio = (int)rdr["publ_precio"],
+                    VisibilidadId = (int)rdr["publ_visibilidad"]
+                });
+            }
+            return list;
+        }
+        #endregion
+
+        #region ROL
+        public static Rol ToRol(this SqlDataReader rdr)
+        {
+            return rdr.ToRoles().FirstOrDefault();
+        }
+        public static List<Rol> ToRoles(this SqlDataReader rdr)
+        {
+            List<Rol> list = new List<Rol>();
+            while (rdr.Read())
+            {
+                list.Add(new Rol()
+                {
+                    Id = (int)rdr["rol_id"],
+                    Nombre =(string)rdr["rol_nombre"]
+                });
+            }
+            return list;
+        }
+        #endregion
+
+        #region RUBRO
+        public static Rubro ToRubro(this SqlDataReader rdr)
+        {
+            return rdr.ToRubros().FirstOrDefault();
+        }
+        public static List<Rubro> ToRubros(this SqlDataReader rdr)
+        {
+            List<Rubro> list = new List<Rubro>();
+            while (rdr.Read())
+            {
+                list.Add(new Rubro()
+                {
+                    Id = (int)rdr["rubr_id"],
+                    DescripcionCorta = (string)rdr["rubr_descripcion_corta"],
+                    DescripcionLarga = (string)rdr["rubr_descripcion_larga"]
+                });
+            }
+            return list;
+        }
+        #endregion
+
+        #region VENTA
+        public static Venta ToVenta(this SqlDataReader rdr)
+        {
+            return rdr.ToVentas().FirstOrDefault();
+        }
+        public static List<Venta> ToVentas(this SqlDataReader rdr)
+        {
+            List<Venta> list = new List<Venta>();
+            while (rdr.Read())
+            {
+                list.Add(new Venta()
+                {
+                    Id = (int)rdr["vent_id"],
+                    Cantidad = (int)rdr["vent_cantidad"],
+                    PublicacionId = (int)rdr["vent_publicacion"],
+                    Fecha = (DateTime)rdr["vent_fecha"],
+                    ClienteId = (int)rdr["vent_cliente"],
+                });
+            }
+            return list;
+        }
+        #endregion
+
+        #region VISIBILIDAD
+        public static Visibilidad ToVisibilidad(this SqlDataReader rdr)
+        {
+            return rdr.ToVisibilidades().FirstOrDefault();
+        }
+        public static List<Visibilidad> ToVisibilidades(this SqlDataReader rdr)
+        {
+            List<Visibilidad> list = new List<Visibilidad>();
+            while (rdr.Read())
+            {
+                list.Add(new Visibilidad()
+                {
+                    Id = (int)rdr["visi_id"],
+                    CostoEnvio = (int)rdr["visi_costo_envio"],
+                    CostoPublicacion = (int)rdr["visi_costo_publicacion"],
+                    Detalle = (string)rdr["visi_detalle"],
+                    PorcentajeProducto = (int)rdr["visi_porcentaje_prod"]
                 });
             }
             return list;

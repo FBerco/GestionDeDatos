@@ -79,8 +79,8 @@ namespace Helpers
                     Cuit = (int)rdr["empr_cuit"],
                     NombreContacto = (string)rdr["empr_nombre_contacto"],
                     ReputacionTotal = (int)rdr["empr_reputacion_total"],
-                    ReputacionCantVotos = (int)rdr["empr_reputacion_cantidadVotos"],
-                    RubroId = (int)rdr["empr_rubroId"],
+                    ReputacionCantVotos = (int)rdr["empr_reputacion_cantidad_votos"],
+                    RubroId = (int)rdr["empr_rubro"],
                     Id= (int)rdr["empr_id"],
                 });
             }
@@ -165,7 +165,7 @@ namespace Helpers
             {
                 list.Add(new ItemFactura()
                 {
-                    FacturaId = (int)rdr["item_numeroFactura"],
+                    FacturaId = (int)rdr["item_factura"],
                     Id = (int)rdr["item_id"],
                     Cantidad = (int)rdr["item_cantidad"],
                     PrecioUnitario = (int)rdr["item_precioUnitario"],

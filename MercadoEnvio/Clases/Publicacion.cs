@@ -6,7 +6,7 @@ namespace Clases
         public int Id { get; set; }
         public string Tipo { get; set; }
         public DateTime FechaInicio { get; set; }
-        public int FechaVencimiento { get; set; }
+        public DateTime FechaVencimiento { get; set; }
         public string Descripcion { get; set; }
         public int UsuarioId { get; set; }
         public int RubroId { get; set; }

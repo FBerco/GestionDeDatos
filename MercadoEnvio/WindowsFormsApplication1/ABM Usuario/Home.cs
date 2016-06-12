@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.ABM_Usuario
 {
-    public partial class Home : Form
+    public partial class frmHome : Form
     {
-        public Home()
+        public frmHome()
         {
             InitializeComponent();
         }

@@ -5,14 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Helpers;
 
 using System.Windows.Forms;
 
 namespace GDD.Calificar
 {
-    public partial class frmCalificar : Form
+    public partial class frmHome : Form
     {
-        public frmCalificar()
+        public frmHome()
         {
             InitializeComponent();
         }

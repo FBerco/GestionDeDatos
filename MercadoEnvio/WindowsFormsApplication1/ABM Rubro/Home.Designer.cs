@@ -1,6 +1,6 @@
 ﻿namespace GDD.ABM_Rubro
 {
-    partial class Home
+    partial class frmHome
     {
         /// <summary>
         /// Required designer variable.
@@ -50,14 +50,14 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Rubros";
             // 
-            // Home
+            // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvListadoRubros);
-            this.Name = "Home";
+            this.Name = "frmHome";
             this.Text = "ABM Rubro";
             ((System.ComponentModel.ISupportInitialize)(this.dgvListadoRubros)).EndInit();
             this.ResumeLayout(false);

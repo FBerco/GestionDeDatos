@@ -8,11 +8,11 @@ using System.Text;
 
 using System.Windows.Forms;
 
-namespace GDD.Facturas
+namespace GDD.Historial_Cliente
 {
-    public partial class Form1 : Form
+    public partial class frmHome : Form
     {
-        public Form1()
+        public frmHome()
         {
             InitializeComponent();
         }

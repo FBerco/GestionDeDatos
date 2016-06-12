@@ -1,6 +1,6 @@
 ﻿namespace GDD.Calificar
 {
-    partial class frmCalificar
+    partial class frmHome
     {
         /// <summary>
         /// Required designer variable.
@@ -106,7 +106,7 @@
             this.cmbEstrellas.Size = new System.Drawing.Size(121, 21);
             this.cmbEstrellas.TabIndex = 8;
             // 
-            // frmCalificar
+            // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -118,7 +118,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "frmCalificar";
+            this.Name = "frmHome";
             this.Text = "Calificar";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Helpers;
 
 namespace GDD
 {
@@ -25,14 +26,16 @@ namespace GDD
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
                 parametros.Add("@Username", username);
                 parametros.Add("@Password", password);
-                var usuario = DBHelper.ExecuteReader("Usuario_LogIn", parametros);
+                var usuario = DBHelper.ExecuteReader("Usuario_LogIn", parametros).ToUsuario();
                 if (usuario != null)
                 {
-                    //Sigo adelante
+                    Main main = new Main(usuario);
+                    main.Show();
+                    Hide();
                 }
-                lblError.Text = "no existe usuario";
+                MessageBox.Show("No existe usuario.", "Error");
             }
-            lblError.Text = "Ingresar Username y Password por favor.";
+            MessageBox.Show("Ingresar Username y Password por favor.","Error");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace GDD.ABM_Rol
 {
-    partial class Home
+    partial class frmHome
     {
         /// <summary>
         /// Required designer variable.
@@ -61,7 +61,7 @@
             this.btnBaja.Text = "Baja";
             this.btnBaja.UseVisualStyleBackColor = true;
             // 
-            // Home
+            // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -69,7 +69,7 @@
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnRol);
-            this.Name = "Home";
+            this.Name = "frmHome";
             this.Text = "ABM Rol";
             this.ResumeLayout(false);
 

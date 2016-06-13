@@ -90,6 +90,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmAlta";
             this.Text = "Alta";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAlta_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

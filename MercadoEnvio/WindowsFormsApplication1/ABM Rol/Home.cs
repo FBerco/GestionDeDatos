@@ -21,7 +21,12 @@ namespace GDD.ABM_Rol
         {
             frmAlta alta = new frmAlta();
             alta.Show();
-            this.Hide();
+            Hide();
+        }
+
+        private void frmHome_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

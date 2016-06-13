@@ -71,6 +71,7 @@
             this.Controls.Add(this.btnRol);
             this.Name = "frmHome";
             this.Text = "ABM Rol";
+            this.Load += new System.EventHandler(this.frmHome_Load);
             this.ResumeLayout(false);
 
         }

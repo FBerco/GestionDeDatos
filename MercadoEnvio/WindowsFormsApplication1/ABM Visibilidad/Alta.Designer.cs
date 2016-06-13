@@ -36,12 +36,15 @@
             this.txtComisionTipoPublicacion = new System.Windows.Forms.TextBox();
             this.txtComsionProductoVendido = new System.Windows.Forms.TextBox();
             this.txtComisionEnvioProducto = new System.Windows.Forms.TextBox();
+            this.btnGuardarNuevaVisibilidad = new System.Windows.Forms.Button();
+            this.chbTieneEnvio = new System.Windows.Forms.CheckBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 33);
+            this.label1.Location = new System.Drawing.Point(31, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 13);
             this.label1.TabIndex = 0;
@@ -50,63 +53,99 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 65);
+            this.label2.Location = new System.Drawing.Point(31, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 13);
+            this.label2.Size = new System.Drawing.Size(176, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Comision por tipo de publicacion";
+            this.label2.Text = "Comision por tipo de publicacion (%)";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 97);
+            this.label3.Location = new System.Drawing.Point(31, 86);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(153, 13);
+            this.label3.Size = new System.Drawing.Size(170, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Comision por producto vendido";
+            this.label3.Text = "Comision por producto vendido (%)";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 129);
+            this.label4.Location = new System.Drawing.Point(31, 137);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 13);
+            this.label4.Size = new System.Drawing.Size(175, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Comisión por envío del producto";
+            this.label4.Text = "Comisión por envío del producto ($)";
             // 
             // txtNombreVisibilidad
             // 
-            this.txtNombreVisibilidad.Location = new System.Drawing.Point(236, 30);
+            this.txtNombreVisibilidad.Location = new System.Drawing.Point(243, 19);
             this.txtNombreVisibilidad.Name = "txtNombreVisibilidad";
             this.txtNombreVisibilidad.Size = new System.Drawing.Size(173, 20);
             this.txtNombreVisibilidad.TabIndex = 4;
             // 
             // txtComisionTipoPublicacion
             // 
-            this.txtComisionTipoPublicacion.Location = new System.Drawing.Point(236, 62);
+            this.txtComisionTipoPublicacion.Location = new System.Drawing.Point(243, 51);
             this.txtComisionTipoPublicacion.Name = "txtComisionTipoPublicacion";
             this.txtComisionTipoPublicacion.Size = new System.Drawing.Size(173, 20);
             this.txtComisionTipoPublicacion.TabIndex = 5;
             // 
             // txtComsionProductoVendido
             // 
-            this.txtComsionProductoVendido.Location = new System.Drawing.Point(236, 94);
+            this.txtComsionProductoVendido.Location = new System.Drawing.Point(243, 83);
             this.txtComsionProductoVendido.Name = "txtComsionProductoVendido";
             this.txtComsionProductoVendido.Size = new System.Drawing.Size(173, 20);
             this.txtComsionProductoVendido.TabIndex = 6;
             // 
             // txtComisionEnvioProducto
             // 
-            this.txtComisionEnvioProducto.Location = new System.Drawing.Point(236, 126);
+            this.txtComisionEnvioProducto.Enabled = false;
+            this.txtComisionEnvioProducto.Location = new System.Drawing.Point(243, 134);
             this.txtComisionEnvioProducto.Name = "txtComisionEnvioProducto";
             this.txtComisionEnvioProducto.Size = new System.Drawing.Size(173, 20);
             this.txtComisionEnvioProducto.TabIndex = 7;
+            // 
+            // btnGuardarNuevaVisibilidad
+            // 
+            this.btnGuardarNuevaVisibilidad.Location = new System.Drawing.Point(154, 176);
+            this.btnGuardarNuevaVisibilidad.Name = "btnGuardarNuevaVisibilidad";
+            this.btnGuardarNuevaVisibilidad.Size = new System.Drawing.Size(152, 23);
+            this.btnGuardarNuevaVisibilidad.TabIndex = 8;
+            this.btnGuardarNuevaVisibilidad.Text = "Guardar nueva visibilidad";
+            this.btnGuardarNuevaVisibilidad.UseVisualStyleBackColor = true;
+            this.btnGuardarNuevaVisibilidad.Click += new System.EventHandler(this.btnGuardarNuevaVisibilidad_Click);
+            // 
+            // chbTieneEnvio
+            // 
+            this.chbTieneEnvio.AutoSize = true;
+            this.chbTieneEnvio.Location = new System.Drawing.Point(328, 111);
+            this.chbTieneEnvio.Name = "chbTieneEnvio";
+            this.chbTieneEnvio.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chbTieneEnvio.Size = new System.Drawing.Size(88, 17);
+            this.chbTieneEnvio.TabIndex = 9;
+            this.chbTieneEnvio.Text = "?Tiene envio";
+            this.chbTieneEnvio.UseVisualStyleBackColor = true;
+            this.chbTieneEnvio.CheckedChanged += new System.EventHandler(this.chbTieneEnvio_CheckedChanged);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(154, 205);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(152, 23);
+            this.btnLimpiar.TabIndex = 10;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // frmAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 184);
+            this.ClientSize = new System.Drawing.Size(460, 236);
+            this.Controls.Add(this.btnLimpiar);
+            this.Controls.Add(this.chbTieneEnvio);
+            this.Controls.Add(this.btnGuardarNuevaVisibilidad);
             this.Controls.Add(this.txtComisionEnvioProducto);
             this.Controls.Add(this.txtComsionProductoVendido);
             this.Controls.Add(this.txtComisionTipoPublicacion);
@@ -117,6 +156,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmAlta";
             this.Text = "Alta";
+            this.Load += new System.EventHandler(this.frmAlta_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,5 +172,8 @@
         private System.Windows.Forms.TextBox txtComisionTipoPublicacion;
         private System.Windows.Forms.TextBox txtComsionProductoVendido;
         private System.Windows.Forms.TextBox txtComisionEnvioProducto;
+        private System.Windows.Forms.Button btnGuardarNuevaVisibilidad;
+        private System.Windows.Forms.CheckBox chbTieneEnvio;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

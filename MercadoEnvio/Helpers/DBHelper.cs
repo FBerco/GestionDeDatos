@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+ 
+
+
 
 namespace Helpers
 {
@@ -7,7 +10,7 @@ namespace Helpers
     public static class DBHelper
     {
         //DB: DataBase
-        private static SqlConnection DB;
+        private static SqlConnection DB; //CAMBIE ESTO A PUBLIC
         static DBHelper()
         {
             DB = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD1C2016;Integrated Security=True");
@@ -30,6 +33,7 @@ namespace Helpers
 
         public static SqlDataReader ExecuteReader(string SP, Dictionary<string, object> parametros = null)
         {
+            if (parametros == null) parametros = new Dictionary<string, object>();
             DB.Open();
             SqlCommand command = new SqlCommand(SP, DB);
             command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -39,7 +43,7 @@ namespace Helpers
             }
 
             SqlDataReader result = command.ExecuteReader(); 
-            DB.Close();
+            DB.Close(); //HABIA DEJADO COMENTADO ESTO
             return result;
         }
     }

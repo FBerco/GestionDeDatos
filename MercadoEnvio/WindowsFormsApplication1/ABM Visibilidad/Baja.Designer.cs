@@ -28,36 +28,61 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmbNombreVisibilidad = new System.Windows.Forms.ComboBox();
+            this.btnBaja = new System.Windows.Forms.Button();
+            this.chkEstaSeguro = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(126, 37);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(134, 17);
-            this.listBox1.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 37);
+            this.label1.Location = new System.Drawing.Point(14, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Nombre de visibilidad";
+            // 
+            // cmbNombreVisibilidad
+            // 
+            this.cmbNombreVisibilidad.FormattingEnabled = true;
+            this.cmbNombreVisibilidad.Location = new System.Drawing.Point(127, 37);
+            this.cmbNombreVisibilidad.Name = "cmbNombreVisibilidad";
+            this.cmbNombreVisibilidad.Size = new System.Drawing.Size(145, 21);
+            this.cmbNombreVisibilidad.TabIndex = 2;
+            // 
+            // btnBaja
+            // 
+            this.btnBaja.Location = new System.Drawing.Point(101, 153);
+            this.btnBaja.Name = "btnBaja";
+            this.btnBaja.Size = new System.Drawing.Size(75, 23);
+            this.btnBaja.TabIndex = 3;
+            this.btnBaja.Text = "Dar de baja";
+            this.btnBaja.UseVisualStyleBackColor = true;
+            this.btnBaja.Click += new System.EventHandler(this.btnBaja_Click);
+            // 
+            // chkEstaSeguro
+            // 
+            this.chkEstaSeguro.AutoSize = true;
+            this.chkEstaSeguro.Location = new System.Drawing.Point(127, 88);
+            this.chkEstaSeguro.Name = "chkEstaSeguro";
+            this.chkEstaSeguro.Size = new System.Drawing.Size(88, 17);
+            this.chkEstaSeguro.TabIndex = 4;
+            this.chkEstaSeguro.Text = "Esta seguro?";
+            this.chkEstaSeguro.UseVisualStyleBackColor = true;
             // 
             // frmBaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 188);
+            this.Controls.Add(this.chkEstaSeguro);
+            this.Controls.Add(this.btnBaja);
+            this.Controls.Add(this.cmbNombreVisibilidad);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
             this.Name = "frmBaja";
-            this.Text = "Baja";
+            this.Text = "ABM Visibilidad - Baja";
+            this.Load += new System.EventHandler(this.frmBaja_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -65,7 +90,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cmbNombreVisibilidad;
+        private System.Windows.Forms.Button btnBaja;
+        private System.Windows.Forms.CheckBox chkEstaSeguro;
     }
 }

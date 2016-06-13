@@ -33,12 +33,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.lblError = new System.Windows.Forms.Label();
+            this.cmbRoles = new System.Windows.Forms.ComboBox();
+            this.btnRol = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLoguear
             // 
-            this.btnLoguear.Location = new System.Drawing.Point(105, 167);
+            this.btnLoguear.Location = new System.Drawing.Point(102, 113);
             this.btnLoguear.Name = "btnLoguear";
             this.btnLoguear.Size = new System.Drawing.Size(75, 23);
             this.btnLoguear.TabIndex = 0;
@@ -78,20 +79,34 @@
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 4;
             // 
-            // lblError
+            // cmbRoles
             // 
-            this.lblError.AutoSize = true;
-            this.lblError.Location = new System.Drawing.Point(117, 118);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(0, 13);
-            this.lblError.TabIndex = 5;
+            this.cmbRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRoles.FormattingEnabled = true;
+            this.cmbRoles.Location = new System.Drawing.Point(69, 177);
+            this.cmbRoles.Name = "cmbRoles";
+            this.cmbRoles.Size = new System.Drawing.Size(121, 21);
+            this.cmbRoles.TabIndex = 6;
+            this.cmbRoles.Visible = false;
+            // 
+            // btnRol
+            // 
+            this.btnRol.Location = new System.Drawing.Point(102, 229);
+            this.btnRol.Name = "btnRol";
+            this.btnRol.Size = new System.Drawing.Size(75, 23);
+            this.btnRol.TabIndex = 7;
+            this.btnRol.Text = "Seguir";
+            this.btnRol.UseVisualStyleBackColor = true;
+            this.btnRol.Visible = false;
+            this.btnRol.Click += new System.EventHandler(this.btnRol_Click);
             // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.lblError);
+            this.ClientSize = new System.Drawing.Size(284, 328);
+            this.Controls.Add(this.btnRol);
+            this.Controls.Add(this.cmbRoles);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.label2);
@@ -111,6 +126,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.ComboBox cmbRoles;
+        private System.Windows.Forms.Button btnRol;
     }
 }

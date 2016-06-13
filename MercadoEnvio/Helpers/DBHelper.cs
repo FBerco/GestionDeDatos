@@ -10,7 +10,7 @@ namespace Helpers
     public static class DBHelper
     {
         //DB: DataBase
-        private static SqlConnection DB; //CAMBIE ESTO A PUBLIC
+        public static SqlConnection DB; 
         static DBHelper()
         {
             DB = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD1C2016;Integrated Security=True");
@@ -33,17 +33,18 @@ namespace Helpers
 
         public static SqlDataReader ExecuteReader(string SP, Dictionary<string, object> parametros = null)
         {
-            if (parametros == null) parametros = new Dictionary<string, object>();
             DB.Open();
             SqlCommand command = new SqlCommand(SP, DB);
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            foreach (var parametro in parametros)
-            {
-                command.Parameters.Add(new SqlParameter(parametro.Key, parametro.Value));
-            }
 
-            SqlDataReader result = command.ExecuteReader(); 
-            DB.Close(); //HABIA DEJADO COMENTADO ESTO
+            if (parametros != null)
+            {
+                foreach (var parametro in parametros)
+                {
+                    command.Parameters.Add(new SqlParameter(parametro.Key, parametro.Value));
+                }
+            }
+            SqlDataReader result = command.ExecuteReader();
             return result;
         }
     }

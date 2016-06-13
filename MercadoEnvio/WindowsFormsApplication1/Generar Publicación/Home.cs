@@ -18,13 +18,78 @@ namespace GDD.Generar_Publicación
             InitializeComponent();
         }
 
-        Publicacion publicacionSeleccionada;   
+        Publicacion publicacionSeleccionada;
+        bool verPublic = true;
+        
 
         private void Home_Load(object sender, EventArgs e)
         {
-            
+            //ActualizarGrilla(); si le paso asi es como un diccionario sin nada?
+            if (dgvPublicaciones.Rows.Count <= 0)
+            {
+                btnModificar.Enabled = false;
+                btnActivar.Enabled = false;
+                btnPausar.Enabled = false;
+                btnFinalizar.Enabled = false;
+                btnEliminar.Enabled = false;
+            }
         }
 
+        private void ActualizarGrilla(Dictionary<string, object> filtros = null) 
+        {
+            dgvPublicaciones.Columns.Clear();
+            dgvPublicaciones.AutoGenerateColumns = false;
+            if (verPublic)
+            {
+                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_ObtenerTodas", null);
+            }
+            else
+            {
+                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_ObtenerPorFiltros", filtros);
+            }
+
+            dgvPublicaciones.Columns.Clear();
+            dgvPublicaciones.AutoGenerateColumns = false;
+
+
+            DataGridViewTextBoxColumn Descripcion = new DataGridViewTextBoxColumn();
+            Descripcion.DataPropertyName = "Descripcion";
+            Descripcion.HeaderText = "Descripcion";
+            Descripcion.Width = 100;
+            Descripcion.ReadOnly = true;
+            DataGridViewTextBoxColumn Precio = new DataGridViewTextBoxColumn();
+            Precio.DataPropertyName = "Precio";
+            Precio.HeaderText = "Precio";
+            Precio.Width = 100;
+            Precio.ReadOnly = true;
+            DataGridViewTextBoxColumn Stock = new DataGridViewTextBoxColumn();
+            Stock.DataPropertyName = "Stock";
+            Stock.HeaderText = "Stock";
+            Stock.Width = 100;
+            Stock.ReadOnly = true;
+            DataGridViewTextBoxColumn Tipo = new DataGridViewTextBoxColumn();
+            Tipo.DataPropertyName = "Tipo";
+            Tipo.HeaderText = "Tipo";
+            Tipo.Width = 100;
+            Tipo.ReadOnly = true;
+            /*DataGridViewTextBoxColumn Usuario = new DataGridViewTextBoxColumn();
+            Usuario.DataPropertyName = "Usuario";
+            Usuario.HeaderText = "Vendedor";
+            Usuario.Width = 100;
+            Usuario.ReadOnly = true; para que aparezca el nombre del usuario*/
+            DataGridViewTextBoxColumn FechaVencimiento = new DataGridViewTextBoxColumn();
+            FechaVencimiento.DataPropertyName = "FechaVencimiento";
+            FechaVencimiento.HeaderText = "Fecha de vencimiento";
+            FechaVencimiento.Width = 100;
+            FechaVencimiento.ReadOnly = true;
+
+            //dgvPublicaciones.Columns.Add(Usuario);
+            dgvPublicaciones.Columns.Add(Descripcion);
+            dgvPublicaciones.Columns.Add(Precio);
+            dgvPublicaciones.Columns.Add(Stock);
+            dgvPublicaciones.Columns.Add(FechaVencimiento);
+            dgvPublicaciones.Columns.Add(Tipo);
+        }
     
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -35,14 +100,8 @@ namespace GDD.Generar_Publicación
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
-        {    /*MedicoSeleccionado = (Medico)GrillaDeMedicos.CurrentRow.DataBoundItem;
-            int id = MedicoSeleccionado.Id;
-            MedicoSeleccionado = MedicoDataAcces.ObtenerMedicosPorId(id);
-            AbmMedicos frm = new AbmMedicos(MedicoSeleccionado);
-            frm.btnact.Enabled = true;
-            this.Hide();
-            frm.Show();*/
-             
+        {   
+            //hacer un if si hay public seleccionada 
             publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
             int id = publicacionSeleccionada.Id;
             Dictionary<string, object> parametros = new Dictionary<string, object>();
@@ -69,49 +128,91 @@ namespace GDD.Generar_Publicación
             //finalizar la publicacion seleccionada
         }
 
-        private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            Limpiar();  
+        }
 
-            var estadoSeleccionado = cmbEstado.Text;
-            Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@EstadoPublicacion", estadoSeleccionado);            
-            var publicacion = DBHelper.ExecuteReader("Publicacion_GetByFilter", parametros);
-            //publicacion es un sqldatareader, tengo que parsearlo a una lista
-            if (publicacion != null)
+        private void Limpiar() 
+        {
+            txtDescripcion.Text = "";
+            cmbEstado.SelectedValue = false;
+            cmbEstado.Text = "";
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+           
+            if (cmbEstado.Text == "" && txtDescripcion.Text == "")
             {
-                //dgvPublicaciones.DataSource = 
+                verPublic = true;
+                MessageBox.Show("No ha seleccionado ningun filtro");
+                ActualizarGrilla();                
             }
             else
-            {  
-               var texto = string.Format("No hay publicaciones en estado {0}", estadoSeleccionado);
-               lblError.Text = texto;      
-            }
-            switch (estadoSeleccionado) 
             {
-                case "Borrador":
-                    btnModificar.Enabled = true;
-                    btnActivar.Enabled = true;
-                    btnPausar.Enabled = false;
-                    btnFinalizar.Enabled = false;
-                    break;
-                case "Activa":
-                    btnModificar.Enabled = false;
-                    btnActivar.Enabled = false;
-                    btnPausar.Enabled = true;
-                    btnFinalizar.Enabled = true; //habria que ver si es subasta, compra inm
-                    break;
-                case "Pausada":
-                    btnModificar.Enabled = false;
-                    btnActivar.Enabled = true;
-                    btnPausar.Enabled = false;
-                    btnFinalizar.Enabled = false;
-                    break;
-                case "Finalizada":
-                    btnModificar.Enabled = false;
-                    btnActivar.Enabled = false;
-                    btnPausar.Enabled = false;
-                    btnFinalizar.Enabled = false;
-                    break;
+                var estadoSeleccionado = cmbEstado.Text;
+                var descripcion = txtDescripcion.Text;
+                verPublic = false; 
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+                parametros.Add("@EstadoPublicacion", estadoSeleccionado);
+                parametros.Add("@DescripcionPublicacion", descripcion);
+                ActualizarGrilla(parametros);
+                
+                if (dgvPublicaciones.Rows.Count <= 0)
+                {
+                    MessageBox.Show("No se encontraron resultados");
+                }
+                else
+                {
+                    switch (estadoSeleccionado)
+                    {
+                        case "Borrador":
+                            btnModificar.Enabled = true;
+                            btnActivar.Enabled = true;
+                            btnPausar.Enabled = false;
+                            btnFinalizar.Enabled = false;
+                            btnEliminar.Enabled = true;
+                            break;
+                        case "Activa":
+                            btnModificar.Enabled = false;
+                            btnActivar.Enabled = false;
+                            btnPausar.Enabled = true;
+                            btnFinalizar.Enabled = true; //habria que ver si es subasta, compra inm
+                            btnEliminar.Enabled = true;
+                            break;
+                        case "Pausada":
+                            btnModificar.Enabled = false;
+                            btnActivar.Enabled = true;
+                            btnPausar.Enabled = false;
+                            btnFinalizar.Enabled = false;
+                            btnEliminar.Enabled = true;
+                            break;
+                        case "Finalizada":
+                            btnModificar.Enabled = false;
+                            btnActivar.Enabled = false;
+                            btnPausar.Enabled = false;
+                            btnFinalizar.Enabled = false;
+                            btnEliminar.Enabled = true;
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult respuesta = MessageBox.Show("¿Esta seguro que desea eliminar la publicacion? ", "Información", MessageBoxButtons.YesNo);
+            if (respuesta == DialogResult.Yes)
+            {
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+                publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
+                parametros.Add("@IdPublicacion", publicacionSeleccionada.Id);
+                DBHelper.ExecuteNonQuery("Publicacion_Eliminar", parametros);
+                ActualizarGrilla();
+                Limpiar();
+            }
+            else 
+            {
             }
         }
 

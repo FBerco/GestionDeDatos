@@ -31,7 +31,7 @@
             this.rbtnCompra = new System.Windows.Forms.RadioButton();
             this.rbtnSubasta = new System.Windows.Forms.RadioButton();
             this.gbPublicacion = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbEstado = new System.Windows.Forms.GroupBox();
             this.rbtnActiva = new System.Windows.Forms.RadioButton();
             this.rbtnBorrador = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,7 +49,7 @@
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.gbPublicacion.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.gbEstado.SuspendLayout();
             this.SuspendLayout();
             // 
             // rbtnCompra
@@ -85,16 +85,16 @@
             this.gbPublicacion.TabStop = false;
             this.gbPublicacion.Text = "Tipo";
             // 
-            // groupBox1
+            // gbEstado
             // 
-            this.groupBox1.Controls.Add(this.rbtnActiva);
-            this.groupBox1.Controls.Add(this.rbtnBorrador);
-            this.groupBox1.Location = new System.Drawing.Point(521, 176);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(113, 69);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Estado Publicacion";
+            this.gbEstado.Controls.Add(this.rbtnActiva);
+            this.gbEstado.Controls.Add(this.rbtnBorrador);
+            this.gbEstado.Location = new System.Drawing.Point(521, 176);
+            this.gbEstado.Name = "gbEstado";
+            this.gbEstado.Size = new System.Drawing.Size(113, 69);
+            this.gbEstado.TabIndex = 4;
+            this.gbEstado.TabStop = false;
+            this.gbEstado.Text = "Estado Publicacion";
             // 
             // rbtnActiva
             // 
@@ -148,7 +148,7 @@
             // 
             this.txtStock.Location = new System.Drawing.Point(584, 63);
             this.txtStock.Name = "txtStock";
-            this.txtStock.Size = new System.Drawing.Size(26, 20);
+            this.txtStock.Size = new System.Drawing.Size(50, 20);
             this.txtStock.TabIndex = 8;
             // 
             // dtpFecha
@@ -258,15 +258,15 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbEstado);
             this.Controls.Add(this.gbPublicacion);
             this.Name = "Alta";
             this.Text = "Alta";
             this.Load += new System.EventHandler(this.Alta_Load);
             this.gbPublicacion.ResumeLayout(false);
             this.gbPublicacion.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbEstado.ResumeLayout(false);
+            this.gbEstado.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,7 +277,7 @@
         private System.Windows.Forms.RadioButton rbtnCompra;
         private System.Windows.Forms.RadioButton rbtnSubasta;
         private System.Windows.Forms.GroupBox gbPublicacion;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbEstado;
         private System.Windows.Forms.RadioButton rbtnActiva;
         private System.Windows.Forms.RadioButton rbtnBorrador;
         private System.Windows.Forms.Label label1;

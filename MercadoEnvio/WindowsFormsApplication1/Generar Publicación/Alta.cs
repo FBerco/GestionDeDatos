@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Clases;
-
+using Helpers;
 using System.Windows.Forms;
 
 namespace GDD.Generar_Publicación
@@ -18,7 +18,8 @@ namespace GDD.Generar_Publicación
             InitializeComponent();
             CargarDatos(publicacionSeleccionada);
             id = publicacionSeleccionada.Id;
-            
+            gbPublicacion.Enabled = false;
+            gbEstado.Enabled = false;
            
         }
         
@@ -83,6 +84,14 @@ namespace GDD.Generar_Publicación
                     }
                 }
             }
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@Descripcion", descripcion);
+            parametros.Add("@Precio", precio);
+            parametros.Add("@Stock", stock);
+            parametros.Add("@FechaVencimiento", fechaVencimiento);
+            //faltan agregar mas parametros           
+            DBHelper.ExecuteNonQuery("Publicacion_Insertar", parametros);
+            MessageBox.Show("Se ha cargado la publicacion");
         }
 
   

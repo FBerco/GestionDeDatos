@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Helpers;
-
+using Clases;
 using System.Windows.Forms;
 
 namespace GDD.Generar_Publicación
@@ -18,9 +18,11 @@ namespace GDD.Generar_Publicación
             InitializeComponent();
         }
 
+        Publicacion publicacionSeleccionada;   
+
         private void Home_Load(object sender, EventArgs e)
         {
-
+            
         }
 
     
@@ -33,10 +35,23 @@ namespace GDD.Generar_Publicación
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
-        {
-            Form alta = new Generar_Publicación.Alta(/*pasar public seleccionada*/);
+        {    /*MedicoSeleccionado = (Medico)GrillaDeMedicos.CurrentRow.DataBoundItem;
+            int id = MedicoSeleccionado.Id;
+            MedicoSeleccionado = MedicoDataAcces.ObtenerMedicosPorId(id);
+            AbmMedicos frm = new AbmMedicos(MedicoSeleccionado);
+            frm.btnact.Enabled = true;
+            this.Hide();
+            frm.Show();*/
+             
+            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
+            int id = publicacionSeleccionada.Id;
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPublicacion", id);
+            publicacionSeleccionada = DBHelper.ExecuteReader("Publicacion_ObtenerPorId", parametros).ToPublicacion();
+            Form alta = new Generar_Publicación.Alta(publicacionSeleccionada);
             alta.Show();
             this.Close();
+            
         }
 
         private void btnActivar_Click(object sender, EventArgs e)

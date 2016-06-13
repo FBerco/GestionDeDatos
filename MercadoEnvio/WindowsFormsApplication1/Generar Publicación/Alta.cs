@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Clases;
 
 using System.Windows.Forms;
 
@@ -12,9 +13,36 @@ namespace GDD.Generar_Publicación
 {
     public partial class Alta : Form
     {
+        int id;
+        public Alta(Publicacion publicacionSeleccionada) {
+            InitializeComponent();
+            CargarDatos(publicacionSeleccionada);
+            id = publicacionSeleccionada.Id;
+            
+           
+        }
+        
         public Alta()
         {
             InitializeComponent();
+        }
+
+        private void CargarDatos(Publicacion publicacion) 
+        {
+            txtDescripcion.Text = publicacion.Descripcion;
+            txtPrecio.Text = publicacion.Precio.ToString();
+            txtStock.Text = publicacion.Stock.ToString();
+            dtpFecha.Text = publicacion.FechaVencimiento.ToString();
+            if (publicacion.Tipo == "Subasta")
+            {
+                rbtnSubasta.Focus();
+            }
+            else 
+            {
+                rbtnCompra.Focus();
+                
+            }
+        
         }
 
         private void lstVisibilidad_SelectedIndexChanged(object sender, EventArgs e)

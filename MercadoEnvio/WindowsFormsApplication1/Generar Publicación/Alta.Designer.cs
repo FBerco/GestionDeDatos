@@ -46,14 +46,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lstVisibilidad = new System.Windows.Forms.ListBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbtnNo = new System.Windows.Forms.RadioButton();
-            this.rbtnSi = new System.Windows.Forms.RadioButton();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.gbPublicacion.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // rbtnCompra
@@ -223,39 +219,6 @@
             this.lstVisibilidad.TabIndex = 16;
             this.lstVisibilidad.SelectedIndexChanged += new System.EventHandler(this.lstVisibilidad_SelectedIndexChanged);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rbtnNo);
-            this.groupBox2.Controls.Add(this.rbtnSi);
-            this.groupBox2.Location = new System.Drawing.Point(29, 294);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(120, 69);
-            this.groupBox2.TabIndex = 17;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "¿Permitir preguntas?";
-            // 
-            // rbtnNo
-            // 
-            this.rbtnNo.AutoSize = true;
-            this.rbtnNo.Location = new System.Drawing.Point(11, 42);
-            this.rbtnNo.Name = "rbtnNo";
-            this.rbtnNo.Size = new System.Drawing.Size(39, 17);
-            this.rbtnNo.TabIndex = 1;
-            this.rbtnNo.TabStop = true;
-            this.rbtnNo.Text = "No";
-            this.rbtnNo.UseVisualStyleBackColor = true;
-            // 
-            // rbtnSi
-            // 
-            this.rbtnSi.AutoSize = true;
-            this.rbtnSi.Location = new System.Drawing.Point(11, 19);
-            this.rbtnSi.Name = "rbtnSi";
-            this.rbtnSi.Size = new System.Drawing.Size(34, 17);
-            this.rbtnSi.TabIndex = 0;
-            this.rbtnSi.TabStop = true;
-            this.rbtnSi.Text = "Si";
-            this.rbtnSi.UseVisualStyleBackColor = true;
-            // 
             // btnConfirmar
             // 
             this.btnConfirmar.Location = new System.Drawing.Point(207, 319);
@@ -283,7 +246,6 @@
             this.ClientSize = new System.Drawing.Size(658, 489);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnConfirmar);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.lstVisibilidad);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -305,8 +267,6 @@
             this.gbPublicacion.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,9 +292,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ListBox lstVisibilidad;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton rbtnNo;
-        private System.Windows.Forms.RadioButton rbtnSi;
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.Label label7;
     }

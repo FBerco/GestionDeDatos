@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using Clases;
 using System.Windows.Forms;
 using Helpers;
@@ -14,10 +9,12 @@ namespace GDD
     public partial class Main : Form
     {
         public Usuario usuario;
-        public Main(Usuario us)
+        public Rol rol;
+        public Main(Usuario us, Rol ro)
         {
             InitializeComponent();
             usuario = us;
+            rol = ro;
         }
         
         private void Main_Load(object sender, EventArgs e)
@@ -31,7 +28,7 @@ namespace GDD
                     botones.Add(control);
                 }
             }
-            var funciones = DBHelper.ExecuteReader("dame funciones").ToFunciones();
+            var funciones = DBHelper.ExecuteReader("RolXFuncion_GetFunByRol", new Dictionary<string, object>() { { "@Rol",  rol.Id} }).ToFunciones();
             int i = 0;
             foreach (Funcion fun in funciones)
             {
@@ -43,16 +40,16 @@ namespace GDD
         }
 
         Dictionary<int, EventHandler> dicFunciones = new Dictionary<int, EventHandler>() {
-            { 0, new EventHandler(ABMRol)},
-            { 1, new EventHandler(ABMRubro)},
-            { 2, new EventHandler(ABMUsuario)},
-            { 3, new EventHandler(ABMVisibilidad)},
-            { 4, new EventHandler(Calificar)},
-            { 5, new EventHandler(ComprarOfertar)},
-            { 6, new EventHandler(Facturas)},
-            { 7, new EventHandler(GenerarPublicacion)},
-            { 8, new EventHandler(HistorialCliente)},
-            { 9, new EventHandler(ListadoEstadistico)}
+            { 1, new EventHandler(ABMRol)},
+            { 2, new EventHandler(ABMRubro)},
+            { 3, new EventHandler(ABMUsuario)},
+            { 4, new EventHandler(ABMVisibilidad)},
+            { 5, new EventHandler(Calificar)},
+            { 6, new EventHandler(ComprarOfertar)},
+            { 7, new EventHandler(Facturas)},
+            { 8, new EventHandler(GenerarPublicacion)},
+            { 9, new EventHandler(HistorialCliente)},
+            { 10, new EventHandler(ListadoEstadistico)}
         };
 
         static void ABMRol(object sender, EventArgs e) {

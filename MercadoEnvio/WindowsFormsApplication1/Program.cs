@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using GDD.ABM_Visibilidad;
+using Clases;
 
 namespace GDD
 {
     static class Program
     {
+        public static Usuario usuario;
+        public static Rol rol;
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>

@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Configuration;
+using System.Collections.Generic;
 using System.Data.SqlClient;
- 
-
-
 
 namespace Helpers
 {
@@ -13,6 +11,7 @@ namespace Helpers
         public static SqlConnection DB; 
         static DBHelper()
         {
+            //var connection = ConfigurationManager.ConnectionStrings["GD1C2016ConnectionString"].ConnectionString;
             DB = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD1C2016;Integrated Security=True");
         }
 

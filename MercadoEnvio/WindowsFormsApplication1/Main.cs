@@ -28,6 +28,7 @@ namespace GDD
                     botones.Add(control);
                 }
             }
+            botones.Reverse();
             var funciones = DBHelper.ExecuteReader("RolXFuncion_GetFunByRol", new Dictionary<string, object>() { { "@rol",  rol.Id} }).ToFunciones();
             int i = 0;
             foreach (Funcion fun in funciones)

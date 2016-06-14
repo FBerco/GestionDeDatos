@@ -1,6 +1,6 @@
 ﻿namespace GDD.ABM_Rol
 {
-    partial class Baja
+    partial class frmBaja
     {
         /// <summary>
         /// Required designer variable.
@@ -41,6 +41,7 @@
             this.btnGuardar.TabIndex = 12;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // Roles
             // 
@@ -59,7 +60,7 @@
             this.lstRoles.Size = new System.Drawing.Size(120, 94);
             this.lstRoles.TabIndex = 10;
             // 
-            // Baja
+            // frmBaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -67,8 +68,10 @@
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.Roles);
             this.Controls.Add(this.lstRoles);
-            this.Name = "Baja";
+            this.Name = "frmBaja";
             this.Text = "Baja";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBaja_FormClosing);
+            this.Load += new System.EventHandler(this.frmBaja_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

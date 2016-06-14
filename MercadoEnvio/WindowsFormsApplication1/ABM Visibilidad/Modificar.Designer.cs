@@ -37,6 +37,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cmbNombreVisibilidad = new System.Windows.Forms.ComboBox();
             this.btnGuardarCambios = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -51,7 +53,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 59);
+            this.label2.Location = new System.Drawing.Point(16, 63);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(159, 13);
             this.label2.TabIndex = 2;
@@ -59,7 +61,7 @@
             // 
             // txtComisionXTipoPublicacion
             // 
-            this.txtComisionXTipoPublicacion.Location = new System.Drawing.Point(243, 56);
+            this.txtComisionXTipoPublicacion.Location = new System.Drawing.Point(243, 60);
             this.txtComisionXTipoPublicacion.Name = "txtComisionXTipoPublicacion";
             this.txtComisionXTipoPublicacion.Size = new System.Drawing.Size(100, 20);
             this.txtComisionXTipoPublicacion.TabIndex = 3;
@@ -108,19 +110,41 @@
             // 
             // btnGuardarCambios
             // 
-            this.btnGuardarCambios.Location = new System.Drawing.Point(125, 184);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(243, 174);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
-            this.btnGuardarCambios.Size = new System.Drawing.Size(142, 23);
+            this.btnGuardarCambios.Size = new System.Drawing.Size(100, 23);
             this.btnGuardarCambios.TabIndex = 9;
             this.btnGuardarCambios.Text = "Guardar cambios";
             this.btnGuardarCambios.UseVisualStyleBackColor = true;
             this.btnGuardarCambios.Click += new System.EventHandler(this.btnGuardarCambios_Click);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(243, 203);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(100, 23);
+            this.btnLimpiar.TabIndex = 10;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(24, 181);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(43, 44);
+            this.btnBack.TabIndex = 11;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(398, 238);
+            this.Controls.Add(this.btnBack);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnGuardarCambios);
             this.Controls.Add(this.cmbNombreVisibilidad);
             this.Controls.Add(this.label4);
@@ -149,5 +173,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbNombreVisibilidad;
         private System.Windows.Forms.Button btnGuardarCambios;
+        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button btnBack;
     }
 }

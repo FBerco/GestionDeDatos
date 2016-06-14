@@ -39,6 +39,7 @@
             this.btnGuardarNuevaVisibilidad = new System.Windows.Forms.Button();
             this.chbTieneEnvio = new System.Windows.Forms.CheckBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -108,7 +109,7 @@
             // 
             // btnGuardarNuevaVisibilidad
             // 
-            this.btnGuardarNuevaVisibilidad.Location = new System.Drawing.Point(154, 176);
+            this.btnGuardarNuevaVisibilidad.Location = new System.Drawing.Point(264, 179);
             this.btnGuardarNuevaVisibilidad.Name = "btnGuardarNuevaVisibilidad";
             this.btnGuardarNuevaVisibilidad.Size = new System.Drawing.Size(152, 23);
             this.btnGuardarNuevaVisibilidad.TabIndex = 8;
@@ -130,7 +131,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(154, 205);
+            this.btnLimpiar.Location = new System.Drawing.Point(264, 208);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(152, 23);
             this.btnLimpiar.TabIndex = 10;
@@ -138,11 +139,22 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(34, 201);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(78, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Back";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 236);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.chbTieneEnvio);
             this.Controls.Add(this.btnGuardarNuevaVisibilidad);
@@ -175,5 +187,6 @@
         private System.Windows.Forms.Button btnGuardarNuevaVisibilidad;
         private System.Windows.Forms.CheckBox chbTieneEnvio;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button button1;
     }
 }

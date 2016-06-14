@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Helpers;
+using Clases;
 
 namespace GDD.ABM_Visibilidad
 {
@@ -15,10 +17,11 @@ namespace GDD.ABM_Visibilidad
         {
             InitializeComponent();
         }
-        
+
+
         private void cmbNombreVisibilidad_SelectedIndexChanged(object sender, EventArgs e)
         {
-             //String nombreVisibilidad = cmbNombreVisibilidad.SelectedValue;
+            
              //llenarLosCamposRestantesSegun(nombreVisibilidad);
         }
 
@@ -31,8 +34,12 @@ namespace GDD.ABM_Visibilidad
 
         private void frmModificar_Load(object sender, EventArgs e)
         {
-            //var visibilidades = DBHelper.ExecuteReader("nombre de visibilidades");
-            //cmbNombreVisibilidad.Items = visibilidades;
+            List<Visibilidad> visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
+            foreach (var visibilidad in visibilidades)
+            {
+                cmbNombreVisibilidad.Items.Add(visibilidad.Detalle);
+            }
+            
         }
 
         private void txtComisionXTipoPublicacion_TextChanged(object sender, EventArgs e)
@@ -40,20 +47,36 @@ namespace GDD.ABM_Visibilidad
         
         }
 
-        private void button1_Click(object sender, EventArgs e){
+        private void button1_Click(object sender, EventArgs e)
+        {
         
         }
         
         private void btnGuardarCambios_Click(object sender, EventArgs e)
         {
-            /*String nuevaComisionXTipoPublicacion = txtComisionXEnvioProducto.Text;
-            String nuevaComisionXProductoVendido = txtComisionXProductoVendido.Text;
-            String nuevaComisionXEnvioDeProducto = txtComisionXEnvioProducto.Text;
-            Dictionary<String,String> modificaciones;            
-            modificaciones.Add("comisionXTipoPublicacion",nuevaComisionXTipoPublicacion);
-            modificaciones.Add("comisionXProductoVendido",nuevaComisionXProductoVendido);
-            modificaciones.Add("comisinoXEnvioDeProducto",nuevaComisionXEnvioDeProducto);
-            DBHelper.ExecuteNonQuery("guardarcambios",modificaciones);*/
+            //FALTAN HACER LAS VALIDACIONES
+            
+            Dictionary<String, Object> mod = new Dictionary<String, Object>();
+            mod.Add("@visi_detalle_mod", cmbNombreVisibilidad.SelectedItem.ToString());
+            mod.Add("@visi_porcentaje_prod", txtComisionXProductoVendido.Text);
+            mod.Add("@visi_costo_publicacion", txtComisionXTipoPublicacion.Text);
+            mod.Add("@visi_costo_envio", txtComisionXEnvioProducto.Text);
+            DBHelper.ExecuteNonQuery("Visibilidad_Update", mod);
+            btnGuardarCambios.Enabled = false;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtComisionXEnvioProducto.Clear();
+            txtComisionXProductoVendido.Clear();
+            txtComisionXTipoPublicacion.Clear();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            frmHome home = new frmHome();
+            home.Show();
+            this.Hide();
         }
     }
 }

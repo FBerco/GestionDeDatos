@@ -206,7 +206,7 @@ namespace GDD.Generar_Publicación
             int id = publicacionSeleccionada.Id;
             Dictionary<string, object> parametros = new Dictionary<string, object>();
             parametros.Add("@Id", id);
-            publicacionSeleccionada = DBHelper.ExecuteReader("Publicacion_ObtenerPorId", parametros).ToPublicacion();
+            publicacionSeleccionada = DBHelper.ExecuteReader("Publicacion_GetById", parametros).ToPublicacion();
             Form alta = new Generar_Publicación.Alta(publicacionSeleccionada);
             alta.Show();
             this.Close();

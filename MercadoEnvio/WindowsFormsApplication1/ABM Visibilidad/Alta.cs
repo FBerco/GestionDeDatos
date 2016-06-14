@@ -48,7 +48,7 @@ namespace GDD.ABM_Visibilidad
                     nuevaVisibilidad.CostoEnvio = 0;
                 }
                 guardarVisibilidad(nuevaVisibilidad);
-                this.Enabled = false;
+                btnGuardarNuevaVisibilidad.Enabled = false;
             }   else { MessageBox.Show("Ingrese campos validos."); }      
         }
 
@@ -93,7 +93,7 @@ namespace GDD.ABM_Visibilidad
             nuevoDiccionario.Add("@visi_porcentaje_prod", unaVisibilidad.PorcentajeProducto);
             nuevoDiccionario.Add("@visi_costo_publicacion", unaVisibilidad.CostoPublicacion);
             nuevoDiccionario.Add("@visi_costo_envio", unaVisibilidad.CostoEnvio);
-            DBHelper.ExecuteNonQuery("EscribirNuevaVisibilidad", nuevoDiccionario);
+            DBHelper.ExecuteNonQuery("Visibilidad_Alta", nuevoDiccionario);
         }
         
         
@@ -112,6 +112,13 @@ namespace GDD.ABM_Visibilidad
             txtComsionProductoVendido.Clear();
             chbTieneEnvio.Checked = false;
             txtComisionEnvioProducto.Enabled = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmHome home = new frmHome();
+            home.Show();
+            this.Hide();
         }
 
         

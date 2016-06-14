@@ -35,6 +35,8 @@ namespace GDD
                     if (roles.Count>1)
                     {
                         cmbRoles.DataSource = roles;
+                        cmbRoles.DisplayMember = "Nombre";
+                        btnRol.Visible = true;
                     }
                     Main main = new Main(usuario, roles.FirstOrDefault());
                     main.Show();
@@ -47,9 +49,12 @@ namespace GDD
 
         private void btnRol_Click(object sender, EventArgs e)
         {
-            Main main = new Main(usuario, (Rol)cmbRoles.SelectedItem);
-            main.Show();
-            Hide();
+            if (cmbRoles.SelectedIndex != -1)
+            {
+                Main main = new Main(usuario, (Rol)cmbRoles.SelectedItem);
+                main.Show();
+                Hide();
+            }
         }        
     }
 }

@@ -240,7 +240,8 @@ namespace Helpers
                 list.Add(new Rol()
                 {
                     Id = (int)rdr["rol_id"],
-                    Nombre =(string)rdr["rol_nombre"]
+                    Nombre =(string)rdr["rol_nombre"],
+                    Activo = Convert.ToBoolean((int)rdr["rol_activo"])
                 });
             }
             return list;

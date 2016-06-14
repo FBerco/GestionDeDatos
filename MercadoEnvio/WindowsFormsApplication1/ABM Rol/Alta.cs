@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Helpers;
 using Clases;
@@ -13,32 +14,61 @@ namespace GDD.ABM_Rol
         {
             InitializeComponent();
             funciones = DBHelper.ExecuteReader("Funciones_GetAll").ToFunciones();
+<<<<<<< HEAD
             setList();
+=======
+            foreach (var fun in funciones)
+            {
+                //Chequeo aquellas que tiene seleccionada
+                lstFunciones.Items.Add(fun.Descripcion, CheckState.Unchecked);
+            }
+>>>>>>> origin/master
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
             var nombre = txtNombre.Text;
+<<<<<<< HEAD
             var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@Nombre", nombre } }).ToRol();
             if (rol != null)
+=======
+            var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@rol", nombre } }).ToRol();
+            if (rol == null)
+>>>>>>> origin/master
             {
-                var funciones = lstFunciones.SelectedItems;
-                if (funciones.Count > 0)
+                var funcionesSeleccionadas = lstFunciones.CheckedItems;
+                if (funcionesSeleccionadas.Count > 0)
                 {
-                    foreach (Funcion fun in funciones)
-                    {
-                        DBHelper.ExecuteNonQuery("RolXFuncion", new Dictionary<string, object>() { { "@Rol", rol.Id }, { "@Funcion", fun.Id } });
+                    try
+                    {                    
+                        DBHelper.ExecuteNonQuery("Rol_Add", new Dictionary<string, object>() { { "@rol", nombre } });
+                        rol = DBHelper.ExecuteReader("Rol_GetByName", new Dictionary<string, object>() { { "@nombre", nombre } }).ToRol();
+                        foreach (string fun in funcionesSeleccionadas)
+                        {
+                            var id = funciones.FirstOrDefault(x => x.Descripcion == fun).Id;
+                            DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@rol", rol.Id }, { "@funcion", id} });
+                        }
+                        MessageBox.Show("Insertado con exito");
+                        txtNombre.Text = "";
+                        lstFunciones.ClearSelected();
                     }
-                    MessageBox.Show("Insertado con exito");
-                    txtNombre.Text = "";
-                    lstFunciones = new CheckedListBox();
-                    setList();
-                }else {
+                    catch 
+                    {
+<<<<<<< HEAD
+                        DBHelper.ExecuteNonQuery("RolXFuncion", new Dictionary<string, object>() { { "@Rol", rol.Id }, { "@Funcion", fun.Id } });
+=======
+                        MessageBox.Show("Hubo un error en el alta", "Error");
+>>>>>>> origin/master
+                    }
+                }
+                else {
                     MessageBox.Show("Seleccione funciones");
                 }
             }
-            MessageBox.Show("Ya existe el rol");
-            
+            else
+            {
+                MessageBox.Show("Ya existe el rol");
+            }            
         }
 
         private void frmAlta_FormClosing(object sender, FormClosingEventArgs e)
@@ -47,6 +77,7 @@ namespace GDD.ABM_Rol
             home.Show();
             Hide();
         }
+<<<<<<< HEAD
 
         private void setList() {
             foreach (var fun in funciones)
@@ -54,5 +85,7 @@ namespace GDD.ABM_Rol
                 lstFunciones.Items.Add(fun);
             }
         }
+=======
+>>>>>>> origin/master
     }
 }

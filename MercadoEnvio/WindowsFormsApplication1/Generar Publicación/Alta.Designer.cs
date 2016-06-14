@@ -32,7 +32,7 @@
             this.rbtnSubasta = new System.Windows.Forms.RadioButton();
             this.gbPublicacion = new System.Windows.Forms.GroupBox();
             this.gbEstado = new System.Windows.Forms.GroupBox();
-            this.rbtnActiva = new System.Windows.Forms.RadioButton();
+            this.rbtnPublicar = new System.Windows.Forms.RadioButton();
             this.rbtnBorrador = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
@@ -42,14 +42,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
-            this.cklRubro = new System.Windows.Forms.CheckedListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lstVisibilidad = new System.Windows.Forms.ListBox();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.dgvRubro = new System.Windows.Forms.DataGridView();
+            this.dgvVisibilidad = new System.Windows.Forms.DataGridView();
             this.gbPublicacion.SuspendLayout();
             this.gbEstado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRubro)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidad)).BeginInit();
             this.SuspendLayout();
             // 
             // rbtnCompra
@@ -87,7 +89,7 @@
             // 
             // gbEstado
             // 
-            this.gbEstado.Controls.Add(this.rbtnActiva);
+            this.gbEstado.Controls.Add(this.rbtnPublicar);
             this.gbEstado.Controls.Add(this.rbtnBorrador);
             this.gbEstado.Location = new System.Drawing.Point(521, 176);
             this.gbEstado.Name = "gbEstado";
@@ -96,16 +98,16 @@
             this.gbEstado.TabStop = false;
             this.gbEstado.Text = "Estado Publicacion";
             // 
-            // rbtnActiva
+            // rbtnPublicar
             // 
-            this.rbtnActiva.AutoSize = true;
-            this.rbtnActiva.Location = new System.Drawing.Point(8, 42);
-            this.rbtnActiva.Name = "rbtnActiva";
-            this.rbtnActiva.Size = new System.Drawing.Size(55, 17);
-            this.rbtnActiva.TabIndex = 1;
-            this.rbtnActiva.TabStop = true;
-            this.rbtnActiva.Text = "Activa";
-            this.rbtnActiva.UseVisualStyleBackColor = true;
+            this.rbtnPublicar.AutoSize = true;
+            this.rbtnPublicar.Location = new System.Drawing.Point(8, 42);
+            this.rbtnPublicar.Name = "rbtnPublicar";
+            this.rbtnPublicar.Size = new System.Drawing.Size(63, 17);
+            this.rbtnPublicar.TabIndex = 1;
+            this.rbtnPublicar.TabStop = true;
+            this.rbtnPublicar.Text = "Publicar";
+            this.rbtnPublicar.UseVisualStyleBackColor = true;
             // 
             // rbtnBorrador
             // 
@@ -183,22 +185,14 @@
             this.txtPrecio.Size = new System.Drawing.Size(50, 20);
             this.txtPrecio.TabIndex = 12;
             // 
-            // cklRubro
-            // 
-            this.cklRubro.FormattingEnabled = true;
-            this.cklRubro.Location = new System.Drawing.Point(95, 176);
-            this.cklRubro.Name = "cklRubro";
-            this.cklRubro.Size = new System.Drawing.Size(153, 94);
-            this.cklRubro.TabIndex = 13;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(26, 176);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.Size = new System.Drawing.Size(36, 13);
             this.label5.TabIndex = 14;
-            this.label5.Text = "Rubro/s";
+            this.label5.Text = "Rubro";
             // 
             // label6
             // 
@@ -208,20 +202,10 @@
             this.label6.Size = new System.Drawing.Size(53, 13);
             this.label6.TabIndex = 15;
             this.label6.Text = "Visibilidad";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
-            // lstVisibilidad
-            // 
-            this.lstVisibilidad.FormattingEnabled = true;
-            this.lstVisibilidad.Location = new System.Drawing.Point(317, 177);
-            this.lstVisibilidad.Name = "lstVisibilidad";
-            this.lstVisibilidad.Size = new System.Drawing.Size(166, 95);
-            this.lstVisibilidad.TabIndex = 16;
-            this.lstVisibilidad.SelectedIndexChanged += new System.EventHandler(this.lstVisibilidad_SelectedIndexChanged);
             // 
             // btnConfirmar
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(207, 319);
+            this.btnConfirmar.Location = new System.Drawing.Point(397, 358);
             this.btnConfirmar.Name = "btnConfirmar";
             this.btnConfirmar.Size = new System.Drawing.Size(100, 44);
             this.btnConfirmar.TabIndex = 18;
@@ -239,17 +223,34 @@
             this.label7.Text = "dependiendo si se quiere dar de alta o modificar una public, el text del boton ca" +
     "mbia";
             // 
+            // dgvRubro
+            // 
+            this.dgvRubro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRubro.Location = new System.Drawing.Point(46, 192);
+            this.dgvRubro.Name = "dgvRubro";
+            this.dgvRubro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRubro.Size = new System.Drawing.Size(240, 150);
+            this.dgvRubro.TabIndex = 20;
+            // 
+            // dgvVisibilidad
+            // 
+            this.dgvVisibilidad.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVisibilidad.Location = new System.Drawing.Point(336, 220);
+            this.dgvVisibilidad.Name = "dgvVisibilidad";
+            this.dgvVisibilidad.Size = new System.Drawing.Size(61, 49);
+            this.dgvVisibilidad.TabIndex = 21;
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 489);
+            this.Controls.Add(this.dgvVisibilidad);
+            this.Controls.Add(this.dgvRubro);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnConfirmar);
-            this.Controls.Add(this.lstVisibilidad);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.cklRubro);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -267,6 +268,8 @@
             this.gbPublicacion.PerformLayout();
             this.gbEstado.ResumeLayout(false);
             this.gbEstado.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRubro)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,7 +281,7 @@
         private System.Windows.Forms.RadioButton rbtnSubasta;
         private System.Windows.Forms.GroupBox gbPublicacion;
         private System.Windows.Forms.GroupBox gbEstado;
-        private System.Windows.Forms.RadioButton rbtnActiva;
+        private System.Windows.Forms.RadioButton rbtnPublicar;
         private System.Windows.Forms.RadioButton rbtnBorrador;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDescripcion;
@@ -288,11 +291,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtPrecio;
-        private System.Windows.Forms.CheckedListBox cklRubro;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ListBox lstVisibilidad;
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridView dgvRubro;
+        private System.Windows.Forms.DataGridView dgvVisibilidad;
     }
 }

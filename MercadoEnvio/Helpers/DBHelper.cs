@@ -10,7 +10,7 @@ namespace Helpers
     public static class DBHelper
     {
         //DB: DataBase
-        private static SqlConnection DB; //CAMBIE ESTO A PUBLIC
+        public static SqlConnection DB; //CAMBIE ESTO A PUBLIC
         static DBHelper()
         {
             DB = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD1C2016;Integrated Security=True");

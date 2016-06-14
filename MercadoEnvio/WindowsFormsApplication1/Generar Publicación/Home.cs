@@ -19,16 +19,18 @@ namespace GDD.Generar_Publicación
         }
 
         Publicacion publicacionSeleccionada;
-        bool verPublic = true;
-        
+        bool verPublicacionesTodas = true;
+        bool verPublicaciones2Filtros = false;
+        bool verPublicacionesEstado = false;
+        bool verPublicacionesDescripcion = false;
 
         private void Home_Load(object sender, EventArgs e)
         {
-            //ActualizarGrilla(); si le paso asi es como un diccionario sin nada?
+            ActualizarGrilla();
             if (dgvPublicaciones.Rows.Count <= 0)
             {
                 btnModificar.Enabled = false;
-                btnActivar.Enabled = false;
+                btnPublicar.Enabled = false;
                 btnPausar.Enabled = false;
                 btnFinalizar.Enabled = false;
                 btnEliminar.Enabled = false;
@@ -39,19 +41,27 @@ namespace GDD.Generar_Publicación
         {
             dgvPublicaciones.Columns.Clear();
             dgvPublicaciones.AutoGenerateColumns = false;
-            if (verPublic)
+            if (verPublicacionesTodas)
             {
-                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_ObtenerTodas", null);
+                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_GetAll").ToPublicaciones();
             }
-            else
+            else if(verPublicaciones2Filtros)
             {
-                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_ObtenerPorFiltros", filtros);
+                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_GetByFilters", filtros).ToPublicaciones();
+            }
+            else if (verPublicacionesDescripcion)
+            {
+                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_GetByDescripcion", filtros).ToPublicaciones();
+            }
+            else if (verPublicacionesEstado) 
+            {
+                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_GetByEstado", filtros).ToPublicaciones();
             }
 
             dgvPublicaciones.Columns.Clear();
             dgvPublicaciones.AutoGenerateColumns = false;
 
-
+            
             DataGridViewTextBoxColumn Descripcion = new DataGridViewTextBoxColumn();
             Descripcion.DataPropertyName = "Descripcion";
             Descripcion.HeaderText = "Descripcion";
@@ -90,7 +100,97 @@ namespace GDD.Generar_Publicación
             dgvPublicaciones.Columns.Add(FechaVencimiento);
             dgvPublicaciones.Columns.Add(Tipo);
         }
-    
+        
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string estadoSeleccionado = cmbEstado.Text;
+            var descripcion = txtDescripcion.Text;
+            int id = ObtenerIdEstado(estadoSeleccionado);
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+            if (estadoSeleccionado == "" && descripcion == "")
+            {
+                verPublicacionesTodas = true;
+                verPublicacionesEstado = false;
+                verPublicacionesDescripcion = false;
+                verPublicaciones2Filtros = false;
+                MessageBox.Show("No ha seleccionado ningun filtro");
+                ActualizarGrilla();                
+            }
+            else if(estadoSeleccionado != "" && descripcion == "")
+            {
+                verPublicacionesTodas = false;
+                verPublicacionesEstado = true;
+                verPublicacionesDescripcion = false;
+                verPublicaciones2Filtros = false;
+             
+                parametros.Add("@EstadoId", id);
+                ActualizarGrilla(parametros);
+                parametros.Clear();
+            }
+            else if (estadoSeleccionado == "" && descripcion != "" )
+            {
+                verPublicacionesTodas = false;
+                verPublicacionesEstado = false;
+                verPublicacionesDescripcion = true;
+                verPublicaciones2Filtros = false;
+
+                parametros.Add("@Descripcion", descripcion);
+                ActualizarGrilla(parametros);
+                parametros.Clear();
+            }
+            else if (estadoSeleccionado != "" && descripcion != "")
+            {
+                verPublicacionesTodas = false;
+                verPublicacionesEstado = false;
+                verPublicacionesDescripcion = false;
+                verPublicaciones2Filtros = true;
+
+                parametros.Add("@Descripcion", descripcion);
+                parametros.Add("@EstadoId", id);
+                ActualizarGrilla(parametros);
+                parametros.Clear();
+            }
+                
+            if (dgvPublicaciones.Rows.Count <= 0)
+            {
+                MessageBox.Show("No se encontraron resultados");
+            }
+            else
+            {
+                switch (estadoSeleccionado)
+                {
+                    case "Borrador":
+                        btnModificar.Enabled = true;
+                        btnPublicar.Enabled = true;
+                        btnPausar.Enabled = false;
+                        btnFinalizar.Enabled = false;
+                        btnEliminar.Enabled = true;
+                        break;
+                    case "Publicada": //Estado se llama publicada (no activa)
+                        btnModificar.Enabled = false;
+                        btnPublicar.Enabled = false;
+                        btnPausar.Enabled = true;
+                        btnFinalizar.Enabled = true; //habria que ver si es subasta, compra inm
+                        btnEliminar.Enabled = true;
+                        break;
+                    case "Pausada":
+                        btnModificar.Enabled = false;
+                        btnPublicar.Enabled = true;
+                        btnPausar.Enabled = false;
+                        btnFinalizar.Enabled = false;
+                        btnEliminar.Enabled = true;
+                        break;
+                    case "Finalizada":
+                        btnModificar.Enabled = false;
+                        btnPublicar.Enabled = false;
+                        btnPausar.Enabled = false;
+                        btnFinalizar.Enabled = false;
+                        btnEliminar.Enabled = true;
+                        break;
+                 }               
+            }
+        }
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
@@ -100,104 +200,29 @@ namespace GDD.Generar_Publicación
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
-        {   
+        {
             //hacer un if si hay public seleccionada 
             publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
             int id = publicacionSeleccionada.Id;
             Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPublicacion", id);
+            parametros.Add("@Id", id);
             publicacionSeleccionada = DBHelper.ExecuteReader("Publicacion_ObtenerPorId", parametros).ToPublicacion();
             Form alta = new Generar_Publicación.Alta(publicacionSeleccionada);
             alta.Show();
             this.Close();
-            
+
         }
 
-        private void btnActivar_Click(object sender, EventArgs e)
+        public int ObtenerIdEstado(string nombreEstado) 
         {
-            //activar la publicacion seleccionada
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@Descripcion", nombreEstado);
+            Estado estado;
+            estado = DBHelper.ExecuteReader("Estado_GetById", parametros).ToEstado();
+            int id = estado.Id;
+            return id;   
         }
 
-        private void btnPausar_Click(object sender, EventArgs e)
-        {
-            //pausar la publicacion seleccionada
-        }
-
-        private void btnFinalizar_Click(object sender, EventArgs e)
-        {
-            //finalizar la publicacion seleccionada
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            Limpiar();  
-        }
-
-        private void Limpiar() 
-        {
-            txtDescripcion.Text = "";
-            cmbEstado.SelectedValue = false;
-            cmbEstado.Text = "";
-        }
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-           
-            if (cmbEstado.Text == "" && txtDescripcion.Text == "")
-            {
-                verPublic = true;
-                MessageBox.Show("No ha seleccionado ningun filtro");
-                ActualizarGrilla();                
-            }
-            else
-            {
-                var estadoSeleccionado = cmbEstado.Text;
-                var descripcion = txtDescripcion.Text;
-                verPublic = false; 
-                Dictionary<string, object> parametros = new Dictionary<string, object>();
-                parametros.Add("@EstadoPublicacion", estadoSeleccionado);
-                parametros.Add("@DescripcionPublicacion", descripcion);
-                ActualizarGrilla(parametros);
-                
-                if (dgvPublicaciones.Rows.Count <= 0)
-                {
-                    MessageBox.Show("No se encontraron resultados");
-                }
-                else
-                {
-                    switch (estadoSeleccionado)
-                    {
-                        case "Borrador":
-                            btnModificar.Enabled = true;
-                            btnActivar.Enabled = true;
-                            btnPausar.Enabled = false;
-                            btnFinalizar.Enabled = false;
-                            btnEliminar.Enabled = true;
-                            break;
-                        case "Activa":
-                            btnModificar.Enabled = false;
-                            btnActivar.Enabled = false;
-                            btnPausar.Enabled = true;
-                            btnFinalizar.Enabled = true; //habria que ver si es subasta, compra inm
-                            btnEliminar.Enabled = true;
-                            break;
-                        case "Pausada":
-                            btnModificar.Enabled = false;
-                            btnActivar.Enabled = true;
-                            btnPausar.Enabled = false;
-                            btnFinalizar.Enabled = false;
-                            btnEliminar.Enabled = true;
-                            break;
-                        case "Finalizada":
-                            btnModificar.Enabled = false;
-                            btnActivar.Enabled = false;
-                            btnPausar.Enabled = false;
-                            btnFinalizar.Enabled = false;
-                            btnEliminar.Enabled = true;
-                            break;
-                    }
-                }
-            }
-        }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
@@ -207,19 +232,94 @@ namespace GDD.Generar_Publicación
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
                 publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
                 parametros.Add("@IdPublicacion", publicacionSeleccionada.Id);
-                DBHelper.ExecuteNonQuery("Publicacion_Eliminar", parametros);
+                DBHelper.ExecuteNonQuery("Publicacion_Delete", parametros);
+                verPublicacionesTodas = true;
+                verPublicacionesEstado = false;
+                verPublicacionesDescripcion = false;
+                verPublicaciones2Filtros = false;
                 ActualizarGrilla();
                 Limpiar();
+                parametros.Clear();
             }
             else 
             {
             }
         }
 
-      
+        private void btnPausar_Click(object sender, EventArgs e)
+        {
+            //pausar la publicacion seleccionada
 
-        
+            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
+            int id = publicacionSeleccionada.Id;
+            int idEstado = 2;
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@Id", id);
+            parametros.Add("@EstadoId", idEstado);
+            DBHelper.ExecuteNonQuery("Publicacion_UpdateEstado", parametros);
+            MessageBox.Show("La publicacion ha sido pausada");
+            Limpiar();
+            verPublicacionesTodas = true;
+            verPublicacionesEstado = false;
+            verPublicacionesDescripcion = false;
+            verPublicaciones2Filtros = false;
+            ActualizarGrilla();
+            parametros.Clear();
+        }
 
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            //finalizar la publicacion seleccionada
+
+            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
+            int id = publicacionSeleccionada.Id;
+            int idEstado = 3;
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@Id", id);
+            parametros.Add("@EstadoId", idEstado);
+            DBHelper.ExecuteNonQuery("Publicacion_UpdateEstado", parametros);
+            MessageBox.Show("La publicacion ha sido finalizada");
+            Limpiar();
+            verPublicacionesTodas = true;
+            verPublicacionesEstado = false;
+            verPublicacionesDescripcion = false;
+            verPublicaciones2Filtros = false;
+            ActualizarGrilla();
+            parametros.Clear();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
+
+        private void Limpiar()
+        {
+            txtDescripcion.Text = "";
+            cmbEstado.SelectedValue = false;
+            cmbEstado.Text = "";
+        }
+
+        private void btnPublicar_Click(object sender, EventArgs e)
+        { 
+            //publicar la publicacion seleccionada
+
+            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
+            int id = publicacionSeleccionada.Id;
+            int idEstado = 1;
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@Id", id);
+            parametros.Add("@EstadoId", idEstado);
+            DBHelper.ExecuteNonQuery("Publicacion_UpdateEstado", parametros);
+            MessageBox.Show("La publicacion ha sido publicada");
+            Limpiar();
+            verPublicacionesTodas = true;
+            verPublicacionesEstado = false;
+            verPublicacionesDescripcion = false;
+            verPublicaciones2Filtros = false;
+            ActualizarGrilla();
+            parametros.Clear();
+        }
     }
     
 }

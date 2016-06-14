@@ -33,7 +33,7 @@
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.dgvPublicaciones = new System.Windows.Forms.DataGridView();
             this.btnPausar = new System.Windows.Forms.Button();
-            this.btnActivar = new System.Windows.Forms.Button();
+            this.btnPublicar = new System.Windows.Forms.Button();
             this.btnFinalizar = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -72,7 +72,7 @@
             this.cmbEstado.FormattingEnabled = true;
             this.cmbEstado.Items.AddRange(new object[] {
             "Borrador",
-            "Activa",
+            "Publicada",
             "Pausada",
             "Finalizada"});
             this.cmbEstado.Location = new System.Drawing.Point(75, 59);
@@ -85,6 +85,7 @@
             this.dgvPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPublicaciones.Location = new System.Drawing.Point(27, 214);
             this.dgvPublicaciones.Name = "dgvPublicaciones";
+            this.dgvPublicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPublicaciones.Size = new System.Drawing.Size(600, 194);
             this.dgvPublicaciones.TabIndex = 9;
             // 
@@ -98,15 +99,15 @@
             this.btnPausar.UseVisualStyleBackColor = true;
             this.btnPausar.Click += new System.EventHandler(this.btnPausar_Click);
             // 
-            // btnActivar
+            // btnPublicar
             // 
-            this.btnActivar.Location = new System.Drawing.Point(118, 425);
-            this.btnActivar.Name = "btnActivar";
-            this.btnActivar.Size = new System.Drawing.Size(74, 28);
-            this.btnActivar.TabIndex = 11;
-            this.btnActivar.Text = "Activar";
-            this.btnActivar.UseVisualStyleBackColor = true;
-            this.btnActivar.Click += new System.EventHandler(this.btnActivar_Click);
+            this.btnPublicar.Location = new System.Drawing.Point(118, 425);
+            this.btnPublicar.Name = "btnPublicar";
+            this.btnPublicar.Size = new System.Drawing.Size(74, 28);
+            this.btnPublicar.TabIndex = 11;
+            this.btnPublicar.Text = "Publicar";
+            this.btnPublicar.UseVisualStyleBackColor = true;
+            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
             // 
             // btnFinalizar
             // 
@@ -205,7 +206,7 @@
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.btnFinalizar);
-            this.Controls.Add(this.btnActivar);
+            this.Controls.Add(this.btnPublicar);
             this.Controls.Add(this.btnPausar);
             this.Controls.Add(this.dgvPublicaciones);
             this.Controls.Add(this.btnModificar);
@@ -228,7 +229,7 @@
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.DataGridView dgvPublicaciones;
         private System.Windows.Forms.Button btnPausar;
-        private System.Windows.Forms.Button btnActivar;
+        private System.Windows.Forms.Button btnPublicar;
         private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Label label1;

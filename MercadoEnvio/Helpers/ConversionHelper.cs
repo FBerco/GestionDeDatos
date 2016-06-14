@@ -253,7 +253,7 @@ namespace Helpers
                 {
                     Id = (int)rdr["rol_id"],
                     Nombre =(string)rdr["rol_nombre"],
-                    Activo = (bool)rdr["rol_activo"]
+                    Activo = Convert.ToBoolean((int)rdr["rol_activo"])
                 });
             }
             CloseDB();

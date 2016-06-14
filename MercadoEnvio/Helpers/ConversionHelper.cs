@@ -252,7 +252,8 @@ namespace Helpers
                 list.Add(new Rol()
                 {
                     Id = (int)rdr["rol_id"],
-                    Nombre =(string)rdr["rol_nombre"]
+                    Nombre =(string)rdr["rol_nombre"],
+                    Activo = (bool)rdr["rol_activo"]
                 });
             }
             CloseDB();

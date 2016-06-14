@@ -36,6 +36,8 @@ namespace GDD
                     {
                         cmbRoles.Visible = true;
                         cmbRoles.DataSource = roles;
+                        cmbRoles.DisplayMember = "Nombre";
+                        btnRol.Visible = true;
                     }
                     else if(roles.Count == 1) {
                         Main main = new Main(usuario, roles.FirstOrDefault());

@@ -14,7 +14,7 @@ namespace GDD.ABM_Rol
         {
             InitializeComponent();
             funciones = DBHelper.ExecuteReader("Funciones_GetAll").ToFunciones();
-            funcionesXRol = DBHelper.ExecuteReader("RolXFuncion_GetFunByRol", new Dictionary<string, object>() { { "@rol", rol.Id } })
+            funcionesXRol = DBHelper.ExecuteReader("RolXFuncion_GetFunByRol", new Dictionary<string, object>() { { "@rol", Program.rol.Id } }).ToFunciones();
             setList();
         }
 
@@ -55,7 +55,6 @@ namespace GDD.ABM_Rol
             {
                 lstFunciones.Items.Add(fun);
             }
-            lstFunciones.
         }
     }
 }

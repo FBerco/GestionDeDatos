@@ -20,19 +20,21 @@ namespace GDD.ABM_Rol
         private void btnCrear_Click(object sender, EventArgs e)
         {
             var nombre = txtNombre.Text;
-            var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@nombre", nombre } }).ToRol();
-            if (rol != null)
+            var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@rol", nombre } }).ToRol();
+            if (rol == null)
             {
-                var funcionesSeleccionadas = lstFunciones.SelectedItems;
-                if (funciones.Count > 0)
+                var funcionesSeleccionadas = lstFunciones.CheckedItems;
+                if (funcionesSeleccionadas.Count > 0)
                 {
+                    DBHelper.ExecuteNonQuery("Rol_Add", new Dictionary<string, object>() { { "@rol", nombre } });
+                    rol = DBHelper.ExecuteReader("Rol_GetByName", new Dictionary<string, object>() { { "@nombre", nombre } }).ToRol();
                     foreach (string fun in funcionesSeleccionadas)
                     {
-                        DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@rol", rol.Id }, { "@funcion", funciones.FirstOrDefault(x=>x.Descripcion == fun).Id } });
+                        var id = funciones.FirstOrDefault(x => x.Descripcion == fun).Id;
+                        DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@rol", rol.Id }, { "@funcion", id} });
                     }
                     MessageBox.Show("Insertado con exito");
                     txtNombre.Text = "";
-                    lstFunciones = new CheckedListBox();
                     setList();
                 }else {
                     MessageBox.Show("Seleccione funciones");
@@ -55,7 +57,7 @@ namespace GDD.ABM_Rol
             foreach (var fun in funciones)
             {
                 //Chequeo aquellas que tiene seleccionada
-                lstFunciones.Items.Add(fun.Descripcion);
+                lstFunciones.Items.Add(fun.Descripcion, CheckState.Unchecked);
             }
         }
     }

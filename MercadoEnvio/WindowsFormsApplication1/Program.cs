@@ -8,8 +8,6 @@ namespace GDD
 {
     static class Program
     {
-        public static Usuario usuario;
-        public static Rol rol;
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>

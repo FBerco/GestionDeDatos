@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Helpers;
 using Clases;
@@ -9,12 +10,10 @@ namespace GDD.ABM_Rol
     public partial class frmAlta : Form
     {
         public List<Funcion> funciones;
-        public List<Funcion> funcionesXRol;
         public frmAlta()
         {
             InitializeComponent();
             funciones = DBHelper.ExecuteReader("Funciones_GetAll").ToFunciones();
-            funcionesXRol = DBHelper.ExecuteReader("RolXFuncion_GetFunByRol", new Dictionary<string, object>() { { "@rol", Program.rol.Id } }).ToFunciones();
             setList();
         }
 
@@ -24,12 +23,12 @@ namespace GDD.ABM_Rol
             var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@nombre", nombre } }).ToRol();
             if (rol != null)
             {
-                var funciones = lstFunciones.SelectedItems;
+                var funcionesSeleccionadas = lstFunciones.SelectedItems;
                 if (funciones.Count > 0)
                 {
-                    foreach (Funcion fun in funciones)
+                    foreach (string fun in funcionesSeleccionadas)
                     {
-                        DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@Rol", rol.Id }, { "@Funcion", fun.Id } });
+                        DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@rol", rol.Id }, { "@funcion", funciones.FirstOrDefault(x=>x.Descripcion == fun).Id } });
                     }
                     MessageBox.Show("Insertado con exito");
                     txtNombre.Text = "";
@@ -39,8 +38,10 @@ namespace GDD.ABM_Rol
                     MessageBox.Show("Seleccione funciones");
                 }
             }
-            MessageBox.Show("Ya existe el rol");
-            
+            else
+            {
+                MessageBox.Show("Ya existe el rol");
+            }            
         }
 
         private void frmAlta_FormClosing(object sender, FormClosingEventArgs e)
@@ -53,7 +54,8 @@ namespace GDD.ABM_Rol
         private void setList() {
             foreach (var fun in funciones)
             {
-                lstFunciones.Items.Add(fun);
+                //Chequeo aquellas que tiene seleccionada
+                lstFunciones.Items.Add(fun.Descripcion);
             }
         }
     }

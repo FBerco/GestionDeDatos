@@ -38,9 +38,7 @@ namespace GDD
                         cmbRoles.DataSource = roles;
                     }
                     else if(roles.Count == 1) {
-                        Program.usuario = usuario;
-                        Program.rol = roles.FirstOrDefault();
-                        Main main = new Main();
+                        Main main = new Main(usuario, roles.FirstOrDefault());
                         main.Show();
                         Hide();
                     }
@@ -60,9 +58,7 @@ namespace GDD
         {
             if (cmbRoles.SelectedIndex != -1)
             {
-                Program.usuario = usuario;
-                Program.rol = (Rol)cmbRoles.SelectedItem;
-                Main main = new Main();
+                Main main = new Main(usuario, (Rol)cmbRoles.SelectedItem);
                 main.Show();
                 Hide();
             }

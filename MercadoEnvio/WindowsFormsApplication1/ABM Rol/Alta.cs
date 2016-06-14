@@ -14,7 +14,11 @@ namespace GDD.ABM_Rol
         {
             InitializeComponent();
             funciones = DBHelper.ExecuteReader("Funciones_GetAll").ToFunciones();
-            setList();
+            foreach (var fun in funciones)
+            {
+                //Chequeo aquellas que tiene seleccionada
+                lstFunciones.Items.Add(fun.Descripcion, CheckState.Unchecked);
+            }
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
@@ -35,8 +39,9 @@ namespace GDD.ABM_Rol
                     }
                     MessageBox.Show("Insertado con exito");
                     txtNombre.Text = "";
-                    setList();
-                }else {
+                    lstFunciones.ClearSelected();
+                }
+                else {
                     MessageBox.Show("Seleccione funciones");
                 }
             }
@@ -51,14 +56,6 @@ namespace GDD.ABM_Rol
             var home = new frmHome();
             home.Show();
             Hide();
-        }
-
-        private void setList() {
-            foreach (var fun in funciones)
-            {
-                //Chequeo aquellas que tiene seleccionada
-                lstFunciones.Items.Add(fun.Descripcion, CheckState.Unchecked);
-            }
         }
     }
 }

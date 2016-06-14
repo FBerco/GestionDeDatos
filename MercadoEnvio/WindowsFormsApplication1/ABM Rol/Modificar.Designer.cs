@@ -114,6 +114,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmModificar";
             this.Text = "Modificar";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmModificar_FormClosing);
             this.Load += new System.EventHandler(this.Modificar_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

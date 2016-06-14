@@ -51,6 +51,7 @@
             this.btnModificar.TabIndex = 1;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnBaja
             // 
@@ -60,6 +61,7 @@
             this.btnBaja.TabIndex = 2;
             this.btnBaja.Text = "Baja";
             this.btnBaja.UseVisualStyleBackColor = true;
+            this.btnBaja.Click += new System.EventHandler(this.btnBaja_Click);
             // 
             // frmHome
             // 
@@ -71,7 +73,6 @@
             this.Controls.Add(this.btnRol);
             this.Name = "frmHome";
             this.Text = "ABM Rol";
-            this.Load += new System.EventHandler(this.frmHome_Load);
             this.ResumeLayout(false);
 
         }

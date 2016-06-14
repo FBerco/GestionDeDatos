@@ -30,16 +30,23 @@ namespace GDD.ABM_Rol
                 var funcionesSeleccionadas = lstFunciones.CheckedItems;
                 if (funcionesSeleccionadas.Count > 0)
                 {
-                    DBHelper.ExecuteNonQuery("Rol_Add", new Dictionary<string, object>() { { "@rol", nombre } });
-                    rol = DBHelper.ExecuteReader("Rol_GetByName", new Dictionary<string, object>() { { "@nombre", nombre } }).ToRol();
-                    foreach (string fun in funcionesSeleccionadas)
-                    {
-                        var id = funciones.FirstOrDefault(x => x.Descripcion == fun).Id;
-                        DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@rol", rol.Id }, { "@funcion", id} });
+                    try
+                    {                    
+                        DBHelper.ExecuteNonQuery("Rol_Add", new Dictionary<string, object>() { { "@rol", nombre } });
+                        rol = DBHelper.ExecuteReader("Rol_GetByName", new Dictionary<string, object>() { { "@nombre", nombre } }).ToRol();
+                        foreach (string fun in funcionesSeleccionadas)
+                        {
+                            var id = funciones.FirstOrDefault(x => x.Descripcion == fun).Id;
+                            DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@rol", rol.Id }, { "@funcion", id} });
+                        }
+                        MessageBox.Show("Insertado con exito");
+                        txtNombre.Text = "";
+                        lstFunciones.ClearSelected();
                     }
-                    MessageBox.Show("Insertado con exito");
-                    txtNombre.Text = "";
-                    lstFunciones.ClearSelected();
+                    catch 
+                    {
+                        MessageBox.Show("Hubo un error en el alta", "Error");
+                    }
                 }
                 else {
                     MessageBox.Show("Seleccione funciones");

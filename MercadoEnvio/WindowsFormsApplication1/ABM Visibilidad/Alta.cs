@@ -48,7 +48,7 @@ namespace GDD.ABM_Visibilidad
                 }
                 guardarVisibilidad(nuevaVisibilidad);
                 btnGuardarNuevaVisibilidad.Enabled = false;
-            }   else { MessageBox.Show("Ingrese campos validos."); }      
+            }   //else { MessageBox.Show("Ingrese campos validos."); }      
         }
 
        
@@ -113,6 +113,7 @@ namespace GDD.ABM_Visibilidad
         
         private void chbTieneEnvio_CheckedChanged(object sender, EventArgs e)
         {
+            btnGuardarNuevaVisibilidad.Enabled = true;
             txtComisionEnvioProducto.Enabled = true;                
         }
 
@@ -124,7 +125,6 @@ namespace GDD.ABM_Visibilidad
             txtComsionProductoVendido.Clear();
             chbTieneEnvio.Checked = false;
             txtComisionEnvioProducto.Enabled = false;
-            btnGuardarNuevaVisibilidad.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e)

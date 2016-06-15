@@ -8,9 +8,6 @@ namespace Helpers
 {
     public static class ConversionHelper
     {
-        private static void CloseDB() {
-            DBHelper.DB.Close();
-        }
         #region USUARIO
         public static Usuario ToUsuario(this SqlDataReader rdr) {
             return rdr.ToUsuarios().FirstOrDefault();
@@ -24,7 +21,7 @@ namespace Helpers
                     Password = (string)rdr["usua_password"]
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -55,7 +52,7 @@ namespace Helpers
                     Id = (int)rdr["clie_id"],
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -89,7 +86,7 @@ namespace Helpers
                     Id= (int)rdr["empr_id"],
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -113,7 +110,7 @@ namespace Helpers
                     VentaId = (int)rdr["cali_venta"],
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -131,10 +128,10 @@ namespace Helpers
                 list.Add(new Estado()
                 {
                     Id = (int)rdr["esta_id"],
-                    Descripcion = (string)rdr["esta_detalle"],
+                    Descripcion = (string)rdr["esta_descripcion"],
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -157,7 +154,7 @@ namespace Helpers
                     PublicacionId = (int)rdr["fact_publicacion"],
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -180,7 +177,7 @@ namespace Helpers
                     PrecioUnitario = (int)rdr["item_precio_unitario"],
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -204,7 +201,7 @@ namespace Helpers
                     ClienteId = (int)rdr["ofer_cliente"],
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -226,15 +223,15 @@ namespace Helpers
                     FechaInicio = (DateTime)rdr["publ_fecha_inicio"],
                     FechaVencimiento = (DateTime)rdr["publ_fecha_vencimiento"],
                     Descripcion = (string)rdr["publ_descripcion"],
-                    UsuarioId = (int)rdr["publ_usuario"],
-                    RubroId = (int)rdr["publ_rubro"],
-                    EstadoId = (int)rdr["publ_estado"],
+                    Usuario = (string)rdr["publ_usuario"],
+                    Rubro = (int)rdr["publ_rubro"],
+                    Estado = (int)rdr["publ_estado"],
                     Stock = (int)rdr["publ_stock"],
-                    Precio = (int)rdr["publ_precio"],
+                    Precio = (decimal)rdr["publ_precio"],
                     VisibilidadId = (int)rdr["publ_visibilidad"]
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -256,7 +253,7 @@ namespace Helpers
                     Activo = Convert.ToBoolean((int)rdr["rol_activo"])
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -277,7 +274,7 @@ namespace Helpers
                     Descripcion = (string)rdr["func_descripcion"]
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -299,7 +296,7 @@ namespace Helpers
                     DescripcionLarga = (string)rdr["rubr_descripcion_larga"]
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -323,7 +320,7 @@ namespace Helpers
                     ClienteId = (int)rdr["vent_cliente"],
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -347,7 +344,7 @@ namespace Helpers
                     PorcentajeProducto = (int)rdr["visi_porcentaje_prod"]
                 });
             }
-            CloseDB();
+            DBHelper.DB.Close();
             return list;
         }
         #endregion

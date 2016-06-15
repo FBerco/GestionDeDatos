@@ -8,11 +8,11 @@ namespace Clases
         public DateTime FechaInicio { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public string Descripcion { get; set; }
-        public int UsuarioId { get; set; }
-        public int RubroId { get; set; }
-        public int EstadoId { get; set; }
+        public string Usuario { get; set; }
+        public int Rubro { get; set; }
+        public int Estado { get; set; }
         public int Stock { get; set; }
-        public double Precio { get; set; }
+        public decimal Precio { get; set; }
         public int VisibilidadId { get; set; }
     }
 }

@@ -31,16 +31,15 @@ namespace GDD.ABM_Visibilidad
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-        if (false)//estaSeguro())
-            {
-            //String nombreVisibilidadADarDeBaja = cmbNombreVisibilidad.SelectedValue;
-            Dictionary<String,Object> parametros = new Dictionary<String,Object>();
-            Object nombreVisibilidadADarDeBaja; //borrar 
-            parametros.Add("visi_detalle",nombreVisibilidadADarDeBaja);
-            //DBHelper.ExecuteNonQuery("darDeBajaUnaVisibilidadSegunNombre", parametros);
-            }
        
+            //String nombreVisibilidadADarDeBaja = cmbNombreVisibilidad.SelectedValue;
+            //Dictionary<String,Object> parametros = new Dictionary<String,Object>();
+            //Object nombreVisibilidadADarDeBaja; //borrar 
+            //parametros.Add("visi_detalle",nombreVisibilidadADarDeBaja);
+            //DBHelper.ExecuteNonQuery("darDeBajaUnaVisibilidadSegunNombre", parametros);
         }
+       
+        
         
         /*private Boolean estaSeguro()
         {

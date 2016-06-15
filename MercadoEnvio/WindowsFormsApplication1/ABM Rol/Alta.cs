@@ -24,6 +24,7 @@ namespace GDD.ABM_Rol
         private void btnCrear_Click(object sender, EventArgs e)
         {
             var nombre = txtNombre.Text;
+
             var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@rol", nombre } }).ToRol();
             if (rol == null)
             {

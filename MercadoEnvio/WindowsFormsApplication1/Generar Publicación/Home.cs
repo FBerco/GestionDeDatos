@@ -18,14 +18,24 @@ namespace GDD.Generar_Publicación
             InitializeComponent();
         }
 
-        Publicacion publicacionSeleccionada;   
+        Publicacion publicacionSeleccionada;
 
         private void Home_Load(object sender, EventArgs e)
         {
-            
+            var estados = DBHelper.ExecuteReader("Estado_GetAll").ToEstados();
+            cmbEstado.DataSource = estados;
+            cmbEstado.DisplayMember = "Descripcion";           
+            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetAll").ToPublicaciones());
         }
 
-    
+      
+        
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            var descripcion = txtDescripcion.Text;
+            var estado = ((Estado)cmbEstado.SelectedItem).Id;
+            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetByFilters", new Dictionary<string, object>() { { "@text", txtDescripcion.Text }, { "@estado", estado } }).ToPublicaciones());
+        }
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
@@ -35,90 +45,103 @@ namespace GDD.Generar_Publicación
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
-        {    /*MedicoSeleccionado = (Medico)GrillaDeMedicos.CurrentRow.DataBoundItem;
-            int id = MedicoSeleccionado.Id;
-            MedicoSeleccionado = MedicoDataAcces.ObtenerMedicosPorId(id);
-            AbmMedicos frm = new AbmMedicos(MedicoSeleccionado);
-            frm.btnact.Enabled = true;
-            this.Hide();
-            frm.Show();*/
-             
+        {
+            //hacer un if si hay public seleccionada 
             publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
             int id = publicacionSeleccionada.Id;
             Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPublicacion", id);
-            publicacionSeleccionada = DBHelper.ExecuteReader("Publicacion_ObtenerPorId", parametros).ToPublicacion();
+            parametros.Add("@Id", id);
+            publicacionSeleccionada = DBHelper.ExecuteReader("Publicacion_GetById", parametros).ToPublicacion();
             Form alta = new Generar_Publicación.Alta(publicacionSeleccionada);
             alta.Show();
             this.Close();
-            
+
         }
 
-        private void btnActivar_Click(object sender, EventArgs e)
+        public int ObtenerIdEstado(string nombreEstado) 
         {
-            //activar la publicacion seleccionada
-        }
-
-        private void btnPausar_Click(object sender, EventArgs e)
-        {
-            //pausar la publicacion seleccionada
-        }
-
-        private void btnFinalizar_Click(object sender, EventArgs e)
-        {
-            //finalizar la publicacion seleccionada
-        }
-
-        private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            var estadoSeleccionado = cmbEstado.Text;
             Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@EstadoPublicacion", estadoSeleccionado);            
-            var publicacion = DBHelper.ExecuteReader("Publicacion_GetByFilter", parametros);
-            //publicacion es un sqldatareader, tengo que parsearlo a una lista
-            if (publicacion != null)
-            {
-                //dgvPublicaciones.DataSource = 
-            }
-            else
-            {  
-               var texto = string.Format("No hay publicaciones en estado {0}", estadoSeleccionado);
-               lblError.Text = texto;      
-            }
-            switch (estadoSeleccionado) 
-            {
-                case "Borrador":
-                    btnModificar.Enabled = true;
-                    btnActivar.Enabled = true;
-                    btnPausar.Enabled = false;
-                    btnFinalizar.Enabled = false;
-                    break;
-                case "Activa":
-                    btnModificar.Enabled = false;
-                    btnActivar.Enabled = false;
-                    btnPausar.Enabled = true;
-                    btnFinalizar.Enabled = true; //habria que ver si es subasta, compra inm
-                    break;
-                case "Pausada":
-                    btnModificar.Enabled = false;
-                    btnActivar.Enabled = true;
-                    btnPausar.Enabled = false;
-                    btnFinalizar.Enabled = false;
-                    break;
-                case "Finalizada":
-                    btnModificar.Enabled = false;
-                    btnActivar.Enabled = false;
-                    btnPausar.Enabled = false;
-                    btnFinalizar.Enabled = false;
-                    break;
-            }
+            parametros.Add("@Descripcion", nombreEstado);
+            Estado estado;
+            estado = DBHelper.ExecuteReader("Estado_GetById", parametros).ToEstado();
+            int id = estado.Id;
+            return id;   
         }
 
-      
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
 
-        
+        private void Limpiar()
+        {
+            txtDescripcion.Text = "";
+            cmbEstado.SelectedValue = false;
+            cmbEstado.Text = "";
+        }
 
+        private void btnPublicar_Click(object sender, EventArgs e)
+        { 
+            //publicar la publicacion seleccionada
+
+            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
+            int id = publicacionSeleccionada.Id;
+            int idEstado = 1;
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@Id", id);
+            parametros.Add("@EstadoId", idEstado);
+            DBHelper.ExecuteNonQuery("Publicacion_UpdateEstado", parametros);
+            MessageBox.Show("La publicacion ha sido publicada");
+            Limpiar();
+            //ActualizarGrilla();
+            parametros.Clear();
+        }
+
+        private void CargarGrilla(List<Publicacion> publicaciones)
+        {
+            dgvPublicaciones.DataSource = publicaciones;
+            dgvPublicaciones.Columns.Clear();
+            dgvPublicaciones.AutoGenerateColumns = false;
+
+
+            DataGridViewTextBoxColumn Descripcion = new DataGridViewTextBoxColumn();
+            Descripcion.DataPropertyName = "Descripcion";
+            Descripcion.HeaderText = "Descripcion";
+            Descripcion.Width = 100;
+            Descripcion.ReadOnly = true;
+            DataGridViewTextBoxColumn Precio = new DataGridViewTextBoxColumn();
+            Precio.DataPropertyName = "Precio";
+            Precio.HeaderText = "Precio";
+            Precio.Width = 100;
+            Precio.ReadOnly = true;
+            DataGridViewTextBoxColumn Stock = new DataGridViewTextBoxColumn();
+            Stock.DataPropertyName = "Stock";
+            Stock.HeaderText = "Stock";
+            Stock.Width = 100;
+            Stock.ReadOnly = true;
+            DataGridViewTextBoxColumn Tipo = new DataGridViewTextBoxColumn();
+            Tipo.DataPropertyName = "Tipo";
+            Tipo.HeaderText = "Tipo";
+            Tipo.Width = 100;
+            Tipo.ReadOnly = true;
+            /*DataGridViewTextBoxColumn Usuario = new DataGridViewTextBoxColumn();
+            Usuario.DataPropertyName = "Usuario";
+            Usuario.HeaderText = "Vendedor";
+            Usuario.Width = 100;
+            Usuario.ReadOnly = true; para que aparezca el nombre del usuario*/
+            DataGridViewTextBoxColumn FechaVencimiento = new DataGridViewTextBoxColumn();
+            FechaVencimiento.DataPropertyName = "FechaVencimiento";
+            FechaVencimiento.HeaderText = "Fecha de vencimiento";
+            FechaVencimiento.Width = 100;
+            FechaVencimiento.ReadOnly = true;
+
+            //dgvPublicaciones.Columns.Add(Usuario);
+            dgvPublicaciones.Columns.Add(Descripcion);
+            dgvPublicaciones.Columns.Add(Precio);
+            dgvPublicaciones.Columns.Add(Stock);
+            dgvPublicaciones.Columns.Add(FechaVencimiento);
+            dgvPublicaciones.Columns.Add(Tipo);
+        }
     }
     
 }

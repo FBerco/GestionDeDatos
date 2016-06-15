@@ -26,9 +26,9 @@ namespace GDD
             if (username != null && password != null)
             {
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
-                parametros.Add("@username", username);
-                parametros.Add("@password", password);
-                usuario = DBHelper.ExecuteReader("Usuario_LogIn", parametros).ToUsuario();
+                parametros.Add("@Username", username);
+                parametros.Add("@Password", password);
+                usuario = DBHelper.ExecuteReader("dbo.Usuario_LogIn", parametros).ToUsuario();
                 if (usuario != null)
                 {
                     roles = DBHelper.ExecuteReader("UsuarioXRol_GetRolesByUser", new Dictionary<string, object>() { { "@Username", usuario.Username } }).ToRoles();
@@ -39,14 +39,13 @@ namespace GDD
                         cmbRoles.DisplayMember = "Nombre";
                         btnRol.Visible = true;
                     }
-                    else if(roles.Count == 1) {
-                        Main main = new Main(usuario, roles.FirstOrDefault());
-                        main.Show();
-                        Hide();
-                    }
+                    Main main = new Main(usuario, roles.FirstOrDefault());
+                    main.Show();
+                    Hide();
                 }
                 else
                 {
+
                     MessageBox.Show("No existe usuario.", "Error");
                 }
             }

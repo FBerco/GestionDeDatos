@@ -25,21 +25,19 @@ namespace GDD.ABM_Visibilidad
             foreach(Visibilidad visibilidad in visibilidades)
             {
                 cmbNombreVisibilidad.Items.Add(visibilidad.Detalle);  
-            }
-           
+            }           
         }
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-       
+            //TENEMOS QUE VER SI LA BAJA ES LOGICA O LO BORRAMOS EFECTIVAMENTE DE LA TABLA
+
             //String nombreVisibilidadADarDeBaja = cmbNombreVisibilidad.SelectedValue;
             //Dictionary<String,Object> parametros = new Dictionary<String,Object>();
             //Object nombreVisibilidadADarDeBaja; //borrar 
             //parametros.Add("visi_detalle",nombreVisibilidadADarDeBaja);
             //DBHelper.ExecuteNonQuery("darDeBajaUnaVisibilidadSegunNombre", parametros);
         }
-       
-        
         
         /*private Boolean estaSeguro()
         {

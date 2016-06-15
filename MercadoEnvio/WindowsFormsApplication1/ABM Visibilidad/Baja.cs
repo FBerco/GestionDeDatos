@@ -13,7 +13,7 @@ namespace GDD.ABM_Visibilidad
 {
     public partial class frmBaja : Form
     {
-        //VER EL TEMA DEL CHECKED STATE Y EL TEMA DE LA BASE DE DATOS
+ 
         public frmBaja()
         {
             InitializeComponent();
@@ -21,7 +21,7 @@ namespace GDD.ABM_Visibilidad
 
         private void frmBaja_Load(object sender, EventArgs e)
         {
-            List<Visibilidad> visibilidades = new List<Visibilidad>(); //DBHelper.ExecuteReader("nombreSPQueTraeTodasLasVisibilidadesActivas").ToVisibilidades;
+            List<Visibilidad> visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
             foreach(Visibilidad visibilidad in visibilidades)
             {
                 cmbNombreVisibilidad.Items.Add(visibilidad.Detalle);  
@@ -31,17 +31,11 @@ namespace GDD.ABM_Visibilidad
         private void btnBaja_Click(object sender, EventArgs e)
         {
             //TENEMOS QUE VER SI LA BAJA ES LOGICA O LO BORRAMOS EFECTIVAMENTE DE LA TABLA
-
-            //String nombreVisibilidadADarDeBaja = cmbNombreVisibilidad.SelectedValue;
-            //Dictionary<String,Object> parametros = new Dictionary<String,Object>();
-            //Object nombreVisibilidadADarDeBaja; //borrar 
-            //parametros.Add("visi_detalle",nombreVisibilidadADarDeBaja);
-            //DBHelper.ExecuteNonQuery("darDeBajaUnaVisibilidadSegunNombre", parametros);
         }
         
-        /*private Boolean estaSeguro()
+        private Boolean estaSeguro()
         {
-           // if (chkEstaSeguro.CheckState == checked){return true} else {return false};
-        }*/
+            return chkEstaSeguro.Checked;
+        }
     }
 }

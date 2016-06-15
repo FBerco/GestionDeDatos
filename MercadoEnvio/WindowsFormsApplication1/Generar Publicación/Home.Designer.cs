@@ -32,17 +32,14 @@
             this.btnModificar = new System.Windows.Forms.Button();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.dgvPublicaciones = new System.Windows.Forms.DataGridView();
-            this.btnPausar = new System.Windows.Forms.Button();
-            this.btnPublicar = new System.Windows.Forms.Button();
-            this.btnFinalizar = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.gbFiltros = new System.Windows.Forms.GroupBox();
-            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.gbFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +66,7 @@
             // 
             // cmbEstado
             // 
+            this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEstado.FormattingEnabled = true;
             this.cmbEstado.Items.AddRange(new object[] {
             "Borrador",
@@ -83,41 +81,13 @@
             // dgvPublicaciones
             // 
             this.dgvPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPublicaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id});
             this.dgvPublicaciones.Location = new System.Drawing.Point(27, 214);
             this.dgvPublicaciones.Name = "dgvPublicaciones";
             this.dgvPublicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPublicaciones.Size = new System.Drawing.Size(600, 194);
             this.dgvPublicaciones.TabIndex = 9;
-            // 
-            // btnPausar
-            // 
-            this.btnPausar.Location = new System.Drawing.Point(207, 425);
-            this.btnPausar.Name = "btnPausar";
-            this.btnPausar.Size = new System.Drawing.Size(74, 28);
-            this.btnPausar.TabIndex = 10;
-            this.btnPausar.Text = "Pausar";
-            this.btnPausar.UseVisualStyleBackColor = true;
-            this.btnPausar.Click += new System.EventHandler(this.btnPausar_Click);
-            // 
-            // btnPublicar
-            // 
-            this.btnPublicar.Location = new System.Drawing.Point(118, 425);
-            this.btnPublicar.Name = "btnPublicar";
-            this.btnPublicar.Size = new System.Drawing.Size(74, 28);
-            this.btnPublicar.TabIndex = 11;
-            this.btnPublicar.Text = "Publicar";
-            this.btnPublicar.UseVisualStyleBackColor = true;
-            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
-            // 
-            // btnFinalizar
-            // 
-            this.btnFinalizar.Location = new System.Drawing.Point(299, 425);
-            this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Size = new System.Drawing.Size(74, 28);
-            this.btnFinalizar.TabIndex = 12;
-            this.btnFinalizar.Text = "Finalizar";
-            this.btnFinalizar.UseVisualStyleBackColor = true;
-            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
             // 
             // lblError
             // 
@@ -152,19 +122,9 @@
             this.txtDescripcion.Size = new System.Drawing.Size(147, 20);
             this.txtDescripcion.TabIndex = 16;
             // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(294, 42);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 48);
-            this.btnLimpiar.TabIndex = 17;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(294, 120);
+            this.btnBuscar.Location = new System.Drawing.Point(136, 98);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 46);
             this.btnBuscar.TabIndex = 18;
@@ -176,7 +136,9 @@
             // 
             this.gbFiltros.Controls.Add(this.txtDescripcion);
             this.gbFiltros.Controls.Add(this.cmbEstado);
+            this.gbFiltros.Controls.Add(this.btnBuscar);
             this.gbFiltros.Controls.Add(this.label1);
+            this.gbFiltros.Controls.Add(this.btnLimpiar);
             this.gbFiltros.Controls.Add(this.label2);
             this.gbFiltros.Location = new System.Drawing.Point(27, 24);
             this.gbFiltros.Name = "gbFiltros";
@@ -185,29 +147,28 @@
             this.gbFiltros.TabStop = false;
             this.gbFiltros.Text = "Filtros de busqueda";
             // 
-            // btnEliminar
+            // btnLimpiar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(388, 425);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 28);
-            this.btnEliminar.TabIndex = 20;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            this.btnLimpiar.Location = new System.Drawing.Point(29, 96);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 48);
+            this.btnLimpiar.TabIndex = 17;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Column1";
+            this.Id.Name = "Id";
             // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(653, 506);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.gbFiltros);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lblError);
-            this.Controls.Add(this.btnFinalizar);
-            this.Controls.Add(this.btnPublicar);
-            this.Controls.Add(this.btnPausar);
             this.Controls.Add(this.dgvPublicaciones);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAlta);
@@ -228,17 +189,13 @@
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.DataGridView dgvPublicaciones;
-        private System.Windows.Forms.Button btnPausar;
-        private System.Windows.Forms.Button btnPublicar;
-        private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDescripcion;
-        private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.GroupBox gbFiltros;
-        private System.Windows.Forms.Button btnEliminar;
-
+        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
     }
 }

@@ -19,45 +19,18 @@ namespace GDD.Generar_Publicación
         }
 
         Publicacion publicacionSeleccionada;
-        bool verPublicacionesTodas = true;
-        bool verPublicaciones2Filtros = false;
-        bool verPublicacionesEstado = false;
-        bool verPublicacionesDescripcion = false;
 
         private void Home_Load(object sender, EventArgs e)
         {
-            ActualizarGrilla();
-            if (dgvPublicaciones.Rows.Count <= 0)
-            {
-                btnModificar.Enabled = false;
-                btnPublicar.Enabled = false;
-                btnPausar.Enabled = false;
-                btnFinalizar.Enabled = false;
-                btnEliminar.Enabled = false;
-            }
+            var estados = DBHelper.ExecuteReader("Estado_GetAll").ToEstados();
+            cmbEstado.DataSource = estados;
+            cmbEstado.DisplayMember = "Descripcion";           
+            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetAll").ToPublicaciones());
         }
 
-        private void ActualizarGrilla(Dictionary<string, object> filtros = null) 
+        private void CargarGrilla(List<Publicacion> publicaciones) 
         {
-            dgvPublicaciones.Columns.Clear();
-            dgvPublicaciones.AutoGenerateColumns = false;
-            if (verPublicacionesTodas)
-            {
-                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_GetAll").ToPublicaciones();
-            }
-            else if(verPublicaciones2Filtros)
-            {
-                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_GetByFilters", filtros).ToPublicaciones();
-            }
-            else if (verPublicacionesDescripcion)
-            {
-                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_GetByDescripcion", filtros).ToPublicaciones();
-            }
-            else if (verPublicacionesEstado) 
-            {
-                dgvPublicaciones.DataSource = DBHelper.ExecuteReader("Publicacion_GetByEstado", filtros).ToPublicaciones();
-            }
-
+            dgvPublicaciones.DataSource = publicaciones;
             dgvPublicaciones.Columns.Clear();
             dgvPublicaciones.AutoGenerateColumns = false;
 
@@ -103,93 +76,9 @@ namespace GDD.Generar_Publicación
         
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            string estadoSeleccionado = cmbEstado.Text;
             var descripcion = txtDescripcion.Text;
-            int id = ObtenerIdEstado(estadoSeleccionado);
-            Dictionary<string, object> parametros = new Dictionary<string, object>();
-
-            if (estadoSeleccionado == "" && descripcion == "")
-            {
-                verPublicacionesTodas = true;
-                verPublicacionesEstado = false;
-                verPublicacionesDescripcion = false;
-                verPublicaciones2Filtros = false;
-                MessageBox.Show("No ha seleccionado ningun filtro");
-                ActualizarGrilla();                
-            }
-            else if(estadoSeleccionado != "" && descripcion == "")
-            {
-                verPublicacionesTodas = false;
-                verPublicacionesEstado = true;
-                verPublicacionesDescripcion = false;
-                verPublicaciones2Filtros = false;
-             
-                parametros.Add("@EstadoId", id);
-                ActualizarGrilla(parametros);
-                parametros.Clear();
-            }
-            else if (estadoSeleccionado == "" && descripcion != "" )
-            {
-                verPublicacionesTodas = false;
-                verPublicacionesEstado = false;
-                verPublicacionesDescripcion = true;
-                verPublicaciones2Filtros = false;
-
-                parametros.Add("@Descripcion", descripcion);
-                ActualizarGrilla(parametros);
-                parametros.Clear();
-            }
-            else if (estadoSeleccionado != "" && descripcion != "")
-            {
-                verPublicacionesTodas = false;
-                verPublicacionesEstado = false;
-                verPublicacionesDescripcion = false;
-                verPublicaciones2Filtros = true;
-
-                parametros.Add("@Descripcion", descripcion);
-                parametros.Add("@EstadoId", id);
-                ActualizarGrilla(parametros);
-                parametros.Clear();
-            }
-                
-            if (dgvPublicaciones.Rows.Count <= 0)
-            {
-                MessageBox.Show("No se encontraron resultados");
-            }
-            else
-            {
-                switch (estadoSeleccionado)
-                {
-                    case "Borrador":
-                        btnModificar.Enabled = true;
-                        btnPublicar.Enabled = true;
-                        btnPausar.Enabled = false;
-                        btnFinalizar.Enabled = false;
-                        btnEliminar.Enabled = true;
-                        break;
-                    case "Publicada": //Estado se llama publicada (no activa)
-                        btnModificar.Enabled = false;
-                        btnPublicar.Enabled = false;
-                        btnPausar.Enabled = true;
-                        btnFinalizar.Enabled = true; //habria que ver si es subasta, compra inm
-                        btnEliminar.Enabled = true;
-                        break;
-                    case "Pausada":
-                        btnModificar.Enabled = false;
-                        btnPublicar.Enabled = true;
-                        btnPausar.Enabled = false;
-                        btnFinalizar.Enabled = false;
-                        btnEliminar.Enabled = true;
-                        break;
-                    case "Finalizada":
-                        btnModificar.Enabled = false;
-                        btnPublicar.Enabled = false;
-                        btnPausar.Enabled = false;
-                        btnFinalizar.Enabled = false;
-                        btnEliminar.Enabled = true;
-                        break;
-                 }               
-            }
+            var estado = ((Estado)cmbEstado.SelectedItem).Id;
+            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetByFilters", new Dictionary<string, object>() { { "@text", txtDescripcion.Text }, { "@estado", estado } }).ToPublicaciones());
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -223,71 +112,6 @@ namespace GDD.Generar_Publicación
             return id;   
         }
 
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            DialogResult respuesta = MessageBox.Show("¿Esta seguro que desea eliminar la publicacion? ", "Información", MessageBoxButtons.YesNo);
-            if (respuesta == DialogResult.Yes)
-            {
-                Dictionary<string, object> parametros = new Dictionary<string, object>();
-                publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
-                parametros.Add("@IdPublicacion", publicacionSeleccionada.Id);
-                DBHelper.ExecuteNonQuery("Publicacion_Delete", parametros);
-                verPublicacionesTodas = true;
-                verPublicacionesEstado = false;
-                verPublicacionesDescripcion = false;
-                verPublicaciones2Filtros = false;
-                ActualizarGrilla();
-                Limpiar();
-                parametros.Clear();
-            }
-            else 
-            {
-            }
-        }
-
-        private void btnPausar_Click(object sender, EventArgs e)
-        {
-            //pausar la publicacion seleccionada
-
-            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
-            int id = publicacionSeleccionada.Id;
-            int idEstado = 2;
-            Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@Id", id);
-            parametros.Add("@EstadoId", idEstado);
-            DBHelper.ExecuteNonQuery("Publicacion_UpdateEstado", parametros);
-            MessageBox.Show("La publicacion ha sido pausada");
-            Limpiar();
-            verPublicacionesTodas = true;
-            verPublicacionesEstado = false;
-            verPublicacionesDescripcion = false;
-            verPublicaciones2Filtros = false;
-            ActualizarGrilla();
-            parametros.Clear();
-        }
-
-        private void btnFinalizar_Click(object sender, EventArgs e)
-        {
-            //finalizar la publicacion seleccionada
-
-            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
-            int id = publicacionSeleccionada.Id;
-            int idEstado = 3;
-            Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@Id", id);
-            parametros.Add("@EstadoId", idEstado);
-            DBHelper.ExecuteNonQuery("Publicacion_UpdateEstado", parametros);
-            MessageBox.Show("La publicacion ha sido finalizada");
-            Limpiar();
-            verPublicacionesTodas = true;
-            verPublicacionesEstado = false;
-            verPublicacionesDescripcion = false;
-            verPublicaciones2Filtros = false;
-            ActualizarGrilla();
-            parametros.Clear();
-        }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             Limpiar();
@@ -313,11 +137,7 @@ namespace GDD.Generar_Publicación
             DBHelper.ExecuteNonQuery("Publicacion_UpdateEstado", parametros);
             MessageBox.Show("La publicacion ha sido publicada");
             Limpiar();
-            verPublicacionesTodas = true;
-            verPublicacionesEstado = false;
-            verPublicacionesDescripcion = false;
-            verPublicaciones2Filtros = false;
-            ActualizarGrilla();
+            //ActualizarGrilla();
             parametros.Clear();
         }
     }

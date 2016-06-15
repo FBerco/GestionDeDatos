@@ -293,7 +293,8 @@ namespace Helpers
                 {
                     Id = (int)rdr["rubr_id"],
                     DescripcionCorta = (string)rdr["rubr_descripcion_corta"],
-                    DescripcionLarga = (string)rdr["rubr_descripcion_larga"]
+                    //TODO: CORREGIR EN LA BASE DE DATOS PARA QUE INSERTE UN STRING VACIO EN VEZ DE NULL EN LA MIGRACION
+                    //DescripcionLarga = (string)rdr["rubr_descripcion_larga"]
                 });
             }
             DBHelper.DB.Close();

@@ -8,7 +8,7 @@ namespace GDD
 {
     public partial class Main : Form
     {
-        public Usuario usuario;
+        public static Usuario usuario { get; private set; }
         public Rol rol;
         public Main(Usuario us, Rol ro)
         {
@@ -89,7 +89,7 @@ namespace GDD
         }
         static void GenerarPublicacion(object sender, EventArgs e)
         {
-            var home = new Generar_Publicación.frmHome();
+            var home = new Generar_Publicación.frmHome(usuario);
             home.Show();
         }
         static void HistorialCliente(object sender, EventArgs e)

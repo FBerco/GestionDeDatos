@@ -1,6 +1,6 @@
 ﻿namespace GDD.Generar_Publicación
 {
-    partial class Alta
+    partial class frmAlta
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@
             this.rbtnSubasta = new System.Windows.Forms.RadioButton();
             this.gbPublicacion = new System.Windows.Forms.GroupBox();
             this.gbEstado = new System.Windows.Forms.GroupBox();
-            this.rbtnPublicar = new System.Windows.Forms.RadioButton();
+            this.rbtnActiva = new System.Windows.Forms.RadioButton();
             this.rbtnBorrador = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
@@ -45,13 +45,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnConfirmar = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dgvRubro = new System.Windows.Forms.DataGridView();
-            this.dgvVisibilidad = new System.Windows.Forms.DataGridView();
+            this.cmbRubro = new System.Windows.Forms.ComboBox();
+            this.cmbVisibilidad = new System.Windows.Forms.ComboBox();
             this.gbPublicacion.SuspendLayout();
             this.gbEstado.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRubro)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidad)).BeginInit();
             this.SuspendLayout();
             // 
             // rbtnCompra
@@ -80,7 +77,7 @@
             // 
             this.gbPublicacion.Controls.Add(this.rbtnCompra);
             this.gbPublicacion.Controls.Add(this.rbtnSubasta);
-            this.gbPublicacion.Location = new System.Drawing.Point(29, 23);
+            this.gbPublicacion.Location = new System.Drawing.Point(15, 24);
             this.gbPublicacion.Name = "gbPublicacion";
             this.gbPublicacion.Size = new System.Drawing.Size(141, 77);
             this.gbPublicacion.TabIndex = 3;
@@ -89,25 +86,25 @@
             // 
             // gbEstado
             // 
-            this.gbEstado.Controls.Add(this.rbtnPublicar);
+            this.gbEstado.Controls.Add(this.rbtnActiva);
             this.gbEstado.Controls.Add(this.rbtnBorrador);
-            this.gbEstado.Location = new System.Drawing.Point(521, 176);
+            this.gbEstado.Location = new System.Drawing.Point(436, 120);
             this.gbEstado.Name = "gbEstado";
             this.gbEstado.Size = new System.Drawing.Size(113, 69);
             this.gbEstado.TabIndex = 4;
             this.gbEstado.TabStop = false;
             this.gbEstado.Text = "Estado Publicacion";
             // 
-            // rbtnPublicar
+            // rbtnActiva
             // 
-            this.rbtnPublicar.AutoSize = true;
-            this.rbtnPublicar.Location = new System.Drawing.Point(8, 42);
-            this.rbtnPublicar.Name = "rbtnPublicar";
-            this.rbtnPublicar.Size = new System.Drawing.Size(63, 17);
-            this.rbtnPublicar.TabIndex = 1;
-            this.rbtnPublicar.TabStop = true;
-            this.rbtnPublicar.Text = "Publicar";
-            this.rbtnPublicar.UseVisualStyleBackColor = true;
+            this.rbtnActiva.AutoSize = true;
+            this.rbtnActiva.Location = new System.Drawing.Point(8, 42);
+            this.rbtnActiva.Name = "rbtnActiva";
+            this.rbtnActiva.Size = new System.Drawing.Size(55, 17);
+            this.rbtnActiva.TabIndex = 1;
+            this.rbtnActiva.TabStop = true;
+            this.rbtnActiva.Text = "Activa";
+            this.rbtnActiva.UseVisualStyleBackColor = true;
             // 
             // rbtnBorrador
             // 
@@ -123,7 +120,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(185, 23);
+            this.label1.Location = new System.Drawing.Point(176, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 5;
@@ -131,16 +128,16 @@
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(254, 23);
+            this.txtDescripcion.Location = new System.Drawing.Point(179, 43);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(267, 77);
+            this.txtDescripcion.Size = new System.Drawing.Size(267, 58);
             this.txtDescripcion.TabIndex = 6;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(541, 69);
+            this.label2.Location = new System.Drawing.Point(458, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 7;
@@ -148,14 +145,14 @@
             // 
             // txtStock
             // 
-            this.txtStock.Location = new System.Drawing.Point(584, 63);
+            this.txtStock.Location = new System.Drawing.Point(499, 77);
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(50, 20);
             this.txtStock.TabIndex = 8;
             // 
             // dtpFecha
             // 
-            this.dtpFecha.Location = new System.Drawing.Point(157, 120);
+            this.dtpFecha.Location = new System.Drawing.Point(12, 141);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(221, 20);
             this.dtpFecha.TabIndex = 9;
@@ -163,7 +160,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 120);
+            this.label3.Location = new System.Drawing.Point(12, 125);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 13);
             this.label3.TabIndex = 10;
@@ -172,7 +169,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(541, 26);
+            this.label4.Location = new System.Drawing.Point(458, 43);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 11;
@@ -180,7 +177,7 @@
             // 
             // txtPrecio
             // 
-            this.txtPrecio.Location = new System.Drawing.Point(584, 26);
+            this.txtPrecio.Location = new System.Drawing.Point(499, 40);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(50, 20);
             this.txtPrecio.TabIndex = 12;
@@ -188,7 +185,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 176);
+            this.label5.Location = new System.Drawing.Point(12, 192);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 13);
             this.label5.TabIndex = 14;
@@ -197,7 +194,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(254, 177);
+            this.label6.Location = new System.Drawing.Point(158, 192);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 13);
             this.label6.TabIndex = 15;
@@ -205,7 +202,7 @@
             // 
             // btnConfirmar
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(397, 358);
+            this.btnConfirmar.Location = new System.Drawing.Point(71, 350);
             this.btnConfirmar.Name = "btnConfirmar";
             this.btnConfirmar.Size = new System.Drawing.Size(100, 44);
             this.btnConfirmar.TabIndex = 18;
@@ -213,41 +210,31 @@
             this.btnConfirmar.UseVisualStyleBackColor = true;
             this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
             // 
-            // label7
+            // cmbRubro
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(37, 405);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(402, 13);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "dependiendo si se quiere dar de alta o modificar una public, el text del boton ca" +
-    "mbia";
+            this.cmbRubro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRubro.FormattingEnabled = true;
+            this.cmbRubro.Location = new System.Drawing.Point(15, 218);
+            this.cmbRubro.Name = "cmbRubro";
+            this.cmbRubro.Size = new System.Drawing.Size(121, 21);
+            this.cmbRubro.TabIndex = 19;
             // 
-            // dgvRubro
+            // cmbVisibilidad
             // 
-            this.dgvRubro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRubro.Location = new System.Drawing.Point(46, 192);
-            this.dgvRubro.Name = "dgvRubro";
-            this.dgvRubro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRubro.Size = new System.Drawing.Size(240, 150);
-            this.dgvRubro.TabIndex = 20;
+            this.cmbVisibilidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVisibilidad.FormattingEnabled = true;
+            this.cmbVisibilidad.Location = new System.Drawing.Point(161, 218);
+            this.cmbVisibilidad.Name = "cmbVisibilidad";
+            this.cmbVisibilidad.Size = new System.Drawing.Size(121, 21);
+            this.cmbVisibilidad.TabIndex = 20;
             // 
-            // dgvVisibilidad
-            // 
-            this.dgvVisibilidad.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVisibilidad.Location = new System.Drawing.Point(336, 220);
-            this.dgvVisibilidad.Name = "dgvVisibilidad";
-            this.dgvVisibilidad.Size = new System.Drawing.Size(61, 49);
-            this.dgvVisibilidad.TabIndex = 21;
-            // 
-            // Alta
+            // frmAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(658, 489);
-            this.Controls.Add(this.dgvVisibilidad);
-            this.Controls.Add(this.dgvRubro);
-            this.Controls.Add(this.label7);
+            this.ClientSize = new System.Drawing.Size(569, 523);
+            this.Controls.Add(this.cmbVisibilidad);
+            this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.btnConfirmar);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -261,15 +248,14 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gbEstado);
             this.Controls.Add(this.gbPublicacion);
-            this.Name = "Alta";
+            this.Name = "frmAlta";
             this.Text = "Alta";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAlta_FormClosing);
             this.Load += new System.EventHandler(this.Alta_Load);
             this.gbPublicacion.ResumeLayout(false);
             this.gbPublicacion.PerformLayout();
             this.gbEstado.ResumeLayout(false);
             this.gbEstado.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRubro)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,7 +267,7 @@
         private System.Windows.Forms.RadioButton rbtnSubasta;
         private System.Windows.Forms.GroupBox gbPublicacion;
         private System.Windows.Forms.GroupBox gbEstado;
-        private System.Windows.Forms.RadioButton rbtnPublicar;
+        private System.Windows.Forms.RadioButton rbtnActiva;
         private System.Windows.Forms.RadioButton rbtnBorrador;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDescripcion;
@@ -294,8 +280,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnConfirmar;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridView dgvRubro;
-        private System.Windows.Forms.DataGridView dgvVisibilidad;
+        private System.Windows.Forms.ComboBox cmbRubro;
+        private System.Windows.Forms.ComboBox cmbVisibilidad;
     }
 }

@@ -13,13 +13,14 @@ namespace GDD.Generar_Publicación
 {
     public partial class frmHome : Form
     {
-        public frmHome()
+        Usuario usuario;
+        List<Publicacion> publicaciones;
+        public frmHome(Usuario us)
         {
             InitializeComponent();
+            usuario = us;
         }
-
-        Publicacion publicacionSeleccionada;
-
+                
         private void Home_Load(object sender, EventArgs e)
         {
             var estados = DBHelper.ExecuteReader("Estado_GetAll").ToEstados();
@@ -39,7 +40,7 @@ namespace GDD.Generar_Publicación
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
-            Form alta = new Generar_Publicación.Alta();
+            frmAlta alta = new frmAlta(usuario);
             alta.Show();
             this.Close();
         }
@@ -47,14 +48,17 @@ namespace GDD.Generar_Publicación
         private void btnModificar_Click(object sender, EventArgs e)
         {
             //hacer un if si hay public seleccionada 
-            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
-            int id = publicacionSeleccionada.Id;
-            Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@Id", id);
-            publicacionSeleccionada = DBHelper.ExecuteReader("Publicacion_GetById", parametros).ToPublicacion();
-            Form alta = new Generar_Publicación.Alta(publicacionSeleccionada);
-            alta.Show();
-            this.Close();
+            var publicacion = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
+            if (publicacion != null)
+            {
+                frmAlta alta = new frmAlta(usuario, publicacion);
+                alta.Show();
+                Hide();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione publicacion a modificar", "Error");
+            }
 
         }
 
@@ -66,39 +70,11 @@ namespace GDD.Generar_Publicación
             estado = DBHelper.ExecuteReader("Estado_GetById", parametros).ToEstado();
             int id = estado.Id;
             return id;   
-        }
+        }        
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void CargarGrilla(List<Publicacion> publics)
         {
-            Limpiar();
-        }
-
-        private void Limpiar()
-        {
-            txtDescripcion.Text = "";
-            cmbEstado.SelectedValue = false;
-            cmbEstado.Text = "";
-        }
-
-        private void btnPublicar_Click(object sender, EventArgs e)
-        { 
-            //publicar la publicacion seleccionada
-
-            publicacionSeleccionada = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
-            int id = publicacionSeleccionada.Id;
-            int idEstado = 1;
-            Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@Id", id);
-            parametros.Add("@EstadoId", idEstado);
-            DBHelper.ExecuteNonQuery("Publicacion_UpdateEstado", parametros);
-            MessageBox.Show("La publicacion ha sido publicada");
-            Limpiar();
-            //ActualizarGrilla();
-            parametros.Clear();
-        }
-
-        private void CargarGrilla(List<Publicacion> publicaciones)
-        {
+            publicaciones = publics;
             dgvPublicaciones.DataSource = publicaciones;
             dgvPublicaciones.Columns.Clear();
             dgvPublicaciones.AutoGenerateColumns = false;

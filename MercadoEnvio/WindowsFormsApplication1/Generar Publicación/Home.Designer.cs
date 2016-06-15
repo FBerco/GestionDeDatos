@@ -38,7 +38,6 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.gbFiltros = new System.Windows.Forms.GroupBox();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.gbFiltros.SuspendLayout();
@@ -124,9 +123,9 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(136, 98);
+            this.btnBuscar.Location = new System.Drawing.Point(9, 98);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 46);
+            this.btnBuscar.Size = new System.Drawing.Size(213, 46);
             this.btnBuscar.TabIndex = 18;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -138,7 +137,6 @@
             this.gbFiltros.Controls.Add(this.cmbEstado);
             this.gbFiltros.Controls.Add(this.btnBuscar);
             this.gbFiltros.Controls.Add(this.label1);
-            this.gbFiltros.Controls.Add(this.btnLimpiar);
             this.gbFiltros.Controls.Add(this.label2);
             this.gbFiltros.Location = new System.Drawing.Point(27, 24);
             this.gbFiltros.Name = "gbFiltros";
@@ -146,16 +144,6 @@
             this.gbFiltros.TabIndex = 19;
             this.gbFiltros.TabStop = false;
             this.gbFiltros.Text = "Filtros de busqueda";
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(29, 96);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 48);
-            this.btnLimpiar.TabIndex = 17;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // Id
             // 
@@ -195,7 +183,6 @@
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.GroupBox gbFiltros;
-        private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
     }
 }

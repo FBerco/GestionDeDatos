@@ -39,6 +39,7 @@
             this.btnGuardarCambios = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
+            this.chbTieneEnvio = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -85,7 +86,7 @@
             // 
             // txtComisionXEnvioProducto
             // 
-            this.txtComisionXEnvioProducto.Location = new System.Drawing.Point(243, 124);
+            this.txtComisionXEnvioProducto.Location = new System.Drawing.Point(242, 141);
             this.txtComisionXEnvioProducto.Name = "txtComisionXEnvioProducto";
             this.txtComisionXEnvioProducto.Size = new System.Drawing.Size(100, 20);
             this.txtComisionXEnvioProducto.TabIndex = 6;
@@ -93,7 +94,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 127);
+            this.label4.Location = new System.Drawing.Point(16, 144);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(160, 13);
             this.label4.TabIndex = 7;
@@ -138,11 +139,25 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // chbTieneEnvio
+            // 
+            this.chbTieneEnvio.AutoSize = true;
+            this.chbTieneEnvio.BackColor = System.Drawing.Color.Transparent;
+            this.chbTieneEnvio.Location = new System.Drawing.Point(254, 117);
+            this.chbTieneEnvio.Name = "chbTieneEnvio";
+            this.chbTieneEnvio.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chbTieneEnvio.Size = new System.Drawing.Size(89, 17);
+            this.chbTieneEnvio.TabIndex = 12;
+            this.chbTieneEnvio.Text = "?Tiene Envio";
+            this.chbTieneEnvio.UseVisualStyleBackColor = false;
+            this.chbTieneEnvio.CheckedChanged += new System.EventHandler(this.chbTieneEnvio_CheckedChanged);
+            // 
             // frmModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(398, 238);
+            this.Controls.Add(this.chbTieneEnvio);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnGuardarCambios);
@@ -175,5 +190,6 @@
         private System.Windows.Forms.Button btnGuardarCambios;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.CheckBox chbTieneEnvio;
     }
 }

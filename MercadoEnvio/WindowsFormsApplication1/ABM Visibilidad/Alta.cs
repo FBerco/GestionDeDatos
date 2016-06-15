@@ -32,7 +32,7 @@ namespace GDD.ABM_Visibilidad
   
         private void btnGuardarNuevaVisibilidad_Click(object sender, EventArgs e)
         {
-            if (true)//textBoxesValidos())
+            if (textBoxesValidos())
             {
                 Visibilidad nuevaVisibilidad = new Visibilidad();
                 nuevaVisibilidad.Detalle = txtNombreVisibilidad.Text;
@@ -43,7 +43,6 @@ namespace GDD.ABM_Visibilidad
                     nuevaVisibilidad.CostoEnvio = System.Int32.Parse(txtComisionEnvioProducto.Text);
                 }
                 else
-                    
                 {
                     nuevaVisibilidad.CostoEnvio = 0;
                 }
@@ -52,38 +51,52 @@ namespace GDD.ABM_Visibilidad
             }   else { MessageBox.Show("Ingrese campos validos."); }      
         }
 
-
+       
         #region validaciones
-        private Boolean textBoxesValidos()
+        private Boolean textBoxesValidos() 
+        {
+            if (nadaNulo()) { return nadaNegativo() && ingresadosTipoDeTextoCorrectamente(); }
+            else { return false; }
+        }
+        
+        private Boolean nadaNulo()
+        {
+            return  !String.IsNullOrEmpty(txtNombreVisibilidad.Text) &&
+                    !String.IsNullOrEmpty(txtComsionProductoVendido.Text) &&
+                    !String.IsNullOrEmpty(txtComisionTipoPublicacion.Text) &&
+                    siHayEnvioNoEsNulo();
+        }
+
+        private Boolean siHayEnvioNoEsNulo()
+        {
+            if (txtComisionEnvioProducto.Enabled) { return !String.IsNullOrEmpty(txtComisionEnvioProducto.Text); }
+        else {return true;}
+        }
+
+        private Boolean nadaNegativo()
         {
             return
-            nombreVisibilidadValido() &&
-            comisionXTipoPublicacionValida() &&
-            comisionXProductoVendidoValida() &&
-            comisionXEnvioProductoValida();
+            System.Int32.Parse(txtComsionProductoVendido.Text) > 0 &&
+            System.Int32.Parse(txtComisionTipoPublicacion.Text) > 0 &&
+            siHayEnvioNoEsNegativo();
         }
 
-        private Boolean nombreVisibilidadValido()
+        private Boolean siHayEnvioNoEsNegativo()
         {
-            return txtNombreVisibilidad.TextLength <= 20;
+            if (txtComisionEnvioProducto.Enabled) { return System.Int32.Parse(txtComisionEnvioProducto.Text) > 0 ; }
+            else { return true; }
         }
 
-        private Boolean comisionXTipoPublicacionValida()
-        {
-            return (0 <= System.Int32.Parse(txtComisionTipoPublicacion.Text)) &&
-            (System.Int32.Parse(txtComisionTipoPublicacion.Text) <= 100);
+        private Boolean ingresadosTipoDeTextoCorrectamente() {
+            return nombreVisibilidadValido() && comisionProductoVendididoValida() && comisionTipoPublicacionValida() && siHayEnvioEsValido();
         }
 
-        private Boolean comisionXProductoVendidoValida()
-        {
-            return (0 <= System.Int32.Parse(txtComsionProductoVendido.Text)) &&
-            (System.Int32.Parse(txtComsionProductoVendido.Text) <= 100);
-        }
-
-        private Boolean comisionXEnvioProductoValida()
-        {
-            return System.Int32.Parse(txtComisionEnvioProducto.Text) > 0;
-        }
+        private Boolean nombreVisibilidadValido() { return txtNombreVisibilidad.TextLength <= 20 && tieneSoloTexto(); }
+        private Boolean comisionProductoVendididoValida() { return tieneSoloNumeros(); }
+        private Boolean comisionTipoPublicacionValida() { return tieneSoloNumeros(); }
+        private Boolean siHayEnvioEsValido() { if (txtComisionEnvioProducto.Enabled) { return tieneSoloNumeros(); } else { return true; } }
+        private Boolean tieneSoloTexto() { return true; } //No se como se valida esto
+        private Boolean tieneSoloNumeros() { return true; } //No se como se valida esto
         #endregion
 
         private void guardarVisibilidad(Visibilidad unaVisibilidad)

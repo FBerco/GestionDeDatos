@@ -21,6 +21,7 @@ namespace Helpers
                     Password = (string)rdr["usua_password"]
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -51,6 +52,7 @@ namespace Helpers
                     Id = (int)rdr["clie_id"],
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -84,6 +86,7 @@ namespace Helpers
                     Id= (int)rdr["empr_id"],
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -107,6 +110,7 @@ namespace Helpers
                     VentaId = (int)rdr["cali_venta"],
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -127,6 +131,7 @@ namespace Helpers
                     Descripcion = (string)rdr["esta_detalle"],
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -149,6 +154,7 @@ namespace Helpers
                     PublicacionId = (int)rdr["fact_publicacion"],
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -171,6 +177,7 @@ namespace Helpers
                     PrecioUnitario = (int)rdr["item_precio_unitario"],
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -194,6 +201,7 @@ namespace Helpers
                     ClienteId = (int)rdr["ofer_cliente"],
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -223,6 +231,7 @@ namespace Helpers
                     VisibilidadId = (int)rdr["publ_visibilidad"]
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -244,6 +253,7 @@ namespace Helpers
                     Activo = Convert.ToBoolean((int)rdr["rol_activo"])
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -264,6 +274,7 @@ namespace Helpers
                     Descripcion = (string)rdr["func_descripcion"]
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -285,6 +296,7 @@ namespace Helpers
                     DescripcionLarga = (string)rdr["rubr_descripcion_larga"]
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -308,6 +320,7 @@ namespace Helpers
                     ClienteId = (int)rdr["vent_cliente"],
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion
@@ -331,6 +344,7 @@ namespace Helpers
                     PorcentajeProducto = (int)rdr["visi_porcentaje_prod"]
                 });
             }
+            DBHelper.DB.Close();
             return list;
         }
         #endregion

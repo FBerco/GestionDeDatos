@@ -10,7 +10,7 @@ namespace Helpers
     public static class DBHelper
     {
         //DB: DataBase
-        public static SqlConnection DB; //CAMBIE ESTO A PUBLIC
+        public static SqlConnection DB; 
         static DBHelper()
         {
             DB = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD1C2016;Integrated Security=True");
@@ -41,9 +41,7 @@ namespace Helpers
             {
                 command.Parameters.Add(new SqlParameter(parametro.Key, parametro.Value));
             }
-
             SqlDataReader result = command.ExecuteReader(); 
-            DB.Close(); //HABIA DEJADO COMENTADO ESTO
             return result;
         }
     }

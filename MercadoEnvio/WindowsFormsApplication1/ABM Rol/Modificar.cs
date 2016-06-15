@@ -31,7 +31,7 @@ namespace GDD.ABM_Rol
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (txtNombre.Text != ((Rol)cmbRoles.SelectedItem).Nombre.Trim())
+            if (txtNombre.Text != ((Rol)cmbRoles.SelectedItem).Nombre.Trim() && txtNombre.Text != string.Empty)
             {
                 var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@rol", txtNombre.Text } }).ToRol();
                 if (rol == null)

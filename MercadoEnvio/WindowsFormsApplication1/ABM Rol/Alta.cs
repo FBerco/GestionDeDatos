@@ -14,27 +14,19 @@ namespace GDD.ABM_Rol
         {
             InitializeComponent();
             funciones = DBHelper.ExecuteReader("Funciones_GetAll").ToFunciones();
-<<<<<<< HEAD
-            setList();
-=======
             foreach (var fun in funciones)
             {
                 //Chequeo aquellas que tiene seleccionada
                 lstFunciones.Items.Add(fun.Descripcion, CheckState.Unchecked);
             }
->>>>>>> origin/master
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
             var nombre = txtNombre.Text;
-<<<<<<< HEAD
-            var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@Nombre", nombre } }).ToRol();
-            if (rol != null)
-=======
+
             var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@rol", nombre } }).ToRol();
             if (rol == null)
->>>>>>> origin/master
             {
                 var funcionesSeleccionadas = lstFunciones.CheckedItems;
                 if (funcionesSeleccionadas.Count > 0)
@@ -54,11 +46,7 @@ namespace GDD.ABM_Rol
                     }
                     catch 
                     {
-<<<<<<< HEAD
-                        DBHelper.ExecuteNonQuery("RolXFuncion", new Dictionary<string, object>() { { "@Rol", rol.Id }, { "@Funcion", fun.Id } });
-=======
                         MessageBox.Show("Hubo un error en el alta", "Error");
->>>>>>> origin/master
                     }
                 }
                 else {
@@ -77,15 +65,5 @@ namespace GDD.ABM_Rol
             home.Show();
             Hide();
         }
-<<<<<<< HEAD
-
-        private void setList() {
-            foreach (var fun in funciones)
-            {
-                lstFunciones.Items.Add(fun);
-            }
-        }
-=======
->>>>>>> origin/master
     }
 }

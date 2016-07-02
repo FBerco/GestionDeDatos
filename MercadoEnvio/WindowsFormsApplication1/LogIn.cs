@@ -32,16 +32,21 @@ namespace GDD
                 if (usuario != null)
                 {
                     roles = DBHelper.ExecuteReader("UsuarioXRol_GetRolesByUser", new Dictionary<string, object>() { { "@Username", usuario.Username } }).ToRoles();
-                    if (roles.Count>1)
+                    if (roles.Count > 1)
                     {
                         cmbRoles.Visible = true;
                         cmbRoles.DataSource = roles;
                         cmbRoles.DisplayMember = "Nombre";
                         btnRol.Visible = true;
                     }
-                    Main main = new Main(usuario, roles.FirstOrDefault());
-                    main.Show();
-                    Hide();
+                    else if (roles.Count == 0) {
+                        MessageBox.Show("Este usuario no tiene roles asignados");
+                    } else
+                    {
+                        Main main = new Main(usuario, roles.FirstOrDefault());
+                        main.Show();
+                        Hide();
+                    }
                 }
                 else
                 {

@@ -44,9 +44,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtCodPostal = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtRubro = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.cmbRubro = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -177,13 +177,6 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "Código Postal";
             // 
-            // txtRubro
-            // 
-            this.txtRubro.Location = new System.Drawing.Point(163, 227);
-            this.txtRubro.Name = "txtRubro";
-            this.txtRubro.Size = new System.Drawing.Size(100, 20);
-            this.txtRubro.TabIndex = 17;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -201,14 +194,24 @@
             this.btnGuardar.TabIndex = 18;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // cmbRubro
+            // 
+            this.cmbRubro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRubro.FormattingEnabled = true;
+            this.cmbRubro.Location = new System.Drawing.Point(163, 230);
+            this.cmbRubro.Name = "cmbRubro";
+            this.cmbRubro.Size = new System.Drawing.Size(121, 21);
+            this.cmbRubro.TabIndex = 19;
             // 
             // frmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 351);
+            this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.txtRubro);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label5);
@@ -228,6 +231,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmEmpresa";
             this.Text = "DatosEmpresa";
+            this.Load += new System.EventHandler(this.frmEmpresa_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,8 +255,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtCodPostal;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtRubro;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.ComboBox cmbRubro;
     }
 }

@@ -33,9 +33,10 @@
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.rdbEmpresa = new System.Windows.Forms.RadioButton();
             this.rdbCliente = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -55,6 +56,7 @@
             this.btnSeguir.TabIndex = 1;
             this.btnSeguir.Text = "Seguir";
             this.btnSeguir.UseVisualStyleBackColor = true;
+            this.btnSeguir.Click += new System.EventHandler(this.btnSeguir_Click);
             // 
             // txtUsername
             // 
@@ -79,19 +81,10 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Password";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(23, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Rol";
-            // 
             // rdbEmpresa
             // 
             this.rdbEmpresa.AutoSize = true;
-            this.rdbEmpresa.Location = new System.Drawing.Point(101, 86);
+            this.rdbEmpresa.Location = new System.Drawing.Point(34, 21);
             this.rdbEmpresa.Name = "rdbEmpresa";
             this.rdbEmpresa.Size = new System.Drawing.Size(66, 17);
             this.rdbEmpresa.TabIndex = 6;
@@ -102,7 +95,7 @@
             // rdbCliente
             // 
             this.rdbCliente.AutoSize = true;
-            this.rdbCliente.Location = new System.Drawing.Point(101, 109);
+            this.rdbCliente.Location = new System.Drawing.Point(34, 44);
             this.rdbCliente.Name = "rdbCliente";
             this.rdbCliente.Size = new System.Drawing.Size(57, 17);
             this.rdbCliente.TabIndex = 7;
@@ -110,14 +103,23 @@
             this.rdbCliente.Text = "Cliente";
             this.rdbCliente.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rdbEmpresa);
+            this.groupBox1.Controls.Add(this.rdbCliente);
+            this.groupBox1.Location = new System.Drawing.Point(29, 80);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(122, 77);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Rol";
+            // 
             // frmAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.rdbCliente);
-            this.Controls.Add(this.rdbEmpresa);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(265, 258);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtUsername);
@@ -126,6 +128,8 @@
             this.Name = "frmAlta";
             this.Text = "Alta";
             this.Load += new System.EventHandler(this.Alta_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,8 +142,8 @@
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton rdbEmpresa;
         private System.Windows.Forms.RadioButton rdbCliente;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

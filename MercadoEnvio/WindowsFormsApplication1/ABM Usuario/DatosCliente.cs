@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace GDD.ABM_Usuario
 {
     public partial class frmCliente : Form
     {
-        public frmCliente()
+        private Usuario usuario;
+        public frmCliente(Usuario us)
         {
             InitializeComponent();
+            usuario = us;
         }
     }
 }

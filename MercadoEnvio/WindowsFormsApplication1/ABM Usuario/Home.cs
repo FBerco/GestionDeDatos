@@ -19,7 +19,8 @@ namespace GDD.ABM_Usuario
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
-
+            frmAlta alta = new frmAlta();
+            alta.Show();
         }
 
     }

@@ -15,12 +15,30 @@ namespace GDD.ABM_Usuario
     public partial class frmEmpresa : Form
     {
         private Usuario usuario;
+        private Empresa empresa;
         
+        //Cuando vengo del alta
         public frmEmpresa(Usuario us)
         {
             InitializeComponent();
             usuario = us;
         }
+
+        //Cuando vengo del modificar
+        public frmEmpresa(Empresa emp)
+        {
+            InitializeComponent();
+            empresa = emp;
+            txtCiudad.Text = emp.Ciudad;
+            txtCodPostal.Text = emp.CodigoPostal.ToString();
+            txtCuit.Text = emp.Cuit;
+            txtDireccion.Text = emp.Direccion;
+            txtMail.Text = emp.Mail;
+            txtNombre.Text = emp.NombreContacto;
+            txtRazonSocial.Text = emp.RazonSocial.ToString();
+            txtTelefono.Text = emp.Telefono;
+        }
+
         private void frmEmpresa_Load(object sender, EventArgs e)
         {
             cmbRubro.DataSource = DBHelper.ExecuteReader("Rubro_GetAll").ToRubros(); 
@@ -31,7 +49,28 @@ namespace GDD.ABM_Usuario
         {
             if (DatosCompletados())
             {
-                var emp = new Dictionary<string, object>() {
+                if (usuario != null)
+                {
+                    Alta();
+                }
+                else
+                {
+                    Modificar();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Complete los campos correctamente");
+            }
+        }
+
+        private void Modificar()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Alta() {
+            var emp = new Dictionary<string, object>() {
                     { "@Username", usuario.Username },
                     { "@RazonSocial", txtRazonSocial.Text },
                     { "@Mail" , txtMail.Text },
@@ -43,15 +82,10 @@ namespace GDD.ABM_Usuario
                     { "@NombreContacto" , txtNombre.Text},
                     { "@RubroId" ,  ((Rubro)cmbRubro.SelectedItem).Id}
                 };
-                DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
-                DBHelper.ExecuteNonQuery("Empresa_Add", emp);
-                MessageBox.Show("Ingresado con exitos");
-                Hide();
-            }
-            else
-            {
-                MessageBox.Show("Complete los campos correctamente");
-            }
+            DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
+            DBHelper.ExecuteNonQuery("Empresa_Add", emp);
+            MessageBox.Show("Ingresado con exitos");
+            Hide();
         }
 
         private bool DatosCompletados() {

@@ -31,7 +31,7 @@ namespace GDD.ABM_Rol
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (txtNombre.Text != ((Rol)cmbRoles.SelectedItem).Nombre.Trim() && txtNombre.Text != string.Empty)
+            if (txtNombre.Text != string.Empty)
             {
                 var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@rol", txtNombre.Text } }).ToRol();
                 if (rol == null)
@@ -39,7 +39,10 @@ namespace GDD.ABM_Rol
                     try
                     {                   
                         var rolAsignado = (Rol)cmbRoles.SelectedItem;
-                        DBHelper.ExecuteNonQuery("Rol_ModifyName", new Dictionary<string, object>() { { "@nombre", txtNombre.Text }, { "@id", rolAsignado.Id } });
+                        if (txtNombre.Text != rolAsignado.Nombre.Trim())
+                        {
+                            DBHelper.ExecuteNonQuery("Rol_ModifyName", new Dictionary<string, object>() { { "@nombre", txtNombre.Text }, { "@id", rolAsignado.Id } });
+                        }
 
                         foreach (var item in lstFunciones.Items)
                         {
@@ -77,7 +80,7 @@ namespace GDD.ABM_Rol
             }
             else
             {
-                MessageBox.Show("Debe cambiar el nombre del rol");
+                MessageBox.Show("No puede quedar vacío el nombre del rol");
             }
 
         }

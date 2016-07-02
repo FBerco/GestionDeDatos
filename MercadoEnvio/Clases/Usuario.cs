@@ -17,7 +17,7 @@ namespace Clases
         public string Direccion { get; set; }
         public int CodigoPostal { get; set; }
         public string Ciudad { get; set; }
-        public int Cuit { get; set; }
+        public string Cuit { get; set; }
         public string NombreContacto { get; set; }
         public int ReputacionTotal { get; set; }
         public int ReputacionCantVotos { get; set; }

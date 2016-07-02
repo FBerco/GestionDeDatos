@@ -78,7 +78,7 @@ namespace Helpers
                     Direccion = (string)rdr["empr_direccion"],
                     CodigoPostal = (int)rdr["empr_codigoPostal"],
                     Ciudad = (string)rdr["empr_ciudad"],
-                    Cuit = (int)rdr["empr_cuit"],
+                    Cuit = (string)rdr["empr_cuit"],
                     NombreContacto = (string)rdr["empr_nombre_contacto"],
                     ReputacionTotal = (int)rdr["empr_reputacion_total"],
                     ReputacionCantVotos = (int)rdr["empr_reputacion_cantidad_votos"],

@@ -90,14 +90,14 @@ namespace GDD.ABM_Usuario
 
         private bool DatosCompletados() {
             int result;
-            return txtRazonSocial != null && int.TryParse(txtRazonSocial.Text, out result) &&
-                txtMail != null &&
-                txtTelefono != null && 
-                txtDireccion != null &&
-                txtCodPostal != null && int.TryParse(txtCodPostal.Text, out result) &&
-                txtCiudad != null &&
-                txtCuit != null &&
-                txtNombre != null &&
+            return txtRazonSocial.Text != null && int.TryParse(txtRazonSocial.Text, out result) &&
+                txtMail.Text != null &&
+                txtTelefono.Text != null && 
+                txtDireccion.Text != null &&
+                txtCodPostal.Text != null && int.TryParse(txtCodPostal.Text, out result) &&
+                txtCiudad.Text != null &&
+                txtCuit.Text != null &&
+                txtNombre.Text != null &&
                 cmbRubro.SelectedItem != null;
         }        
     }

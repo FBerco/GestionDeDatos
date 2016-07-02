@@ -19,6 +19,8 @@ namespace GDD
         
         private void Main_Load(object sender, EventArgs e)
         {
+            var funciones = DBHelper.ExecuteReader("RolXFuncion_GetFunByRol", new Dictionary<string, object>() { { "@rol", rol.Id } }).ToFunciones();
+
             var botones = new List<Control>();
             //Obtengo los botones de la vista
             foreach (Control control in Controls)
@@ -29,7 +31,6 @@ namespace GDD
                 }
             }
             botones.Reverse();
-            var funciones = DBHelper.ExecuteReader("RolXFuncion_GetFunByRol", new Dictionary<string, object>() { { "@rol",  rol.Id} }).ToFunciones();
             int i = 0;
             foreach (Funcion fun in funciones)
             {
@@ -64,7 +65,7 @@ namespace GDD
         }
         static void ABMUsuario(object sender, EventArgs e)
         {
-            var home = new ABM_Rubro.frmHome();
+            var home = new ABM_Usuario.frmHome();
             home.Show();
         }
         static void ABMVisibilidad(object sender, EventArgs e)

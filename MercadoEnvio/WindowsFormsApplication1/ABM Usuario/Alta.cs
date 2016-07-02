@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.ABM_Usuario
 {
-    public partial class Alta : Form
+    public partial class frmAlta : Form
     {
-        public Alta()
+        public frmAlta()
         {
             InitializeComponent();
         }

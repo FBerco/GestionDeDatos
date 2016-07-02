@@ -1,6 +1,6 @@
 ﻿namespace GDD.ABM_Usuario
 {
-    partial class DatosCliente
+    partial class frmCliente
     {
         /// <summary>
         /// Required designer variable.
@@ -202,7 +202,7 @@
             this.s.Text = "Dar de alta";
             this.s.UseVisualStyleBackColor = true;
             // 
-            // DatosCliente
+            // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -226,7 +226,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label1);
-            this.Name = "DatosCliente";
+            this.Name = "frmCliente";
             this.Text = "DatosCliente";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,6 +1,6 @@
 ﻿namespace GDD.ABM_Usuario
 {
-    partial class Alta
+    partial class frmAlta
     {
         /// <summary>
         /// Required designer variable.
@@ -110,7 +110,7 @@
             this.rdbCliente.Text = "Cliente";
             this.rdbCliente.UseVisualStyleBackColor = true;
             // 
-            // Alta
+            // frmAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -123,7 +123,7 @@
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.btnSeguir);
             this.Controls.Add(this.label1);
-            this.Name = "Alta";
+            this.Name = "frmAlta";
             this.Text = "Alta";
             this.Load += new System.EventHandler(this.Alta_Load);
             this.ResumeLayout(false);

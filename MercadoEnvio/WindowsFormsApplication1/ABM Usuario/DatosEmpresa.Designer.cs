@@ -1,6 +1,6 @@
 ﻿namespace GDD.ABM_Usuario
 {
-    partial class DatosEmpresa
+    partial class frmEmpresa
     {
         /// <summary>
         /// Required designer variable.
@@ -202,7 +202,7 @@
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             // 
-            // DatosEmpresa
+            // frmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -226,7 +226,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtRazonSocial);
             this.Controls.Add(this.label1);
-            this.Name = "DatosEmpresa";
+            this.Name = "frmEmpresa";
             this.Text = "DatosEmpresa";
             this.ResumeLayout(false);
             this.PerformLayout();

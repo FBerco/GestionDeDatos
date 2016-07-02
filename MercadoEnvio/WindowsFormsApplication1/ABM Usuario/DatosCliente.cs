@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GDD.ABM_Usuario
 {
-    public partial class DatosCliente : Form
+    public partial class frmCliente : Form
     {
-        public DatosCliente()
+        public frmCliente()
         {
             InitializeComponent();
         }

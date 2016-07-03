@@ -49,28 +49,7 @@ namespace GDD.ABM_Usuario
         {
             if (DatosCompletados())
             {
-                if (usuario != null)
-                {
-                    Alta();
-                }
-                else
-                {
-                    Modificar();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Complete los campos correctamente");
-            }
-        }
-
-        private void Modificar()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Alta() {
-            var emp = new Dictionary<string, object>() {
+                var emp = new Dictionary<string, object>() {
                     { "@Username", usuario.Username },
                     { "@RazonSocial", txtRazonSocial.Text },
                     { "@Mail" , txtMail.Text },
@@ -82,6 +61,28 @@ namespace GDD.ABM_Usuario
                     { "@NombreContacto" , txtNombre.Text},
                     { "@RubroId" ,  ((Rubro)cmbRubro.SelectedItem).Id}
                 };
+                if (usuario != null)
+                {
+                    Alta(emp);
+                }
+                else
+                {
+                    Modificar(emp);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Complete los campos correctamente");
+            }
+        }
+
+        private void Modificar(Dictionary<string, object> emp)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Alta(Dictionary<string, object> emp) {
+          
             DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
             DBHelper.ExecuteNonQuery("Empresa_Add", emp);
             MessageBox.Show("Ingresado con exitos");

@@ -37,13 +37,26 @@ namespace GDD.ABM_Usuario
         {
             if (DatosCompletados())
             {
+                var cli = new Dictionary<string, object>()
+                {
+                    { "@Username", usuario.Username },
+                    { "@Nombre", txtNombre.Text },
+                    { "@Apellido", txtApellido.Text },
+                    { "@Dni", Convert.ToInt32(txtDni.Text)  },
+                    { "@TipoDoc",  txtTipoDoc.Text },
+                    { "@Mail",  txtMail.Text  },
+                    { "@Telefono", txtTelefono.Text  },
+                    { "@Direccion",txtDireccion.Text  },
+                    { "@CodPostal", txtCodPostal.Text },
+                    { "@Fecha", dtpFecha.Text},
+                };
                 if (usuario != null)
                 {
-                    Alta();
+                    Alta(cli);
                 }
                 else
                 {
-                    Modificar();
+                    Modificar(cli);
                 }
             }
             else
@@ -52,26 +65,13 @@ namespace GDD.ABM_Usuario
             }
         }
 
-        private void Modificar()
+        private void Modificar(Dictionary<string, object> cli)
         {
             throw new NotImplementedException();
         }
 
-        private void Alta()
-        {
-            var cli = new Dictionary<string, object>()
-            {
-                { "@Username", usuario.Username },
-                { "@Nombre", txtNombre.Text },
-                { "@Apellido", txtApellido.Text },
-                { "@Dni", Convert.ToInt32(txtDni.Text)  },
-                { "@TipoDoc",  txtTipoDoc.Text },
-                { "@Mail",  txtMail.Text  },
-                { "@Telefono", txtTelefono.Text  },
-                { "@Direccion",txtDireccion.Text  },
-                { "@CodPostal", txtCodPostal.Text },                
-                { "@Fecha", dtpFecha.Text},
-            };
+        private void Alta(Dictionary<string, object> cli)
+        {            
             DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
             DBHelper.ExecuteNonQuery("Cliente_Add", cli);
             MessageBox.Show("Ingresado con exitos");

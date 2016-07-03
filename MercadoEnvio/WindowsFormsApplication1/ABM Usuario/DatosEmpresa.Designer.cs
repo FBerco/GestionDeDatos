@@ -48,6 +48,8 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.cmbRubro = new System.Windows.Forms.ComboBox();
             this.btnContraseña = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.ckbEstado = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -189,7 +191,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(49, 289);
+            this.btnGuardar.Location = new System.Drawing.Point(49, 302);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 18;
@@ -208,7 +210,7 @@
             // 
             // btnContraseña
             // 
-            this.btnContraseña.Location = new System.Drawing.Point(176, 289);
+            this.btnContraseña.Location = new System.Drawing.Point(176, 302);
             this.btnContraseña.Name = "btnContraseña";
             this.btnContraseña.Size = new System.Drawing.Size(121, 23);
             this.btnContraseña.TabIndex = 20;
@@ -217,11 +219,32 @@
             this.btnContraseña.Visible = false;
             this.btnContraseña.Click += new System.EventHandler(this.btnContraseña_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(46, 258);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(40, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Estado";
+            // 
+            // ckbEstado
+            // 
+            this.ckbEstado.AutoSize = true;
+            this.ckbEstado.Location = new System.Drawing.Point(163, 258);
+            this.ckbEstado.Name = "ckbEstado";
+            this.ckbEstado.Size = new System.Drawing.Size(56, 17);
+            this.ckbEstado.TabIndex = 22;
+            this.ckbEstado.Text = "Activo";
+            this.ckbEstado.UseVisualStyleBackColor = true;
+            // 
             // frmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 351);
+            this.Controls.Add(this.ckbEstado);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.btnContraseña);
             this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.btnGuardar);
@@ -272,5 +295,7 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cmbRubro;
         private System.Windows.Forms.Button btnContraseña;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox ckbEstado;
     }
 }

@@ -25,6 +25,7 @@ namespace GDD.ABM_Usuario
         {
             InitializeComponent();
             cliente = cl;
+            ckbEstado.Checked = cl.Activo;
         }
 
         private void frmCliente_Load(object sender, EventArgs e)
@@ -68,6 +69,14 @@ namespace GDD.ABM_Usuario
         private void Modificar(Dictionary<string, object> cli)
         {
             DBHelper.ExecuteNonQuery("Cliente_Modify", cli);
+            if (ckbEstado.Checked != cliente.Activo)
+            {
+                DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", cliente.Username } });
+            }
+            else
+            {
+                DBHelper.ExecuteNonQuery("Usuario_Desactivo", new Dictionary<string, object>() { { "@Username", cliente.Username } });
+            }
             MessageBox.Show("Modificado con exito");
             Hide();
         }

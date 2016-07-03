@@ -38,6 +38,7 @@ namespace GDD.ABM_Usuario
             txtRazonSocial.Text = emp.RazonSocial.ToString();
             txtTelefono.Text = emp.Telefono;
             btnContraseña.Visible = true;
+            ckbEstado.Checked = emp.Activo;
         }
 
         private void frmEmpresa_Load(object sender, EventArgs e)
@@ -80,6 +81,14 @@ namespace GDD.ABM_Usuario
         private void Modificar(Dictionary<string, object> emp)
         {
             DBHelper.ExecuteNonQuery("Empresa_Modify", emp);
+            if (ckbEstado.Checked != empresa.Activo)
+            {
+                DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", empresa.Username } });
+            }
+            else
+            {
+                DBHelper.ExecuteNonQuery("Usuario_Desactivo", new Dictionary<string, object>() { { "@Username", empresa.Username } });
+            }
             MessageBox.Show("Modificado con exito");
             Hide();
         }
@@ -109,6 +118,6 @@ namespace GDD.ABM_Usuario
         {
             frmContraseña con = new frmContraseña(usuario);
             Show();
-        }
+        }       
     }
 }

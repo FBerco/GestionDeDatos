@@ -11,7 +11,7 @@ namespace Clases
     public class Empresa : Usuario
     {
         public int Id { get; set; }
-        public string RazonSocial { get; set; }
+        public int RazonSocial { get; set; }
         public string Mail { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }

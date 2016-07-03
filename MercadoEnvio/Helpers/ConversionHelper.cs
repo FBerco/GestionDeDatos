@@ -72,7 +72,7 @@ namespace Helpers
                     //Username = (string)rdr["usua_username"],
                     //Activo = (bool)rdr["usua_activo"],
                     //Password = (string)rdr["usua_password"],
-                    RazonSocial = (string)rdr["empr_razon_social"],
+                    RazonSocial = (int)rdr["empr_razon_social"],
                     Mail = (string)rdr["empr_mail"],
                     Telefono = (string)rdr["empr_telefono"],
                     Direccion = (string)rdr["empr_direccion"],

@@ -51,7 +51,6 @@ namespace GDD.ABM_Usuario
             {
                 var cli = new Dictionary<string, object>()
                 {
-                    { "@Username", usuario.Username },
                     { "@Nombre", txtNombre.Text },
                     { "@Apellido", txtApellido.Text },
                     { "@Dni", Convert.ToInt32(txtDni.Text)  },
@@ -79,6 +78,7 @@ namespace GDD.ABM_Usuario
 
         private void Modificar(Dictionary<string, object> cli)
         {
+            cli.Add("@Username", cliente.Username);
             DBHelper.ExecuteNonQuery("Cliente_Modify", cli);
             if (ckbEstado.Checked != cliente.Activo)
             {
@@ -93,7 +93,8 @@ namespace GDD.ABM_Usuario
         }
 
         private void Alta(Dictionary<string, object> cli)
-        {            
+        {
+            cli.Add("@Username", usuario.Username);
             DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
             DBHelper.ExecuteNonQuery("Cliente_Add", cli);
             MessageBox.Show("Ingresado con exitos");

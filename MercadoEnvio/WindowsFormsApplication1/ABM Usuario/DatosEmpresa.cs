@@ -53,7 +53,6 @@ namespace GDD.ABM_Usuario
             if (DatosCompletados())
             {
                 var emp = new Dictionary<string, object>() {
-                    { "@Username", usuario.Username },
                     { "@RazonSocial", txtRazonSocial.Text },
                     { "@Mail" , txtMail.Text },
                     { "@Telefono" ,  txtTelefono.Text},
@@ -81,6 +80,7 @@ namespace GDD.ABM_Usuario
 
         private void Modificar(Dictionary<string, object> emp)
         {
+            emp.Add("@Username", empresa.Username);
             DBHelper.ExecuteNonQuery("Empresa_Modify", emp);
             if (ckbEstado.Checked != empresa.Activo)
             {
@@ -95,7 +95,8 @@ namespace GDD.ABM_Usuario
         }
 
         private void Alta(Dictionary<string, object> emp) {
-          
+
+            emp.Add("@Username", usuario.Username);
             DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
             DBHelper.ExecuteNonQuery("Empresa_Add", emp);
             MessageBox.Show("Ingresado con exitos");

@@ -38,9 +38,7 @@ namespace Helpers
             {
                 list.Add(new Cliente()
                 {
-                    //Username = (string)rdr["usua_username"],
-                    //Activo = (bool)rdr["usua_activo"],
-                    //Password = (string)rdr["usua_password"],
+                    Username = (string)rdr["clie_usuario"],
                     Nombre = (string)rdr["clie_nombre"],
                     Apellido = (string)rdr["clie_apellido"],
                     Dni = (int)rdr["clie_dni"],
@@ -69,9 +67,7 @@ namespace Helpers
             {
                 list.Add(new Empresa()
                 {
-                    //Username = (string)rdr["usua_username"],
-                    //Activo = (bool)rdr["usua_activo"],
-                    //Password = (string)rdr["usua_password"],
+                    Username = (string)rdr["empr_usuario"],
                     RazonSocial = (int)rdr["empr_razon_social"],
                     Mail = (string)rdr["empr_mail"],
                     Telefono = (string)rdr["empr_telefono"],

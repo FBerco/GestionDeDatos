@@ -126,5 +126,27 @@ namespace GDD.ABM_Usuario
                 empresa.Show();
             }
         }
+
+        private void btnCliente_Click(object sender, EventArgs e)
+        {
+            var parametros = new Dictionary<string, object>() {
+                { "@nombre", txtNombre.Text},
+                { "@apellido", txtApellido.Text},
+                { "@dni", txtDni.Text},
+                { "@mail", txtMailCliente.Text}
+            };
+        }
+
+        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+                e.Handled = true;
+        }        
+
+        private void txtRazonSocial_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+                e.Handled = true;
+        }
     }
 }

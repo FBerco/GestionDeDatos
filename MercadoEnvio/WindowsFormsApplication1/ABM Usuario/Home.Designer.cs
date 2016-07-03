@@ -47,7 +47,7 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnContraseña = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCuit = new System.Windows.Forms.TextBox();
             this.btnCliente = new System.Windows.Forms.Button();
             this.btnEmpresa = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -70,7 +70,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnEmpresa);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.txtCuit);
             this.groupBox2.Controls.Add(this.dgvEmpresa);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
@@ -133,6 +133,7 @@
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(100, 20);
             this.txtRazonSocial.TabIndex = 0;
+            this.txtRazonSocial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRazonSocial_KeyPress);
             // 
             // groupBox1
             // 
@@ -184,6 +185,7 @@
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(100, 20);
             this.txtDni.TabIndex = 5;
+            this.txtDni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDni_KeyPress);
             // 
             // label3
             // 
@@ -237,13 +239,13 @@
             this.btnContraseña.Visible = false;
             this.btnContraseña.Click += new System.EventHandler(this.btnContraseña_Click);
             // 
-            // textBox1
+            // txtCuit
             // 
-            this.textBox1.Location = new System.Drawing.Point(82, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 13;
-            // 
+            this.txtCuit.Location = new System.Drawing.Point(82, 40);
+            this.txtCuit.Name = "txtCuit";
+            this.txtCuit.Size = new System.Drawing.Size(100, 20);
+            this.txtCuit.TabIndex = 13;
+
             // btnCliente
             // 
             this.btnCliente.Location = new System.Drawing.Point(355, 17);
@@ -252,6 +254,7 @@
             this.btnCliente.TabIndex = 12;
             this.btnCliente.Text = "Filtrar clientes";
             this.btnCliente.UseVisualStyleBackColor = true;
+            this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
             // 
             // btnEmpresa
             // 
@@ -316,7 +319,7 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnContraseña;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCuit;
         private System.Windows.Forms.Button btnEmpresa;
         private System.Windows.Forms.Button btnCliente;
         private System.Windows.Forms.Label label5;

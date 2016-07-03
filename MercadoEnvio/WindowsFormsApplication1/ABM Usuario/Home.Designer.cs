@@ -30,6 +30,8 @@
         {
             this.btnAlta = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnEmpresa = new System.Windows.Forms.Button();
+            this.txtCuit = new System.Windows.Forms.TextBox();
             this.dgvEmpresa = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -37,6 +39,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnCliente = new System.Windows.Forms.Button();
             this.dgvCliente = new System.Windows.Forms.DataGridView();
             this.txtMailCliente = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,9 +50,6 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnContraseña = new System.Windows.Forms.Button();
-            this.txtCuit = new System.Windows.Forms.TextBox();
-            this.btnCliente = new System.Windows.Forms.Button();
-            this.btnEmpresa = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpresa)).BeginInit();
@@ -83,6 +83,23 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Empresa";
+            // 
+            // btnEmpresa
+            // 
+            this.btnEmpresa.Location = new System.Drawing.Point(343, 17);
+            this.btnEmpresa.Name = "btnEmpresa";
+            this.btnEmpresa.Size = new System.Drawing.Size(98, 23);
+            this.btnEmpresa.TabIndex = 13;
+            this.btnEmpresa.Text = "Filtrar empresas";
+            this.btnEmpresa.UseVisualStyleBackColor = true;
+            this.btnEmpresa.Click += new System.EventHandler(this.btnEmpresa_Click);
+            // 
+            // txtCuit
+            // 
+            this.txtCuit.Location = new System.Drawing.Point(82, 40);
+            this.txtCuit.Name = "txtCuit";
+            this.txtCuit.Size = new System.Drawing.Size(100, 20);
+            this.txtCuit.TabIndex = 13;
             // 
             // dgvEmpresa
             // 
@@ -153,6 +170,16 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
+            // 
+            // btnCliente
+            // 
+            this.btnCliente.Location = new System.Drawing.Point(355, 17);
+            this.btnCliente.Name = "btnCliente";
+            this.btnCliente.Size = new System.Drawing.Size(98, 23);
+            this.btnCliente.TabIndex = 12;
+            this.btnCliente.Text = "Filtrar clientes";
+            this.btnCliente.UseVisualStyleBackColor = true;
+            this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
             // 
             // dgvCliente
             // 
@@ -238,32 +265,6 @@
             this.btnContraseña.UseVisualStyleBackColor = true;
             this.btnContraseña.Visible = false;
             this.btnContraseña.Click += new System.EventHandler(this.btnContraseña_Click);
-            // 
-            // txtCuit
-            // 
-            this.txtCuit.Location = new System.Drawing.Point(82, 40);
-            this.txtCuit.Name = "txtCuit";
-            this.txtCuit.Size = new System.Drawing.Size(100, 20);
-            this.txtCuit.TabIndex = 13;
-
-            // btnCliente
-            // 
-            this.btnCliente.Location = new System.Drawing.Point(355, 17);
-            this.btnCliente.Name = "btnCliente";
-            this.btnCliente.Size = new System.Drawing.Size(98, 23);
-            this.btnCliente.TabIndex = 12;
-            this.btnCliente.Text = "Filtrar clientes";
-            this.btnCliente.UseVisualStyleBackColor = true;
-            this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
-            // 
-            // btnEmpresa
-            // 
-            this.btnEmpresa.Location = new System.Drawing.Point(343, 17);
-            this.btnEmpresa.Name = "btnEmpresa";
-            this.btnEmpresa.Size = new System.Drawing.Size(98, 23);
-            this.btnEmpresa.TabIndex = 13;
-            this.btnEmpresa.Text = "Filtrar empresas";
-            this.btnEmpresa.UseVisualStyleBackColor = true;
             // 
             // label5
             // 

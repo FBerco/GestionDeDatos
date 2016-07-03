@@ -106,6 +106,55 @@ namespace GDD.ABM_Usuario
             frmContraseña con = new frmContraseña(usuario);
             Show();
         }
+        
+        private void btnCliente_Click(object sender, EventArgs e)
+        {
+            List<Cliente> clientesFiltrados = null;
+            if (string.IsNullOrEmpty(txtDni.Text))
+            {
+                var parametros = new Dictionary<string, object>() {
+                    { "@nombre", txtNombre.Text},
+                    { "@apellido", txtApellido.Text},
+                    { "@mail", txtMailCliente.Text}
+                };
+                clientesFiltrados = DBHelper.ExecuteReader("Cliente_GetByFilters", parametros).ToClientes();
+            }
+            else
+            {
+                clientesFiltrados = DBHelper.ExecuteReader("Cliente_GetByDni", new Dictionary<string, object> { { "@dni", txtDni.Text} }).ToClientes();
+            }
+            LoadClientes(clientesFiltrados);
+        }
+
+        private void btnEmpresa_Click(object sender, EventArgs e)
+        {
+            List<Empresa> empresasFiltradas = null;
+            if (string.IsNullOrEmpty(txtCuit.Text))
+            {
+                var parametros = new Dictionary<string, object>() {
+                    { "@razonSocial", txtRazonSocial.Text},
+                    { "@mail", txtMailEmpresa.Text}
+                };
+                empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByFilters", parametros).ToEmpresas();
+            }
+            else
+            {
+                empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByCuit", new Dictionary<string, object> { { "@cuit", txtCuit.Text} }).ToEmpresas();
+            }
+            LoadEmpresas(empresasFiltradas);
+        }
+
+        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+                e.Handled = true;
+        }        
+
+        private void txtRazonSocial_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+                e.Handled = true;
+        }
 
         private void dgvCliente_DoubleClick(object sender, EventArgs e)
         {
@@ -125,28 +174,6 @@ namespace GDD.ABM_Usuario
                 frmEmpresa empresa = new frmEmpresa(emp);
                 empresa.Show();
             }
-        }
-
-        private void btnCliente_Click(object sender, EventArgs e)
-        {
-            var parametros = new Dictionary<string, object>() {
-                { "@nombre", txtNombre.Text},
-                { "@apellido", txtApellido.Text},
-                { "@dni", txtDni.Text},
-                { "@mail", txtMailCliente.Text}
-            };
-        }
-
-        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
-                e.Handled = true;
-        }        
-
-        private void txtRazonSocial_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
-                e.Handled = true;
         }
     }
 }

@@ -47,6 +47,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.cmbRubro = new System.Windows.Forms.ComboBox();
+            this.btnContraseña = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -188,7 +189,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(117, 289);
+            this.btnGuardar.Location = new System.Drawing.Point(49, 289);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 18;
@@ -205,11 +206,23 @@
             this.cmbRubro.Size = new System.Drawing.Size(121, 21);
             this.cmbRubro.TabIndex = 19;
             // 
+            // btnContraseña
+            // 
+            this.btnContraseña.Location = new System.Drawing.Point(176, 289);
+            this.btnContraseña.Name = "btnContraseña";
+            this.btnContraseña.Size = new System.Drawing.Size(121, 23);
+            this.btnContraseña.TabIndex = 20;
+            this.btnContraseña.Text = "Cambiar contraseña";
+            this.btnContraseña.UseVisualStyleBackColor = true;
+            this.btnContraseña.Visible = false;
+            this.btnContraseña.Click += new System.EventHandler(this.btnContraseña_Click);
+            // 
             // frmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 351);
+            this.Controls.Add(this.btnContraseña);
             this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.label9);
@@ -258,5 +271,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cmbRubro;
+        private System.Windows.Forms.Button btnContraseña;
     }
 }

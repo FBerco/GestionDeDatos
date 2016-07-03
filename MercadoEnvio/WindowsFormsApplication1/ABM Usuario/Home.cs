@@ -5,16 +5,20 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-
+using Clases;
+using Helpers;
 using System.Windows.Forms;
 
 namespace GDD.ABM_Usuario
 {
     public partial class frmHome : Form
     {
-        public frmHome()
+        private Usuario usuario;
+
+        public frmHome(Usuario us)
         {
             InitializeComponent();
+            usuario = us;
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -23,5 +27,10 @@ namespace GDD.ABM_Usuario
             alta.Show();
         }
 
+        private void btnContraseña_Click(object sender, EventArgs e)
+        {
+            frmContraseña con = new frmContraseña(usuario);
+            Show();
+        }
     }
 }

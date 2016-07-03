@@ -65,7 +65,7 @@ namespace GDD
         }
         static void ABMUsuario(object sender, EventArgs e)
         {
-            var home = new ABM_Usuario.frmHome();
+            var home = new ABM_Usuario.frmHome(usuario);
             home.Show();
         }
         static void ABMVisibilidad(object sender, EventArgs e)

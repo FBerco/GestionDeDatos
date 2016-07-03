@@ -47,6 +47,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
+            this.btnContraseña = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -203,11 +204,23 @@
             this.dtpFecha.Size = new System.Drawing.Size(200, 20);
             this.dtpFecha.TabIndex = 19;
             // 
+            // btnContraseña
+            // 
+            this.btnContraseña.Location = new System.Drawing.Point(202, 295);
+            this.btnContraseña.Name = "btnContraseña";
+            this.btnContraseña.Size = new System.Drawing.Size(121, 23);
+            this.btnContraseña.TabIndex = 21;
+            this.btnContraseña.Text = "Cambiar contraseña";
+            this.btnContraseña.UseVisualStyleBackColor = true;
+            this.btnContraseña.Visible = false;
+            this.btnContraseña.Click += new System.EventHandler(this.btnContraseña_Click);
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 330);
+            this.Controls.Add(this.btnContraseña);
             this.Controls.Add(this.dtpFecha);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.label10);
@@ -256,5 +269,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.DateTimePicker dtpFecha;
+        private System.Windows.Forms.Button btnContraseña;
     }
 }

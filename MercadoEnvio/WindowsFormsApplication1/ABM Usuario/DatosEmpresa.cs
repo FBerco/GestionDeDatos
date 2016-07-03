@@ -37,6 +37,7 @@ namespace GDD.ABM_Usuario
             txtNombre.Text = emp.NombreContacto;
             txtRazonSocial.Text = emp.RazonSocial.ToString();
             txtTelefono.Text = emp.Telefono;
+            btnContraseña.Visible = true;
         }
 
         private void frmEmpresa_Load(object sender, EventArgs e)
@@ -102,6 +103,12 @@ namespace GDD.ABM_Usuario
                 txtCuit.Text != null &&
                 txtNombre.Text != null &&
                 cmbRubro.SelectedItem != null;
-        }        
+        }
+
+        private void btnContraseña_Click(object sender, EventArgs e)
+        {
+            frmContraseña con = new frmContraseña(usuario);
+            Show();
+        }
     }
 }

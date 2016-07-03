@@ -94,6 +94,10 @@ namespace GDD.ABM_Usuario
                 dtpFecha.Text != null;
         }
 
-      
+        private void btnContraseña_Click(object sender, EventArgs e)
+        {
+            frmContraseña con = new frmContraseña(usuario);
+            Show();
+        }
     }
 }

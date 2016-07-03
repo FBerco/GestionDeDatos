@@ -25,6 +25,15 @@ namespace GDD.ABM_Usuario
         {
             InitializeComponent();
             cliente = cl;
+            txtNombre.Text = cl.Nombre;
+            txtApellido.Text = cl.Apellido;
+            txtDni.Text = cl.Dni.ToString();
+            txtTipoDoc.Text = cl.TipoDocumento;
+            txtMail.Text = cl.Mail;
+            txtTelefono.Text = cl.Telefono;
+            txtDireccion.Text = cl.Direccion;
+            txtCodPostal.Text = cl.CodigoPostal.ToString();
+            dtpFecha.Value = cl.FechaNacimiento;
             ckbEstado.Checked = cl.Activo;
             btnContraseña.Visible = true;
         }

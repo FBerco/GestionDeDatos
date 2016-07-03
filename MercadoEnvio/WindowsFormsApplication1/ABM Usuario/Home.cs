@@ -129,17 +129,24 @@ namespace GDD.ABM_Usuario
         private void btnEmpresa_Click(object sender, EventArgs e)
         {
             List<Empresa> empresasFiltradas = null;
-            if (string.IsNullOrEmpty(txtCuit.Text))
+            if (!string.IsNullOrEmpty(txtCuit.Text) && !string.IsNullOrEmpty(txtRazonSocial.Text) && !string.IsNullOrEmpty(txtMailEmpresa.Text))
             {
-                var parametros = new Dictionary<string, object>() {
-                    { "@razonSocial", txtRazonSocial.Text},
-                    { "@mail", txtMailEmpresa.Text}
-                };
-                empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByFilters", parametros).ToEmpresas();
+                if (string.IsNullOrEmpty(txtCuit.Text))
+                {
+                    var parametros = new Dictionary<string, object>() {
+                        { "@razonSocial", txtRazonSocial.Text},
+                        { "@mail", txtMailEmpresa.Text}
+                    };
+                    empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByFilters", parametros).ToEmpresas();
+                }
+                else
+                {
+                    empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByCuit", new Dictionary<string, object> { { "@cuit", txtCuit.Text} }).ToEmpresas();
+                }
             }
             else
             {
-                empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByCuit", new Dictionary<string, object> { { "@cuit", txtCuit.Text} }).ToEmpresas();
+                empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetAll").ToEmpresas();
             }
             LoadEmpresas(empresasFiltradas);
         }

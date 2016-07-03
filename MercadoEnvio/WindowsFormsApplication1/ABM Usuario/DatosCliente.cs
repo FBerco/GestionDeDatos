@@ -1,4 +1,5 @@
 ﻿using Clases;
+using Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +15,83 @@ namespace GDD.ABM_Usuario
     public partial class frmCliente : Form
     {
         private Usuario usuario;
+        private Cliente cliente;
         public frmCliente(Usuario us)
         {
             InitializeComponent();
             usuario = us;
         }
+        public frmCliente(Cliente cl)
+        {
+            InitializeComponent();
+            cliente = cl;
+        }
+
+        private void frmCliente_Load(object sender, EventArgs e)
+        {
+            dtpFecha.CustomFormat = "yyyy-M-d HH:mm:ss";
+            dtpFecha.Format = DateTimePickerFormat.Custom;
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (DatosCompletados())
+            {
+                if (usuario != null)
+                {
+                    Alta();
+                }
+                else
+                {
+                    Modificar();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Complete los campos correctamente");
+            }
+        }
+
+        private void Modificar()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Alta()
+        {
+            var cli = new Dictionary<string, object>()
+            {
+                { "@Username", usuario.Username },
+                { "@Nombre", txtNombre.Text },
+                { "@Apellido", txtApellido.Text },
+                { "@Dni", Convert.ToInt32(txtDni.Text)  },
+                { "@TipoDoc",  txtTipoDoc.Text },
+                { "@Mail",  txtMail.Text  },
+                { "@Telefono", txtTelefono.Text  },
+                { "@Direccion",txtDireccion.Text  },
+                { "@CodPostal", txtCodPostal.Text },                
+                { "@Fecha", dtpFecha.Text},
+            };
+            DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
+            DBHelper.ExecuteNonQuery("Cliente_Add", cli);
+            MessageBox.Show("Ingresado con exitos");
+            Hide();
+        }
+
+        private bool DatosCompletados()
+        {
+            int result;
+            return txtNombre.Text != null &&
+                txtApellido.Text != null &&
+                txtDni.Text != null && int.TryParse(txtDni.Text, out result) &&
+                txtTipoDoc.Text != null &&
+                txtMail.Text != null &&
+                txtTelefono.Text != null &&
+                txtDireccion.Text != null &&
+                txtCodPostal.Text != null && int.TryParse(txtCodPostal.Text, out result) &&
+                dtpFecha.Text != null;
+        }
+
+      
     }
 }

@@ -44,9 +44,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtFechNacimiento = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.s = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -177,13 +177,6 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "Mail";
             // 
-            // txtFechNacimiento
-            // 
-            this.txtFechNacimiento.Location = new System.Drawing.Point(132, 247);
-            this.txtFechNacimiento.Name = "txtFechNacimiento";
-            this.txtFechNacimiento.Size = new System.Drawing.Size(100, 20);
-            this.txtFechNacimiento.TabIndex = 17;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -193,22 +186,30 @@
             this.label10.TabIndex = 16;
             this.label10.Text = "Fecha Nacimiento";
             // 
-            // s
+            // btnGuardar
             // 
-            this.s.Location = new System.Drawing.Point(106, 295);
-            this.s.Name = "s";
-            this.s.Size = new System.Drawing.Size(75, 23);
-            this.s.TabIndex = 18;
-            this.s.Text = "Dar de alta";
-            this.s.UseVisualStyleBackColor = true;
+            this.btnGuardar.Location = new System.Drawing.Point(106, 295);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.TabIndex = 18;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // dtpFecha
+            // 
+            this.dtpFecha.Location = new System.Drawing.Point(132, 244);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(200, 20);
+            this.dtpFecha.TabIndex = 19;
             // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 330);
-            this.Controls.Add(this.s);
-            this.Controls.Add(this.txtFechNacimiento);
+            this.ClientSize = new System.Drawing.Size(397, 330);
+            this.Controls.Add(this.dtpFecha);
+            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtCodPostal);
             this.Controls.Add(this.label5);
@@ -228,6 +229,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmCliente";
             this.Text = "DatosCliente";
+            this.Load += new System.EventHandler(this.frmCliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,8 +253,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtFechNacimiento;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button s;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.DateTimePicker dtpFecha;
     }
 }

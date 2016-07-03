@@ -26,6 +26,7 @@ namespace GDD.ABM_Usuario
             InitializeComponent();
             cliente = cl;
             ckbEstado.Checked = cl.Activo;
+            btnContraseña.Visible = true;
         }
 
         private void frmCliente_Load(object sender, EventArgs e)

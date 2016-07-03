@@ -50,6 +50,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnCliente = new System.Windows.Forms.Button();
             this.btnEmpresa = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpresa)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -90,6 +91,7 @@
             this.dgvEmpresa.Name = "dgvEmpresa";
             this.dgvEmpresa.Size = new System.Drawing.Size(432, 110);
             this.dgvEmpresa.TabIndex = 12;
+            this.dgvEmpresa.DoubleClick += new System.EventHandler(this.dgvEmpresa_DoubleClick);
             // 
             // label9
             // 
@@ -158,6 +160,7 @@
             this.dgvCliente.Name = "dgvCliente";
             this.dgvCliente.Size = new System.Drawing.Size(420, 159);
             this.dgvCliente.TabIndex = 11;
+            this.dgvCliente.DoubleClick += new System.EventHandler(this.dgvCliente_DoubleClick);
             // 
             // txtMailCliente
             // 
@@ -259,11 +262,21 @@
             this.btnEmpresa.Text = "Filtrar empresas";
             this.btnEmpresa.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(284, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(244, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Para modificar, debe hacer doble click sobre la fila";
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 627);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnContraseña);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -278,6 +291,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -305,5 +319,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnEmpresa;
         private System.Windows.Forms.Button btnCliente;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -105,6 +105,26 @@ namespace GDD.ABM_Usuario
         {
             frmContraseña con = new frmContraseña(usuario);
             Show();
-        }      
+        }
+
+        private void dgvCliente_DoubleClick(object sender, EventArgs e)
+        {
+            var cli = (Cliente)dgvCliente.CurrentRow.DataBoundItem;
+            if (cli != null)
+            {
+                frmCliente cliente = new frmCliente(cli);
+                cliente.Show();
+            }
+        }
+
+        private void dgvEmpresa_DoubleClick(object sender, EventArgs e)
+        {
+            var emp = (Empresa)dgvEmpresa.CurrentRow.DataBoundItem;
+            if (emp != null)
+            {
+                frmEmpresa empresa = new frmEmpresa(emp);
+                empresa.Show();
+            }
+        }
     }
 }

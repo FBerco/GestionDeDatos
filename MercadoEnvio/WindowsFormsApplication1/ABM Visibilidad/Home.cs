@@ -43,5 +43,12 @@ namespace GDD.ABM_Visibilidad
             mod.Show();
             this.Hide();
         }
+
+        private void btnBaja_Click_1(object sender, EventArgs e)
+        {
+            frmBaja baja = new frmBaja();
+            baja.Show();
+            this.Hide();
+        }
     }
 }

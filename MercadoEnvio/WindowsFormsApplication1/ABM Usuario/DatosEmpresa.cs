@@ -78,7 +78,9 @@ namespace GDD.ABM_Usuario
 
         private void Modificar(Dictionary<string, object> emp)
         {
-            throw new NotImplementedException();
+            DBHelper.ExecuteNonQuery("Empresa_Modify", emp);
+            MessageBox.Show("Modificado con exito");
+            Hide();
         }
 
         private void Alta(Dictionary<string, object> emp) {

@@ -67,7 +67,9 @@ namespace GDD.ABM_Usuario
 
         private void Modificar(Dictionary<string, object> cli)
         {
-            throw new NotImplementedException();
+            DBHelper.ExecuteNonQuery("Cliente_Modify", cli);
+            MessageBox.Show("Modificado con exito");
+            Hide();
         }
 
         private void Alta(Dictionary<string, object> cli)

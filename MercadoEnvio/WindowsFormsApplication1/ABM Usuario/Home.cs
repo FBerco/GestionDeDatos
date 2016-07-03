@@ -15,10 +15,84 @@ namespace GDD.ABM_Usuario
     {
         private Usuario usuario;
 
+        //TEMPORAL PARA PRUEBAS, DESPUES BORRAR
+        public frmHome()
+        {
+            InitializeComponent();
+        }
+
         public frmHome(Usuario us)
         {
             InitializeComponent();
             usuario = us;
+        }
+
+        private void frmHome_Load(object sender, EventArgs e)
+        {
+            LoadClientes(DBHelper.ExecuteReader("Cliente_GetAll").ToClientes());
+            LoadEmpresas(DBHelper.ExecuteReader("Empresa_GetAll").ToEmpresas());
+        }
+
+        private void LoadEmpresas(List<Empresa> empresas)
+        {
+            dgvEmpresa.DataSource = empresas;
+            dgvEmpresa.Columns.Clear();
+            dgvEmpresa.AutoGenerateColumns = false;
+
+            dgvEmpresa.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "RazonSocial",
+                HeaderText = "Razon Social",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvEmpresa.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Cuit",
+                HeaderText = "CUIT",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvEmpresa.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Mail",
+                HeaderText = "Mail",
+                Width = 100,
+                ReadOnly = true
+            });
+        }
+
+        private void LoadClientes(List<Cliente> clientes)
+        {
+            dgvCliente.DataSource = clientes;
+            dgvCliente.Columns.Clear();
+            dgvCliente.AutoGenerateColumns = false;
+
+            dgvCliente.Columns.Add(new DataGridViewTextBoxColumn() {
+                DataPropertyName = "Nombre",
+                HeaderText = "Nombre",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvCliente.Columns.Add(new DataGridViewTextBoxColumn() { 
+                DataPropertyName = "Apellido",
+                HeaderText = "Apellido",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvCliente.Columns.Add(new DataGridViewTextBoxColumn() {
+                DataPropertyName = "Dni",
+                HeaderText = "DNI",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvCliente.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Mail",
+                HeaderText = "Mail",
+                Width = 100,
+                ReadOnly = true
+            });
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -31,6 +105,6 @@ namespace GDD.ABM_Usuario
         {
             frmContraseña con = new frmContraseña(usuario);
             Show();
-        }
+        }      
     }
 }

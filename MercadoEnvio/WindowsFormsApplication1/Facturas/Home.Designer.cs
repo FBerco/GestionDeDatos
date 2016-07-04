@@ -39,9 +39,9 @@
             this.lblMin = new System.Windows.Forms.Label();
             this.lblMax = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.cmbClienteQueCompro = new System.Windows.Forms.ComboBox();
+            this.dtpFechaInicial = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaFinal = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -54,6 +54,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.btnOKVendedor = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbUsuarioVendedor
@@ -153,27 +154,27 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Cliente";
             // 
-            // comboBox2
+            // cmbClienteQueCompro
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(87, 176);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 16;
+            this.cmbClienteQueCompro.FormattingEnabled = true;
+            this.cmbClienteQueCompro.Location = new System.Drawing.Point(87, 176);
+            this.cmbClienteQueCompro.Name = "cmbClienteQueCompro";
+            this.cmbClienteQueCompro.Size = new System.Drawing.Size(121, 21);
+            this.cmbClienteQueCompro.TabIndex = 16;
             // 
-            // dateTimePicker1
+            // dtpFechaInicial
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(87, 98);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 17;
+            this.dtpFechaInicial.Location = new System.Drawing.Point(87, 98);
+            this.dtpFechaInicial.Name = "dtpFechaInicial";
+            this.dtpFechaInicial.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaInicial.TabIndex = 17;
             // 
-            // dateTimePicker2
+            // dtpFechaFinal
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(87, 124);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 19;
+            this.dtpFechaFinal.Location = new System.Drawing.Point(87, 124);
+            this.dtpFechaFinal.Name = "dtpFechaFinal";
+            this.dtpFechaFinal.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaFinal.TabIndex = 19;
             // 
             // label3
             // 
@@ -292,11 +293,22 @@
             this.checkBox3.Text = "Envios";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
+            // btnOKVendedor
+            // 
+            this.btnOKVendedor.Location = new System.Drawing.Point(237, 26);
+            this.btnOKVendedor.Name = "btnOKVendedor";
+            this.btnOKVendedor.Size = new System.Drawing.Size(31, 21);
+            this.btnOKVendedor.TabIndex = 29;
+            this.btnOKVendedor.Text = "OK";
+            this.btnOKVendedor.UseVisualStyleBackColor = true;
+            this.btnOKVendedor.Click += new System.EventHandler(this.btnOKVendedor_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(955, 357);
+            this.Controls.Add(this.btnOKVendedor);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
@@ -305,10 +317,10 @@
             this.Controls.Add(this.btnListarFacturas);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.dtpFechaFinal);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.dtpFechaInicial);
+            this.Controls.Add(this.cmbClienteQueCompro);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.lblMax);
             this.Controls.Add(this.lblMin);
@@ -342,9 +354,9 @@
         private System.Windows.Forms.Label lblMin;
         private System.Windows.Forms.Label lblMax;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.ComboBox cmbClienteQueCompro;
+        private System.Windows.Forms.DateTimePicker dtpFechaInicial;
+        private System.Windows.Forms.DateTimePicker dtpFechaFinal;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -357,5 +369,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Button btnOKVendedor;
     }
 }

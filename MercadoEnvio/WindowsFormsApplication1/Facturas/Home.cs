@@ -16,8 +16,8 @@ namespace GDD.Facturas
     {
         private List<Usuario>   listaDeUsuariosVendedores;
         private List<Factura>   listaDeFacturasSegunUsuarioSeleccionado;
-        private Usuario         usuarioSeleccionado;
         private List<Cliente>   clientesQueLeCompraronAlVendedor;
+        private Usuario         usuarioSeleccionado;
         
         public frmHome()
         {
@@ -27,6 +27,8 @@ namespace GDD.Facturas
         private void frmHome_Load(object sender, EventArgs e)
         {
            deshabilitarFiltros();
+           deshabilitarListarPor();
+           btnListarFacturas.Enabled = false;
            listaDeUsuariosVendedores = DBHelper.ExecuteReader("Usuario_GetVendedores").ToUsuarios();
            foreach (var usuario in listaDeUsuariosVendedores)
            {
@@ -57,6 +59,16 @@ namespace GDD.Facturas
                 cmbClienteQueCompro.Items.Add(cliente.Id);
             }
             habilitarFiltros();
+        }
+
+        private void btnOKFiltros_Click(object sender, EventArgs e)
+        {
+            habilitarListarPor();
+        }
+
+        private void btnOKListarPor_Click(object sender, EventArgs e)
+        {
+            btnListarFacturas.Enabled = true;
         }
 
         #endregion
@@ -133,11 +145,32 @@ namespace GDD.Facturas
                 cmbClienteQueCompro.Enabled = true;
             }
 
+            private void deshabilitarListarPor() 
+            {
+                chbComisionDePublicacion.Enabled = false;
+                chbEnvios.Enabled = false;
+                chbVentas.Enabled = false;
+            }
+
+            private void habilitarListarPor() 
+            {
+                chbComisionDePublicacion.Enabled = true;
+                chbEnvios.Enabled = true;
+                chbVentas.Enabled = true;
+            }
+
             #endregion
+
+            private void button1_Click(object sender, EventArgs e)
+            {
+
+            }
 
 
 
         #endregion
+
+           
 
     }
 }

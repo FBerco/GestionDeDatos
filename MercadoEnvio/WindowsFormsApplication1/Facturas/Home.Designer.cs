@@ -51,10 +51,12 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.label9 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.chbComisionDePublicacion = new System.Windows.Forms.CheckBox();
+            this.chbVentas = new System.Windows.Forms.CheckBox();
+            this.chbEnvios = new System.Windows.Forms.CheckBox();
             this.btnOKVendedor = new System.Windows.Forms.Button();
+            this.btnOKFiltros = new System.Windows.Forms.Button();
+            this.btnOKListarPor = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbUsuarioVendedor
@@ -263,35 +265,35 @@
             this.label9.TabIndex = 25;
             this.label9.Text = "LISTAR POR";
             // 
-            // checkBox1
+            // chbComisionDePublicacion
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 258);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(134, 17);
-            this.checkBox1.TabIndex = 26;
-            this.checkBox1.Text = "Comision de publiacion";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chbComisionDePublicacion.AutoSize = true;
+            this.chbComisionDePublicacion.Location = new System.Drawing.Point(12, 258);
+            this.chbComisionDePublicacion.Name = "chbComisionDePublicacion";
+            this.chbComisionDePublicacion.Size = new System.Drawing.Size(134, 17);
+            this.chbComisionDePublicacion.TabIndex = 26;
+            this.chbComisionDePublicacion.Text = "Comision de publiacion";
+            this.chbComisionDePublicacion.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // chbVentas
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(12, 281);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(59, 17);
-            this.checkBox2.TabIndex = 27;
-            this.checkBox2.Text = "Ventas";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chbVentas.AutoSize = true;
+            this.chbVentas.Location = new System.Drawing.Point(12, 281);
+            this.chbVentas.Name = "chbVentas";
+            this.chbVentas.Size = new System.Drawing.Size(59, 17);
+            this.chbVentas.TabIndex = 27;
+            this.chbVentas.Text = "Ventas";
+            this.chbVentas.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // chbEnvios
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(151, 258);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(58, 17);
-            this.checkBox3.TabIndex = 28;
-            this.checkBox3.Text = "Envios";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.chbEnvios.AutoSize = true;
+            this.chbEnvios.Location = new System.Drawing.Point(151, 258);
+            this.chbEnvios.Name = "chbEnvios";
+            this.chbEnvios.Size = new System.Drawing.Size(58, 17);
+            this.chbEnvios.TabIndex = 28;
+            this.chbEnvios.Text = "Envios";
+            this.chbEnvios.UseVisualStyleBackColor = true;
             // 
             // btnOKVendedor
             // 
@@ -303,15 +305,37 @@
             this.btnOKVendedor.UseVisualStyleBackColor = true;
             this.btnOKVendedor.Click += new System.EventHandler(this.btnOKVendedor_Click);
             // 
+            // btnOKFiltros
+            // 
+            this.btnOKFiltros.Location = new System.Drawing.Point(237, 176);
+            this.btnOKFiltros.Name = "btnOKFiltros";
+            this.btnOKFiltros.Size = new System.Drawing.Size(31, 21);
+            this.btnOKFiltros.TabIndex = 30;
+            this.btnOKFiltros.Text = "OK";
+            this.btnOKFiltros.UseVisualStyleBackColor = true;
+            this.btnOKFiltros.Click += new System.EventHandler(this.btnOKFiltros_Click);
+            // 
+            // btnOKListarPor
+            // 
+            this.btnOKListarPor.Location = new System.Drawing.Point(237, 258);
+            this.btnOKListarPor.Name = "btnOKListarPor";
+            this.btnOKListarPor.Size = new System.Drawing.Size(31, 21);
+            this.btnOKListarPor.TabIndex = 31;
+            this.btnOKListarPor.Text = "OK";
+            this.btnOKListarPor.UseVisualStyleBackColor = true;
+            this.btnOKListarPor.Click += new System.EventHandler(this.btnOKListarPor_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(955, 357);
+            this.Controls.Add(this.btnOKListarPor);
+            this.Controls.Add(this.btnOKFiltros);
             this.Controls.Add(this.btnOKVendedor);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chbEnvios);
+            this.Controls.Add(this.chbVentas);
+            this.Controls.Add(this.chbComisionDePublicacion);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnListarFacturas);
@@ -366,9 +390,11 @@
         private System.Windows.Forms.Button btnLimpiar;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox chbComisionDePublicacion;
+        private System.Windows.Forms.CheckBox chbVentas;
+        private System.Windows.Forms.CheckBox chbEnvios;
         private System.Windows.Forms.Button btnOKVendedor;
+        private System.Windows.Forms.Button btnOKFiltros;
+        private System.Windows.Forms.Button btnOKListarPor;
     }
 }

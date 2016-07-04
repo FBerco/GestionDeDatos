@@ -36,7 +36,8 @@ namespace GDD.Facturas
         {
             usuarioSeleccionado = getUsuarioSeleccionado();
             listaDeFacturasSegunUsuarioSeleccionado = facturasDelUsuario(usuarioSeleccionado);
-            foreach (var factura in listaDeFacturasSegunUsuarioSeleccionado) 
+            listaDeFacturasSegunUsuarioSeleccionado = filtrarSegunCriterios(listaDeFacturasSegunUsuarioSeleccionado);
+            foreach (var factura in listaDeFacturasSegunUsuarioSeleccionado)
             {
                 lbFacturas.Items.Add(factura);
             }
@@ -55,10 +56,18 @@ namespace GDD.Facturas
             return facturas;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private List<Factura> filtrarSegunCriterios(List<Factura> unaLista)
         {
-            txtTest.Text = getUsuarioSeleccionado().Username;
+            return unaLista.FindAll(factura => estaDentroDelRangoDeFechas(factura) && estaDentroDelRangoDeImporte(factura) && correspondeAlClienteSeleccionado(factura));
         }
+
+        private Boolean estaDentroDelRangoDeFechas(Factura unaFactura)
+        {
+            return true;
+        }
+
+        private Boolean estaDentroDelRangoDeImporte(Factura unaFactura) { return true; }
+        private Boolean correspondeAlClienteSeleccionado(Factura unaFactura) { return true; }
 
     }
 }

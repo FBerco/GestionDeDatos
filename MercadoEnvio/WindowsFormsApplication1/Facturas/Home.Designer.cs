@@ -49,8 +49,11 @@
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.btnListarFacturas = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.test = new System.Windows.Forms.Button();
-            this.txtTest = new System.Windows.Forms.TextBox();
+            this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.label9 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmbUsuarioVendedor
@@ -73,9 +76,9 @@
             // lbFacturas
             // 
             this.lbFacturas.FormattingEnabled = true;
-            this.lbFacturas.Location = new System.Drawing.Point(293, 11);
+            this.lbFacturas.Location = new System.Drawing.Point(293, 26);
             this.lbFacturas.Name = "lbFacturas";
-            this.lbFacturas.Size = new System.Drawing.Size(650, 238);
+            this.lbFacturas.Size = new System.Drawing.Size(650, 290);
             this.lbFacturas.TabIndex = 2;
             // 
             // label2
@@ -206,8 +209,9 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.lineShape2,
             this.lineShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(955, 263);
+            this.shapeContainer1.Size = new System.Drawing.Size(955, 357);
             this.shapeContainer1.TabIndex = 22;
             this.shapeContainer1.TabStop = false;
             // 
@@ -222,7 +226,7 @@
             // 
             // btnListarFacturas
             // 
-            this.btnListarFacturas.Location = new System.Drawing.Point(152, 226);
+            this.btnListarFacturas.Location = new System.Drawing.Point(151, 312);
             this.btnListarFacturas.Name = "btnListarFacturas";
             this.btnListarFacturas.Size = new System.Drawing.Size(82, 23);
             this.btnListarFacturas.TabIndex = 23;
@@ -232,37 +236,71 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(71, 226);
+            this.btnLimpiar.Location = new System.Drawing.Point(70, 312);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 24;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
-            // test
+            // lineShape2
             // 
-            this.test.Location = new System.Drawing.Point(16, 4);
-            this.test.Name = "test";
-            this.test.Size = new System.Drawing.Size(75, 23);
-            this.test.TabIndex = 25;
-            this.test.Text = "test";
-            this.test.UseVisualStyleBackColor = true;
-            this.test.Click += new System.EventHandler(this.button1_Click);
+            this.lineShape2.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.lineShape2.Name = "lineShape2";
+            this.lineShape2.X1 = 16;
+            this.lineShape2.X2 = 284;
+            this.lineShape2.Y1 = 220;
+            this.lineShape2.Y2 = 220;
             // 
-            // txtTest
+            // label9
             // 
-            this.txtTest.Location = new System.Drawing.Point(102, 0);
-            this.txtTest.Name = "txtTest";
-            this.txtTest.Size = new System.Drawing.Size(100, 20);
-            this.txtTest.TabIndex = 26;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(12, 230);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(81, 13);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "LISTAR POR";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 258);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(134, 17);
+            this.checkBox1.TabIndex = 26;
+            this.checkBox1.Text = "Comision de publiacion";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(12, 281);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(59, 17);
+            this.checkBox2.TabIndex = 27;
+            this.checkBox2.Text = "Ventas";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(151, 258);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(58, 17);
+            this.checkBox3.TabIndex = 28;
+            this.checkBox3.Text = "Envios";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(955, 263);
-            this.Controls.Add(this.txtTest);
-            this.Controls.Add(this.test);
+            this.ClientSize = new System.Drawing.Size(955, 357);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnListarFacturas);
             this.Controls.Add(this.label5);
@@ -314,7 +352,10 @@
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
         private System.Windows.Forms.Button btnListarFacturas;
         private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.Button test;
-        private System.Windows.Forms.TextBox txtTest;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }

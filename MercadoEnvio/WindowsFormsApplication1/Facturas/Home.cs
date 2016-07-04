@@ -32,6 +32,8 @@ namespace GDD.Facturas
            }
         }
 
+        #region Funciones Principales
+
         private void btnListarFacturas_Click(object sender, EventArgs e)
         {
             usuarioSeleccionado = getUsuarioSeleccionado();
@@ -43,17 +45,21 @@ namespace GDD.Facturas
             }
         }
 
-        private Usuario getUsuarioSeleccionado() 
+        #endregion
+
+        #region Extras
+
+        private Usuario getUsuarioSeleccionado()
         {
-           return listaDeUsuariosVendedores.Find(usuario => usuario.Username == cmbUsuarioVendedor.SelectedItem);
+            return listaDeUsuariosVendedores.Find(usuario => usuario.Username == cmbUsuarioVendedor.SelectedItem);
         }
 
-        private List<Factura> facturasDelUsuario(Usuario unUsuario) 
+        private List<Factura> facturasDelUsuario(Usuario unUsuario)
         {
             Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
             nuevoDiccionario.Add("@usuario", unUsuario.Username);
             List<Factura> facturas = DBHelper.ExecuteReader("Facturas_GetFacturasSegunUsuario", nuevoDiccionario).ToFacturas();
-            return facturas;
+            return facturas;  //TENGO PROBLEMAS CON ESTA FUNCION, NO LOGRO HACER QUE ME DEVUELVA LAS FACTURAS DEL USUARIO
         }
 
         private List<Factura> filtrarSegunCriterios(List<Factura> unaLista)
@@ -69,5 +75,7 @@ namespace GDD.Facturas
         private Boolean estaDentroDelRangoDeImporte(Factura unaFactura) { return true; }
         private Boolean correspondeAlClienteSeleccionado(Factura unaFactura) { return true; }
 
+        #endregion
+        
     }
 }

@@ -67,6 +67,7 @@
             this.txtComisionXTipoPublicacion.Size = new System.Drawing.Size(100, 20);
             this.txtComisionXTipoPublicacion.TabIndex = 3;
             this.txtComisionXTipoPublicacion.TextChanged += new System.EventHandler(this.txtComisionXTipoPublicacion_TextChanged);
+            this.txtComisionXTipoPublicacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComisionXTipoPublicacion_KeyPress);
             // 
             // label3
             // 
@@ -83,6 +84,7 @@
             this.txtComisionXProductoVendido.Name = "txtComisionXProductoVendido";
             this.txtComisionXProductoVendido.Size = new System.Drawing.Size(100, 20);
             this.txtComisionXProductoVendido.TabIndex = 5;
+            this.txtComisionXProductoVendido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComisionXProductoVendido_KeyPress);
             // 
             // txtComisionXEnvioProducto
             // 
@@ -90,6 +92,7 @@
             this.txtComisionXEnvioProducto.Name = "txtComisionXEnvioProducto";
             this.txtComisionXEnvioProducto.Size = new System.Drawing.Size(100, 20);
             this.txtComisionXEnvioProducto.TabIndex = 6;
+            this.txtComisionXEnvioProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComisionXEnvioProducto_KeyPress);
             // 
             // label4
             // 

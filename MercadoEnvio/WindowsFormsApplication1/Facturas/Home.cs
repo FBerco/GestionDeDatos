@@ -18,6 +18,8 @@ namespace GDD.Facturas
         private List<Factura>   listaDeFacturasSegunUsuarioSeleccionado;
         private List<Cliente>   clientesQueLeCompraronAlVendedor;
         private Usuario         usuarioSeleccionado;
+        private List<CheckBox>  listaDeChbListarPor = new List<CheckBox>();
+        private List<Object>    listaDeFiltros = new List<Object>();
         
         public frmHome()
         {
@@ -26,7 +28,9 @@ namespace GDD.Facturas
 
         private void frmHome_Load(object sender, EventArgs e)
         {
-           deshabilitarFiltros();
+
+           inicializarListasDeObjetos();
+           habilitarFiltros();
            deshabilitarListarPor();
            btnListarFacturas.Enabled = false;
            listaDeUsuariosVendedores = DBHelper.ExecuteReader("Usuario_GetVendedores").ToUsuarios();
@@ -35,6 +39,30 @@ namespace GDD.Facturas
                cmbUsuarioVendedor.Items.Add(usuario.Username);
            }
         }
+
+        #region Inicializaciones de listas
+        private void inicializarListasDeObjetos() 
+        {
+            inicializarListaDeFiltros();
+            inicializarListaDeChbListarPor();
+        }
+
+        private void inicializarListaDeFiltros() 
+        {
+            listaDeFiltros.Add(dtpFechaInicial);
+            listaDeFiltros.Add(dtpFechaFinal);
+            listaDeFiltros.Add(txtImporteMaximo);
+            listaDeFiltros.Add(txtImporteMinimo);
+            listaDeFiltros.Add(cmbClienteQueCompro);
+        }
+
+        private void inicializarListaDeChbListarPor() 
+        {
+            listaDeChbListarPor.Add(chbComisionDePublicacion);
+            listaDeChbListarPor.Add(chbEnvios);
+            listaDeChbListarPor.Add(chbVentas);
+        }
+        #endregion 
 
         #region Funciones Principales
 
@@ -75,9 +103,37 @@ namespace GDD.Facturas
 
         #region Extras
 
-            #region filtrar facturas segun criterios
+        #region Validaciones
 
-            private List<Factura> filtrarSegunCriterios(List<Factura> unaLista)
+        #region Solo numeros en los txt que solo deberian tener numeros
+        
+        private void txtImporteMinimo_KeyPress(object sender, KeyPressEventArgs e) 
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
+        private void txtImporteMaximo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
+
+
+        #endregion
+
+        #endregion
+
+        #region filtrar facturas segun criterios
+
+        private List<Factura> filtrarSegunCriterios(List<Factura> unaLista)
                 {
                     return unaLista.FindAll(factura => estaDentroDelRangoDeFechas(factura) && estaDentroDelRangoDeImporte(factura) && correspondeAlClienteSeleccionado(factura));
                 }
@@ -147,17 +203,15 @@ namespace GDD.Facturas
 
             private void deshabilitarListarPor() 
             {
-                chbComisionDePublicacion.Enabled = false;
-                chbEnvios.Enabled = false;
-                chbVentas.Enabled = false;
+                foreach (var elem in listaDeChbListarPor) { elem.Enabled = false; }
             }
 
             private void habilitarListarPor() 
             {
-                chbComisionDePublicacion.Enabled = true;
-                chbEnvios.Enabled = true;
-                chbVentas.Enabled = true;
+                foreach (var elem in listaDeChbListarPor) { elem.Enabled = true; }
             }
+
+            
 
             #endregion
 
@@ -169,6 +223,31 @@ namespace GDD.Facturas
 
 
         #endregion
+
+            private void button1_Click_1(object sender, EventArgs e)
+            {
+                List<Factura> lista = DBHelper.ExecuteReader("Factura_GetAll").ToFacturas();
+                foreach (var factura in lista) { listBox1.Items.Add(factura.Numero); }
+            }
+
+            private void btnLimpiar_Click(object sender, EventArgs e)
+            {
+            }
+
+            private void chbComisionDePublicacion_CheckedChanged(object sender, EventArgs e)
+            {
+                foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbComisionDePublicacion)) { elem.Checked = false; }
+            }
+
+            private void chbEnvios_CheckedChanged(object sender, EventArgs e)
+            {
+                foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbEnvios)) { elem.Checked = false; }
+            }
+
+            private void chbVentas_CheckedChanged(object sender, EventArgs e)
+            {
+                foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbVentas)) { elem.Checked = false; }
+            }
 
            
 

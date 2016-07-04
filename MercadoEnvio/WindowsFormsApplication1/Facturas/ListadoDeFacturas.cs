@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GDD.Facturas
 {
-    public partial class frmHome : Form
+    public partial class frmListadoDeFacturas : Form
     {
         #region Atributos
         
@@ -24,7 +24,7 @@ namespace GDD.Facturas
 
         #endregion
         
-        public frmHome()
+        public frmListadoDeFacturas()
         {
             InitializeComponent();
         }

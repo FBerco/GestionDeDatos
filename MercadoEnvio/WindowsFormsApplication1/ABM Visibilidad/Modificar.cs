@@ -69,7 +69,7 @@ namespace GDD.ABM_Visibilidad
         #region Validaciones
         private Boolean textBoxesValidos()
         {
-            if (nadaNulo()) { return nadaNegativo() && ingresadosTipoDeTextoCorrectamente(); }
+            if (nadaNulo()) { return nadaNegativo(); }
             else { return false; }
         }
 
@@ -100,16 +100,38 @@ namespace GDD.ABM_Visibilidad
             else { return true; }
         }
 
-        private Boolean ingresadosTipoDeTextoCorrectamente()
+
+        #region Solo numeros donde deberia haber numeros
+        private void txtComisionXTipoPublicacion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            return comisionProductoVendididoValida() && comisionTipoPublicacionValida() && siHayEnvioEsValido();
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
         }
 
-        private Boolean comisionProductoVendididoValida() { return tieneSoloNumeros(); }
-        private Boolean comisionTipoPublicacionValida() { return tieneSoloNumeros(); }
-        private Boolean siHayEnvioEsValido() { if (txtComisionXEnvioProducto.Enabled) { return tieneSoloNumeros(); } else { return true; } }
-        private Boolean tieneSoloTexto() { return true; } //No se como se valida esto
-        private Boolean tieneSoloNumeros() { return true; } //No se como se valida esto
+        private void txtComisionXProductoVendido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void txtComisionXEnvioProducto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
+        #endregion
         
         #endregion
 
@@ -132,5 +154,7 @@ namespace GDD.ABM_Visibilidad
             if(txtComisionXEnvioProducto.Enabled) {txtComisionXEnvioProducto.Enabled = false;}
             else { txtComisionXEnvioProducto.Enabled = true; }
         }
+
+
     }
 }

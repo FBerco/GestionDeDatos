@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmbNombreVisibilidad = new System.Windows.Forms.ComboBox();
             this.btnBaja = new System.Windows.Forms.Button();
-            this.chkEstaSeguro = new System.Windows.Forms.CheckBox();
+            this.btnBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -53,7 +53,7 @@
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(101, 153);
+            this.btnBaja.Location = new System.Drawing.Point(127, 153);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(75, 23);
             this.btnBaja.TabIndex = 3;
@@ -61,22 +61,22 @@
             this.btnBaja.UseVisualStyleBackColor = true;
             this.btnBaja.Click += new System.EventHandler(this.btnBaja_Click);
             // 
-            // chkEstaSeguro
+            // btnBack
             // 
-            this.chkEstaSeguro.AutoSize = true;
-            this.chkEstaSeguro.Location = new System.Drawing.Point(127, 88);
-            this.chkEstaSeguro.Name = "chkEstaSeguro";
-            this.chkEstaSeguro.Size = new System.Drawing.Size(88, 17);
-            this.chkEstaSeguro.TabIndex = 4;
-            this.chkEstaSeguro.Text = "Esta seguro?";
-            this.chkEstaSeguro.UseVisualStyleBackColor = true;
+            this.btnBack.Location = new System.Drawing.Point(13, 152);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(54, 23);
+            this.btnBack.TabIndex = 4;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmBaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 188);
-            this.Controls.Add(this.chkEstaSeguro);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.cmbNombreVisibilidad);
             this.Controls.Add(this.label1);
@@ -93,6 +93,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbNombreVisibilidad;
         private System.Windows.Forms.Button btnBaja;
-        private System.Windows.Forms.CheckBox chkEstaSeguro;
+        private System.Windows.Forms.Button btnBack;
     }
 }

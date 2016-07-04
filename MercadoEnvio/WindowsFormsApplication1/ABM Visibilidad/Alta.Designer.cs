@@ -84,6 +84,7 @@
             this.txtNombreVisibilidad.Name = "txtNombreVisibilidad";
             this.txtNombreVisibilidad.Size = new System.Drawing.Size(173, 20);
             this.txtNombreVisibilidad.TabIndex = 4;
+            this.txtNombreVisibilidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreVisibilidad_KeyPress);
             // 
             // txtComisionTipoPublicacion
             // 
@@ -91,6 +92,7 @@
             this.txtComisionTipoPublicacion.Name = "txtComisionTipoPublicacion";
             this.txtComisionTipoPublicacion.Size = new System.Drawing.Size(173, 20);
             this.txtComisionTipoPublicacion.TabIndex = 5;
+            this.txtComisionTipoPublicacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComisionTipoPublicacion_KeyPress);
             // 
             // txtComsionProductoVendido
             // 
@@ -98,6 +100,7 @@
             this.txtComsionProductoVendido.Name = "txtComsionProductoVendido";
             this.txtComsionProductoVendido.Size = new System.Drawing.Size(173, 20);
             this.txtComsionProductoVendido.TabIndex = 6;
+            this.txtComsionProductoVendido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComsionProductoVendido_KeyPress);
             // 
             // txtComisionEnvioProducto
             // 
@@ -106,6 +109,7 @@
             this.txtComisionEnvioProducto.Name = "txtComisionEnvioProducto";
             this.txtComisionEnvioProducto.Size = new System.Drawing.Size(173, 20);
             this.txtComisionEnvioProducto.TabIndex = 7;
+            this.txtComisionEnvioProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComisionEnvioProducto_KeyPress);
             // 
             // btnGuardarNuevaVisibilidad
             // 

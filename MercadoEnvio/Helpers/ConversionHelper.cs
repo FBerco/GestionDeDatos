@@ -146,7 +146,7 @@ namespace Helpers
                 {
                     Numero = (int)rdr["fact_id"],
                     Fecha = (DateTime)rdr["fact_fecha"],
-                    Total = (int)rdr["fact_total"],
+                    Total = (decimal)rdr["fact_total"],
                     PublicacionId = (int)rdr["fact_publicacion"],
                 });
             }

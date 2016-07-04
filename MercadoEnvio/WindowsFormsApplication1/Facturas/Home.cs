@@ -14,12 +14,16 @@ namespace GDD.Facturas
 {
     public partial class frmHome : Form
     {
+        #region Atributos
+        
         private List<Usuario>   listaDeUsuariosVendedores;
         private List<Factura>   listaDeFacturasSegunUsuarioSeleccionado;
         private List<Cliente>   clientesQueLeCompraronAlVendedor;
         private Usuario         usuarioSeleccionado;
         private List<CheckBox>  listaDeChbListarPor = new List<CheckBox>();
         private List<Object>    listaDeFiltros = new List<Object>();
+
+        #endregion
         
         public frmHome()
         {
@@ -105,7 +109,7 @@ namespace GDD.Facturas
 
         #region Validaciones
 
-        #region Solo numeros en los txt que solo deberian tener numeros
+            #region Solo numeros en los txt que solo deberian tener numeros
         
         private void txtImporteMinimo_KeyPress(object sender, KeyPressEventArgs e) 
         {
@@ -127,6 +131,23 @@ namespace GDD.Facturas
         }
 
 
+        #endregion
+
+            #region Solo 1 "listarPor" puede ser elegido
+        private void chbComisionDePublicacion_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbComisionDePublicacion)) { elem.Checked = false; }
+        }
+
+        private void chbEnvios_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbEnvios)) { elem.Checked = false; }
+        }
+
+        private void chbVentas_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbVentas)) { elem.Checked = false; }
+        }
         #endregion
 
         #endregion
@@ -168,7 +189,7 @@ namespace GDD.Facturas
         
             #endregion
 
-            #region Otros metodos
+        #region Otros metodos
 
             private Usuario getUsuarioSeleccionado()
             {
@@ -215,41 +236,20 @@ namespace GDD.Facturas
 
             #endregion
 
-            private void button1_Click(object sender, EventArgs e)
-            {
-
-            }
 
 
 
         #endregion
 
-            private void button1_Click_1(object sender, EventArgs e)
-            {
-                List<Factura> lista = DBHelper.ExecuteReader("Factura_GetAll").ToFacturas();
-                foreach (var factura in lista) { listBox1.Items.Add(factura.Numero); }
-            }
 
-            private void btnLimpiar_Click(object sender, EventArgs e)
+        private void btnLimpiar_Click(object sender, EventArgs e)
             {
             }
 
-            private void chbComisionDePublicacion_CheckedChanged(object sender, EventArgs e)
-            {
-                foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbComisionDePublicacion)) { elem.Checked = false; }
-            }
 
-            private void chbEnvios_CheckedChanged(object sender, EventArgs e)
-            {
-                foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbEnvios)) { elem.Checked = false; }
-            }
-
-            private void chbVentas_CheckedChanged(object sender, EventArgs e)
-            {
-                foreach (var elem in listaDeChbListarPor.FindAll(chb => chb != chbVentas)) { elem.Checked = false; }
-            }
-
+        
            
+
 
     }
 }

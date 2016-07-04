@@ -57,8 +57,6 @@
             this.btnOKVendedor = new System.Windows.Forms.Button();
             this.btnOKFiltros = new System.Windows.Forms.Button();
             this.btnOKListarPor = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbUsuarioVendedor
@@ -82,6 +80,7 @@
             // 
             this.lbFacturas.FormattingEnabled = true;
             this.lbFacturas.Location = new System.Drawing.Point(293, 26);
+            this.lbFacturas.MultiColumn = true;
             this.lbFacturas.Name = "lbFacturas";
             this.lbFacturas.Size = new System.Drawing.Size(211, 290);
             this.lbFacturas.TabIndex = 2;
@@ -333,31 +332,11 @@
             this.btnOKListarPor.UseVisualStyleBackColor = true;
             this.btnOKListarPor.Click += new System.EventHandler(this.btnOKListarPor_Click);
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(511, 26);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(432, 290);
-            this.listBox1.TabIndex = 32;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(511, 323);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(955, 357);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnOKListarPor);
             this.Controls.Add(this.btnOKFiltros);
             this.Controls.Add(this.btnOKVendedor);
@@ -424,7 +403,5 @@
         private System.Windows.Forms.Button btnOKVendedor;
         private System.Windows.Forms.Button btnOKFiltros;
         private System.Windows.Forms.Button btnOKListarPor;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
     }
 }

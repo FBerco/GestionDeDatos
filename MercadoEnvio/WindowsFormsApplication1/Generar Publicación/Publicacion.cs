@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Clases;
 using Helpers;
 using System.Windows.Forms;
+using System.Text;
 
 namespace GDD.Generar_Publicación
 {
@@ -12,16 +13,23 @@ namespace GDD.Generar_Publicación
     /// </summary>
     public partial class frmPublicacion : Form
     {
-        private Publicacion publicacion;
+        private Publicacion publicacion = null;
         private Usuario usuario;
         private List<Rubro> rubros;
         private List<Visibilidad> visibilidades;
+        private DateTime fecha = new DateTime(2016, 7, 5);
         //Para alta
-        public frmPublicacion(Usuario usuario)
+        public frmPublicacion(Usuario us)
         {
             InitializeComponent();
+            usuario = us;
             btnConfirmar.Text = "Dar de alta";
-            CargarDatos();
+            CargarRubrosYVisibilidades();
+            rdbFinalizada.Enabled = false;
+            rdbPausada.Enabled = false;
+            rdbActiva.Checked = true;
+            dtpFecha.CustomFormat = "yyyy-M-d HH:mm:ss";
+            dtpFecha.Format = DateTimePickerFormat.Custom;
         }
 
         //Para modificaciones
@@ -29,14 +37,25 @@ namespace GDD.Generar_Publicación
         {
             InitializeComponent();
             usuario = us;
-            btnConfirmar.Text = "Guardar cambios";
             publicacion = publicacionSeleccionada;
-            
+            btnConfirmar.Text = "Guardar cambios";            
             CargarDatos();
         }
 
-        private void CargarRubrosYVisibilidades() {            
-            cmbVisibilidad.DataSource = visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
+        private void CargarRubrosYVisibilidades() {
+            visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
+            var gratis = visibilidades.First(x => x.Detalle == "Gratis");
+            //Me fijo si tiene publicaciones
+            //No muestro visibilidad gratis si no tiene permitido
+            if (DBHelper.ExecuteReader("Publicacion_GetByUsername", new Dictionary<string, object>() { { "@Username", usuario.Username } }).ToPublicaciones().Count != 0)
+            {
+                visibilidades.Remove(gratis);
+            }
+            //if (publicacion != null && publicacion.VisibilidadId != gratis.Id)
+            //{
+            //    visibilidades.Remove(gratis);
+            //}
+            cmbVisibilidad.DataSource = visibilidades;
             cmbVisibilidad.DisplayMember = "Detalle";            
             cmbRubro.DataSource = rubros = DBHelper.ExecuteReader("Rubro_GetAll").ToRubros();
             cmbRubro.DisplayMember = "DescripcionCorta";
@@ -53,6 +72,7 @@ namespace GDD.Generar_Publicación
             {
                 rdbCompra.Checked = true;
             }
+            fecha = publicacion.FechaInicio;
             txtDescripcion.Text = publicacion.Descripcion;
             txtPrecio.Text = publicacion.Precio.ToString();
             txtStock.Text = publicacion.Stock.ToString();
@@ -63,70 +83,153 @@ namespace GDD.Generar_Publicación
             {
                 case 1:
                     rdbActiva.Checked = true;
+                    rdbBorrador.Enabled = false;
                     break;
                 case 2:
                     rdbPausada.Checked = true;
+                    rdbFinalizada.Enabled = false;
+                    rdbBorrador.Enabled = false;
+                    txtDescripcion.Enabled = false;
+                    txtPrecio.Enabled = false;
+                    txtStock.Enabled = false;
+                    dtpFecha.Enabled = false;
+                    rdbCompra.Enabled = false;
+                    rdbSubasta.Enabled = false;
+                    cmbRubro.Enabled = false;
+                    cmbVisibilidad.Enabled = false;
                     break;
                 case 3:
                     rdbFinalizada.Checked = true;
+                    rdbPausada.Enabled = false;
+                    rdbBorrador.Enabled = false;
+                    rdbActiva.Enabled = false;
                     break;
                 case 4:
                     rdbBorrador.Checked = true;
+                    rdbPausada.Enabled = false;
+                    rdbFinalizada.Enabled = false;
                     break;
             }
             cmbVisibilidad.SelectedItem = visibilidades.First(x => x.Id == publicacion.VisibilidadId);
             cmbRubro.SelectedItem = rubros.First(x => x.Id == publicacion.Rubro);
         }
         private void btnConfirmar_Click(object sender, EventArgs e)
-        {
-            var tipo = rdbCompra.Checked ? "Compra Inmediata" : "Subasta";
-            var descripcion = txtDescripcion.Text;
-            var precio = Convert.ToDecimal(txtPrecio.Text);
-            var stock = Convert.ToInt32(txtStock.Text);
-            var fecha = dtpFecha.Value;
-            var estado = rdbActiva.Checked ? "Activa" : "Borrador";
-            var visibilidad = (Visibilidad)cmbVisibilidad.SelectedItem;
-            var rubro = (Rubro)cmbRubro.SelectedItem;
-                
-           
-            Dictionary<string, object> parametros = new Dictionary<string, object>();
+        {            
+            int estado = 4;
+            if (rdbActiva.Checked)
+            {
+                estado = 1;
+            }
+            else if (rdbPausada.Checked)
+            {
+                estado = 2;
+            }
+            else if (rdbFinalizada.Checked)
+            {
+                estado = 3;
+            }
+            if (dtpFecha.Value <= fecha)
+            {
+                MessageBox.Show("La fecha de vencimiento tiene que se mayor a la fecha de inicio seteada en el sistema.");
+                return;
+            }
+            Dictionary<string, object> parametros = new Dictionary<string, object>()
+            {
+                { "@tipo", rdbCompra.Checked ? "Compra Inmediata" : "Subasta" },
+                { "@fechaInicio", fecha},
+                { "@fechaVencimiento", dtpFecha.Value},
+                { "@descripcion", txtDescripcion.Text},
+                { "@rubro", ((Rubro)cmbRubro.SelectedItem).Id},
+                { "@estado", estado},
+                { "@stock", Convert.ToInt32(txtStock.Text)},
+                { "@precio", Convert.ToDecimal(txtPrecio.Text)},
+                { "@visibilidad", ((Visibilidad)cmbVisibilidad.SelectedItem).Id}
+            };
             
-            parametros.Add("@tipo", tipo);
-            parametros.Add("@fechaVencimiento", descripcion);
-            parametros.Add("@descripcion", precio);
-            parametros.Add("@rubroId", stock);
-            parametros.Add("@estadoId", fecha);           
-            parametros.Add("@stock", estado);
-            parametros.Add("@precio", visibilidad);
-            parametros.Add("@visibilidadId", rubro);
-            //Ver casos de los que no son ni cliente ni empresa. ej: administrador
-            parametros.Add("@usuario", usuario.Username);
-      
+            //Alta
+            if (publicacion == null)
+            {
+                parametros.Add("@username", usuario.Username);
+                DBHelper.ExecuteNonQuery("Publicacion_Add", parametros);
+                publicacion = DBHelper.ExecuteReader("Publicacion_GetLast").ToPublicacion();
+                MessageBox.Show("Insertado con exito");
+            }
+            else
+            {
+                parametros.Add("@id", publicacion.Id);
+                DBHelper.ExecuteNonQuery("Publicacion_Modify", parametros);
+                MessageBox.Show("Modificado con exito con exito");
+            }
+            //Genero factura
+            if (estado == 1 && DBHelper.ExecuteReader("Factura_GetByPublicacion", new Dictionary<string, object>() { { "@publicacion", publicacion.Id }}).ToPublicacion() == null) {
+                GenerarFacturar((Visibilidad)cmbVisibilidad.SelectedItem);
+            }
 
-            //FALTA TERMINAR
-
-            //DBHelper.ExecuteNonQuery("Publicacion_Insert", parametros);
-            //MessageBox.Show("Se ha cargado la publicacion");
-            //Limpiar();
-
+            LoadHome();
         }
 
-        //private void Limpiar()
-        //{
-        //    txtDescripcion.Text = "";
-        //    txtPrecio.Text = "";
-        //    txtStock.Text = "";
-        //    rbtnActiva.Checked = false;
-        //    rbtnSubasta.Checked = false;
-        //    rbtnCompra.Checked = false;
-        //    rbtnBorrador.Checked = false;
-        //}
-
-        private void frmAlta_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        private void LoadHome() {
             frmHome home = new frmHome(usuario);
             home.Show();
-            Hide();
+            Close();
+        }
+
+        private void GenerarFacturar(Visibilidad visi)
+        {
+            List<ItemFactura> items = new List<ItemFactura>() {
+                //Item por porcentaje
+                new ItemFactura() {
+                    Cantidad = 1,
+                    PrecioUnitario =  Convert.ToDouble(Convert.ToDecimal(txtPrecio.Text) * visi.PorcentajeProducto)
+                },
+                //Costo publicacion
+                new ItemFactura() {
+                    Cantidad = 1,
+                    PrecioUnitario =  visi.CostoPublicacion
+                },
+                //Costo envio
+                new ItemFactura() {
+                    Cantidad = 1,
+                    PrecioUnitario =  visi.CostoEnvio
+                },
+            };
+            var fechaString = fecha.ToString("dd/MM/yyyy HH:mm:ss");
+            DBHelper.ExecuteNonQuery("Factura_Add", new Dictionary<string, object>() { { "@fecha", fechaString }, { "@total", Convert.ToDecimal(items.Sum(x => x.PrecioUnitario * x.Cantidad))}, { "@publicacion", publicacion.Id } });
+            var factura = DBHelper.ExecuteReader("Factura_GetLast").ToFactura();
+            foreach (var item in items)
+            {
+                DBHelper.ExecuteNonQuery("ItemFactura_Add", new Dictionary<string, object> { {"@factura", factura.Numero }, {"@cantidad", item.Cantidad }, { "@precio", item.PrecioUnitario } });
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Factura ID:" + factura.Numero);
+            sb.AppendLine("Total: $" + factura.Total);
+            sb.AppendLine();
+            sb.AppendLine("Comision tipo producto: $" + Convert.ToDouble(Convert.ToDecimal(txtPrecio.Text) * visi.PorcentajeProducto).ToString());
+            sb.AppendLine("Costo publicacion: $" + visi.CostoPublicacion);
+            sb.AppendLine("Costo envio: $" + visi.CostoEnvio);
+            MessageBox.Show(sb.ToString());
+            LoadHome();
+        }
+                
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void frmPublicacion_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LoadHome();
         }
     }
 }

@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using Helpers;
 using Clases;
 using System.Windows.Forms;
@@ -26,10 +21,8 @@ namespace GDD.Generar_Publicación
             var estados = DBHelper.ExecuteReader("Estado_GetAll").ToEstados();
             cmbEstado.DataSource = estados;
             cmbEstado.DisplayMember = "Descripcion";           
-            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetAll").ToPublicaciones());
+            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetByUsername", new Dictionary<string, object> { { "@username", usuario.Username} }).ToPublicaciones());
         }
-
-      
         
         private void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -42,7 +35,7 @@ namespace GDD.Generar_Publicación
         {
             frmPublicacion alta = new frmPublicacion(usuario);
             alta.Show();
-            this.Close();
+            Close();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -50,9 +43,15 @@ namespace GDD.Generar_Publicación
             var publicacion = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
             if (publicacion != null)
             {
+                //Finalizado
+                if (publicacion.Estado == 3)
+                {
+                    MessageBox.Show("Esta publicacion está finalizada, no se puede editar", "Error");
+                    return;
+                }
                 frmPublicacion alta = new frmPublicacion(usuario, publicacion);
                 alta.Show();
-                Hide();
+                Close();
             }
             else
             {
@@ -78,45 +77,48 @@ namespace GDD.Generar_Publicación
             dgvPublicaciones.Columns.Clear();
             dgvPublicaciones.AutoGenerateColumns = false;
 
-
-            DataGridViewTextBoxColumn Descripcion = new DataGridViewTextBoxColumn();
-            Descripcion.DataPropertyName = "Descripcion";
-            Descripcion.HeaderText = "Descripcion";
-            Descripcion.Width = 100;
-            Descripcion.ReadOnly = true;
-            DataGridViewTextBoxColumn Precio = new DataGridViewTextBoxColumn();
-            Precio.DataPropertyName = "Precio";
-            Precio.HeaderText = "Precio";
-            Precio.Width = 100;
-            Precio.ReadOnly = true;
-            DataGridViewTextBoxColumn Stock = new DataGridViewTextBoxColumn();
-            Stock.DataPropertyName = "Stock";
-            Stock.HeaderText = "Stock";
-            Stock.Width = 100;
-            Stock.ReadOnly = true;
-            DataGridViewTextBoxColumn Tipo = new DataGridViewTextBoxColumn();
-            Tipo.DataPropertyName = "Tipo";
-            Tipo.HeaderText = "Tipo";
-            Tipo.Width = 100;
-            Tipo.ReadOnly = true;
-            /*DataGridViewTextBoxColumn Usuario = new DataGridViewTextBoxColumn();
-            Usuario.DataPropertyName = "Usuario";
-            Usuario.HeaderText = "Vendedor";
-            Usuario.Width = 100;
-            Usuario.ReadOnly = true; para que aparezca el nombre del usuario*/
-            DataGridViewTextBoxColumn FechaVencimiento = new DataGridViewTextBoxColumn();
-            FechaVencimiento.DataPropertyName = "FechaVencimiento";
-            FechaVencimiento.HeaderText = "Fecha de vencimiento";
-            FechaVencimiento.Width = 100;
-            FechaVencimiento.ReadOnly = true;
-
-            //dgvPublicaciones.Columns.Add(Usuario);
-            dgvPublicaciones.Columns.Add(Descripcion);
-            dgvPublicaciones.Columns.Add(Precio);
-            dgvPublicaciones.Columns.Add(Stock);
-            dgvPublicaciones.Columns.Add(FechaVencimiento);
-            dgvPublicaciones.Columns.Add(Tipo);
+            dgvPublicaciones.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Descripcion",
+                HeaderText = "Descripcion",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvPublicaciones.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Precio",
+                HeaderText = "Precio",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvPublicaciones.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Stock",
+                HeaderText = "Stock",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvPublicaciones.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Tipo",
+                HeaderText = "Tipo",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvPublicaciones.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "FechaVencimiento",
+                HeaderText = "Fecha de vencimiento",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvPublicaciones.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Estado",
+                HeaderText = "Fecha de vencimiento",
+                Width = 100,
+                ReadOnly = true
+            }); 
         }
     }
-    
 }

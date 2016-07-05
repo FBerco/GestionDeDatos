@@ -106,7 +106,6 @@
             this.rdbFinalizada.Name = "rdbFinalizada";
             this.rdbFinalizada.Size = new System.Drawing.Size(72, 17);
             this.rdbFinalizada.TabIndex = 3;
-            this.rdbFinalizada.TabStop = true;
             this.rdbFinalizada.Text = "Finalizada";
             this.rdbFinalizada.UseVisualStyleBackColor = true;
             // 
@@ -117,7 +116,6 @@
             this.rdbPausada.Name = "rdbPausada";
             this.rdbPausada.Size = new System.Drawing.Size(67, 17);
             this.rdbPausada.TabIndex = 2;
-            this.rdbPausada.TabStop = true;
             this.rdbPausada.Text = "Pausada";
             this.rdbPausada.UseVisualStyleBackColor = true;
             // 
@@ -175,6 +173,7 @@
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(50, 20);
             this.txtStock.TabIndex = 8;
+            this.txtStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStock_KeyPress);
             // 
             // dtpFecha
             // 
@@ -207,6 +206,7 @@
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(50, 20);
             this.txtPrecio.TabIndex = 12;
+            this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecio_KeyPress);
             // 
             // label5
             // 
@@ -228,7 +228,7 @@
             // 
             // btnConfirmar
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(71, 350);
+            this.btnConfirmar.Location = new System.Drawing.Point(235, 312);
             this.btnConfirmar.Name = "btnConfirmar";
             this.btnConfirmar.Size = new System.Drawing.Size(100, 44);
             this.btnConfirmar.TabIndex = 18;
@@ -258,7 +258,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 523);
+            this.ClientSize = new System.Drawing.Size(569, 389);
             this.Controls.Add(this.cmbVisibilidad);
             this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.btnConfirmar);
@@ -276,7 +276,7 @@
             this.Controls.Add(this.gbPublicacion);
             this.Name = "frmPublicacion";
             this.Text = "Publicacion";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAlta_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPublicacion_FormClosing);
             this.gbPublicacion.ResumeLayout(false);
             this.gbPublicacion.PerformLayout();
             this.gbEstado.ResumeLayout(false);

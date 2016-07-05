@@ -85,7 +85,7 @@ namespace GDD
         }
         static void Facturas(object sender, EventArgs e)
         {
-            var home = new Facturas.frmHome();
+            var home = new Facturas.frmListadoDeFacturas();
             home.Show();
         }
         static void GenerarPublicacion(object sender, EventArgs e)

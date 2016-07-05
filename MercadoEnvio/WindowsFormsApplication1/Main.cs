@@ -80,7 +80,7 @@ namespace GDD
         }
         static void ComprarOfertar(object sender, EventArgs e)
         {
-            var home = new ComprarOfertar.frmHome();
+            var home = new ComprarOfertar.frmHome(usuario);
             home.Show();
         }
         static void Facturas(object sender, EventArgs e)
@@ -104,5 +104,9 @@ namespace GDD
             home.Show();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

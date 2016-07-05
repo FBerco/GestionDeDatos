@@ -19,10 +19,12 @@ namespace GDD.ComprarOfertar
         private int paginaActual = 0;
         private int ultimaPagina = 0;
         private List<PublicacionShow> publicaciones;
+        private Usuario usuario;
 
-        public frmHome()
+        public frmHome(Usuario us)
         {
             InitializeComponent();
+            usuario = us;
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
@@ -104,7 +106,7 @@ namespace GDD.ComprarOfertar
             public string Usuario { get; set; }
             public string Rubro { get; set; }
             public int Stock { get; set; }
-            public decimal Precio_Unitario { get; set; }
+            public decimal Precio { get; set; }
             public string Visibilidad { get; set; }
         }
 
@@ -121,7 +123,7 @@ namespace GDD.ComprarOfertar
                     Usuario = (string)rdr["publ_usuario"],
                     Rubro = (string)rdr["rubr_descripcion_corta"],
                     Stock = (int)rdr["publ_stock"],
-                    Precio_Unitario = (decimal)rdr["publ_precio"],
+                    Precio = (decimal)rdr["publ_precio"],
                     Visibilidad = (string)rdr["visi_detalle"]
                 });
             }
@@ -173,6 +175,61 @@ namespace GDD.ComprarOfertar
             paginaActual = ultimaPagina;
             dgvPublicaciones.DataSource = null;
             dgvPublicaciones.DataSource = actualizarPagina();
+        }
+
+        private void btnAccionar_Click(object sender, EventArgs e)
+        {
+            PublicacionShow publ = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
+            if(btnAccionar.Text == "COMPRAR")
+            {
+                int cantidad = Convert.ToInt32(txtAccion.Text);
+
+                if(cantidad > publ.Stock)
+                {
+                    MessageBox.Show("No hay stock disponible");
+                }
+                else
+                {
+                    var parametros = new Dictionary<string, object>()
+                    {
+                        { "@cliente", GetClienteIdByUsername()},
+                        { "@publicacion", publ.Id},
+                        { "@cantidad", cantidad}
+                    };
+                    DBHelper.ExecuteNonQuery("Venta_Add", parametros);
+                }
+            }
+            else if (btnAccionar.Text == "OFERTAR")
+            {
+                Oferta oferta = new Oferta();
+                oferta.Monto = Convert.ToInt32(txtAccion.Text);
+                oferta.PublicacionId = publ.Id;
+                oferta.ClienteId = GetClienteIdByUsername();
+
+                if(oferta.Monto > publ.Precio)
+                {
+                    var parametros = new Dictionary<string, object>()
+                    {
+                        { "@cliente", oferta.ClienteId},
+                        { "@publicacion", oferta.PublicacionId},
+                        { "@monto", oferta.Monto}
+                    };
+                    DBHelper.ExecuteNonQuery("Oferta_Add", parametros);
+                }
+                else
+                {
+                    MessageBox.Show("El monto debe superar la ultima puja");
+                }
+            }
+        }
+
+        private int GetClienteIdByUsername()
+        {
+            var parametros = new Dictionary<string, object>()
+            {
+                { "@username", usuario.Username}
+            };
+            return DBHelper.ExecuteReader("GetClienteIdByUsername", parametros).GetInt32(0);
         }
     }
 }

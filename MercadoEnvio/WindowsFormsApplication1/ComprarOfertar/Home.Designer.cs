@@ -106,6 +106,7 @@
             this.btnAccionar.Size = new System.Drawing.Size(366, 35);
             this.btnAccionar.TabIndex = 6;
             this.btnAccionar.UseVisualStyleBackColor = true;
+            this.btnAccionar.Click += new System.EventHandler(this.btnAccionar_Click);
             // 
             // btnInicio
             // 

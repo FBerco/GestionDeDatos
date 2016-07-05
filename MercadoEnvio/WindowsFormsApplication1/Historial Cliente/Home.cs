@@ -83,7 +83,7 @@ namespace GDD.Historial_Cliente
                 {
                     Dictionary<String, Object> diccionario = new Dictionary<string, object>();
                     diccionario.Add("@clieID", cliente.Id);
-                    comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetCantDeVentasSinCalificarSegunCliente", diccionario).ToVentas();
+                    comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario).ToVentas();
                     return comprasSinCalificar.Count();
                 }
             #endregion

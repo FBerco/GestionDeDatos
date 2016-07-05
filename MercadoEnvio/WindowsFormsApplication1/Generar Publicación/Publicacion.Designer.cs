@@ -1,6 +1,6 @@
 ﻿namespace GDD.Generar_Publicación
 {
-    partial class frmAlta
+    partial class frmPublicacion
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rbtnCompra = new System.Windows.Forms.RadioButton();
-            this.rbtnSubasta = new System.Windows.Forms.RadioButton();
+            this.rdbCompra = new System.Windows.Forms.RadioButton();
+            this.rdbSubasta = new System.Windows.Forms.RadioButton();
             this.gbPublicacion = new System.Windows.Forms.GroupBox();
             this.gbEstado = new System.Windows.Forms.GroupBox();
-            this.rbtnActiva = new System.Windows.Forms.RadioButton();
-            this.rbtnBorrador = new System.Windows.Forms.RadioButton();
+            this.rdbFinalizada = new System.Windows.Forms.RadioButton();
+            this.rdbPausada = new System.Windows.Forms.RadioButton();
+            this.rdbActiva = new System.Windows.Forms.RadioButton();
+            this.rdbBorrador = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,32 +53,32 @@
             this.gbEstado.SuspendLayout();
             this.SuspendLayout();
             // 
-            // rbtnCompra
+            // rdbCompra
             // 
-            this.rbtnCompra.AutoSize = true;
-            this.rbtnCompra.Location = new System.Drawing.Point(17, 19);
-            this.rbtnCompra.Name = "rbtnCompra";
-            this.rbtnCompra.Size = new System.Drawing.Size(109, 17);
-            this.rbtnCompra.TabIndex = 1;
-            this.rbtnCompra.TabStop = true;
-            this.rbtnCompra.Text = "Compra inmediata";
-            this.rbtnCompra.UseVisualStyleBackColor = true;
+            this.rdbCompra.AutoSize = true;
+            this.rdbCompra.Location = new System.Drawing.Point(17, 19);
+            this.rdbCompra.Name = "rdbCompra";
+            this.rdbCompra.Size = new System.Drawing.Size(109, 17);
+            this.rdbCompra.TabIndex = 1;
+            this.rdbCompra.TabStop = true;
+            this.rdbCompra.Text = "Compra inmediata";
+            this.rdbCompra.UseVisualStyleBackColor = true;
             // 
-            // rbtnSubasta
+            // rdbSubasta
             // 
-            this.rbtnSubasta.AutoSize = true;
-            this.rbtnSubasta.Location = new System.Drawing.Point(17, 42);
-            this.rbtnSubasta.Name = "rbtnSubasta";
-            this.rbtnSubasta.Size = new System.Drawing.Size(64, 17);
-            this.rbtnSubasta.TabIndex = 2;
-            this.rbtnSubasta.TabStop = true;
-            this.rbtnSubasta.Text = "Subasta";
-            this.rbtnSubasta.UseVisualStyleBackColor = true;
+            this.rdbSubasta.AutoSize = true;
+            this.rdbSubasta.Location = new System.Drawing.Point(17, 42);
+            this.rdbSubasta.Name = "rdbSubasta";
+            this.rdbSubasta.Size = new System.Drawing.Size(64, 17);
+            this.rdbSubasta.TabIndex = 2;
+            this.rdbSubasta.TabStop = true;
+            this.rdbSubasta.Text = "Subasta";
+            this.rdbSubasta.UseVisualStyleBackColor = true;
             // 
             // gbPublicacion
             // 
-            this.gbPublicacion.Controls.Add(this.rbtnCompra);
-            this.gbPublicacion.Controls.Add(this.rbtnSubasta);
+            this.gbPublicacion.Controls.Add(this.rdbCompra);
+            this.gbPublicacion.Controls.Add(this.rdbSubasta);
             this.gbPublicacion.Location = new System.Drawing.Point(15, 24);
             this.gbPublicacion.Name = "gbPublicacion";
             this.gbPublicacion.Size = new System.Drawing.Size(141, 77);
@@ -86,36 +88,60 @@
             // 
             // gbEstado
             // 
-            this.gbEstado.Controls.Add(this.rbtnActiva);
-            this.gbEstado.Controls.Add(this.rbtnBorrador);
+            this.gbEstado.Controls.Add(this.rdbFinalizada);
+            this.gbEstado.Controls.Add(this.rdbPausada);
+            this.gbEstado.Controls.Add(this.rdbActiva);
+            this.gbEstado.Controls.Add(this.rdbBorrador);
             this.gbEstado.Location = new System.Drawing.Point(436, 120);
             this.gbEstado.Name = "gbEstado";
-            this.gbEstado.Size = new System.Drawing.Size(113, 69);
+            this.gbEstado.Size = new System.Drawing.Size(113, 107);
             this.gbEstado.TabIndex = 4;
             this.gbEstado.TabStop = false;
             this.gbEstado.Text = "Estado Publicacion";
             // 
-            // rbtnActiva
+            // rdbFinalizada
             // 
-            this.rbtnActiva.AutoSize = true;
-            this.rbtnActiva.Location = new System.Drawing.Point(8, 42);
-            this.rbtnActiva.Name = "rbtnActiva";
-            this.rbtnActiva.Size = new System.Drawing.Size(55, 17);
-            this.rbtnActiva.TabIndex = 1;
-            this.rbtnActiva.TabStop = true;
-            this.rbtnActiva.Text = "Activa";
-            this.rbtnActiva.UseVisualStyleBackColor = true;
+            this.rdbFinalizada.AutoSize = true;
+            this.rdbFinalizada.Location = new System.Drawing.Point(8, 84);
+            this.rdbFinalizada.Name = "rdbFinalizada";
+            this.rdbFinalizada.Size = new System.Drawing.Size(72, 17);
+            this.rdbFinalizada.TabIndex = 3;
+            this.rdbFinalizada.TabStop = true;
+            this.rdbFinalizada.Text = "Finalizada";
+            this.rdbFinalizada.UseVisualStyleBackColor = true;
             // 
-            // rbtnBorrador
+            // rdbPausada
             // 
-            this.rbtnBorrador.AutoSize = true;
-            this.rbtnBorrador.Location = new System.Drawing.Point(8, 19);
-            this.rbtnBorrador.Name = "rbtnBorrador";
-            this.rbtnBorrador.Size = new System.Drawing.Size(65, 17);
-            this.rbtnBorrador.TabIndex = 0;
-            this.rbtnBorrador.TabStop = true;
-            this.rbtnBorrador.Text = "Borrador";
-            this.rbtnBorrador.UseVisualStyleBackColor = true;
+            this.rdbPausada.AutoSize = true;
+            this.rdbPausada.Location = new System.Drawing.Point(8, 61);
+            this.rdbPausada.Name = "rdbPausada";
+            this.rdbPausada.Size = new System.Drawing.Size(67, 17);
+            this.rdbPausada.TabIndex = 2;
+            this.rdbPausada.TabStop = true;
+            this.rdbPausada.Text = "Pausada";
+            this.rdbPausada.UseVisualStyleBackColor = true;
+            // 
+            // rdbActiva
+            // 
+            this.rdbActiva.AutoSize = true;
+            this.rdbActiva.Location = new System.Drawing.Point(8, 38);
+            this.rdbActiva.Name = "rdbActiva";
+            this.rdbActiva.Size = new System.Drawing.Size(55, 17);
+            this.rdbActiva.TabIndex = 1;
+            this.rdbActiva.TabStop = true;
+            this.rdbActiva.Text = "Activa";
+            this.rdbActiva.UseVisualStyleBackColor = true;
+            // 
+            // rdbBorrador
+            // 
+            this.rdbBorrador.AutoSize = true;
+            this.rdbBorrador.Location = new System.Drawing.Point(8, 19);
+            this.rdbBorrador.Name = "rdbBorrador";
+            this.rdbBorrador.Size = new System.Drawing.Size(65, 17);
+            this.rdbBorrador.TabIndex = 0;
+            this.rdbBorrador.TabStop = true;
+            this.rdbBorrador.Text = "Borrador";
+            this.rdbBorrador.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -228,7 +254,7 @@
             this.cmbVisibilidad.Size = new System.Drawing.Size(121, 21);
             this.cmbVisibilidad.TabIndex = 20;
             // 
-            // frmAlta
+            // frmPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -248,10 +274,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gbEstado);
             this.Controls.Add(this.gbPublicacion);
-            this.Name = "frmAlta";
-            this.Text = "Alta";
+            this.Name = "frmPublicacion";
+            this.Text = "Publicacion";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAlta_FormClosing);
-            this.Load += new System.EventHandler(this.Alta_Load);
             this.gbPublicacion.ResumeLayout(false);
             this.gbPublicacion.PerformLayout();
             this.gbEstado.ResumeLayout(false);
@@ -263,12 +288,12 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton rbtnCompra;
-        private System.Windows.Forms.RadioButton rbtnSubasta;
+        private System.Windows.Forms.RadioButton rdbCompra;
+        private System.Windows.Forms.RadioButton rdbSubasta;
         private System.Windows.Forms.GroupBox gbPublicacion;
         private System.Windows.Forms.GroupBox gbEstado;
-        private System.Windows.Forms.RadioButton rbtnActiva;
-        private System.Windows.Forms.RadioButton rbtnBorrador;
+        private System.Windows.Forms.RadioButton rdbActiva;
+        private System.Windows.Forms.RadioButton rdbBorrador;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label label2;
@@ -282,5 +307,7 @@
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.ComboBox cmbRubro;
         private System.Windows.Forms.ComboBox cmbVisibilidad;
+        private System.Windows.Forms.RadioButton rdbFinalizada;
+        private System.Windows.Forms.RadioButton rdbPausada;
     }
 }

@@ -40,18 +40,17 @@ namespace GDD.Generar_Publicación
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
-            frmAlta alta = new frmAlta(usuario);
+            frmPublicacion alta = new frmPublicacion(usuario);
             alta.Show();
             this.Close();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            //hacer un if si hay public seleccionada 
             var publicacion = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
             if (publicacion != null)
             {
-                frmAlta alta = new frmAlta(usuario, publicacion);
+                frmPublicacion alta = new frmPublicacion(usuario, publicacion);
                 alta.Show();
                 Hide();
             }

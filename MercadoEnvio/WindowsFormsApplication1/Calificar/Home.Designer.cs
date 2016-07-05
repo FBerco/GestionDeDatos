@@ -42,9 +42,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(34, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.Size = new System.Drawing.Size(96, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Ventas a calificar";
+            this.label1.Text = "Compras a calificar";
             // 
             // label2
             // 
@@ -120,6 +120,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmHome";
             this.Text = "Calificar";
+            this.Load += new System.EventHandler(this.frmHome_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

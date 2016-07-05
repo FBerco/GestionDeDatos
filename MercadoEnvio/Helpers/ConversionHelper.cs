@@ -345,5 +345,22 @@ namespace Helpers
             return list;
         }
         #endregion
+
+        #region ESTADISTICA
+        public static List<Estadistica> ToEstadisticas(this SqlDataReader rdr)
+        {
+            List<Estadistica> list = new List<Estadistica>();
+            while (rdr.Read())
+            {
+                list.Add(new Estadistica()
+                {
+                    Username = (int)rdr["username"],
+                    Extra = (string)rdr["extra"]
+                });
+            }
+            DBHelper.DB.Close();
+            return list;
+        }
+        #endregion
     }
 }

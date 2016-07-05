@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Clases;
 using Helpers;
@@ -9,60 +10,81 @@ namespace GDD.Generar_Publicación
     /// <summary>
     /// Formulario en proceso, falta terminar
     /// </summary>
-    public partial class frmAlta : Form
+    public partial class frmPublicacion : Form
     {
-        Publicacion publicacion;
-        Usuario usuario;
+        private Publicacion publicacion;
+        private Usuario usuario;
+        private List<Rubro> rubros;
+        private List<Visibilidad> visibilidades;
         //Para alta
-        public frmAlta(Usuario usuario)
+        public frmPublicacion(Usuario usuario)
         {
             InitializeComponent();
             btnConfirmar.Text = "Dar de alta";
+            CargarDatos();
         }
 
         //Para modificaciones
-        public frmAlta(Usuario us,Publicacion publicacionSeleccionada)
+        public frmPublicacion(Usuario us,Publicacion publicacionSeleccionada)
         {
             InitializeComponent();
             usuario = us;
             btnConfirmar.Text = "Guardar cambios";
             publicacion = publicacionSeleccionada;
+            
             CargarDatos();
+        }
+
+        private void CargarRubrosYVisibilidades() {            
+            cmbVisibilidad.DataSource = visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
+            cmbVisibilidad.DisplayMember = "Detalle";            
+            cmbRubro.DataSource = rubros = DBHelper.ExecuteReader("Rubro_GetAll").ToRubros();
+            cmbRubro.DisplayMember = "DescripcionCorta";
         }
 
         private void CargarDatos() 
         {
+            CargarRubrosYVisibilidades();
+            if (publicacion.Tipo == "Subasta")
+            {
+                rdbSubasta.Checked = true;
+            }
+            else
+            {
+                rdbCompra.Checked = true;
+            }
             txtDescripcion.Text = publicacion.Descripcion;
             txtPrecio.Text = publicacion.Precio.ToString();
             txtStock.Text = publicacion.Stock.ToString();
-            dtpFecha.Text = publicacion.FechaVencimiento.ToString();
-            if (publicacion.Tipo == "Subasta")
+            dtpFecha.CustomFormat = "yyyy-M-d HH:mm:ss";
+            dtpFecha.Format = DateTimePickerFormat.Custom;
+            dtpFecha.Value = publicacion.FechaVencimiento;
+            switch (publicacion.Estado)
             {
-                rbtnSubasta.Focus();
+                case 1:
+                    rdbActiva.Checked = true;
+                    break;
+                case 2:
+                    rdbPausada.Checked = true;
+                    break;
+                case 3:
+                    rdbFinalizada.Checked = true;
+                    break;
+                case 4:
+                    rdbBorrador.Checked = true;
+                    break;
             }
-            else 
-            {
-                rbtnCompra.Focus();                
-            }        
+            cmbVisibilidad.SelectedItem = visibilidades.First(x => x.Id == publicacion.VisibilidadId);
+            cmbRubro.SelectedItem = rubros.First(x => x.Id == publicacion.Rubro);
         }
-          
-        private void Alta_Load(object sender, EventArgs e)
-        {
-            cmbRubro.DataSource = DBHelper.ExecuteReader("Rubro_GetAll").ToRubros();
-            cmbRubro.DisplayMember = "DescripcionCorta";
-            
-            cmbVisibilidad.DataSource = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
-            cmbVisibilidad.DisplayMember = "Detalle";
-        }
-
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            var tipo = rbtnCompra.Checked ? "Compra Inmediata" : "Subasta";
+            var tipo = rdbCompra.Checked ? "Compra Inmediata" : "Subasta";
             var descripcion = txtDescripcion.Text;
             var precio = Convert.ToDecimal(txtPrecio.Text);
             var stock = Convert.ToInt32(txtStock.Text);
             var fecha = dtpFecha.Value;
-            var estado = rbtnActiva.Checked ? "Activa" : "Borrador";
+            var estado = rdbActiva.Checked ? "Activa" : "Borrador";
             var visibilidad = (Visibilidad)cmbVisibilidad.SelectedItem;
             var rubro = (Rubro)cmbRubro.SelectedItem;
                 

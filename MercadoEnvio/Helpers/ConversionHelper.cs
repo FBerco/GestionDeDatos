@@ -191,9 +191,9 @@ namespace Helpers
                 list.Add(new Oferta()
                 {
                     Id = (int)rdr["ofer_id"],
-                    Monto = (int)rdr["ofer_monto"],
+                    Monto = (decimal)rdr["ofer_monto"],
                     Fecha = (DateTime)rdr["ofer_fecha"],
-                    PublicacionId = (int)rdr["ofer_publid"],
+                    PublicacionId = (int) rdr["ofer_publicacion"],
                     ClienteId = (int)rdr["ofer_cliente"],
                 });
             }

@@ -56,9 +56,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(31, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(176, 13);
+            this.label2.Size = new System.Drawing.Size(174, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Comision por tipo de publicacion (%)";
+            this.label2.Text = "Comision por tipo de publicacion ($)";
             // 
             // label3
             // 

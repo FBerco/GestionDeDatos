@@ -34,6 +34,8 @@ namespace GDD.Facturas
            deshabilitarFiltros();
            btnListarFacturas.Enabled = false;
            btnOKFiltros.Enabled = false;
+           btnOKListarPor.Enabled = false;
+           deshabilitarListarPor();
            listaDeUsuariosVendedores = DBHelper.ExecuteReader("Usuario_GetVendedores").ToUsuarios();
            foreach (var usuario in listaDeUsuariosVendedores)
            {
@@ -46,31 +48,28 @@ namespace GDD.Facturas
 
             private void btnListarFacturas_Click(object sender, EventArgs e)
             {
-                /*if (chbComisionDePublicacion.Checked == true)
+                if (chbComisionPublicacion.Checked)
                 {
                     Dictionary<String, Object> diccionario = new Dictionary<string, object>();
                     diccionario.Add("@vendedorID", vendedorSeleccionado);
-                    diccionario.Add("@clieID", clienteQueLeComproAlVendedor);
-                    listaDeFacturasOrdenadas = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoPublicacion", diccionario).ToFacturas();
+                    todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoPublicacion", diccionario).ToFacturas();
                 }
                 else 
                 {
-                    if (chbVentas.Checked == true)
+                    if (chbVentas.Checked)
                     {
                         Dictionary<String, Object> diccionario = new Dictionary<string, object>();
                         diccionario.Add("@vendedorID", vendedorSeleccionado);
-                        diccionario.Add("@clieID", clienteQueLeComproAlVendedor);
-                        listaDeFacturasOrdenadas = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", diccionario).ToFacturas();
+                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", diccionario).ToFacturas();
                     }
                     else
                     {
                         Dictionary<String, Object> diccionario = new Dictionary<string, object>();
                         diccionario.Add("@vendedorID", vendedorSeleccionado);
-                        diccionario.Add("@clieID", clienteQueLeComproAlVendedor);
-                        listaDeFacturasOrdenadas = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", diccionario).ToFacturas();
+                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", diccionario).ToFacturas();
                     }  
-                 VER SI HAY QUE LISTAR POR COMISION PUBLICACION/VENTA/ENVIO
-                }*/
+                 
+                }
                 facturasFiltradas = filtrarFacturas();            
                 foreach (var factura in facturasFiltradas)
                 {
@@ -83,29 +82,16 @@ namespace GDD.Facturas
             
             }
 
-            private void btnOKVendedor_Click(object sender, EventArgs e)
-            {
-                btnOKFiltros.Enabled = true;
-                Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
-                vendedorSeleccionado = cmbUsuarioVendedor.SelectedItem.ToString();
-                nuevoDiccionario.Add("@vendedorID",vendedorSeleccionado);
-                todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", nuevoDiccionario).ToFacturas();
-                deshabilitarUsuarioVendedor();
-                habilitarFiltros();
-            }
+            
 
-            private void deshabilitarUsuarioVendedor()
-            {
-                cmbUsuarioVendedor.Enabled = false;
-                btnOKVendedor.Enabled = false;
-            }
+            
 
             #region filtrarFacturas
 
             private List<Factura> filtrarFacturas()
             {
                return todasLasFacturasDelUsuarioVendedor.FindAll(factura => estaDentroDelRangoDeFechas(factura)
-                        && estaDentroDelRangoDeImporte(factura) /*&& contieneDetalleBuscado(factura)*/ );
+                        && estaDentroDelRangoDeImporte(factura));
             }
 
             private Boolean estaDentroDelRangoDeFechas(Factura unaFactura) 
@@ -122,13 +108,7 @@ namespace GDD.Facturas
                     && (unaFactura.Total <= System.Decimal.Parse(txtImporteMaximo.Text));
             }
 
-            /*private Boolean contieneDetalleBuscado(Factura unaFactura)
-            {
-                String detalleBuscado = txtDetalleBuscado.Text;
-                String detalleFactura = unaFactura.
-            }*/
-
-        
+                 
 
             #endregion
 
@@ -172,7 +152,6 @@ namespace GDD.Facturas
                     dtpFechaInicial.Enabled = false;
                     txtImporteMaximo.Enabled = false;
                     txtImporteMinimo.Enabled = false;
-                    txtDetalleBuscado.Enabled = false;
                 }
 
                 private void habilitarFiltros()
@@ -181,21 +160,52 @@ namespace GDD.Facturas
                     dtpFechaInicial.Enabled = true;
                     txtImporteMaximo.Enabled = true;
                     txtImporteMinimo.Enabled = true;
-                    txtDetalleBuscado.Enabled = true;
                 }
 
+                private void deshabilitarListarPor() 
+                {
+                    chbComisionPublicacion.Enabled = false;
+                    chbEnvios.Enabled = false;
+                    chbVentas.Enabled = false;
+                }
+
+                private void habilitarListarPor() 
+                {
+                    chbComisionPublicacion.Enabled = true;
+                    chbEnvios.Enabled = true;
+                    chbVentas.Enabled = true;
+                }
+
+                private void deshabilitarUsuarioVendedor()
+                {
+                    cmbUsuarioVendedor.Enabled = false;
+                    btnOKVendedor.Enabled = false;
+                }
+
+                private void btnOKVendedor_Click(object sender, EventArgs e)
+                {
+                    Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
+                    vendedorSeleccionado = cmbUsuarioVendedor.SelectedItem.ToString();
+                    nuevoDiccionario.Add("@vendedorID", vendedorSeleccionado);
+                    todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", nuevoDiccionario).ToFacturas();
+                    deshabilitarUsuarioVendedor();
+                    habilitarListarPor();
+                    btnOKListarPor.Enabled = true;
+                }
+
+                private void btnOKListarPor_Click(object sender, EventArgs e)
+                {
+                    habilitarFiltros();
+                    btnOKFiltros.Enabled = true;
+                    btnOKListarPor.Enabled = false;
+                    deshabilitarListarPor();
+                }
+        
                 private void btnOKFiltros_Click(object sender, EventArgs e)
                 {
                     btnListarFacturas.Enabled = true;
                     deshabilitarFiltros();
                     btnOKFiltros.Enabled = false;
-                }
-
-                private void limpiarFiltros()
-                {
-                    txtImporteMaximo.Clear();
-                    txtImporteMinimo.Clear();
-                    txtDetalleBuscado.Clear();
                 }
 
                 private void btnLimpiar_Click(object sender, EventArgs e)
@@ -209,8 +219,49 @@ namespace GDD.Facturas
                     cmbUsuarioVendedor.Enabled = true;
                 }
 
+                private void limpiarFiltros()
+                {
+                    txtImporteMaximo.Clear();
+                    txtImporteMinimo.Clear();
+                }
+
              #endregion
-        
-        #endregion       
+
+            #region Checkboxes
+                private void chbComisionPublicacion_CheckedChanged(object sender, EventArgs e)
+                {
+                    if (chbComisionPublicacion.Checked)
+                    {
+                        chbVentas.CheckState = CheckState.Unchecked;
+                        chbEnvios.CheckState = CheckState.Unchecked;
+                    }
+                }
+
+                private void chbEnvios_CheckedChanged(object sender, EventArgs e)
+                {
+                    if (chbEnvios.Checked)
+                    {
+                        chbComisionPublicacion.CheckState = CheckState.Unchecked;
+                        chbVentas.CheckState = CheckState.Unchecked;
+                    }
+                }
+
+                private void chbVentas_CheckedChanged(object sender, EventArgs e)
+                {
+                    if (chbVentas.Checked)
+                    {
+                        chbComisionPublicacion.CheckState = CheckState.Unchecked;
+                        chbEnvios.CheckState = CheckState.Unchecked;
+                    }
+                }
+                #endregion                
+
+                
+
+        #endregion
+
+
+
+
     }
 }

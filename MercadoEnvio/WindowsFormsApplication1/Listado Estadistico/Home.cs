@@ -15,21 +15,24 @@ namespace GDD.Listado_Estadistico
     public partial class frmHome : Form
     {
         private int trimestre;
-        private int año;
+        private int anio;
         public frmHome()
         {
             InitializeComponent();
+            dtpAnio.Format = DateTimePickerFormat.Custom;
+            dtpAnio.CustomFormat = "yyyy";
+            dtpAnio.ShowUpDown = true;
         }
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
             var tipo = cmbTipo.SelectedIndex;
            
-            if (!string.IsNullOrEmpty(txtAño.Text) && tipo != -1 && cmbTrimestre.SelectedItem != null )
+            if (!string.IsNullOrEmpty(dtpAnio.Text) && tipo != -1 && cmbTrimestre.SelectedItem != null )
             {
                               
                 trimestre = ++cmbTrimestre.SelectedIndex;
-                año = Convert.ToInt32(txtAño.Text);
+                anio = Convert.ToInt32(dtpAnio.Text);
                 switch (tipo)
                 {
                     case 0:
@@ -41,7 +44,7 @@ namespace GDD.Listado_Estadistico
                         MayorCantidadProductosComprados(rubr);
                         break;
                     case 2:
-                        MayorCantidadFActuras();
+                        MayorCantidadFacturas();
                         break;
                     case 3:
                         MayorMontoFacturado();
@@ -77,24 +80,79 @@ namespace GDD.Listado_Estadistico
             }
         }
 
-        private void MayorNoVendido(Visibilidad visi = null)
+        private int GetMes() {
+            switch (trimestre)
+            {
+                case 1:
+                    return 1;
+                case 2:
+                    return 4;
+                case 3:
+                    return 7;
+                case 4:
+                    return 10;
+                default:
+                    return 1;
+            }
+        }
+
+        private Dictionary<string, object> GetDiccionario() {
+            return new Dictionary<string, object> { { "@Mes", GetMes() }, { "@Anio", anio } };
+        }
+
+        private void MayorNoVendido(Visibilidad visi)
         {
-            
+            var parametros = GetDiccionario();
+            if (visi != null)
+            {
+                parametros.Add("@Visibilidad", visi.Id);
+            }
+            var estadistica = DBHelper.ExecuteReader("Estadisticas_MayorNoVendido", parametros).ToEstadisticas();
+            CargarGrilla(estadistica);
         }
 
         private void MayorCantidadProductosComprados(Rubro rubr)
         {
-            throw new NotImplementedException();
+            var parametros = GetDiccionario();
+            if (rubr != null)
+            {
+                parametros.Add("@Rubro", rubr.Id);
+            }
+            var estadistica = DBHelper.ExecuteReader("Estadisticas_ClientesComprados", parametros).ToEstadisticas();
+            CargarGrilla(estadistica);
         }
      
-        private void MayorCantidadFActuras()
+        private void MayorCantidadFacturas()
         {
-            throw new NotImplementedException();
+            var estadistica = DBHelper.ExecuteReader("Estadisticas_MayorFacturas", GetDiccionario()).ToEstadisticas();
+            CargarGrilla(estadistica);
         }
 
         private void MayorMontoFacturado()
         {
-            throw new NotImplementedException();
+            var estadistica = DBHelper.ExecuteReader("Estadisticas_MayorFacturado", GetDiccionario()).ToEstadisticas();
+            CargarGrilla(estadistica);
+        }
+
+        private void CargarGrilla(List<Estadistica> estadistica) {
+            dgvResultado.DataSource = estadistica;
+            dgvResultado.Columns.Clear();
+            dgvResultado.AutoGenerateColumns = false;
+
+            dgvResultado.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Username",
+                HeaderText = "Username",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvResultado.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Extra",
+                HeaderText = "Extra",
+                Width = 100,
+                ReadOnly = true
+            });
         }
 
         private void txtAño_KeyPress(object sender, KeyPressEventArgs e)

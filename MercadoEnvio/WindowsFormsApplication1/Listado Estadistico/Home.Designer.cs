@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.txtAño = new System.Windows.Forms.TextBox();
             this.cmbTrimestre = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbTipo = new System.Windows.Forms.ComboBox();
@@ -38,6 +37,7 @@
             this.dgvResultado = new System.Windows.Forms.DataGridView();
             this.cmbFiltro = new System.Windows.Forms.ComboBox();
             this.lblFiltro = new System.Windows.Forms.Label();
+            this.dtpAnio = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,15 +50,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Ingrese el año";
             // 
-            // txtAño
-            // 
-            this.txtAño.Location = new System.Drawing.Point(126, 37);
-            this.txtAño.MaxLength = 4;
-            this.txtAño.Name = "txtAño";
-            this.txtAño.Size = new System.Drawing.Size(100, 20);
-            this.txtAño.TabIndex = 1;
-            this.txtAño.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAño_KeyPress);
-            // 
             // cmbTrimestre
             // 
             this.cmbTrimestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -66,7 +57,8 @@
             this.cmbTrimestre.Items.AddRange(new object[] {
             "1",
             "2",
-            "3"});
+            "3",
+            "4"});
             this.cmbTrimestre.Location = new System.Drawing.Point(126, 76);
             this.cmbTrimestre.Name = "cmbTrimestre";
             this.cmbTrimestre.Size = new System.Drawing.Size(145, 21);
@@ -143,11 +135,19 @@
             this.lblFiltro.Text = "Seleccione visibilidad";
             this.lblFiltro.Visible = false;
             // 
+            // dtpAnio
+            // 
+            this.dtpAnio.Location = new System.Drawing.Point(126, 29);
+            this.dtpAnio.Name = "dtpAnio";
+            this.dtpAnio.Size = new System.Drawing.Size(200, 20);
+            this.dtpAnio.TabIndex = 10;
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 449);
+            this.Controls.Add(this.dtpAnio);
             this.Controls.Add(this.lblFiltro);
             this.Controls.Add(this.cmbFiltro);
             this.Controls.Add(this.dgvResultado);
@@ -156,7 +156,6 @@
             this.Controls.Add(this.cmbTipo);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbTrimestre);
-            this.Controls.Add(this.txtAño);
             this.Controls.Add(this.label1);
             this.Name = "frmHome";
             this.Text = "Listado Estadistico";
@@ -169,7 +168,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtAño;
         private System.Windows.Forms.ComboBox cmbTrimestre;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbTipo;
@@ -178,5 +176,6 @@
         private System.Windows.Forms.DataGridView dgvResultado;
         private System.Windows.Forms.ComboBox cmbFiltro;
         private System.Windows.Forms.Label lblFiltro;
+        private System.Windows.Forms.DateTimePicker dtpAnio;
     }
 }

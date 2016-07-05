@@ -229,7 +229,7 @@ namespace GDD.ComprarOfertar
             {
                 { "@username", usuario.Username}
             };
-            return DBHelper.ExecuteReader("GetClienteIdByUsername", parametros).GetInt32(0);
+            return DBHelper.ExecuteReader("Cliente_GetByUsername", parametros).ToCliente().Id;
         }
     }
 }

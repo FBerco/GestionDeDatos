@@ -36,8 +36,8 @@
             this.montoOfertado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtOperacionesSinCalificar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.detalle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvResumenCalificaciones = new System.Windows.Forms.ListView();
+            this.fechaCalificacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cantEstrellas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,7 +57,7 @@
             this.fecha,
             this.cantidadComprada,
             this.montoOfertado});
-            this.lvHistorial.Location = new System.Drawing.Point(228, 37);
+            this.lvHistorial.Location = new System.Drawing.Point(273, 37);
             this.lvHistorial.Name = "lvHistorial";
             this.lvHistorial.Size = new System.Drawing.Size(578, 268);
             this.lvHistorial.TabIndex = 0;
@@ -91,7 +91,7 @@
             // 
             // txtOperacionesSinCalificar
             // 
-            this.txtOperacionesSinCalificar.Location = new System.Drawing.Point(168, 151);
+            this.txtOperacionesSinCalificar.Location = new System.Drawing.Point(205, 151);
             this.txtOperacionesSinCalificar.Name = "txtOperacionesSinCalificar";
             this.txtOperacionesSinCalificar.Size = new System.Drawing.Size(39, 20);
             this.txtOperacionesSinCalificar.TabIndex = 1;
@@ -105,26 +105,26 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Operaciones sin calificar";
             // 
-            // listView1
+            // lvResumenCalificaciones
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.detalle,
+            this.lvResumenCalificaciones.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.fechaCalificacion,
             this.cantEstrellas});
-            this.listView1.Location = new System.Drawing.Point(15, 37);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(196, 97);
-            this.listView1.TabIndex = 3;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lvResumenCalificaciones.Location = new System.Drawing.Point(15, 37);
+            this.lvResumenCalificaciones.Name = "lvResumenCalificaciones";
+            this.lvResumenCalificaciones.Size = new System.Drawing.Size(229, 97);
+            this.lvResumenCalificaciones.TabIndex = 3;
+            this.lvResumenCalificaciones.UseCompatibleStateImageBehavior = false;
+            this.lvResumenCalificaciones.View = System.Windows.Forms.View.Details;
             // 
-            // detalle
+            // fechaCalificacion
             // 
-            this.detalle.Text = "Detalle";
-            this.detalle.Width = 73;
+            this.fechaCalificacion.Text = "Fecha";
+            this.fechaCalificacion.Width = 73;
             // 
             // cantEstrellas
             // 
-            this.cantEstrellas.Text = "Cantidad de estrellas";
+            this.cantEstrellas.Text = "Estrellas";
             this.cantEstrellas.Width = 119;
             // 
             // label2
@@ -141,7 +141,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(225, 12);
+            this.label3.Location = new System.Drawing.Point(270, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(229, 13);
             this.label3.TabIndex = 5;
@@ -158,14 +158,14 @@
             // 
             // txtCalificacionPromedio
             // 
-            this.txtCalificacionPromedio.Location = new System.Drawing.Point(168, 183);
+            this.txtCalificacionPromedio.Location = new System.Drawing.Point(205, 183);
             this.txtCalificacionPromedio.Name = "txtCalificacionPromedio";
             this.txtCalificacionPromedio.Size = new System.Drawing.Size(39, 20);
             this.txtCalificacionPromedio.TabIndex = 6;
             // 
             // txtCalificacionMasAlta
             // 
-            this.txtCalificacionMasAlta.Location = new System.Drawing.Point(168, 215);
+            this.txtCalificacionMasAlta.Location = new System.Drawing.Point(205, 215);
             this.txtCalificacionMasAlta.Name = "txtCalificacionMasAlta";
             this.txtCalificacionMasAlta.Size = new System.Drawing.Size(39, 20);
             this.txtCalificacionMasAlta.TabIndex = 8;
@@ -190,7 +190,7 @@
             // 
             // txtCalificacionMasBaja
             // 
-            this.txtCalificacionMasBaja.Location = new System.Drawing.Point(168, 246);
+            this.txtCalificacionMasBaja.Location = new System.Drawing.Point(205, 246);
             this.txtCalificacionMasBaja.Name = "txtCalificacionMasBaja";
             this.txtCalificacionMasBaja.Size = new System.Drawing.Size(39, 20);
             this.txtCalificacionMasBaja.TabIndex = 10;
@@ -199,7 +199,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(809, 318);
+            this.ClientSize = new System.Drawing.Size(864, 318);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtCalificacionMasBaja);
             this.Controls.Add(this.label5);
@@ -208,7 +208,7 @@
             this.Controls.Add(this.txtCalificacionPromedio);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lvResumenCalificaciones);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtOperacionesSinCalificar);
             this.Controls.Add(this.lvHistorial);
@@ -230,8 +230,8 @@
         private System.Windows.Forms.ColumnHeader montoOfertado;
         private System.Windows.Forms.TextBox txtOperacionesSinCalificar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader detalle;
+        private System.Windows.Forms.ListView lvResumenCalificaciones;
+        private System.Windows.Forms.ColumnHeader fechaCalificacion;
         private System.Windows.Forms.ColumnHeader cantEstrellas;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

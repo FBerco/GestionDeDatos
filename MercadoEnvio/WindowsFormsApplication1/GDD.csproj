@@ -146,11 +146,11 @@
     <Compile Include="ComprarOfertar\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="Facturas\Home.cs">
+    <Compile Include="Facturas\ListadoDeFacturas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturas\Home.Designer.cs">
-      <DependentUpon>Home.cs</DependentUpon>
+    <Compile Include="Facturas\ListadoDeFacturas.designer.cs">
+      <DependentUpon>ListadoDeFacturas.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -249,8 +249,8 @@
     <EmbeddedResource Include="ComprarOfertar\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Facturas\Home.resx">
-      <DependentUpon>Home.cs</DependentUpon>
+    <EmbeddedResource Include="Facturas\ListadoDeFacturas.resx">
+      <DependentUpon>ListadoDeFacturas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>

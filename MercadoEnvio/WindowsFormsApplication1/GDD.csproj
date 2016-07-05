@@ -169,12 +169,6 @@
     <Compile Include="Generar Publicación\Publicacion.Designer.cs">
       <DependentUpon>Publicacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicación\FiltrarPublicacion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Generar Publicación\FiltrarPublicacion.Designer.cs">
-      <DependentUpon>FiltrarPublicacion.cs</DependentUpon>
-    </Compile>
     <Compile Include="Generar Publicación\Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,9 +257,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicación\Publicacion.resx">
       <DependentUpon>Publicacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicación\FiltrarPublicacion.resx">
-      <DependentUpon>FiltrarPublicacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicación\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>

@@ -27,7 +27,23 @@ namespace GDD.ComprarOfertar
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-
+            List<Rubro> rubrosSeleccionados = clbRubros.CheckedItems.Cast<Rubro>().ToList();
+            var parametros = new Dictionary<string, object>()
+            {
+                { "@descripcion", txtDescripcion.Text}
+            };
+            int i = 1;
+            rubrosSeleccionados.ForEach(r =>
+            {
+                parametros.Add("@r" + i.ToString(), r.Id);
+                i++;
+            });
+            for(; i<=23; i++)
+            {
+                parametros.Add("@r" + i.ToString(), -1);
+            }
+            LoadPublicaciones(ToPublicacionesShow(DBHelper.ExecuteReader(
+                "Publicacion_GetPublicacionesByDescripcionYRubro_Show",parametros)));
         }
 
         private void frmHome_Load(object sender, EventArgs e)
@@ -46,6 +62,7 @@ namespace GDD.ComprarOfertar
         private void LoadPublicaciones(List<PublicacionShow> publicaciones)
         {
             this.publicaciones = publicaciones;
+            paginaActual = 0;
             ultimaPagina = (int)Math.Floor(Convert.ToDouble(publicaciones.Count / publicacionesXpagina));
             dgvPublicaciones.DataSource = null;
             dgvPublicaciones.DataSource = actualizarPagina();

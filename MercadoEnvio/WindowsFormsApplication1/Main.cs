@@ -95,7 +95,7 @@ namespace GDD
         }
         static void HistorialCliente(object sender, EventArgs e)
         {
-            var home = new Historial_Cliente.frmHome();
+            var home = new Historial_Cliente.frmHome(usuario);
             home.Show();
         }
         static void ListadoEstadistico(object sender, EventArgs e)

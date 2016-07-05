@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using Clases;
 using Helpers;
 
@@ -31,16 +26,16 @@ namespace GDD.Listado_Estadistico
             if (!string.IsNullOrEmpty(dtpAnio.Text) && tipo != -1 && cmbTrimestre.SelectedItem != null )
             {
                               
-                trimestre = ++cmbTrimestre.SelectedIndex;
+                trimestre = cmbTrimestre.SelectedIndex + 1;
                 anio = Convert.ToInt32(dtpAnio.Text);
                 switch (tipo)
                 {
                     case 0:
-                        var visi = (Visibilidad)cmbFiltro.SelectedItem;                        
+                        var visi = chkFiltro.Checked ? (Visibilidad)cmbFiltro.SelectedItem : null;                        
                         MayorNoVendido(visi);                                              
                         break;
                     case 1:
-                        var rubr = (Rubro)cmbFiltro.SelectedItem;
+                        var rubr = chkFiltro.Checked ? (Rubro)cmbFiltro.SelectedItem : null;
                         MayorCantidadProductosComprados(rubr);
                         break;
                     case 2:
@@ -62,20 +57,27 @@ namespace GDD.Listado_Estadistico
 
         private void cmbTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (cmbFiltro.SelectedIndex) {
+            switch (cmbTipo.SelectedIndex) {
                 case 0:
                     lblFiltro.Visible = true;
+                    lblFiltro.Text = "Seleccione visibilidad";                    
                     cmbFiltro.DataSource = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
                     cmbFiltro.DisplayMember = "Detalle";
+                    cmbFiltro.Visible = true;
+                    chkFiltro.Visible = true;
                     break;
                 case 1:
                     lblFiltro.Visible = true;
-                    cmbFiltro.DataSource = DBHelper.ExecuteReader("Rubro_GetAll").ToVisibilidades();
+                    lblFiltro.Text = "Seleccione rubro";
+                    cmbFiltro.DataSource = DBHelper.ExecuteReader("Rubro_GetAll").ToRubros();
                     cmbFiltro.DisplayMember = "DescripcionCorta";
+                    cmbFiltro.Visible = true;
+                    chkFiltro.Visible = true;
                     break;
                 default:
                     lblFiltro.Visible = false;
                     cmbFiltro.Visible = false;
+                    chkFiltro.Visible = false;
                     break;
             }
         }
@@ -100,23 +102,31 @@ namespace GDD.Listado_Estadistico
             return new Dictionary<string, object> { { "@Mes", GetMes() }, { "@Anio", anio } };
         }
 
-        private void MayorNoVendido(Visibilidad visi)
+        private void MayorNoVendido(Visibilidad visi = null)
         {
             var parametros = GetDiccionario();
             if (visi != null)
             {
                 parametros.Add("@Visibilidad", visi.Id);
             }
+            else
+            {
+                parametros.Add("@Visibilidad", DBNull.Value);
+            }
             var estadistica = DBHelper.ExecuteReader("Estadisticas_MayorNoVendido", parametros).ToEstadisticas();
             CargarGrilla(estadistica);
         }
 
-        private void MayorCantidadProductosComprados(Rubro rubr)
+        private void MayorCantidadProductosComprados(Rubro rubr = null)
         {
             var parametros = GetDiccionario();
             if (rubr != null)
             {
                 parametros.Add("@Rubro", rubr.Id);
+            }
+            else
+            {
+                parametros.Add("@Rubro", DBNull.Value);
             }
             var estadistica = DBHelper.ExecuteReader("Estadisticas_ClientesComprados", parametros).ToEstadisticas();
             CargarGrilla(estadistica);
@@ -154,12 +164,5 @@ namespace GDD.Listado_Estadistico
                 ReadOnly = true
             });
         }
-
-        private void txtAño_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
-                e.Handled = true;
-        }
-
     }
 }

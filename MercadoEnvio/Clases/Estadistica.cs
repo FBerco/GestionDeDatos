@@ -2,7 +2,7 @@
 {
     public class Estadistica
     {
-        public int Username { get; set; }
-        public string Extra { get; set; }
+        public string Username { get; set; }
+        public int Extra { get; set; }
     }
 }

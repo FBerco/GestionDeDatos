@@ -38,6 +38,7 @@
             this.cmbFiltro = new System.Windows.Forms.ComboBox();
             this.lblFiltro = new System.Windows.Forms.Label();
             this.dtpAnio = new System.Windows.Forms.DateTimePicker();
+            this.chkFiltro = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,11 +143,23 @@
             this.dtpAnio.Size = new System.Drawing.Size(200, 20);
             this.dtpAnio.TabIndex = 10;
             // 
+            // chkFiltro
+            // 
+            this.chkFiltro.AutoSize = true;
+            this.chkFiltro.Location = new System.Drawing.Point(268, 139);
+            this.chkFiltro.Name = "chkFiltro";
+            this.chkFiltro.Size = new System.Drawing.Size(106, 17);
+            this.chkFiltro.TabIndex = 11;
+            this.chkFiltro.Text = "Check para filtrar";
+            this.chkFiltro.UseVisualStyleBackColor = true;
+            this.chkFiltro.Visible = false;
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 449);
+            this.Controls.Add(this.chkFiltro);
             this.Controls.Add(this.dtpAnio);
             this.Controls.Add(this.lblFiltro);
             this.Controls.Add(this.cmbFiltro);
@@ -177,5 +190,6 @@
         private System.Windows.Forms.ComboBox cmbFiltro;
         private System.Windows.Forms.Label lblFiltro;
         private System.Windows.Forms.DateTimePicker dtpAnio;
+        private System.Windows.Forms.CheckBox chkFiltro;
     }
 }

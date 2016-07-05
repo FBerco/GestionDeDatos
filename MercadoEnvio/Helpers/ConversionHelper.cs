@@ -354,8 +354,8 @@ namespace Helpers
             {
                 list.Add(new Estadistica()
                 {
-                    Username = (int)rdr["username"],
-                    Extra = (string)rdr["extra"]
+                    Username = (string)rdr["username"],
+                    Extra =  Convert.ToInt32(rdr["extra"])
                 });
             }
             DBHelper.DB.Close();

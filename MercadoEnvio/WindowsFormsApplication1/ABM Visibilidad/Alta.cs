@@ -87,11 +87,12 @@ namespace GDD.ABM_Visibilidad
         }
 
         private Boolean ingresadosTipoDeTextoCorrectamente() {
-            return nombreVisibilidadValido();
+            return nombreVisibilidadValido() ;//&& porcentajeNoMayorAl100();
         }
 
         private Boolean nombreVisibilidadValido() { return txtNombreVisibilidad.TextLength <= 20; }
-        
+
+        //private Boolean porcentajeNoMayorAl100() { return System.Int32.Parse(txtComsionProductoVendido.Text); }
         
         
         

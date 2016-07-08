@@ -29,23 +29,34 @@ namespace GDD.ComprarOfertar
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            List<Rubro> rubrosSeleccionados = clbRubros.CheckedItems.Cast<Rubro>().ToList();
+            List<Rubro> rubros;
+            int i = 1;
+            if (clbRubros.CheckedItems.Count == 0)
+            {
+                rubros = clbRubros.Items.Cast<Rubro>().ToList();
+            }
+            else
+            {
+                rubros = clbRubros.CheckedItems.Cast<Rubro>().ToList();
+            }
+
             var parametros = new Dictionary<string, object>()
             {
                 { "@descripcion", txtDescripcion.Text}
             };
-            int i = 1;
-            rubrosSeleccionados.ForEach(r =>
+            
+            rubros.ForEach(r =>
             {
                 parametros.Add("@r" + i.ToString(), r.Id);
                 i++;
             });
-            for(; i<=23; i++)
+            for ( ; i <= 23; i++)
             {
                 parametros.Add("@r" + i.ToString(), -1);
             }
+
             LoadPublicaciones(ToPublicacionesShow(DBHelper.ExecuteReader(
-                "Publicacion_GetPublicacionesByDescripcionYRubro_Show",parametros)));
+                "Publicacion_GetPublicacionesByDescripcionYRubro_Show", parametros)));
         }
 
         private void frmHome_Load(object sender, EventArgs e)
@@ -231,5 +242,24 @@ namespace GDD.ComprarOfertar
             };
             return DBHelper.ExecuteReader("Cliente_GetByUsername", parametros).ToCliente().Id;
         }
+
+        private void btnTodos_Click(object sender, EventArgs e)
+        {
+            SeleccionarRubros(true);
+        }
+
+        private void btnNinguno_Click(object sender, EventArgs e)
+        {
+            SeleccionarRubros(false);
+        }
+
+        private void SeleccionarRubros(bool selected)
+        {
+            for (int i = 0; i < clbRubros.Items.Count; i++)
+            {
+                clbRubros.SetItemChecked(i, selected);
+            }
+        }
+
     }
 }

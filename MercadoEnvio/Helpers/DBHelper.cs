@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Configuration;
+using System;
 
 namespace Helpers
 {
@@ -7,17 +9,21 @@ namespace Helpers
     public static class DBHelper
     {
         //DB: DataBase
-        public static SqlConnection DB; 
+        public static SqlConnection DB;
+
+        static string conn = ConfigurationManager.AppSettings["connection-string"];
+        static DateTime fecha = DateTime.Parse(ConfigurationManager.AppSettings["fecha"]);
+
         static DBHelper()
         {
-            DB = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD1C2016;Integrated Security=True");
+            DB = new SqlConnection(conn);
         }
 
         //SP: StoredProcedure
         public static void ExecuteNonQuery(string SP, Dictionary<string, object> parametros = null)
         {
             DB.Open();
-            SqlCommand command = new SqlCommand(SP, DB);
+            SqlCommand command = new SqlCommand("[DROP_TABLE_GRUPO46]." + SP, DB);
             command.CommandType = System.Data.CommandType.StoredProcedure;
             foreach (var parametro in parametros)
             {
@@ -32,7 +38,7 @@ namespace Helpers
         {
             if (parametros == null) parametros = new Dictionary<string, object>();
             DB.Open();
-            SqlCommand command = new SqlCommand(SP, DB);
+            SqlCommand command = new SqlCommand("[DROP_TABLE_GRUPO46]." + SP, DB);
             command.CommandType = System.Data.CommandType.StoredProcedure;
             foreach (var parametro in parametros)
             {

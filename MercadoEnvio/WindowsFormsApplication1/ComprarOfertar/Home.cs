@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 
 using System.Windows.Forms;
 
@@ -18,7 +19,6 @@ namespace GDD.ComprarOfertar
         private int publicacionesXpagina = 21;
         private int paginaActual = 0;
         private int ultimaPagina = 0;
-        private int cantidadTotal = 0;
         private List<PublicacionShow> publicaciones;
         private Usuario usuario;
 
@@ -230,7 +230,8 @@ namespace GDD.ComprarOfertar
                     {
                         { "@cliente", GetClienteIdByUsername()},
                         { "@publicacion", publ.Id},
-                        { "@cantidad", cantidad}
+                        { "@cantidad", cantidad},
+                        { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
                     };
                         DBHelper.ExecuteNonQuery("Venta_Add", parametros);
                         btnFiltrar_Click(false, new EventArgs());
@@ -249,7 +250,8 @@ namespace GDD.ComprarOfertar
                     {
                         { "@cliente", oferta.ClienteId},
                         { "@publicacion", oferta.PublicacionId},
-                        { "@monto", oferta.Monto}
+                        { "@monto", oferta.Monto},
+                        { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
                     };
                         DBHelper.ExecuteNonQuery("Oferta_Add", parametros);
                         btnFiltrar_Click(false, new EventArgs());

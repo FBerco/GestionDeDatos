@@ -75,7 +75,7 @@ namespace GDD
         }
         static void Calificar(object sender, EventArgs e)
         {
-            var home = new Calificar.frmHome();
+            var home = new Calificar.frmHome(usuario);
             home.Show();
         }
         static void ComprarOfertar(object sender, EventArgs e)

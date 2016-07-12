@@ -44,6 +44,7 @@ namespace Helpers
                     Dni = (int)rdr["clie_dni"],
                     TipoDocumento = (string)rdr["clie_tipo_documento"],
                     Mail = (string)rdr["clie_mail"],
+                    Telefono = (string)rdr["clie_telefono"],
                     Direccion = (string)rdr["clie_direccion"],
                     CodigoPostal = (int)rdr["clie_codigo_postal"],
                     FechaNacimiento = (DateTime)rdr["clie_fecha_nacimiento"],

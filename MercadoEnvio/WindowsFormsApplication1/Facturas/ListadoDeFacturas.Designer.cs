@@ -46,11 +46,6 @@
             this.btnListarFacturas = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnOKVendedor = new System.Windows.Forms.Button();
-            this.lvFacturas = new System.Windows.Forms.ListView();
-            this.numero = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.fecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.total = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.publicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnOKFiltros = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.chbComisionPublicacion = new System.Windows.Forms.CheckBox();
@@ -58,6 +53,11 @@
             this.chbEnvios = new System.Windows.Forms.CheckBox();
             this.btnOKListarPor = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
+            this.numero = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.fecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.total = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.publicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvFacturas = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // cmbUsuarioVendedor
@@ -222,40 +222,6 @@
             this.btnOKVendedor.UseVisualStyleBackColor = true;
             this.btnOKVendedor.Click += new System.EventHandler(this.btnOKVendedor_Click);
             // 
-            // lvFacturas
-            // 
-            this.lvFacturas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.numero,
-            this.fecha,
-            this.total,
-            this.publicacion});
-            this.lvFacturas.Location = new System.Drawing.Point(298, 25);
-            this.lvFacturas.Name = "lvFacturas";
-            this.lvFacturas.Size = new System.Drawing.Size(654, 287);
-            this.lvFacturas.TabIndex = 32;
-            this.lvFacturas.UseCompatibleStateImageBehavior = false;
-            this.lvFacturas.View = System.Windows.Forms.View.Details;
-            // 
-            // numero
-            // 
-            this.numero.Text = "Número";
-            this.numero.Width = 178;
-            // 
-            // fecha
-            // 
-            this.fecha.Text = "Fecha";
-            this.fecha.Width = 119;
-            // 
-            // total
-            // 
-            this.total.Text = "Total";
-            this.total.Width = 185;
-            // 
-            // publicacion
-            // 
-            this.publicacion.Text = "Publicación ";
-            this.publicacion.Width = 163;
-            // 
             // btnOKFiltros
             // 
             this.btnOKFiltros.Location = new System.Drawing.Point(254, 244);
@@ -329,6 +295,40 @@
             this.label9.TabIndex = 42;
             this.label9.Text = "VENDEDOR";
             // 
+            // numero
+            // 
+            this.numero.Text = "Número";
+            this.numero.Width = 178;
+            // 
+            // fecha
+            // 
+            this.fecha.Text = "Fecha";
+            this.fecha.Width = 119;
+            // 
+            // total
+            // 
+            this.total.Text = "Total";
+            this.total.Width = 185;
+            // 
+            // publicacion
+            // 
+            this.publicacion.Text = "Publicación ";
+            this.publicacion.Width = 163;
+            // 
+            // lvFacturas
+            // 
+            this.lvFacturas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.numero,
+            this.fecha,
+            this.total,
+            this.publicacion});
+            this.lvFacturas.Location = new System.Drawing.Point(298, 25);
+            this.lvFacturas.Name = "lvFacturas";
+            this.lvFacturas.Size = new System.Drawing.Size(654, 287);
+            this.lvFacturas.TabIndex = 32;
+            this.lvFacturas.UseCompatibleStateImageBehavior = false;
+            this.lvFacturas.View = System.Windows.Forms.View.Details;
+            // 
             // frmListadoDeFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -386,11 +386,6 @@
         private System.Windows.Forms.Button btnLimpiar;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
         private System.Windows.Forms.Button btnOKVendedor;
-        private System.Windows.Forms.ListView lvFacturas;
-        private System.Windows.Forms.ColumnHeader numero;
-        private System.Windows.Forms.ColumnHeader fecha;
-        private System.Windows.Forms.ColumnHeader total;
-        private System.Windows.Forms.ColumnHeader publicacion;
         private System.Windows.Forms.Button btnOKFiltros;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chbComisionPublicacion;
@@ -398,5 +393,10 @@
         private System.Windows.Forms.CheckBox chbEnvios;
         private System.Windows.Forms.Button btnOKListarPor;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ColumnHeader numero;
+        private System.Windows.Forms.ColumnHeader fecha;
+        private System.Windows.Forms.ColumnHeader total;
+        private System.Windows.Forms.ColumnHeader publicacion;
+        private System.Windows.Forms.ListView lvFacturas;
     }
 }

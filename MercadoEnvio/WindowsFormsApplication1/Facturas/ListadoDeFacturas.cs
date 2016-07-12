@@ -148,7 +148,7 @@ namespace GDD.Facturas
 
             #region Otros metodos
 
-                        private void deshabilitarFiltros()
+                private void deshabilitarFiltros()
                 {
                     dtpFechaFinal.Enabled = false;
                     dtpFechaInicial.Enabled = false;
@@ -265,7 +265,8 @@ namespace GDD.Facturas
                 }
                 #endregion                
 
-                
+            
+            
 
         #endregion
     }

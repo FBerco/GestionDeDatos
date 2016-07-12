@@ -68,7 +68,7 @@ namespace Helpers
                 list.Add(new Empresa()
                 {
                     Username = (string)rdr["empr_usuario"],
-                    RazonSocial = (int)rdr["empr_razon_social"],
+                    RazonSocial = (string)rdr["empr_razon_social"],
                     Mail = (string)rdr["empr_mail"],
                     Telefono = (string)rdr["empr_telefono"],
                     Direccion = (string)rdr["empr_direccion"],

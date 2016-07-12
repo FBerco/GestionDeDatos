@@ -48,7 +48,7 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.cmbRubro = new System.Windows.Forms.ComboBox();
             this.btnContraseña = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblEstado = new System.Windows.Forms.Label();
             this.ckbEstado = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -219,14 +219,14 @@
             this.btnContraseña.Visible = false;
             this.btnContraseña.Click += new System.EventHandler(this.btnContraseña_Click);
             // 
-            // label10
+            // lblEstado
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(46, 258);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 13);
-            this.label10.TabIndex = 21;
-            this.label10.Text = "Estado";
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Location = new System.Drawing.Point(46, 258);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(40, 13);
+            this.lblEstado.TabIndex = 21;
+            this.lblEstado.Text = "Estado";
             // 
             // ckbEstado
             // 
@@ -244,7 +244,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 351);
             this.Controls.Add(this.ckbEstado);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.btnContraseña);
             this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.btnGuardar);
@@ -295,7 +295,7 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cmbRubro;
         private System.Windows.Forms.Button btnContraseña;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.CheckBox ckbEstado;
     }
 }

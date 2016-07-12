@@ -22,6 +22,8 @@ namespace GDD.ABM_Usuario
         {
             InitializeComponent();
             usuario = us;
+            ckbEstado.Visible = false;
+            lblEstado.Visible = false;
         }
 
         //Cuando vengo del modificar
@@ -72,24 +74,13 @@ namespace GDD.ABM_Usuario
                     Modificar(emp);
                 }
             }
-            else
-            {
-                MessageBox.Show("Complete los campos correctamente");
-            }
         }
 
         private void Modificar(Dictionary<string, object> emp)
         {
             emp.Add("@Username", empresa.Username);
             DBHelper.ExecuteNonQuery("Empresa_Modify", emp);
-            if (ckbEstado.Checked != empresa.Activo)
-            {
-                DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", empresa.Username } });
-            }
-            else
-            {
-                DBHelper.ExecuteNonQuery("Usuario_Desactivo", new Dictionary<string, object>() { { "@Username", empresa.Username } });
-            }
+            DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", empresa.Username }, { "Activo", ckbEstado.Checked } });            
             MessageBox.Show("Modificado con exito");
             Hide();
         }
@@ -105,15 +96,17 @@ namespace GDD.ABM_Usuario
 
         private bool DatosCompletados() {
             int result;
-            return txtRazonSocial.Text != null && int.TryParse(txtRazonSocial.Text, out result) &&
-                txtMail.Text != null &&
-                txtTelefono.Text != null && 
-                txtDireccion.Text != null &&
-                txtCodPostal.Text != null && int.TryParse(txtCodPostal.Text, out result) &&
-                txtCiudad.Text != null &&
-                txtCuit.Text != null &&
-                txtNombre.Text != null &&
-                cmbRubro.SelectedItem != null;
+            if (txtRazonSocial.Text == string.Empty || txtMail.Text == string.Empty || txtTelefono.Text == string.Empty || txtDireccion.Text == string.Empty || txtCodPostal.Text == string.Empty || txtCiudad.Text == string.Empty || txtCuit.Text == string.Empty || txtNombre.Text == string.Empty || cmbRubro.SelectedItem == null)
+            {
+                MessageBox.Show("Complete todos los campos por favor");
+                return false;
+            }
+
+            if (!int.TryParse(txtCodPostal.Text, out result)) {
+                MessageBox.Show("Codigo Postal debe ser numerico");
+                return false;
+            }
+            return true;
         }
 
         private void btnContraseña_Click(object sender, EventArgs e)

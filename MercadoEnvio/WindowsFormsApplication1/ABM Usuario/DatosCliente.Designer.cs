@@ -49,7 +49,7 @@
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.btnContraseña = new System.Windows.Forms.Button();
             this.ckbEstado = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblEstado = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -227,14 +227,14 @@
             this.ckbEstado.Text = "Activo";
             this.ckbEstado.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // lblEstado
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(36, 272);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 13);
-            this.label9.TabIndex = 23;
-            this.label9.Text = "Estado";
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Location = new System.Drawing.Point(36, 272);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(40, 13);
+            this.lblEstado.TabIndex = 23;
+            this.lblEstado.Text = "Estado";
             // 
             // frmCliente
             // 
@@ -242,7 +242,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 348);
             this.Controls.Add(this.ckbEstado);
-            this.Controls.Add(this.label9);
+            this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.btnContraseña);
             this.Controls.Add(this.dtpFecha);
             this.Controls.Add(this.btnGuardar);
@@ -294,6 +294,6 @@
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Button btnContraseña;
         private System.Windows.Forms.CheckBox ckbEstado;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblEstado;
     }
 }

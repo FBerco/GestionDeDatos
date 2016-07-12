@@ -28,7 +28,7 @@ namespace GDD
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
                 parametros.Add("@Username", username);
                 parametros.Add("@Password", password);
-                usuario = DBHelper.ExecuteReader("dbo.Usuario_LogIn", parametros).ToUsuario();
+                usuario = DBHelper.ExecuteReader("Usuario_LogIn", parametros).ToUsuario();
                 if (usuario != null)
                 {
                     roles = DBHelper.ExecuteReader("UsuarioXRol_GetRolesByUser", new Dictionary<string, object>() { { "@Username", usuario.Username } }).ToRoles();

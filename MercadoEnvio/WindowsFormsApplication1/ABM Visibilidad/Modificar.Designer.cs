@@ -40,6 +40,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.chbTieneEnvio = new System.Windows.Forms.CheckBox();
+            this.btnOKVisibilidad = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -56,9 +57,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 63);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 13);
+            this.label2.Size = new System.Drawing.Size(174, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Comisión por tipo de publicación";
+            this.label2.Text = "Comisión por tipo de publicación ($)";
             // 
             // txtComisionXTipoPublicacion
             // 
@@ -74,9 +75,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(16, 94);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(153, 13);
+            this.label3.Size = new System.Drawing.Size(170, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Comisión por producto vendido";
+            this.label3.Text = "Comisión por producto vendido (%)";
             // 
             // txtComisionXProductoVendido
             // 
@@ -99,9 +100,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(16, 144);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 13);
+            this.label4.Size = new System.Drawing.Size(175, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Comisión por envío del producto";
+            this.label4.Text = "Comisión por envío del producto ($)";
             // 
             // cmbNombreVisibilidad
             // 
@@ -155,11 +156,22 @@
             this.chbTieneEnvio.UseVisualStyleBackColor = false;
             this.chbTieneEnvio.CheckedChanged += new System.EventHandler(this.chbTieneEnvio_CheckedChanged);
             // 
+            // btnOKVisibilidad
+            // 
+            this.btnOKVisibilidad.Location = new System.Drawing.Point(350, 27);
+            this.btnOKVisibilidad.Name = "btnOKVisibilidad";
+            this.btnOKVisibilidad.Size = new System.Drawing.Size(36, 23);
+            this.btnOKVisibilidad.TabIndex = 13;
+            this.btnOKVisibilidad.Text = "OK";
+            this.btnOKVisibilidad.UseVisualStyleBackColor = true;
+            this.btnOKVisibilidad.Click += new System.EventHandler(this.btnOKVisibilidad_Click);
+            // 
             // frmModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(398, 238);
+            this.Controls.Add(this.btnOKVisibilidad);
             this.Controls.Add(this.chbTieneEnvio);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnLimpiar);
@@ -194,5 +206,6 @@
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.CheckBox chbTieneEnvio;
+        private System.Windows.Forms.Button btnOKVisibilidad;
     }
 }

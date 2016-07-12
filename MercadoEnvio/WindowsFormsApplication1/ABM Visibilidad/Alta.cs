@@ -48,7 +48,8 @@ namespace GDD.ABM_Visibilidad
                 }
                 guardarVisibilidad(nuevaVisibilidad);
                 btnGuardarNuevaVisibilidad.Enabled = false;
-            }   //else { MessageBox.Show("Ingrese campos validos."); }      
+                MessageBox.Show("Visiblidad guardada exitosamente!", "Exito :D");
+            }   else { MessageBox.Show("Ingrese campos validos."); }      
         }
 
        
@@ -76,7 +77,7 @@ namespace GDD.ABM_Visibilidad
         {
             return
             System.Int32.Parse(txtComsionProductoVendido.Text) > 0 &&
-            System.Int32.Parse(txtComisionTipoPublicacion.Text) > 0 &&
+            System.Int32.Parse(txtComisionTipoPublicacion.Text) >= 0 &&
             siHayEnvioNoEsNegativo();
         }
 
@@ -87,11 +88,12 @@ namespace GDD.ABM_Visibilidad
         }
 
         private Boolean ingresadosTipoDeTextoCorrectamente() {
-            return nombreVisibilidadValido();
+            return nombreVisibilidadValido() && porcentajeNoMayorAl100();
         }
 
         private Boolean nombreVisibilidadValido() { return txtNombreVisibilidad.TextLength <= 20; }
-        
+
+        private Boolean porcentajeNoMayorAl100() { return System.Int32.Parse(txtComsionProductoVendido.Text) <= 100 ; }
         
         
         

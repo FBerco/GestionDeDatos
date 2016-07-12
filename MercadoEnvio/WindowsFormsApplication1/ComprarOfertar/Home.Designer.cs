@@ -43,6 +43,8 @@
             this.txtAccion = new System.Windows.Forms.TextBox();
             this.lblTextoRubro = new System.Windows.Forms.Label();
             this.lblTextoAccion = new System.Windows.Forms.Label();
+            this.btnTodos = new System.Windows.Forms.Button();
+            this.btnNinguno = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,9 +92,9 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(15, 322);
+            this.btnFiltrar.Location = new System.Drawing.Point(12, 370);
             this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(363, 35);
+            this.btnFiltrar.Size = new System.Drawing.Size(366, 35);
             this.btnFiltrar.TabIndex = 5;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
@@ -192,11 +194,33 @@
             this.lblTextoAccion.Size = new System.Drawing.Size(0, 17);
             this.lblTextoAccion.TabIndex = 14;
             // 
+            // btnTodos
+            // 
+            this.btnTodos.Location = new System.Drawing.Point(302, 322);
+            this.btnTodos.Name = "btnTodos";
+            this.btnTodos.Size = new System.Drawing.Size(76, 35);
+            this.btnTodos.TabIndex = 15;
+            this.btnTodos.Text = "Todos";
+            this.btnTodos.UseVisualStyleBackColor = true;
+            this.btnTodos.Click += new System.EventHandler(this.btnTodos_Click);
+            // 
+            // btnNinguno
+            // 
+            this.btnNinguno.Location = new System.Drawing.Point(175, 322);
+            this.btnNinguno.Name = "btnNinguno";
+            this.btnNinguno.Size = new System.Drawing.Size(75, 35);
+            this.btnNinguno.TabIndex = 16;
+            this.btnNinguno.Text = "Ninguno";
+            this.btnNinguno.UseVisualStyleBackColor = true;
+            this.btnNinguno.Click += new System.EventHandler(this.btnNinguno_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1319, 731);
+            this.Controls.Add(this.btnNinguno);
+            this.Controls.Add(this.btnTodos);
             this.Controls.Add(this.lblTextoAccion);
             this.Controls.Add(this.txtAccion);
             this.Controls.Add(this.lblPagina);
@@ -239,5 +263,7 @@
         private System.Windows.Forms.TextBox txtAccion;
         private System.Windows.Forms.Label lblTextoRubro;
         private System.Windows.Forms.Label lblTextoAccion;
+        private System.Windows.Forms.Button btnTodos;
+        private System.Windows.Forms.Button btnNinguno;
     }
 }

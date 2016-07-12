@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 
 using System.Windows.Forms;
 
@@ -29,28 +30,49 @@ namespace GDD.ComprarOfertar
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            List<Rubro> rubrosSeleccionados = clbRubros.CheckedItems.Cast<Rubro>().ToList();
+            List<Rubro> rubros;
+            int i = 1;
+            if (clbRubros.CheckedItems.Count == 0)
+            {
+                rubros = clbRubros.Items.Cast<Rubro>().ToList();
+            }
+            else
+            {
+                rubros = clbRubros.CheckedItems.Cast<Rubro>().ToList();
+            }
+
             var parametros = new Dictionary<string, object>()
             {
                 { "@descripcion", txtDescripcion.Text}
             };
-            int i = 1;
-            rubrosSeleccionados.ForEach(r =>
+            
+            rubros.ForEach(r =>
             {
                 parametros.Add("@r" + i.ToString(), r.Id);
                 i++;
             });
-            for(; i<=23; i++)
+            for ( ; i <= 23; i++)
             {
                 parametros.Add("@r" + i.ToString(), -1);
             }
+
+            bool reset;
+            try
+            {
+                reset = (bool)sender;
+            }
+            catch
+            {
+                reset = true;
+            }
+
             LoadPublicaciones(ToPublicacionesShow(DBHelper.ExecuteReader(
-                "Publicacion_GetPublicacionesByDescripcionYRubro_Show",parametros)));
+                "Publicacion_GetPublicacionesByDescripcionYRubro_Show", parametros)), reset);
         }
 
         private void frmHome_Load(object sender, EventArgs e)
         {
-            LoadPublicaciones(ToPublicacionesShow(DBHelper.ExecuteReader("Publicacion_GetAll_Show")));
+            LoadPublicaciones(ToPublicacionesShow(DBHelper.ExecuteReader("Publicacion_GetAll_Show")), true);
             LoadRubros(DBHelper.ExecuteReader("Rubro_GetAll").ToRubros());
         }
 
@@ -61,11 +83,14 @@ namespace GDD.ComprarOfertar
             clbRubros.DisplayMember = "DescripcionCorta";
         }
 
-        private void LoadPublicaciones(List<PublicacionShow> publicaciones)
+        private void LoadPublicaciones(List<PublicacionShow> publicaciones, bool reset)
         {
             this.publicaciones = publicaciones;
-            paginaActual = 0;
-            ultimaPagina = (int)Math.Floor(Convert.ToDouble(publicaciones.Count / publicacionesXpagina));
+            if (reset)
+            {
+                paginaActual = 0;
+                ultimaPagina = (int)Math.Floor(Convert.ToDouble(publicaciones.Count / publicacionesXpagina));
+            }
             dgvPublicaciones.DataSource = null;
             dgvPublicaciones.DataSource = actualizarPagina();
         }
@@ -80,8 +105,17 @@ namespace GDD.ComprarOfertar
             btnFin.Enabled = true;
             if (paginaActual == ultimaPagina)
             {
-                retorno = publicaciones.GetRange(paginaActual * publicacionesXpagina,
-                                                      publicaciones.Count % publicacionesXpagina);
+                int mod = publicaciones.Count % publicacionesXpagina;
+                if (mod != 0)
+                {
+                    retorno = publicaciones.GetRange(paginaActual * publicacionesXpagina, mod);
+                }
+                else
+                {
+                    ultimaPagina -= 1;
+                    paginaActual = ultimaPagina;
+                    retorno = publicaciones.GetRange(paginaActual * publicacionesXpagina, publicacionesXpagina);
+                }
                 btnSiguiente.Enabled = false;
                 btnFin.Enabled = false;
             }
@@ -179,47 +213,59 @@ namespace GDD.ComprarOfertar
 
         private void btnAccionar_Click(object sender, EventArgs e)
         {
-            PublicacionShow publ = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
-            if(btnAccionar.Text == "COMPRAR")
+            if (txtAccion.Text != "")
             {
-                int cantidad = Convert.ToInt32(txtAccion.Text);
+                PublicacionShow publ = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
+                if (btnAccionar.Text == "COMPRAR")
+                {
+                    int cantidad = Convert.ToInt32(txtAccion.Text);
 
-                if(cantidad > publ.Stock)
-                {
-                    MessageBox.Show("No hay stock disponible");
-                }
-                else
-                {
-                    var parametros = new Dictionary<string, object>()
+                    if (cantidad > publ.Stock)
+                    {
+                        MessageBox.Show("No hay stock disponible");
+                    }
+                    else
+                    {
+                        var parametros = new Dictionary<string, object>()
                     {
                         { "@cliente", GetClienteIdByUsername()},
                         { "@publicacion", publ.Id},
-                        { "@cantidad", cantidad}
+                        { "@cantidad", cantidad},
+                        { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
                     };
-                    DBHelper.ExecuteNonQuery("Venta_Add", parametros);
+                        DBHelper.ExecuteNonQuery("Venta_Add", parametros);
+                        btnFiltrar_Click(false, new EventArgs());
+                    }
                 }
-            }
-            else if (btnAccionar.Text == "OFERTAR")
-            {
-                Oferta oferta = new Oferta();
-                oferta.Monto = Convert.ToInt32(txtAccion.Text);
-                oferta.PublicacionId = publ.Id;
-                oferta.ClienteId = GetClienteIdByUsername();
-
-                if(oferta.Monto > publ.Precio)
+                else if (btnAccionar.Text == "OFERTAR")
                 {
-                    var parametros = new Dictionary<string, object>()
+                    Oferta oferta = new Oferta();
+                    oferta.Monto = Convert.ToInt32(txtAccion.Text);
+                    oferta.PublicacionId = publ.Id;
+                    oferta.ClienteId = GetClienteIdByUsername();
+
+                    if (oferta.Monto > publ.Precio)
+                    {
+                        var parametros = new Dictionary<string, object>()
                     {
                         { "@cliente", oferta.ClienteId},
                         { "@publicacion", oferta.PublicacionId},
-                        { "@monto", oferta.Monto}
+                        { "@monto", oferta.Monto},
+                        { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
                     };
-                    DBHelper.ExecuteNonQuery("Oferta_Add", parametros);
+                        DBHelper.ExecuteNonQuery("Oferta_Add", parametros);
+                        btnFiltrar_Click(false, new EventArgs());
+                    }
+                    else
+                    {
+                        MessageBox.Show("El monto debe superar la ultima puja");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("El monto debe superar la ultima puja");
-                }
+
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un número");
             }
         }
 
@@ -231,5 +277,24 @@ namespace GDD.ComprarOfertar
             };
             return DBHelper.ExecuteReader("Cliente_GetByUsername", parametros).ToCliente().Id;
         }
+
+        private void btnTodos_Click(object sender, EventArgs e)
+        {
+            SeleccionarRubros(true);
+        }
+
+        private void btnNinguno_Click(object sender, EventArgs e)
+        {
+            SeleccionarRubros(false);
+        }
+
+        private void SeleccionarRubros(bool selected)
+        {
+            for (int i = 0; i < clbRubros.Items.Count; i++)
+            {
+                clbRubros.SetItemChecked(i, selected);
+            }
+        }
+
     }
 }

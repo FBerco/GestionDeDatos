@@ -18,6 +18,7 @@ namespace GDD.ABM_Visibilidad
             InitializeComponent();
         }
 
+        private Visibilidad visibilidadAModificar;
 
         private void cmbNombreVisibilidad_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -32,13 +33,16 @@ namespace GDD.ABM_Visibilidad
 
         private void frmModificar_Load(object sender, EventArgs e)
         {
+            btnGuardarCambios.Enabled = false;
+            chbTieneEnvio.Enabled = false;
+            txtComisionXProductoVendido.Enabled = false;
+            txtComisionXTipoPublicacion.Enabled = false;
             txtComisionXEnvioProducto.Enabled = false;
             List<Visibilidad> visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
             foreach (var visibilidad in visibilidades)
             {
                 cmbNombreVisibilidad.Items.Add(visibilidad.Detalle);
             }
-            
         }
 
         private void txtComisionXTipoPublicacion_TextChanged(object sender, EventArgs e)
@@ -69,8 +73,13 @@ namespace GDD.ABM_Visibilidad
         #region Validaciones
         private Boolean textBoxesValidos()
         {
-            if (nadaNulo()) { return nadaNegativo(); }
+            if (nadaNulo()) { return nadaNegativo() && porcentajeNoMayorA100(); }
             else { return false; }
+        }
+
+        private Boolean porcentajeNoMayorA100() 
+        {
+            return System.Int32.Parse(txtComisionXProductoVendido.Text) <= 100;
         }
 
         private Boolean nadaNulo()
@@ -137,9 +146,17 @@ namespace GDD.ABM_Visibilidad
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            btnGuardarCambios.Enabled = false;
             txtComisionXEnvioProducto.Clear();
             txtComisionXProductoVendido.Clear();
             txtComisionXTipoPublicacion.Clear();
+            cmbNombreVisibilidad.Enabled = true;
+            btnOKVisibilidad.Enabled = true;
+            txtComisionXProductoVendido.Enabled = false;
+            txtComisionXTipoPublicacion.Enabled = false;
+            txtComisionXEnvioProducto.Enabled = false;
+            chbTieneEnvio.Enabled = false;
+            chbTieneEnvio.CheckState = CheckState.Unchecked;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -153,6 +170,32 @@ namespace GDD.ABM_Visibilidad
         {
             if(txtComisionXEnvioProducto.Enabled) {txtComisionXEnvioProducto.Enabled = false;}
             else { txtComisionXEnvioProducto.Enabled = true; }
+        }
+
+        private void btnOKVisibilidad_Click(object sender, EventArgs e)
+        {
+            btnGuardarCambios.Enabled = true;
+            txtComisionXProductoVendido.Enabled = true;
+            txtComisionXTipoPublicacion.Enabled = true;
+            chbTieneEnvio.Enabled = true;
+            btnOKVisibilidad.Enabled = false;
+            cmbNombreVisibilidad.Enabled = false;
+            llenarTextBoxesConValoresAnteriores();            
+        }
+
+        private Visibilidad getVisibilidadAModificar() 
+        {
+            var diccionario = new Dictionary<String, Object>();
+            diccionario.Add("@visiDetalle", cmbNombreVisibilidad.SelectedItem.ToString());
+            return DBHelper.ExecuteReader("Visibilidad_GetVisibilidadSegunDetalle", diccionario).ToVisibilidad();
+        }
+
+        private void llenarTextBoxesConValoresAnteriores() 
+        {
+            visibilidadAModificar = getVisibilidadAModificar();
+            txtComisionXTipoPublicacion.Text = visibilidadAModificar.CostoPublicacion.ToString();
+            txtComisionXProductoVendido.Text = visibilidadAModificar.PorcentajeProducto.ToString();
+            txtComisionXEnvioProducto.Text = visibilidadAModificar.CostoEnvio.ToString();
         }
 
 

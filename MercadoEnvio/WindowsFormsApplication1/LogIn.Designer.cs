@@ -39,10 +39,9 @@
             // 
             // btnLoguear
             // 
-            this.btnLoguear.Location = new System.Drawing.Point(136, 139);
-            this.btnLoguear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLoguear.Location = new System.Drawing.Point(102, 113);
             this.btnLoguear.Name = "btnLoguear";
-            this.btnLoguear.Size = new System.Drawing.Size(100, 28);
+            this.btnLoguear.Size = new System.Drawing.Size(75, 23);
             this.btnLoguear.TabIndex = 0;
             this.btnLoguear.Text = "Loguear";
             this.btnLoguear.UseVisualStyleBackColor = true;
@@ -51,37 +50,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 43);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(32, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 17);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Username";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 82);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(32, 67);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 17);
+            this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Password";
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(209, 43);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsername.Location = new System.Drawing.Point(157, 35);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(132, 22);
+            this.txtUsername.Size = new System.Drawing.Size(100, 20);
             this.txtUsername.TabIndex = 3;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(209, 76);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Location = new System.Drawing.Point(157, 62);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(132, 22);
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 4;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -89,19 +85,17 @@
             // 
             this.cmbRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRoles.FormattingEnabled = true;
-            this.cmbRoles.Location = new System.Drawing.Point(92, 218);
-            this.cmbRoles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbRoles.Location = new System.Drawing.Point(69, 177);
             this.cmbRoles.Name = "cmbRoles";
-            this.cmbRoles.Size = new System.Drawing.Size(160, 24);
+            this.cmbRoles.Size = new System.Drawing.Size(121, 21);
             this.cmbRoles.TabIndex = 6;
             this.cmbRoles.Visible = false;
             // 
             // btnRol
             // 
-            this.btnRol.Location = new System.Drawing.Point(136, 282);
-            this.btnRol.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRol.Location = new System.Drawing.Point(102, 229);
             this.btnRol.Name = "btnRol";
-            this.btnRol.Size = new System.Drawing.Size(100, 28);
+            this.btnRol.Size = new System.Drawing.Size(75, 23);
             this.btnRol.TabIndex = 7;
             this.btnRol.Text = "Seguir";
             this.btnRol.UseVisualStyleBackColor = true;
@@ -110,9 +104,9 @@
             // 
             // LogIn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 404);
+            this.ClientSize = new System.Drawing.Size(284, 328);
             this.Controls.Add(this.btnRol);
             this.Controls.Add(this.cmbRoles);
             this.Controls.Add(this.txtPassword);
@@ -120,7 +114,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLoguear);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "LogIn";
             this.Text = "LogIn";
             this.ResumeLayout(false);

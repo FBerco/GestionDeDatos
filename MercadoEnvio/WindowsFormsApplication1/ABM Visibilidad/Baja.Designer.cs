@@ -32,6 +32,7 @@
             this.cmbNombreVisibilidad = new System.Windows.Forms.ComboBox();
             this.btnBaja = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
+            this.btnOtraBaja = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -53,7 +54,7 @@
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(127, 153);
+            this.btnBaja.Location = new System.Drawing.Point(197, 153);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(75, 23);
             this.btnBaja.TabIndex = 3;
@@ -71,11 +72,22 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // btnOtraBaja
+            // 
+            this.btnOtraBaja.Location = new System.Drawing.Point(116, 152);
+            this.btnOtraBaja.Name = "btnOtraBaja";
+            this.btnOtraBaja.Size = new System.Drawing.Size(75, 23);
+            this.btnOtraBaja.TabIndex = 5;
+            this.btnOtraBaja.Text = "Otra baja";
+            this.btnOtraBaja.UseVisualStyleBackColor = true;
+            this.btnOtraBaja.Click += new System.EventHandler(this.btnOtraBaja_Click);
+            // 
             // frmBaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 188);
+            this.ClientSize = new System.Drawing.Size(281, 188);
+            this.Controls.Add(this.btnOtraBaja);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.cmbNombreVisibilidad);
@@ -94,5 +106,6 @@
         private System.Windows.Forms.ComboBox cmbNombreVisibilidad;
         private System.Windows.Forms.Button btnBaja;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Button btnOtraBaja;
     }
 }

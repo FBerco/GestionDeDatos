@@ -20,6 +20,7 @@ namespace GDD.Historial_Cliente
         private List<Venta> comprasSinCalificar;
         private List<Oferta> listaDeSubastasQueParticipo;
         private List<Calificacion> calificaciones;
+        private int ultimaFilaInsertada;
         
 
         public frmHome(Usuario us)
@@ -31,13 +32,17 @@ namespace GDD.Historial_Cliente
         private void frmHome_Load(object sender, EventArgs e)
         {
             inicializarAtributos();
-            llenarHistorialConCompras();
-            llenarHistorialConSubastas();
+            llenarDataGridViewConCompras();
+            llenarDataGridViewConSubastas();
             llenarResumenDeCalificaciones();
+            llenarOperacionesCalificadas();
             llenarOperacionesSinCalificar();
             llenarCalificacionPromedio();
             llenarCalificacionMasAlta();
             llenarCalificacionMasBaja();
+            llenarCantidadDeTransacciones();
+            llenarCantidadDeCompras();
+            llenarCantidadDeSubastas();
         }
 
         #region Metodos
@@ -89,32 +94,42 @@ namespace GDD.Historial_Cliente
             #endregion
 
             #region Llenar forms
-                private void llenarHistorialConCompras() 
+
+                private void llenarDataGridViewConCompras()
                 {
+                    int fila = 0;
                     foreach (var compra in listaDeComprasQueParticipo)
                     {
-                        ListViewItem lista = new ListViewItem("Compra inmediata");
-                        lista.SubItems.Add(compra.PublicacionId.ToString());
-                        lista.SubItems.Add(compra.Fecha.ToString());
-                        lista.SubItems.Add(compra.Cantidad.ToString());
-                        lista.SubItems.Add("-");
-                        lvHistorial.Items.Add(lista);
+                        dgvHistorial.Rows.Insert(
+                            fila,
+                            "Compra Inmediata",
+                            compra.PublicacionId.ToString(),
+                            compra.Fecha.ToString(),
+                            compra.Cantidad.ToString(),
+                            "-"
+                            );
+                        fila++;
                     }
+                    ultimaFilaInsertada = fila;
                 }
 
-                private void llenarHistorialConSubastas() 
+                private void llenarDataGridViewConSubastas()
                 {
+                    int fila = ultimaFilaInsertada++;
                     foreach (var subasta in listaDeSubastasQueParticipo)
                     {
-                        ListViewItem lista = new ListViewItem("Subasta");
-                        lista.SubItems.Add(subasta.PublicacionId.ToString());
-                        lista.SubItems.Add(subasta.Fecha.ToString());
-                        lista.SubItems.Add("-");
-                        lista.SubItems.Add(subasta.Monto.ToString());
-                        lvHistorial.Items.Add(lista);
+                        dgvHistorial.Rows.Insert(
+                            fila,
+                            "Subasta",
+                            subasta.PublicacionId.ToString(),
+                            subasta.Fecha.ToString(),
+                            "-",
+                            subasta.Monto.ToString()
+                            );
+                        fila++;
                     }
-                }
-
+                }        
+        
                 private void llenarResumenDeCalificaciones() 
                 {
                     foreach (var calificacion in calificaciones) 
@@ -125,6 +140,11 @@ namespace GDD.Historial_Cliente
                     }
                 }
 
+                private void llenarOperacionesCalificadas() 
+                {
+                    txtOperacionesCalificadas.Text = calificaciones.Count.ToString();
+                }
+        
                 private void llenarOperacionesSinCalificar() 
                 {
                     txtOperacionesSinCalificar.Text = getCantidadDeOperacionesSinCalificar().ToString();
@@ -146,8 +166,37 @@ namespace GDD.Historial_Cliente
                 {
                     txtCalificacionMasBaja.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Min().ToString();
                 }
+
+                private void llenarCantidadDeTransacciones() 
+                {
+                    var cantidad = (listaDeComprasQueParticipo.Count + listaDeSubastasQueParticipo.Count);
+                    txtCantTransacciones.Text = cantidad.ToString();
+                }
+
+                private void llenarCantidadDeCompras() 
+                {
+                    txtCantCompras.Text = listaDeComprasQueParticipo.Count.ToString();
+                }
+
+                private void llenarCantidadDeSubastas() 
+                {
+                    txtCantSubastas.Text = listaDeSubastasQueParticipo.Count.ToString();
+                }
             #endregion
 
+                private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+                {
+
+                }
+
+                
+
         #endregion
+
+                private void button1_Click(object sender, EventArgs e)
+                {
+                    llenarDataGridViewConCompras();
+                }
+                
     }
 }

@@ -129,26 +129,29 @@ namespace GDD.ABM_Usuario
         private void btnEmpresa_Click(object sender, EventArgs e)
         {
             List<Empresa> empresasFiltradas = null;
-            if (!string.IsNullOrEmpty(txtCuit.Text) && !string.IsNullOrEmpty(txtRazonSocial.Text) && !string.IsNullOrEmpty(txtMailEmpresa.Text))
+            if (string.IsNullOrEmpty(txtCuit.Text))
             {
-                if (string.IsNullOrEmpty(txtCuit.Text))
-                {
-                    var parametros = new Dictionary<string, object>() {
-                        { "@razonSocial", txtRazonSocial.Text},
-                        { "@mail", txtMailEmpresa.Text}
-                    };
-                    empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByFilters", parametros).ToEmpresas();
-                }
-                else
-                {
-                    empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByCuit", new Dictionary<string, object> { { "@cuit", txtCuit.Text} }).ToEmpresas();
-                }
+                var parametros = new Dictionary<string, object>() {
+                    { "@razonSocial", txtRazonSocial.Text},
+                    { "@mail", txtMailEmpresa.Text}
+                };
+                empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByFilters", parametros).ToEmpresas();
             }
             else
             {
-                empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetAll").ToEmpresas();
+                empresasFiltradas = DBHelper.ExecuteReader("Empresa_GetByCuit", new Dictionary<string, object> { { "@cuit", txtCuit.Text} }).ToEmpresas();
             }
             LoadEmpresas(empresasFiltradas);
+        }
+
+        private void btnTodosClientes_Click(object sender, EventArgs e)
+        {
+            LoadClientes(DBHelper.ExecuteReader("Cliente_GetAll").ToClientes());
+        }
+
+        private void btnTodasEmpresas_Click(object sender, EventArgs e)
+        {
+            LoadEmpresas(DBHelper.ExecuteReader("Empresa_GetAll").ToEmpresas());
         }
 
         private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
@@ -156,12 +159,6 @@ namespace GDD.ABM_Usuario
             if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
                 e.Handled = true;
         }        
-
-        private void txtRazonSocial_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
-                e.Handled = true;
-        }
 
         private void dgvCliente_DoubleClick(object sender, EventArgs e)
         {
@@ -182,5 +179,7 @@ namespace GDD.ABM_Usuario
                 empresa.Show();
             }
         }
+
+        
     }
 }

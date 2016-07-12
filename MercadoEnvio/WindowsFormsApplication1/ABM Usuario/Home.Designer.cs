@@ -51,6 +51,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnContraseña = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnTodosClientes = new System.Windows.Forms.Button();
+            this.btnTodasEmpresas = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpresa)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -69,6 +71,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnTodasEmpresas);
             this.groupBox2.Controls.Add(this.btnEmpresa);
             this.groupBox2.Controls.Add(this.txtCuit);
             this.groupBox2.Controls.Add(this.dgvEmpresa);
@@ -150,10 +153,10 @@
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(100, 20);
             this.txtRazonSocial.TabIndex = 0;
-            this.txtRazonSocial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRazonSocial_KeyPress);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnTodosClientes);
             this.groupBox1.Controls.Add(this.btnCliente);
             this.groupBox1.Controls.Add(this.dgvCliente);
             this.groupBox1.Controls.Add(this.txtMailCliente);
@@ -275,6 +278,26 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "Para modificar, debe hacer doble click sobre la fila";
             // 
+            // btnTodosClientes
+            // 
+            this.btnTodosClientes.Location = new System.Drawing.Point(355, 42);
+            this.btnTodosClientes.Name = "btnTodosClientes";
+            this.btnTodosClientes.Size = new System.Drawing.Size(98, 23);
+            this.btnTodosClientes.TabIndex = 13;
+            this.btnTodosClientes.Text = "Mostrar todos";
+            this.btnTodosClientes.UseVisualStyleBackColor = true;
+            this.btnTodosClientes.Click += new System.EventHandler(this.btnTodosClientes_Click);
+            // 
+            // btnTodasEmpresas
+            // 
+            this.btnTodasEmpresas.Location = new System.Drawing.Point(343, 43);
+            this.btnTodasEmpresas.Name = "btnTodasEmpresas";
+            this.btnTodasEmpresas.Size = new System.Drawing.Size(98, 23);
+            this.btnTodasEmpresas.TabIndex = 14;
+            this.btnTodasEmpresas.Text = "Mostrar todas";
+            this.btnTodasEmpresas.UseVisualStyleBackColor = true;
+            this.btnTodasEmpresas.Click += new System.EventHandler(this.btnTodasEmpresas_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,5 +347,7 @@
         private System.Windows.Forms.Button btnEmpresa;
         private System.Windows.Forms.Button btnCliente;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnTodasEmpresas;
+        private System.Windows.Forms.Button btnTodosClientes;
     }
 }

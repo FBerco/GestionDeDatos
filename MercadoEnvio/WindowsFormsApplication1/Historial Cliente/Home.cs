@@ -14,6 +14,7 @@ namespace GDD.Historial_Cliente
 {
     public partial class frmHome : Form
     {
+        #region Atributos
         private Usuario usuario;
         private Cliente cliente;
         private List<Venta> listaDeComprasQueParticipo;
@@ -21,7 +22,11 @@ namespace GDD.Historial_Cliente
         private List<Oferta> listaDeSubastasQueParticipo;
         private List<Calificacion> calificaciones;
         private int ultimaFilaInsertada;
-        
+        private List<ElementoHistorial> listaDeTodo;
+        private int paginaActual;
+        private int ultimaPagina;
+        private int cantXPagina = 21;
+        #endregion
 
         public frmHome(Usuario us)
         {
@@ -32,8 +37,10 @@ namespace GDD.Historial_Cliente
         private void frmHome_Load(object sender, EventArgs e)
         {
             inicializarAtributos();
-            llenarDataGridViewConCompras();
-            llenarDataGridViewConSubastas();
+            paginaActual = 1;
+            ultimaPagina = getUltimaPagina();
+            lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+            llenarDataGridViewSegunPagina(paginaActual);
             llenarResumenDeCalificaciones();
             llenarOperacionesCalificadas();
             llenarOperacionesSinCalificar();
@@ -53,6 +60,7 @@ namespace GDD.Historial_Cliente
             listaDeComprasQueParticipo = getCompras();
             listaDeSubastasQueParticipo = getSubastas();
             calificaciones = getCalificacionesSegunCliente();
+            listaDeTodo = getListaDeTodo();
         }
         
             #region Get Valores
@@ -91,6 +99,34 @@ namespace GDD.Historial_Cliente
                     comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario).ToVentas();
                     return comprasSinCalificar.Count();
                 }
+
+                private List<ElementoHistorial> getListaDeTodo()
+                {
+                    List<ElementoHistorial> lista = new List<ElementoHistorial>();
+                    foreach (var compra in listaDeComprasQueParticipo)
+                    {
+                        lista.Add(new ElementoHistorial
+                        {
+                            Tipo = "Compra Inmediata",
+                            PublicacionID = compra.PublicacionId.ToString(),
+                            Fecha = compra.Fecha.ToString(),
+                            Cantidad = compra.Cantidad.ToString(),
+                            Monto = "-"
+                        });
+                    }
+                    foreach (var subasta in listaDeSubastasQueParticipo)
+                    {
+                        lista.Add(new ElementoHistorial
+                        {
+                            Tipo = "Subasta",
+                            PublicacionID = subasta.PublicacionId.ToString(),
+                            Fecha = subasta.Fecha.ToString(),
+                            Cantidad = "-",
+                            Monto = subasta.Monto.ToString()
+                        });
+                    }
+                    return lista;
+                }
             #endregion
 
             #region Llenar forms
@@ -98,18 +134,7 @@ namespace GDD.Historial_Cliente
                 private void llenarDataGridViewConCompras()
                 {
                     int fila = 0;
-                    foreach (var compra in listaDeComprasQueParticipo)
-                    {
-                        dgvHistorial.Rows.Insert(
-                            fila,
-                            "Compra Inmediata",
-                            compra.PublicacionId.ToString(),
-                            compra.Fecha.ToString(),
-                            compra.Cantidad.ToString(),
-                            "-"
-                            );
-                        fila++;
-                    }
+                    
                     ultimaFilaInsertada = fila;
                 }
 
@@ -182,21 +207,107 @@ namespace GDD.Historial_Cliente
                 {
                     txtCantSubastas.Text = listaDeSubastasQueParticipo.Count.ToString();
                 }
-            #endregion
-
-                private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-                {
-
-                }
 
                 
+            #endregion
+
+       
+        #endregion
+
+        #region Validaciones
+
+                private void txtIrAPagina_KeyPress(object sender, KeyPressEventArgs e)
+                {
+                    if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                    {
+                        MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        e.Handled = true;
+                        return;
+                    }
+                }
 
         #endregion
 
-                private void button1_Click(object sender, EventArgs e)
-                {
-                    llenarDataGridViewConCompras();
-                }
-                
+        private void llenarDataGridViewSegunPagina(int numeroPagina) 
+        {
+            dgvHistorial.Rows.Clear();
+            List<ElementoHistorial> elementosAMostrar = new List<ElementoHistorial>();
+            int ultimaCantidadDeElementos = (listaDeTodo.Count - 1) - ((ultimaPagina - 1) * cantXPagina);
+            if (numeroPagina == ultimaPagina)
+            {
+                elementosAMostrar = listaDeTodo.GetRange((ultimaPagina - 1) * cantXPagina, ultimaCantidadDeElementos);
+            }
+            else
+            {
+                elementosAMostrar = listaDeTodo.GetRange(((numeroPagina - 1) * cantXPagina), cantXPagina);
+            }
+            int fila = 0;
+            foreach (var elem in elementosAMostrar) 
+            {
+                dgvHistorial.Rows.Insert(fila,elem.Tipo,elem.PublicacionID,elem.Fecha,elem.Cantidad,elem.Monto);
+                fila++;
+            }
+        }
+
+        
+
+        private void btnPrevPage_Click(object sender, EventArgs e)
+        {
+            if (!(paginaActual - 1 == 0))
+            {
+                paginaActual = paginaActual - 1;
+                lblPaginaActual.Text = String.Concat("Pagina ",paginaActual.ToString()," de ",ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+            else
+            {
+                paginaActual = 1;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+        }
+
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            if ((paginaActual + 1 > ultimaPagina))
+            {
+                paginaActual = ultimaPagina;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+            else
+            {
+                paginaActual = paginaActual + 1;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+        }
+        
+
+        private int getUltimaPagina() 
+        {
+            Double cantElementos = listaDeTodo.Count;
+            Double cantDePaginas = cantElementos / cantXPagina;
+            int parteEntera = (int)cantDePaginas;
+            ultimaPagina = parteEntera;
+            if (cantDePaginas - parteEntera > 0) ultimaPagina++;
+            return ultimaPagina;
+        }
+
+        private void btnOkIrAPagina_Click(object sender, EventArgs e)
+        {
+            int paginaNueva = System.Int32.Parse(txtIrAPagina.Text);
+            if ( paginaNueva > ultimaPagina || paginaNueva == 0) { MessageBox.Show("No existe la pagina", "Error"); }
+            else 
+            {
+                paginaActual = paginaNueva;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual); 
+            }
+            txtIrAPagina.Clear();
+        }
+
+       
+
     }
 }

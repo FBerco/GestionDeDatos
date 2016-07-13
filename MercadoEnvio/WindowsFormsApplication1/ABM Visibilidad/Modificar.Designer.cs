@@ -108,6 +108,7 @@
             // 
             // cmbNombreVisibilidad
             // 
+            this.cmbNombreVisibilidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNombreVisibilidad.FormattingEnabled = true;
             this.cmbNombreVisibilidad.Location = new System.Drawing.Point(243, 27);
             this.cmbNombreVisibilidad.Name = "cmbNombreVisibilidad";

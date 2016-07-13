@@ -14,20 +14,20 @@ namespace GDD.Calificar
 {
     public partial class frmHome : Form
     {
-        public frmHome()
-        {
-            InitializeComponent();
-        }
-
+        
         public frmHome(Usuario unUsuario) 
         {
             InitializeComponent();
             usuario = unUsuario; 
         }
 
+        #region Atributos
+        
         private Usuario usuario;
         private List<Venta> ventasSinCalificar;
         private Cliente cliente;
+        
+        #endregion
 
         private void frmHome_Load(object sender, EventArgs e)
         {
@@ -77,7 +77,6 @@ namespace GDD.Calificar
                 MessageBox.Show("Seleccionar venta, estrellas y completar detalle", "Error");
             }
         }
-
-        
+            
     }
 }

@@ -172,8 +172,8 @@ namespace Helpers
                 {
                     FacturaId = (int)rdr["item_factura"],
                     Id = (int)rdr["item_id"],
-                    Cantidad = (int)rdr["item_cantidad"],
-                    PrecioUnitario = (double)rdr["item_precio_unitario"],
+                    Cantidad = (decimal)rdr["item_cantidad"],
+                    PrecioUnitario = (decimal)rdr["item_precio_unitario"],
                     Detalle = (string)rdr["item_detalle"]
                 });
             }

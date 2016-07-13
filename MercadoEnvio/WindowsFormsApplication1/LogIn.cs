@@ -59,8 +59,8 @@ namespace GDD
                 else
                 {
                     DBHelper.ExecuteNonQuery("Usuario_SumarIntento", new Dictionary<string, object>() { { "@Username", username } });
-                    var usuario = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", username } }).ToUsuario();
-                    if (usuario != null && usuario.Intentos >= 3)
+                    var usu = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", username } }).ToUsuario();
+                    if (usu != null && usu.Intentos >= 3)
                     {                        
                         DBHelper.ExecuteNonQuery("Usuario_Inhabilitar", new Dictionary<string, object> { { "@Username", username } });
                         MessageBox.Show("Usuario ha quedado inhabilitado");

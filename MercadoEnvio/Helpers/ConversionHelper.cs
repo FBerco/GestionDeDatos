@@ -18,7 +18,9 @@ namespace Helpers
                 list.Add(new Usuario() {
                     Username = (string)rdr["usua_username"],
                     Activo = (bool)rdr["usua_activo"],
-                    Password = (string)rdr["usua_password"]
+                    Password = (string)rdr["usua_password"],
+                    Habilitado = (bool)rdr["usua_habilitado"],
+                    Intentos= (int)rdr["usua_intentos"]
                 });
             }
             DBHelper.DB.Close();

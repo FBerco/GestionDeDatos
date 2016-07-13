@@ -64,8 +64,6 @@ namespace GDD.ABM_Visibilidad
             return porcentajeNoMayorAl100() ;
         }
 
-
-
         private Boolean porcentajeNoMayorAl100()
         {
             if (!String.IsNullOrEmpty(txtComsionProductoVendido.Text))
@@ -74,10 +72,49 @@ namespace GDD.ABM_Visibilidad
             }
             else return true;
         }
-        
-        
-        
-        
+
+            #region Solo se ingresan los tipos de datos correctos en los textboxes
+            private void txtComisionTipoPublicacion_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            private void txtComsionProductoVendido_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            private void txtComisionEnvioProducto_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            private void txtNombreVisibilidad_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if ((char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten letras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+            }
+            #endregion
+
         #endregion
 
         private void guardarVisibilidad(Visibilidad unaVisibilidad)
@@ -116,44 +153,6 @@ namespace GDD.ABM_Visibilidad
             this.Hide();
         }
 
-        private void txtComisionTipoPublicacion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
-
-        private void txtComsionProductoVendido_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
-
-        private void txtComisionEnvioProducto_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
-
-        private void txtNombreVisibilidad_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten letras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
+        
      }   
 }

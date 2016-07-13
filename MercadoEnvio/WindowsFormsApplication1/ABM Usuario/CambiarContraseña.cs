@@ -24,7 +24,7 @@ namespace GDD.ABM_Usuario
         {
             if (txtContraseña.Text != null)
             {
-                DBHelper.ExecuteNonQuery("Usuario_CambiarContraseña", new Dictionary<string, object>() { { "@Usuario", usuario.Username}, { "@Password", txtContraseña.Text } });
+                DBHelper.ExecuteNonQuery("Usuario_CambiarContraseña", new Dictionary<string, object>() { { "@Username", usuario.Username}, { "@Password", txtContraseña.Text } });
                 MessageBox.Show("Contraseña cambiada");
                 Hide();
             }

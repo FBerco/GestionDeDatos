@@ -204,7 +204,7 @@
             // 
             this.dtpFecha.Location = new System.Drawing.Point(132, 244);
             this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(200, 20);
+            this.dtpFecha.Size = new System.Drawing.Size(213, 20);
             this.dtpFecha.TabIndex = 19;
             // 
             // btnContraseña

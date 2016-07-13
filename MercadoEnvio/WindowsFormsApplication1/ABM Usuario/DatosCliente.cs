@@ -122,15 +122,12 @@ namespace GDD.ABM_Usuario
             Show();
         }
 
-<<<<<<< HEAD
-        
-=======
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
             DBHelper.ExecuteNonQuery("Usuario_Habilitar", new Dictionary<string, object>() { { "@Username", cliente.Username } });
             MessageBox.Show("Usuario habilitado nuevamente.");
             btnHabilitar.Visible = false;
         }
->>>>>>> 3acacb31d517797468d770775ea513d27f7aeb35
+
     }
 }

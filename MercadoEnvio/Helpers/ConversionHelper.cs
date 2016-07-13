@@ -173,7 +173,8 @@ namespace Helpers
                     FacturaId = (int)rdr["item_factura"],
                     Id = (int)rdr["item_id"],
                     Cantidad = (int)rdr["item_cantidad"],
-                    PrecioUnitario = (int)rdr["item_precio_unitario"],
+                    PrecioUnitario = (double)rdr["item_precio_unitario"],
+                    Detalle = (string)rdr["item_detalle"]
                 });
             }
             DBHelper.DB.Close();
@@ -198,6 +199,7 @@ namespace Helpers
                     Fecha = (DateTime)rdr["ofer_fecha"],
                     PublicacionId = (int) rdr["ofer_publicacion"],
                     ClienteId = (int)rdr["ofer_cliente"],
+                    ConEnvio = (bool)rdr["ofer_envio"],
                 });
             }
             DBHelper.DB.Close();

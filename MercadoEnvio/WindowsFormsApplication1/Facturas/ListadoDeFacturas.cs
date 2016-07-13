@@ -186,13 +186,17 @@ namespace GDD.Facturas
 
                 private void btnOKVendedor_Click(object sender, EventArgs e)
                 {
-                    Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
-                    vendedorSeleccionado = cmbUsuarioVendedor.SelectedItem.ToString();
-                    nuevoDiccionario.Add("@vendedorID", vendedorSeleccionado);
-                    todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", nuevoDiccionario).ToFacturas();
-                    deshabilitarUsuarioVendedor();
-                    habilitarListarPor();
-                    btnOKListarPor.Enabled = true;
+                    if (cmbUsuarioVendedor.SelectedItem == null) { MessageBox.Show("Seleccione un vendedor", "Error"); }
+                    else
+                    {
+                        Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
+                        vendedorSeleccionado = cmbUsuarioVendedor.SelectedItem.ToString();
+                        nuevoDiccionario.Add("@vendedorID", vendedorSeleccionado);
+                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", nuevoDiccionario).ToFacturas();
+                        deshabilitarUsuarioVendedor();
+                        habilitarListarPor();
+                        btnOKListarPor.Enabled = true;
+                    }
                 }
 
                 private void btnOKListarPor_Click(object sender, EventArgs e)

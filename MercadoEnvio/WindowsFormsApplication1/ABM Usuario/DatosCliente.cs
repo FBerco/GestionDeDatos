@@ -65,7 +65,7 @@ namespace GDD.ABM_Usuario
                     { "@Telefono", txtTelefono.Text  },
                     { "@Direccion",txtDireccion.Text  },
                     { "@CodPostal", Convert.ToInt32(txtCodPostal.Text) },
-                    { "@Fecha", dtpFecha.Text},
+                    { "@Fecha", dtpFecha.Value},
                 };
                 if (usuario != null)
                 {

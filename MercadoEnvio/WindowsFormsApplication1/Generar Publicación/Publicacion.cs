@@ -199,17 +199,20 @@ namespace GDD.Generar_Publicación
                 //Item por porcentaje
                 new ItemFactura() {
                     Cantidad = 0,
-                    PrecioUnitario =  Convert.ToDouble(Convert.ToDecimal(txtPrecio.Text) * visi.PorcentajeProducto)
+                    PrecioUnitario =  Convert.ToDouble(Convert.ToDecimal(txtPrecio.Text) * visi.PorcentajeProducto),
+                    Detalle = "ItemPorcentaje"
                 },
                 //Costo publicacion
                 new ItemFactura() {
                     Cantidad = 1,
-                    PrecioUnitario =  visi.CostoPublicacion
+                    PrecioUnitario =  visi.CostoPublicacion,
+                    Detalle = "CostoPublicacion"
                 },
                 //Costo envio
                 new ItemFactura() {
                     Cantidad = 0,
-                    PrecioUnitario =  visi.CostoEnvio
+                    PrecioUnitario =  visi.CostoEnvio,
+                    Detalle = "CostoEnvio"
                 },
             };
             var fechaString = fecha.ToString("dd/MM/yyyy HH:mm:ss");
@@ -217,7 +220,7 @@ namespace GDD.Generar_Publicación
             var factura = DBHelper.ExecuteReader("Factura_GetLast").ToFactura();
             foreach (var item in items)
             {
-                DBHelper.ExecuteNonQuery("ItemFactura_Add", new Dictionary<string, object> { {"@factura", factura.Numero }, {"@cantidad", item.Cantidad }, { "@precio", item.PrecioUnitario } });
+                DBHelper.ExecuteNonQuery("ItemFactura_Add", new Dictionary<string, object> { {"@factura", factura.Numero }, {"@cantidad", item.Cantidad }, { "@precio", item.PrecioUnitario }, { "@detalle", item.Detalle} });
             }
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Factura ID:" + factura.Numero);

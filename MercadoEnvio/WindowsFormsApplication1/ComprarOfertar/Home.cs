@@ -132,6 +132,192 @@ namespace GDD.ComprarOfertar
             return retorno;
         }
 
+   
+
+        private void dgvPublicaciones_MouseClick(object sender, MouseEventArgs e)
+        {
+            PublicacionShow publicacion = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
+            if (publicacion.Tipo == "Subasta")
+            {
+                lblTextoAccion.Text = "Ofertar por el monto:";
+                btnAccionar.Text = "OFERTAR";
+            }
+            else
+            {
+                lblTextoAccion.Text = "Cantidad a comprar:";
+                btnAccionar.Text = "COMPRAR";
+            }
+            lblTextoAccion.Enabled = true;
+            txtAccion.Enabled = true;
+            btnAccionar.Enabled = true;
+            rdbEnvio.Enabled = true;
+        }
+
+      
+        private void btnAccionar_Click(object sender, EventArgs e)
+        {
+            if (txtAccion.Text != "")
+            {
+                PublicacionShow publ = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
+                if (btnAccionar.Text == "COMPRAR")
+                {
+                    int cantidad = Convert.ToInt32(txtAccion.Text);
+                    if (cantidad > publ.Stock)
+                    {
+                        MessageBox.Show("No hay stock disponible");
+                    }
+                    else
+                    {
+                        var parametros = new Dictionary<string, object>()
+                        {
+                            { "@cliente", GetClienteIdByUsername()},
+                            { "@publicacion", publ.Id},
+                            { "@cantidad", cantidad},
+                            { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
+                        };
+                        DBHelper.ExecuteNonQuery("Venta_Add", parametros);
+                        btnFiltrar_Click(false, new EventArgs());
+
+                        //GenerarItemsFactura(publ.Id, cantidad);
+                    }
+                }
+                else if (btnAccionar.Text == "OFERTAR")
+                {
+                    Oferta oferta = new Oferta()
+                    {
+                        Monto = Convert.ToInt32(txtAccion.Text),
+                        PublicacionId = publ.Id,
+                        ClienteId = GetClienteIdByUsername()
+                    };                    
+
+                    if (oferta.Monto > publ.Precio)
+                    {
+                        var parametros = new Dictionary<string, object>()
+                        {
+                            { "@cliente", oferta.ClienteId},
+                            { "@publicacion", oferta.PublicacionId},
+                            { "@monto", oferta.Monto},
+                            { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) },
+                            { "@envio", rdbEnvio.Checked }
+                        };
+                        DBHelper.ExecuteNonQuery("Oferta_Add", parametros);
+                        btnFiltrar_Click(false, new EventArgs());
+                    }
+                    else
+                    {
+                        MessageBox.Show("El monto debe superar la ultima puja");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un número");
+            }
+        }
+
+        private void GenerarItemsFactura(int id, int cantidad)
+        {           
+            var factura = DBHelper.ExecuteReader("Factura_GetByPublicacion", new Dictionary<string, object>() { { "@publicacion", id } }).ToFactura();
+            var items = DBHelper.ExecuteReader("ItemFactura_GetByFactura", new Dictionary<string, object>() { { "@factura", factura.Numero } }).ToItemFacturas();
+            //Item porcentaje
+            ItemFactura itemPorcentaje = items.FirstOrDefault(x => x.Detalle == "ItemPorcentaje");
+            if (itemPorcentaje != null)
+            {
+                itemPorcentaje.Cantidad = itemPorcentaje.Cantidad + cantidad;
+                DBHelper.ExecuteNonQuery("ItemFactura_ModificarCantidad", new Dictionary<string, object>() { { "@item", itemPorcentaje.Id }, { "@cantidad", itemPorcentaje.Cantidad } });
+            }
+            ItemFactura itemEnvio = null;
+            if (rdbEnvio.Checked)
+            {
+                itemEnvio = items.FirstOrDefault(x => x.Detalle == "CostoEnvio");
+                if (itemEnvio != null)
+                {
+                    itemEnvio.Cantidad = itemEnvio.Cantidad + cantidad;
+                    DBHelper.ExecuteNonQuery("ItemFactura_ModificarCantidad", new Dictionary<string, object>() { { "@item", itemEnvio.Id }, { "@cantidad", itemEnvio.Cantidad } });
+                }
+            }
+            double total = 0;
+            foreach (var item in items)
+            {
+                if (itemPorcentaje != null && item.Detalle == itemPorcentaje.Detalle)
+                {
+                    total = total + itemPorcentaje.PrecioUnitario * itemPorcentaje.Cantidad;
+                }
+                else if (itemEnvio != null && item.Detalle == itemEnvio.Detalle)
+                {
+                    total = total + itemEnvio.PrecioUnitario * itemEnvio.Cantidad;
+                }
+                else
+                {
+                    total = total + item.PrecioUnitario * cantidad;
+                }
+            }
+            DBHelper.ExecuteNonQuery("Factura_ActualizarTotal", new Dictionary<string, object>() { { "@factura", factura.Numero }, { "@total", total } });
+        }
+
+        private int GetClienteIdByUsername()
+        {
+            var parametros = new Dictionary<string, object>()
+            {
+                { "@username", usuario.Username}
+            };
+            return DBHelper.ExecuteReader("Cliente_GetByUsername", parametros).ToCliente().Id;
+        }
+
+        private void btnTodos_Click(object sender, EventArgs e)
+        {
+            SeleccionarRubros(true);
+        }
+
+        private void btnNinguno_Click(object sender, EventArgs e)
+        {
+            SeleccionarRubros(false);
+        }
+
+        private void SeleccionarRubros(bool selected)
+        {
+            for (int i = 0; i < clbRubros.Items.Count; i++)
+            {
+                clbRubros.SetItemChecked(i, selected);
+            }
+        }
+
+        private void btnInicio_Click(object sender, EventArgs e)
+        {
+            paginaActual = 0;
+            dgvPublicaciones.DataSource = null;
+            dgvPublicaciones.DataSource = actualizarPagina();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            paginaActual -= 1;
+            dgvPublicaciones.DataSource = null;
+            dgvPublicaciones.DataSource = actualizarPagina();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            paginaActual += 1;
+            dgvPublicaciones.DataSource = null;
+            dgvPublicaciones.DataSource = actualizarPagina();
+        }
+
+        private void btnFin_Click(object sender, EventArgs e)
+        {
+            paginaActual = ultimaPagina;
+            dgvPublicaciones.DataSource = null;
+            dgvPublicaciones.DataSource = actualizarPagina();
+        }
+
+        private void txtAccion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
         internal class PublicacionShow
         {
             public int Id { get; set; }
@@ -164,137 +350,5 @@ namespace GDD.ComprarOfertar
             DBHelper.DB.Close();
             return list;
         }
-
-        private void dgvPublicaciones_MouseClick(object sender, MouseEventArgs e)
-        {
-            PublicacionShow publicacion = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
-            if (publicacion.Tipo == "Subasta")
-            {
-                lblTextoAccion.Text = "Ofertar por el monto:";
-                btnAccionar.Text = "OFERTAR";
-            }
-            else
-            {
-                lblTextoAccion.Text = "Cantidad a comprar:";
-                btnAccionar.Text = "COMPRAR";
-            }
-            lblTextoAccion.Enabled = true;
-            txtAccion.Enabled = true;
-            btnAccionar.Enabled = true;
-        }
-
-        private void btnInicio_Click(object sender, EventArgs e)
-        {
-            paginaActual = 0;
-            dgvPublicaciones.DataSource = null;
-            dgvPublicaciones.DataSource = actualizarPagina();
-        }
-
-        private void btnAnterior_Click(object sender, EventArgs e)
-        {
-            paginaActual -= 1;
-            dgvPublicaciones.DataSource = null;
-            dgvPublicaciones.DataSource = actualizarPagina();
-        }
-
-        private void btnSiguiente_Click(object sender, EventArgs e)
-        {
-            paginaActual += 1;
-            dgvPublicaciones.DataSource = null;
-            dgvPublicaciones.DataSource = actualizarPagina();
-        }
-
-        private void btnFin_Click(object sender, EventArgs e)
-        {
-            paginaActual = ultimaPagina;
-            dgvPublicaciones.DataSource = null;
-            dgvPublicaciones.DataSource = actualizarPagina();
-        }
-
-        private void btnAccionar_Click(object sender, EventArgs e)
-        {
-            if (txtAccion.Text != "")
-            {
-                PublicacionShow publ = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
-                if (btnAccionar.Text == "COMPRAR")
-                {
-                    int cantidad = Convert.ToInt32(txtAccion.Text);
-
-                    if (cantidad > publ.Stock)
-                    {
-                        MessageBox.Show("No hay stock disponible");
-                    }
-                    else
-                    {
-                        var parametros = new Dictionary<string, object>()
-                    {
-                        { "@cliente", GetClienteIdByUsername()},
-                        { "@publicacion", publ.Id},
-                        { "@cantidad", cantidad},
-                        { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
-                    };
-                        DBHelper.ExecuteNonQuery("Venta_Add", parametros);
-                        btnFiltrar_Click(false, new EventArgs());
-                    }
-                }
-                else if (btnAccionar.Text == "OFERTAR")
-                {
-                    Oferta oferta = new Oferta();
-                    oferta.Monto = Convert.ToInt32(txtAccion.Text);
-                    oferta.PublicacionId = publ.Id;
-                    oferta.ClienteId = GetClienteIdByUsername();
-
-                    if (oferta.Monto > publ.Precio)
-                    {
-                        var parametros = new Dictionary<string, object>()
-                    {
-                        { "@cliente", oferta.ClienteId},
-                        { "@publicacion", oferta.PublicacionId},
-                        { "@monto", oferta.Monto},
-                        { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
-                    };
-                        DBHelper.ExecuteNonQuery("Oferta_Add", parametros);
-                        btnFiltrar_Click(false, new EventArgs());
-                    }
-                    else
-                    {
-                        MessageBox.Show("El monto debe superar la ultima puja");
-                    }
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("Ingrese un número");
-            }
-        }
-
-        private int GetClienteIdByUsername()
-        {
-            var parametros = new Dictionary<string, object>()
-            {
-                { "@username", usuario.Username}
-            };
-            return DBHelper.ExecuteReader("Cliente_GetByUsername", parametros).ToCliente().Id;
-        }
-
-        private void btnTodos_Click(object sender, EventArgs e)
-        {
-            SeleccionarRubros(true);
-        }
-
-        private void btnNinguno_Click(object sender, EventArgs e)
-        {
-            SeleccionarRubros(false);
-        }
-
-        private void SeleccionarRubros(bool selected)
-        {
-            for (int i = 0; i < clbRubros.Items.Count; i++)
-            {
-                clbRubros.SetItemChecked(i, selected);
-            }
-        }
-
     }
 }

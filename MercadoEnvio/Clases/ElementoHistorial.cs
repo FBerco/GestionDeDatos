@@ -9,7 +9,7 @@ namespace Clases
     {
         public String Tipo { get; set; }
         public String PublicacionID { get; set; }
-        public String Fecha { get; set; }
+        public DateTime Fecha { get; set; }
         public String Cantidad { get; set; }
         public String Monto { get; set; }
     }

@@ -13,14 +13,7 @@ namespace GDD.ABM_Usuario
 {
     public partial class frmHome : Form
     {
-        private Usuario usuario;
-
-        //TEMPORAL PARA PRUEBAS, DESPUES BORRAR
-        public frmHome()
-        {
-            InitializeComponent();
-        }
-
+        private Usuario usuario;        
         public frmHome(Usuario us)
         {
             InitializeComponent();
@@ -100,13 +93,7 @@ namespace GDD.ABM_Usuario
             frmAlta alta = new frmAlta();
             alta.Show();
         }
-
-        private void btnContraseña_Click(object sender, EventArgs e)
-        {
-            frmContraseña con = new frmContraseña(usuario);
-            Show();
-        }
-        
+                
         private void btnCliente_Click(object sender, EventArgs e)
         {
             List<Cliente> clientesFiltrados = null;

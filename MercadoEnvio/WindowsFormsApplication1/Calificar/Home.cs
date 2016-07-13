@@ -74,7 +74,7 @@ namespace GDD.Calificar
             }
             else
             {
-                MessageBox.Show("Seleccionar venta y estrellas", "Error");
+                MessageBox.Show("Seleccionar venta, estrellas y completar detalle", "Error");
             }
         }
 

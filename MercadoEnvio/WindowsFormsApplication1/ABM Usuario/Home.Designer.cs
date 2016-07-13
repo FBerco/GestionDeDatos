@@ -30,6 +30,7 @@
         {
             this.btnAlta = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnTodasEmpresas = new System.Windows.Forms.Button();
             this.btnEmpresa = new System.Windows.Forms.Button();
             this.txtCuit = new System.Windows.Forms.TextBox();
             this.dgvEmpresa = new System.Windows.Forms.DataGridView();
@@ -39,6 +40,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnTodosClientes = new System.Windows.Forms.Button();
             this.btnCliente = new System.Windows.Forms.Button();
             this.dgvCliente = new System.Windows.Forms.DataGridView();
             this.txtMailCliente = new System.Windows.Forms.TextBox();
@@ -49,10 +51,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnContraseña = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnTodosClientes = new System.Windows.Forms.Button();
-            this.btnTodasEmpresas = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpresa)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -86,6 +85,16 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Empresa";
+            // 
+            // btnTodasEmpresas
+            // 
+            this.btnTodasEmpresas.Location = new System.Drawing.Point(343, 43);
+            this.btnTodasEmpresas.Name = "btnTodasEmpresas";
+            this.btnTodasEmpresas.Size = new System.Drawing.Size(98, 23);
+            this.btnTodasEmpresas.TabIndex = 14;
+            this.btnTodasEmpresas.Text = "Mostrar todas";
+            this.btnTodasEmpresas.UseVisualStyleBackColor = true;
+            this.btnTodasEmpresas.Click += new System.EventHandler(this.btnTodasEmpresas_Click);
             // 
             // btnEmpresa
             // 
@@ -174,6 +183,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
             // 
+            // btnTodosClientes
+            // 
+            this.btnTodosClientes.Location = new System.Drawing.Point(355, 42);
+            this.btnTodosClientes.Name = "btnTodosClientes";
+            this.btnTodosClientes.Size = new System.Drawing.Size(98, 23);
+            this.btnTodosClientes.TabIndex = 13;
+            this.btnTodosClientes.Text = "Mostrar todos";
+            this.btnTodosClientes.UseVisualStyleBackColor = true;
+            this.btnTodosClientes.Click += new System.EventHandler(this.btnTodosClientes_Click);
+            // 
             // btnCliente
             // 
             this.btnCliente.Location = new System.Drawing.Point(355, 17);
@@ -258,17 +277,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
             // 
-            // btnContraseña
-            // 
-            this.btnContraseña.Location = new System.Drawing.Point(122, 29);
-            this.btnContraseña.Name = "btnContraseña";
-            this.btnContraseña.Size = new System.Drawing.Size(121, 23);
-            this.btnContraseña.TabIndex = 22;
-            this.btnContraseña.Text = "Cambiar contraseña";
-            this.btnContraseña.UseVisualStyleBackColor = true;
-            this.btnContraseña.Visible = false;
-            this.btnContraseña.Click += new System.EventHandler(this.btnContraseña_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -278,33 +286,12 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "Para modificar, debe hacer doble click sobre la fila";
             // 
-            // btnTodosClientes
-            // 
-            this.btnTodosClientes.Location = new System.Drawing.Point(355, 42);
-            this.btnTodosClientes.Name = "btnTodosClientes";
-            this.btnTodosClientes.Size = new System.Drawing.Size(98, 23);
-            this.btnTodosClientes.TabIndex = 13;
-            this.btnTodosClientes.Text = "Mostrar todos";
-            this.btnTodosClientes.UseVisualStyleBackColor = true;
-            this.btnTodosClientes.Click += new System.EventHandler(this.btnTodosClientes_Click);
-            // 
-            // btnTodasEmpresas
-            // 
-            this.btnTodasEmpresas.Location = new System.Drawing.Point(343, 43);
-            this.btnTodasEmpresas.Name = "btnTodasEmpresas";
-            this.btnTodasEmpresas.Size = new System.Drawing.Size(98, 23);
-            this.btnTodasEmpresas.TabIndex = 14;
-            this.btnTodasEmpresas.Text = "Mostrar todas";
-            this.btnTodasEmpresas.UseVisualStyleBackColor = true;
-            this.btnTodasEmpresas.Click += new System.EventHandler(this.btnTodasEmpresas_Click);
-            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 627);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.btnContraseña);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAlta);
@@ -342,7 +329,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnContraseña;
         private System.Windows.Forms.TextBox txtCuit;
         private System.Windows.Forms.Button btnEmpresa;
         private System.Windows.Forms.Button btnCliente;

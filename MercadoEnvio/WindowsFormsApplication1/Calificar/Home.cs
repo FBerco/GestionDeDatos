@@ -9,6 +9,7 @@ using Helpers;
 using Clases;
 
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace GDD.Calificar
 {
@@ -61,6 +62,7 @@ namespace GDD.Calificar
                     parametros.Add("@estrellas", estrellas);
                     parametros.Add("@ventaID", venta);
                     parametros.Add("@detalle", detalle);
+                    parametros.Add("@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]));
                     DBHelper.ExecuteNonQuery("Calificacion_Add", parametros);
                     MessageBox.Show("Calificado con exito", "Exito");
                     cmbVentas.Items.Clear();

@@ -14,28 +14,13 @@ namespace GDD.Historial_Cliente
 {
     public partial class frmHome : Form
     {
-        #region Atributos
-        private Usuario usuario;
-        private Cliente cliente;
-        private List<Venta> listaDeComprasQueParticipo;
-        private List<Venta> comprasSinCalificar;
-        private List<Oferta> listaDeSubastasQueParticipo;
-        private List<Calificacion> calificaciones;
-        private int ultimaFilaInsertada;
-        private List<ElementoHistorial> listaDeTodasLasComprasYSubastas;
-        private int paginaActual;
-        private int ultimaPagina;
-        private int cantXPagina = 21;
-        #endregion
 
         public frmHome(Usuario us)
         {
             InitializeComponent();
             usuario = us;
-            
-        }
 
-       
+        }
 
         private void frmHome_Load(object sender, EventArgs e)
         {
@@ -55,9 +40,21 @@ namespace GDD.Historial_Cliente
             llenarCantidadDeSubastas();
         }
 
-        #region Metodos
-            
-            private void inicializarAtributos() 
+        #region Atributos
+       
+        private Usuario usuario;
+        private Cliente cliente;
+        private List<Venta> listaDeComprasQueParticipo;
+        private List<Venta> comprasSinCalificar;
+        private List<Oferta> listaDeSubastasQueParticipo;
+        private List<Calificacion> calificaciones;
+        private int ultimaFilaInsertada;
+        private List<ElementoHistorial> listaDeTodasLasComprasYSubastas;
+        private int paginaActual;
+        private int ultimaPagina;
+        private int cantXPagina = 21;
+
+        private void inicializarAtributos()
         {
             cliente = getCliente();
             listaDeComprasQueParticipo = getCompras();
@@ -65,8 +62,19 @@ namespace GDD.Historial_Cliente
             calificaciones = getCalificacionesSegunCliente();
             listaDeTodasLasComprasYSubastas = getListaDeTodasLasComprasYSubastas();
         }
-        
-            #region Get Valores
+
+        #endregion
+               
+        #region Get Valores
+
+                private int getCantidadDeOperacionesSinCalificar()
+                {
+                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
+                    diccionario.Add("@clieID", cliente.Id);
+                    comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario).ToVentas();
+                    return comprasSinCalificar.Count();
+                }
+
                 private Cliente getCliente() 
                 {
                     Dictionary<String, Object> diccionario = new Dictionary<String, Object>();
@@ -93,14 +101,6 @@ namespace GDD.Historial_Cliente
                     Dictionary<String, Object> diccionario = new Dictionary<string, object>();
                     diccionario.Add("@clieID", cliente.Id);
                     return DBHelper.ExecuteReader("Calificacion_GetCalificacionesSegunCliente", diccionario).ToCalificaciones();
-                }
-
-                private int getCantidadDeOperacionesSinCalificar() 
-                {
-                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                    diccionario.Add("@clieID", cliente.Id);
-                    comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario).ToVentas();
-                    return comprasSinCalificar.Count();
                 }
 
                 private List<ElementoHistorial> getListaDeTodasLasComprasYSubastas()
@@ -130,11 +130,42 @@ namespace GDD.Historial_Cliente
                     }
                     return lista;
                 }
+
+                private int getUltimaPagina()
+                {
+                    Double cantElementos = listaDeTodasLasComprasYSubastas.Count;
+                    Double cantDePaginas = cantElementos / cantXPagina;
+                    int parteEntera = (int)cantDePaginas;
+                    ultimaPagina = parteEntera;
+                    if (cantDePaginas - parteEntera > 0) ultimaPagina++;
+                    return ultimaPagina;
+                }
+
             #endregion
+        
+        #region Llenar forms
 
-            #region Llenar forms
 
-                
+                private void llenarDataGridViewSegunPagina(int numeroPagina)
+                {
+                    dgvHistorial.Rows.Clear();
+                    List<ElementoHistorial> elementosAMostrar = new List<ElementoHistorial>();
+                    int ultimaCantidadDeElementos = (listaDeTodasLasComprasYSubastas.Count - 1) - ((ultimaPagina - 1) * cantXPagina);
+                    if (numeroPagina == ultimaPagina)
+                    {
+                        elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange((ultimaPagina - 1) * cantXPagina, ultimaCantidadDeElementos);
+                    }
+                    else
+                    {
+                        elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange(((numeroPagina - 1) * cantXPagina), cantXPagina);
+                    }
+                    int fila = 0;
+                    foreach (var elem in elementosAMostrar)
+                    {
+                        dgvHistorial.Rows.Insert(fila, elem.Tipo, elem.PublicacionID, elem.Fecha.ToString(), elem.Cantidad, elem.Monto);
+                        fila++;
+                    }
+                }
         
                 private void llenarResumenDeCalificaciones() 
                 {
@@ -191,8 +222,54 @@ namespace GDD.Historial_Cliente
 
                 
             #endregion
+        
+        #region Botones
 
-       
+            private void btnPrevPage_Click(object sender, EventArgs e)
+                {
+                    if (!(paginaActual - 1 == 0))
+                    {
+                        paginaActual = paginaActual - 1;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                    else
+                    {
+                        paginaActual = 1;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                }
+
+            private void btnNextPage_Click(object sender, EventArgs e)
+                {
+                    if ((paginaActual + 1 > ultimaPagina))
+                    {
+                        paginaActual = ultimaPagina;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                    else
+                    {
+                        paginaActual = paginaActual + 1;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                }
+
+            private void btnOkIrAPagina_Click(object sender, EventArgs e)
+                {
+                    int paginaNueva = System.Int32.Parse(txtIrAPagina.Text);
+                    if (paginaNueva > ultimaPagina || paginaNueva == 0) { MessageBox.Show("No existe la pagina", "Error"); }
+                    else
+                    {
+                        paginaActual = paginaNueva;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                    txtIrAPagina.Clear();
+                }
+
         #endregion
 
         #region Validaciones
@@ -208,86 +285,6 @@ namespace GDD.Historial_Cliente
                 }
 
         #endregion
-
-        private void llenarDataGridViewSegunPagina(int numeroPagina) 
-        {
-            dgvHistorial.Rows.Clear();
-            List<ElementoHistorial> elementosAMostrar = new List<ElementoHistorial>();
-            int ultimaCantidadDeElementos = (listaDeTodasLasComprasYSubastas.Count - 1) - ((ultimaPagina - 1) * cantXPagina);
-            if (numeroPagina == ultimaPagina)
-            {
-                elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange((ultimaPagina - 1) * cantXPagina, ultimaCantidadDeElementos);
-            }
-            else
-            {
-                elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange(((numeroPagina - 1) * cantXPagina), cantXPagina);
-            }
-            int fila = 0;
-            foreach (var elem in elementosAMostrar) 
-            {
-                dgvHistorial.Rows.Insert(fila,elem.Tipo,elem.PublicacionID,elem.Fecha.ToString(),elem.Cantidad,elem.Monto); 
-                fila++;
-            }
-        }
-        
-        private void btnPrevPage_Click(object sender, EventArgs e)
-        {
-            if (!(paginaActual - 1 == 0))
-            {
-                paginaActual = paginaActual - 1;
-                lblPaginaActual.Text = String.Concat("Pagina ",paginaActual.ToString()," de ",ultimaPagina.ToString());
-                llenarDataGridViewSegunPagina(paginaActual);
-            }
-            else
-            {
-                paginaActual = 1;
-                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                llenarDataGridViewSegunPagina(paginaActual);
-            }
-        }
-
-        private void btnNextPage_Click(object sender, EventArgs e)
-        {
-            if ((paginaActual + 1 > ultimaPagina))
-            {
-                paginaActual = ultimaPagina;
-                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                llenarDataGridViewSegunPagina(paginaActual);
-            }
-            else
-            {
-                paginaActual = paginaActual + 1;
-                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                llenarDataGridViewSegunPagina(paginaActual);
-            }
-        }
-        
-        private int getUltimaPagina() 
-        {
-            Double cantElementos = listaDeTodasLasComprasYSubastas.Count;
-            Double cantDePaginas = cantElementos / cantXPagina;
-            int parteEntera = (int)cantDePaginas;
-            ultimaPagina = parteEntera;
-            if (cantDePaginas - parteEntera > 0) ultimaPagina++;
-            return ultimaPagina;
-        }
-
-        private void btnOkIrAPagina_Click(object sender, EventArgs e)
-        {
-            int paginaNueva = System.Int32.Parse(txtIrAPagina.Text);
-            if ( paginaNueva > ultimaPagina || paginaNueva == 0) { MessageBox.Show("No existe la pagina", "Error"); }
-            else 
-            {
-                paginaActual = paginaNueva;
-                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                llenarDataGridViewSegunPagina(paginaActual); 
-            }
-            txtIrAPagina.Clear();
-        }
-
-       
-
-       
-
+   
     }
 }

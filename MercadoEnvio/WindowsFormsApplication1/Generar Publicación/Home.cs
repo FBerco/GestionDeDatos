@@ -28,7 +28,7 @@ namespace GDD.Generar_Publicación
         {
             var descripcion = txtDescripcion.Text;
             var estado = ((Estado)cmbEstado.SelectedItem).Id;
-            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetByFilters", new Dictionary<string, object>() { { "@text", txtDescripcion.Text }, { "@estado", estado } }).ToPublicaciones());
+            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetByFilters", new Dictionary<string, object>() { { "@text", txtDescripcion.Text }, { "@estado", estado }, { "@username", usuario.Username } }).ToPublicaciones());
         }
 
         private void btnAlta_Click(object sender, EventArgs e)

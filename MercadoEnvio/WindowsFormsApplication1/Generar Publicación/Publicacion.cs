@@ -53,10 +53,6 @@ namespace GDD.Generar_Publicación
             {
                 visibilidades.Remove(gratis);
             }
-            //if (publicacion != null && publicacion.VisibilidadId != gratis.Id)
-            //{
-            //    visibilidades.Remove(gratis);
-            //}
             cmbVisibilidad.DataSource = visibilidades;
             cmbVisibilidad.DisplayMember = "Detalle";            
             cmbRubro.DataSource = rubros = DBHelper.ExecuteReader("Rubro_GetAll").ToRubros();
@@ -76,7 +72,7 @@ namespace GDD.Generar_Publicación
             }
             fecha = publicacion.FechaInicio;
             txtDescripcion.Text = publicacion.Descripcion;
-            txtPrecio.Text = publicacion.Precio.ToString();
+            txtPrecio.Text = publicacion.Precio.ToString("0.00");
             txtStock.Text = publicacion.Stock.ToString();
             dtpFecha.CustomFormat = "yyyy-M-d HH:mm:ss";
             dtpFecha.Format = DateTimePickerFormat.Custom;
@@ -119,7 +115,7 @@ namespace GDD.Generar_Publicación
         {
             var stock = Convert.ToInt32(txtStock.Text);
             decimal precio;
-            if (!decimal.TryParse(txtPrecio.Text, NumberStyles.Currency, CultureInfo.InvariantCulture, out precio))
+            if (!decimal.TryParse(txtPrecio.Text, NumberStyles.Currency, new CultureInfo("es-AR"), out precio))
             {
                 MessageBox.Show("Ingrese un numero correcto. No es un numero de tipo decimal");
                 return;
@@ -235,7 +231,7 @@ namespace GDD.Generar_Publicación
                 
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ',') && txtPrecio.Text.Substring(txtPrecio.Text.IndexOf(',')).Length >= 3)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ',') )
             {
                 e.Handled = true;
             }

@@ -131,9 +131,7 @@ namespace GDD.ComprarOfertar
             
             return retorno;
         }
-
-   
-
+        
         private void dgvPublicaciones_MouseClick(object sender, MouseEventArgs e)
         {
             PublicacionShow publicacion = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
@@ -176,9 +174,10 @@ namespace GDD.ComprarOfertar
                             { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
                         };
                         DBHelper.ExecuteNonQuery("Venta_Add", parametros);
+                        MessageBox.Show("Se ha concretado la venta!");
                         btnFiltrar_Click(false, new EventArgs());
 
-                        //GenerarItemsFactura(publ.Id, cantidad);
+                        GenerarItemsFactura(publ.Id, cantidad);
                     }
                 }
                 else if (btnAccionar.Text == "OFERTAR")
@@ -236,7 +235,7 @@ namespace GDD.ComprarOfertar
                     DBHelper.ExecuteNonQuery("ItemFactura_ModificarCantidad", new Dictionary<string, object>() { { "@item", itemEnvio.Id }, { "@cantidad", itemEnvio.Cantidad } });
                 }
             }
-            double total = 0;
+            decimal total = 0;
             foreach (var item in items)
             {
                 if (itemPorcentaje != null && item.Detalle == itemPorcentaje.Detalle)
@@ -249,7 +248,7 @@ namespace GDD.ComprarOfertar
                 }
                 else
                 {
-                    total = total + item.PrecioUnitario * cantidad;
+                    total = total + item.PrecioUnitario * item.Cantidad;
                 }
             }
             DBHelper.ExecuteNonQuery("Factura_ActualizarTotal", new Dictionary<string, object>() { { "@factura", factura.Numero }, { "@total", total } });
@@ -348,7 +347,7 @@ namespace GDD.ComprarOfertar
                 });
             }
             DBHelper.DB.Close();
-            return list;
+            return list; //.Where(x => x.Usuario != usuario.Username).ToList()
         }
     }
 }

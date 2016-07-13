@@ -199,7 +199,7 @@ namespace GDD.Generar_Publicación
                 //Item por porcentaje
                 new ItemFactura() {
                     Cantidad = 0,
-                    PrecioUnitario =  Convert.ToDouble(Convert.ToDecimal(txtPrecio.Text) * visi.PorcentajeProducto),
+                    PrecioUnitario =  Convert.ToDecimal(txtPrecio.Text) * visi.PorcentajeProducto,
                     Detalle = "ItemPorcentaje"
                 },
                 //Costo publicacion

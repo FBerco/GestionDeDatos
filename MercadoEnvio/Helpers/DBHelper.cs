@@ -22,6 +22,7 @@ namespace Helpers
         //SP: StoredProcedure
         public static void ExecuteNonQuery(string SP, Dictionary<string, object> parametros = null)
         {
+            if (parametros == null) parametros = new Dictionary<string, object>();
             DB.Open();
             SqlCommand command = new SqlCommand("[DROP_TABLE_GRUPO46]." + SP, DB);
             command.CommandType = System.Data.CommandType.StoredProcedure;

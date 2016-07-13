@@ -13,9 +13,11 @@ namespace GDD
     {
         public Usuario usuario;
         public List<Rol> roles;
+        private Dictionary<string, int> intentos;
         public LogIn()
         {
             InitializeComponent();
+            intentos = new Dictionary<string, int>();
         }
         
 
@@ -25,6 +27,12 @@ namespace GDD
             var password= txtPassword.Text;
             if (username != null && password != null)
             {
+                usuario = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", username } }).ToUsuario();
+                if (usuario != null && !usuario.Habilitado)
+                {                    
+                    MessageBox.Show("Usuario Inhabilitado. El administrador debe volver a habilitarlo");
+                    return;
+                }
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
                 parametros.Add("@Username", username);
                 parametros.Add("@Password", password);
@@ -50,8 +58,17 @@ namespace GDD
                 }
                 else
                 {
-
-                    MessageBox.Show("No existe usuario.", "Error");
+                    DBHelper.ExecuteNonQuery("Usuario_SumarIntento", new Dictionary<string, object>() { { "@Username", username } });
+                    var usuario = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", username } }).ToUsuario();
+                    if (usuario != null && usuario.Intentos >= 3)
+                    {                        
+                        DBHelper.ExecuteNonQuery("Usuario_Inhabilitar", new Dictionary<string, object> { { "@Username", username } });
+                        MessageBox.Show("Usuario ha quedado inhabilitado");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Password no corresponde con Username.", "Error");
+                    }
                 }
             }
             else

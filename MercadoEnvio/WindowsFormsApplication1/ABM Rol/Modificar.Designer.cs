@@ -35,6 +35,7 @@
             this.cmbRoles = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
+            this.btnActivar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnModificar
@@ -100,11 +101,22 @@
             this.txtNombre.Size = new System.Drawing.Size(100, 20);
             this.txtNombre.TabIndex = 12;
             // 
+            // btnActivar
+            // 
+            this.btnActivar.Location = new System.Drawing.Point(114, 239);
+            this.btnActivar.Name = "btnActivar";
+            this.btnActivar.Size = new System.Drawing.Size(75, 23);
+            this.btnActivar.TabIndex = 13;
+            this.btnActivar.Text = "Activar Rol";
+            this.btnActivar.UseVisualStyleBackColor = true;
+            this.btnActivar.Click += new System.EventHandler(this.btnActivar_Click);
+            // 
             // frmModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 277);
+            this.Controls.Add(this.btnActivar);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbRoles);
@@ -130,5 +142,6 @@
         private System.Windows.Forms.ComboBox cmbRoles;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.Button btnActivar;
     }
 }

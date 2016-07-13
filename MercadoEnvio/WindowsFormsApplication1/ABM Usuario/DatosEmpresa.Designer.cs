@@ -50,6 +50,7 @@
             this.btnContraseña = new System.Windows.Forms.Button();
             this.lblEstado = new System.Windows.Forms.Label();
             this.ckbEstado = new System.Windows.Forms.CheckBox();
+            this.btnHabilitar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -191,7 +192,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(49, 302);
+            this.btnGuardar.Location = new System.Drawing.Point(49, 307);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 18;
@@ -210,7 +211,7 @@
             // 
             // btnContraseña
             // 
-            this.btnContraseña.Location = new System.Drawing.Point(176, 302);
+            this.btnContraseña.Location = new System.Drawing.Point(176, 308);
             this.btnContraseña.Name = "btnContraseña";
             this.btnContraseña.Size = new System.Drawing.Size(121, 23);
             this.btnContraseña.TabIndex = 20;
@@ -238,11 +239,23 @@
             this.ckbEstado.Text = "Activo";
             this.ckbEstado.UseVisualStyleBackColor = true;
             // 
+            // btnHabilitar
+            // 
+            this.btnHabilitar.Location = new System.Drawing.Point(49, 336);
+            this.btnHabilitar.Name = "btnHabilitar";
+            this.btnHabilitar.Size = new System.Drawing.Size(248, 23);
+            this.btnHabilitar.TabIndex = 23;
+            this.btnHabilitar.Text = "Usuario inhabilitado, volver a habilitar";
+            this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Visible = false;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
+            // 
             // frmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 351);
+            this.ClientSize = new System.Drawing.Size(309, 382);
+            this.Controls.Add(this.btnHabilitar);
             this.Controls.Add(this.ckbEstado);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.btnContraseña);
@@ -297,5 +310,6 @@
         private System.Windows.Forms.Button btnContraseña;
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.CheckBox ckbEstado;
+        private System.Windows.Forms.Button btnHabilitar;
     }
 }

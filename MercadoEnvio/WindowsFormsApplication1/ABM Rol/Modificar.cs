@@ -34,12 +34,6 @@ namespace GDD.ABM_Rol
             var rolAsignado = (Rol)cmbRoles.SelectedItem;
             if (txtNombre.Text != string.Empty)
             {
-                if (rolAsignado.Nombre.Trim() != txtNombre.Text && DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@rol", txtNombre.Text } }).ToRol() != null)
-                {
-                    MessageBox.Show("Ya existe rol con ese nombre, no puede cambiar el nombre por el nombre de otro igual.");
-                    return;
-                }
-                
                 try
                 {                   
                     if (txtNombre.Text != rolAsignado.Nombre.Trim())
@@ -89,6 +83,14 @@ namespace GDD.ABM_Rol
             Hide();
         }
 
+        private void btnActivar_Click(object sender, EventArgs e)
+        {
+            var rolAsignado = (Rol)cmbRoles.SelectedItem;
+            DBHelper.ExecuteNonQuery("Rol_Activate", new Dictionary<string, object>() { { "@rol", rolAsignado.Id }});
+            MessageBox.Show("Rol activado nuevamente");
+            btnActivar.Visible = false;
+        }
+
         private void cmbRoles_SelectedIndexChanged(object sender, EventArgs e)
         {
             lstFunciones.Enabled = true;
@@ -100,6 +102,8 @@ namespace GDD.ABM_Rol
                 //Chequeo aquellas que tiene seleccionada
                 lstFunciones.Items.Add(fun.Descripcion, funcionesXRol.Exists(x => x.Id == fun.Id));
             }
+            txtNombre.Text = rol.Nombre;
+            btnActivar.Visible = !rol.Activo;
         }        
     }
 }

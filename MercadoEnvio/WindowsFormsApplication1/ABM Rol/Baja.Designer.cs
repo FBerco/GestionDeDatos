@@ -30,16 +30,17 @@
         {
             this.btnGuardar = new System.Windows.Forms.Button();
             this.Roles = new System.Windows.Forms.Label();
-            this.lstRoles = new System.Windows.Forms.CheckedListBox();
+            this.cmbRoles = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(114, 190);
+            this.btnGuardar.Enabled = false;
+            this.btnGuardar.Location = new System.Drawing.Point(100, 91);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 12;
-            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.Text = "Dar de baja";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
@@ -52,22 +53,24 @@
             this.Roles.TabIndex = 11;
             this.Roles.Text = "Roles";
             // 
-            // lstRoles
+            // cmbRoles
             // 
-            this.lstRoles.FormattingEnabled = true;
-            this.lstRoles.Location = new System.Drawing.Point(114, 48);
-            this.lstRoles.Name = "lstRoles";
-            this.lstRoles.Size = new System.Drawing.Size(120, 94);
-            this.lstRoles.TabIndex = 10;
+            this.cmbRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRoles.FormattingEnabled = true;
+            this.cmbRoles.Location = new System.Drawing.Point(100, 48);
+            this.cmbRoles.Name = "cmbRoles";
+            this.cmbRoles.Size = new System.Drawing.Size(121, 21);
+            this.cmbRoles.TabIndex = 13;
+            this.cmbRoles.SelectedIndexChanged += new System.EventHandler(this.cmbRoles_SelectedIndexChanged);
             // 
             // frmBaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(249, 145);
+            this.Controls.Add(this.cmbRoles);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.Roles);
-            this.Controls.Add(this.lstRoles);
             this.Name = "frmBaja";
             this.Text = "Baja";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBaja_FormClosing);
@@ -81,6 +84,6 @@
 
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label Roles;
-        private System.Windows.Forms.CheckedListBox lstRoles;
+        private System.Windows.Forms.ComboBox cmbRoles;
     }
 }

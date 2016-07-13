@@ -25,16 +25,18 @@ namespace GDD.ABM_Visibilidad
         {
             btnOtraBaja.Enabled = false;
             btnBaja.Enabled = true;
-            visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
-            foreach (Visibilidad visibilidad in visibilidades)
-            {
-                cmbNombreVisibilidad.Items.Add(visibilidad.Detalle);
-            }
+            LoadVisibilidades();
+        }
+
+        private void LoadVisibilidades()
+        {
+            cmbNombreVisibilidad.DataSource = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
+            cmbNombreVisibilidad.DisplayMember = "Detalle";
         }
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-            String nombreVisibilidadElegida = cmbNombreVisibilidad.SelectedItem.ToString();
+            string nombreVisibilidadElegida = cmbNombreVisibilidad.SelectedItem.ToString();
             Visibilidad visibilidadElegida = visibilidades.Find(visibilidad => visibilidad.Detalle == nombreVisibilidadElegida);
             if (!estaAsociadaAAlgunUsuario(visibilidadElegida))
             { 
@@ -44,6 +46,7 @@ namespace GDD.ABM_Visibilidad
             else { MessageBox.Show("La visibilidad seleccionada esta asociada a un usuario. No se puede dar de baja"); }
             btnBaja.Enabled = false;
             btnOtraBaja.Enabled = true;
+            LoadVisibilidades();
         }
 
         private Boolean estaAsociadaAAlgunUsuario(Visibilidad unaVisibilidad)

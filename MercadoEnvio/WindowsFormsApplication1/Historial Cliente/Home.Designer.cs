@@ -42,6 +42,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtCalificacionMasBaja = new System.Windows.Forms.TextBox();
             this.dgvHistorial = new System.Windows.Forms.DataGridView();
+            this.tipoElem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.publi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantComprada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtCantTransacciones = new System.Windows.Forms.TextBox();
             this.txtCantCompras = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -56,11 +61,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtIrAPagina = new System.Windows.Forms.TextBox();
             this.btnOkIrAPagina = new System.Windows.Forms.Button();
-            this.tipoElem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.publi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantComprada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).BeginInit();
             this.SuspendLayout();
             // 
@@ -188,6 +188,38 @@
             this.dgvHistorial.Size = new System.Drawing.Size(551, 523);
             this.dgvHistorial.TabIndex = 12;
             // 
+            // tipoElem
+            // 
+            this.tipoElem.HeaderText = "Tipo";
+            this.tipoElem.Name = "tipoElem";
+            this.tipoElem.ReadOnly = true;
+            // 
+            // publi
+            // 
+            this.publi.HeaderText = "Publicacion";
+            this.publi.Name = "publi";
+            this.publi.ReadOnly = true;
+            // 
+            // fechaa
+            // 
+            this.fechaa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.fechaa.HeaderText = "Fecha";
+            this.fechaa.Name = "fechaa";
+            this.fechaa.ReadOnly = true;
+            this.fechaa.Width = 62;
+            // 
+            // cantComprada
+            // 
+            this.cantComprada.HeaderText = "Cantidad Comprada";
+            this.cantComprada.Name = "cantComprada";
+            this.cantComprada.ReadOnly = true;
+            // 
+            // monto
+            // 
+            this.monto.HeaderText = "Monto Ofertado ($)";
+            this.monto.Name = "monto";
+            this.monto.ReadOnly = true;
+            // 
             // txtCantTransacciones
             // 
             this.txtCantTransacciones.Location = new System.Drawing.Point(186, 38);
@@ -311,38 +343,6 @@
             this.btnOkIrAPagina.Text = "OK";
             this.btnOkIrAPagina.UseVisualStyleBackColor = true;
             this.btnOkIrAPagina.Click += new System.EventHandler(this.btnOkIrAPagina_Click);
-            // 
-            // tipoElem
-            // 
-            this.tipoElem.HeaderText = "Tipo";
-            this.tipoElem.Name = "tipoElem";
-            this.tipoElem.ReadOnly = true;
-            // 
-            // publi
-            // 
-            this.publi.HeaderText = "Publicacion";
-            this.publi.Name = "publi";
-            this.publi.ReadOnly = true;
-            // 
-            // fechaa
-            // 
-            this.fechaa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.fechaa.HeaderText = "Fecha";
-            this.fechaa.Name = "fechaa";
-            this.fechaa.ReadOnly = true;
-            this.fechaa.Width = 62;
-            // 
-            // cantComprada
-            // 
-            this.cantComprada.HeaderText = "Cantidad Comprada";
-            this.cantComprada.Name = "cantComprada";
-            this.cantComprada.ReadOnly = true;
-            // 
-            // monto
-            // 
-            this.monto.HeaderText = "Monto Ofertado ($)";
-            this.monto.Name = "monto";
-            this.monto.ReadOnly = true;
             // 
             // frmHome
             // 

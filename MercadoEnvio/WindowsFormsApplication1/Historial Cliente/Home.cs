@@ -32,7 +32,10 @@ namespace GDD.Historial_Cliente
         {
             InitializeComponent();
             usuario = us;
+            
         }
+
+       
 
         private void frmHome_Load(object sender, EventArgs e)
         {
@@ -306,6 +309,8 @@ namespace GDD.Historial_Cliente
             }
             txtIrAPagina.Clear();
         }
+
+       
 
        
 

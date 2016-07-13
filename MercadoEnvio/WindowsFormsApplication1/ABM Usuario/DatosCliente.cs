@@ -117,5 +117,7 @@ namespace GDD.ABM_Usuario
             frmContraseña con = new frmContraseña(usuario);
             Show();
         }
+
+        
     }
 }

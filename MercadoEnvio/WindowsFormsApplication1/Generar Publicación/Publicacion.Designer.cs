@@ -196,13 +196,13 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(458, 43);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 11;
-            this.label4.Text = "Precio";
+            this.label4.Text = "Precio: ($)";
             // 
             // txtPrecio
             // 
-            this.txtPrecio.Location = new System.Drawing.Point(499, 40);
+            this.txtPrecio.Location = new System.Drawing.Point(519, 40);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(50, 20);
             this.txtPrecio.TabIndex = 12;
@@ -258,7 +258,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 389);
+            this.ClientSize = new System.Drawing.Size(584, 389);
             this.Controls.Add(this.cmbVisibilidad);
             this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.btnConfirmar);
@@ -276,7 +276,6 @@
             this.Controls.Add(this.gbPublicacion);
             this.Name = "frmPublicacion";
             this.Text = "Publicacion";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPublicacion_FormClosing);
             this.gbPublicacion.ResumeLayout(false);
             this.gbPublicacion.PerformLayout();
             this.gbEstado.ResumeLayout(false);

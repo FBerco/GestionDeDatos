@@ -39,6 +39,10 @@ namespace GDD.ABM_Usuario
             dtpFecha.Value = cl.FechaNacimiento;
             ckbEstado.Checked = cl.Activo;
             btnContraseña.Visible = true;
+            if (!cliente.Habilitado)
+            {
+                btnHabilitar.Visible = true;
+            }
         }
 
         private void frmCliente_Load(object sender, EventArgs e)
@@ -116,6 +120,13 @@ namespace GDD.ABM_Usuario
         {
             frmContraseña con = new frmContraseña(usuario);
             Show();
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            DBHelper.ExecuteNonQuery("Usuario_Habilitar", new Dictionary<string, object>() { { "@Username", cliente.Username } });
+            MessageBox.Show("Usuario habilitado nuevamente.");
+            btnHabilitar.Visible = false;
         }
     }
 }

@@ -42,6 +42,10 @@ namespace GDD.ABM_Usuario
             txtTelefono.Text = emp.Telefono;
             btnContraseña.Visible = true;
             ckbEstado.Checked = emp.Activo;
+            if (!emp.Habilitado)
+            {
+                btnHabilitar.Visible = true;
+            }
         }
 
         private void frmEmpresa_Load(object sender, EventArgs e)
@@ -113,6 +117,13 @@ namespace GDD.ABM_Usuario
         {
             frmContraseña con = new frmContraseña(usuario);
             Show();
-        }       
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            DBHelper.ExecuteNonQuery("Usuario_Habilitar", new Dictionary<string, object>() { { "@Username", empresa.Username } });
+            MessageBox.Show("Usuario habilitado nuevamente.");
+            btnHabilitar.Visible = false;
+        }
     }
 }

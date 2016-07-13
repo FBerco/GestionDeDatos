@@ -50,6 +50,7 @@
             this.btnContraseña = new System.Windows.Forms.Button();
             this.ckbEstado = new System.Windows.Forms.CheckBox();
             this.lblEstado = new System.Windows.Forms.Label();
+            this.btnHabilitar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -236,11 +237,23 @@
             this.lblEstado.TabIndex = 23;
             this.lblEstado.Text = "Estado";
             // 
+            // btnHabilitar
+            // 
+            this.btnHabilitar.Location = new System.Drawing.Point(105, 342);
+            this.btnHabilitar.Name = "btnHabilitar";
+            this.btnHabilitar.Size = new System.Drawing.Size(218, 23);
+            this.btnHabilitar.TabIndex = 25;
+            this.btnHabilitar.Text = "Usuario inhabilitado, volver a habilitar";
+            this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Visible = false;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 348);
+            this.ClientSize = new System.Drawing.Size(397, 380);
+            this.Controls.Add(this.btnHabilitar);
             this.Controls.Add(this.ckbEstado);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.btnContraseña);
@@ -295,5 +308,6 @@
         private System.Windows.Forms.Button btnContraseña;
         private System.Windows.Forms.CheckBox ckbEstado;
         private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.Button btnHabilitar;
     }
 }

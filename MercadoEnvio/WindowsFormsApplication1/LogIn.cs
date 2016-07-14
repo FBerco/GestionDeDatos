@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System.Configuration;
 using Helpers;
 using Clases;
-using System.Threading;
 
 namespace GDD
 {
@@ -15,9 +14,8 @@ namespace GDD
         public List<Rol> roles;
         public LogIn()
         {
-            InitializeComponent();
-            var th = new Thread(ProcesarSubastasVencidas);
-            th.Start();
+            InitializeComponent();            
+            //ProcesarSubastasVencidas();            
         }
         
         private void btnLoguear_Click(object sender, EventArgs e)
@@ -86,7 +84,7 @@ namespace GDD
             }
         }    
         
-        private static void ProcesarSubastasVencidas()
+        private void ProcesarSubastasVencidas()
         {
             var publicaciones = DBHelper.ExecuteReader("Publicacion_SubastasAFinalizarPorVencimiento", new Dictionary<string, object>() { { "@hoy", ConfigurationManager.AppSettings["fecha"] } }).ToPublicaciones();
 

@@ -23,12 +23,23 @@ namespace GDD.Historial_Cliente
         private void frmHome_Load(object sender, EventArgs e)
         {
             inicializarAtributos();
-            paginaActual = 1;
-            ultimaPagina = getUltimaPagina();
-            lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-            llenarDataGridViewSegunPagina(paginaActual);
-            llenarResumenDeCalificaciones();
-            llenarCampos();
+            if (listaDeTodasLasComprasYSubastas.Count > 0)
+            {
+                paginaActual = 1;
+                ultimaPagina = getUltimaPagina();
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+                llenarResumenDeCalificaciones();
+                llenarCampos();
+            }
+            else
+            {
+                MessageBox.Show("No hay listado de compras ni subastas para mostrar ya que el usuario no generó todavia.");
+                btnNextPage.Enabled = false;
+                btnPrevPage.Enabled = false;
+                txtIrAPagina.Enabled = false;
+                btnOkIrAPagina.Enabled = false;
+            }
         }
 
         #region Atributos
@@ -78,7 +89,7 @@ namespace GDD.Historial_Cliente
                     Monto = "-"
                 });
             }
-            foreach (var subasta in listaDeSubastasQueParticipo)
+            foreach (var subasta in listaDeSubastasQueParticipo.OrderBy(x=>x.PublicacionId))
             {
                 lista.Add(new ElementoHistorial
                 {
@@ -108,23 +119,25 @@ namespace GDD.Historial_Cliente
         
         private void llenarDataGridViewSegunPagina(int numeroPagina)
         {
-            dgvHistorial.Rows.Clear();
-            List<ElementoHistorial> elementosAMostrar = new List<ElementoHistorial>();
-            int ultimaCantidadDeElementos = (listaDeTodasLasComprasYSubastas.Count - 1) - ((ultimaPagina - 1) * cantXPagina);
-            if (numeroPagina == ultimaPagina)
-            {
-                elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange((ultimaPagina - 1) * cantXPagina, ultimaCantidadDeElementos);
-            }
-            else
-            {
-                elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange(((numeroPagina - 1) * cantXPagina), cantXPagina);
-            }
-            int fila = 0;
-            foreach (var elem in elementosAMostrar)
-            {
-                dgvHistorial.Rows.Insert(fila, elem.Tipo, elem.PublicacionID, elem.Fecha.ToString(), elem.Cantidad, elem.Monto);
-                fila++;
-            }
+           
+                dgvHistorial.Rows.Clear();
+                List<ElementoHistorial> elementosAMostrar = new List<ElementoHistorial>();
+                int ultimaCantidadDeElementos = (listaDeTodasLasComprasYSubastas.Count - 1) - ((ultimaPagina - 1) * cantXPagina);
+                if (numeroPagina == ultimaPagina)
+                {
+                    elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange((ultimaPagina - 1) * cantXPagina, ultimaCantidadDeElementos);
+                }
+                else
+                {
+                    elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange(((numeroPagina - 1) * cantXPagina), cantXPagina);
+                }
+                int fila = 0;
+                foreach (var elem in elementosAMostrar)
+                {
+                    dgvHistorial.Rows.Insert(fila, elem.Tipo, elem.PublicacionID, elem.Fecha.ToString(), elem.Cantidad, elem.Monto);
+                    fila++;
+                }
+            
         }
         
         private void llenarResumenDeCalificaciones() 

@@ -18,7 +18,9 @@ namespace Helpers
                 list.Add(new Usuario() {
                     Username = (string)rdr["usua_username"],
                     Activo = (bool)rdr["usua_activo"],
-                    Password = (string)rdr["usua_password"]
+                    Password = (string)rdr["usua_password"],
+                    Habilitado = (bool)rdr["usua_habilitado"],
+                    Intentos= (int)rdr["usua_intentos"]
                 });
             }
             DBHelper.DB.Close();
@@ -44,6 +46,7 @@ namespace Helpers
                     Dni = (int)rdr["clie_dni"],
                     TipoDocumento = (string)rdr["clie_tipo_documento"],
                     Mail = (string)rdr["clie_mail"],
+                    Telefono = (string)rdr["clie_telefono"],
                     Direccion = (string)rdr["clie_direccion"],
                     CodigoPostal = (int)rdr["clie_codigo_postal"],
                     FechaNacimiento = (DateTime)rdr["clie_fecha_nacimiento"],
@@ -68,7 +71,7 @@ namespace Helpers
                 list.Add(new Empresa()
                 {
                     Username = (string)rdr["empr_usuario"],
-                    RazonSocial = (int)rdr["empr_razon_social"],
+                    RazonSocial = (string)rdr["empr_razon_social"],
                     Mail = (string)rdr["empr_mail"],
                     Telefono = (string)rdr["empr_telefono"],
                     Direccion = (string)rdr["empr_direccion"],
@@ -169,8 +172,9 @@ namespace Helpers
                 {
                     FacturaId = (int)rdr["item_factura"],
                     Id = (int)rdr["item_id"],
-                    Cantidad = (int)rdr["item_cantidad"],
-                    PrecioUnitario = (int)rdr["item_precio_unitario"],
+                    Cantidad = (decimal)rdr["item_cantidad"],
+                    PrecioUnitario = (decimal)rdr["item_precio_unitario"],
+                    Detalle = (string)rdr["item_detalle"]
                 });
             }
             DBHelper.DB.Close();
@@ -195,6 +199,7 @@ namespace Helpers
                     Fecha = (DateTime)rdr["ofer_fecha"],
                     PublicacionId = (int) rdr["ofer_publicacion"],
                     ClienteId = (int)rdr["ofer_cliente"],
+                    ConEnvio = (bool)rdr["ofer_envio"],
                 });
             }
             DBHelper.DB.Close();

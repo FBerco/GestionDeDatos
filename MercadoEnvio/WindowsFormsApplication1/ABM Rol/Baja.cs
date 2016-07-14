@@ -18,46 +18,22 @@ namespace GDD.ABM_Rol
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                foreach (var item in lstRoles.Items)
-                {
-                    var nombre = (string)item;
-                    var rol = roles.First(x => x.Nombre == nombre);
-                    if (lstRoles.CheckedItems.Contains(item))
-                    {
-                        //Si está chequeado y no estaba, lo agrego   
-                        if (!rol.Activo)
-                        {
-                            DBHelper.ExecuteNonQuery("Rol_Activate", new Dictionary<string, object>() { { "@rol", rol.Id } });
-                        }
-                    }
-                    else
-                    {
-                        //No esta chequedado y si estaba, lo borro
-                        if (rol.Activo)
-                        {
-                            DBHelper.ExecuteNonQuery("Rol_Deactivate", new Dictionary<string, object>() { { "@rol", rol.Id } });
-                        }
-                    }
-                }
-                MessageBox.Show("Guardado con exito");
-            }
-            catch 
-            {
-                MessageBox.Show("Hubo un error en la baja", "Error");
-            }
-           
+            var rol = (Rol)cmbRoles.SelectedItem;
+            DBHelper.ExecuteNonQuery("Rol_Deactivate", new Dictionary<string, object>() { { "@rol", rol.Id } });
+            MessageBox.Show("Dado de baja con exito");
+            LoadRoles();
         }     
 
         private void frmBaja_Load(object sender, EventArgs e)
         {
+            LoadRoles();
+        }
+
+        private void LoadRoles()
+        {
             roles = DBHelper.ExecuteReader("Rol_GetAll").ToRoles();
-            foreach (var rol in roles)
-            {
-                //Chequeo aquellas que tiene seleccionada
-                lstRoles.Items.Add(rol.Nombre, rol.Activo);
-            }
+            cmbRoles.DataSource = roles;
+            cmbRoles.DisplayMember = "Nombre";
         }
 
         private void frmBaja_FormClosing(object sender, FormClosingEventArgs e)
@@ -65,6 +41,12 @@ namespace GDD.ABM_Rol
             var home = new frmHome();
             home.Show();
             Hide();
+        }
+
+        private void cmbRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var rol = (Rol)cmbRoles.SelectedItem;
+            btnGuardar.Enabled = rol.Activo;
         }
     }
 }

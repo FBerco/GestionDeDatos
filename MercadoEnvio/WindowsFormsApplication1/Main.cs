@@ -20,7 +20,8 @@ namespace GDD
         private void Main_Load(object sender, EventArgs e)
         {
             var funciones = DBHelper.ExecuteReader("RolXFuncion_GetFunByRol", new Dictionary<string, object>() { { "@rol", rol.Id } }).ToFunciones();
-
+            //Agrego funcionalidad de cambiar contraseña que es para todos
+            funciones.Add(new Funcion() { Id = 11, Descripcion = "Cambiar contraseña" });
             var botones = new List<Control>();
             //Obtengo los botones de la vista
             foreach (Control control in Controls)
@@ -51,7 +52,8 @@ namespace GDD
             { 7, new EventHandler(Facturas)},
             { 8, new EventHandler(GenerarPublicacion)},
             { 9, new EventHandler(HistorialCliente)},
-            { 10, new EventHandler(ListadoEstadistico)}
+            { 10, new EventHandler(ListadoEstadistico)},
+            { 11, new EventHandler(CambiarContraseña)}
         };
 
         static void ABMRol(object sender, EventArgs e) {
@@ -104,9 +106,10 @@ namespace GDD
             home.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        static void CambiarContraseña(object sender, EventArgs e)
         {
-
+            var home = new ABM_Usuario.frmContraseña(usuario);
+            home.Show();
         }
     }
 }

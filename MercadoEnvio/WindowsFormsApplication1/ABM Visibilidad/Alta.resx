@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>Si bien el enunciado dice que solo hay una visibilidad gratuita (sin comision por timpo de publicacion), se podria agregar una nueva visibilidad con costo de publicacion = 0 pero con comision por producto vendido .</value>
+    <value>Si bien el enunciado dice que solo hay una visibilidad gratuita (sin comisión por tiempo de publicación), se podría agregar una nueva visibilidad con costo de publicación = 0 pero con comisión por producto vendido.</value>
   </data>
 </root>

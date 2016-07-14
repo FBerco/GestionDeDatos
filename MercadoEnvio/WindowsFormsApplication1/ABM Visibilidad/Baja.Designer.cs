@@ -45,6 +45,7 @@
             // 
             // cmbNombreVisibilidad
             // 
+            this.cmbNombreVisibilidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNombreVisibilidad.FormattingEnabled = true;
             this.cmbNombreVisibilidad.Location = new System.Drawing.Point(127, 37);
             this.cmbNombreVisibilidad.Name = "cmbNombreVisibilidad";
@@ -53,7 +54,7 @@
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(127, 153);
+            this.btnBaja.Location = new System.Drawing.Point(165, 153);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(75, 23);
             this.btnBaja.TabIndex = 3;
@@ -75,7 +76,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 188);
+            this.ClientSize = new System.Drawing.Size(281, 188);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.cmbNombreVisibilidad);

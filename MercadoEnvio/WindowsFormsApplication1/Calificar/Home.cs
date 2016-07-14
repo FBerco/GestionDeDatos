@@ -9,25 +9,26 @@ using Helpers;
 using Clases;
 
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace GDD.Calificar
 {
     public partial class frmHome : Form
     {
-        public frmHome()
-        {
-            InitializeComponent();
-        }
-
+        
         public frmHome(Usuario unUsuario) 
         {
             InitializeComponent();
             usuario = unUsuario; 
         }
 
+        #region Atributos
+        
         private Usuario usuario;
         private List<Venta> ventasSinCalificar;
         private Cliente cliente;
+        
+        #endregion
 
         private void frmHome_Load(object sender, EventArgs e)
         {
@@ -61,6 +62,7 @@ namespace GDD.Calificar
                     parametros.Add("@estrellas", estrellas);
                     parametros.Add("@ventaID", venta);
                     parametros.Add("@detalle", detalle);
+                    parametros.Add("@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]));
                     DBHelper.ExecuteNonQuery("Calificacion_Add", parametros);
                     MessageBox.Show("Calificado con exito", "Exito");
                     cmbVentas.Items.Clear();
@@ -74,10 +76,9 @@ namespace GDD.Calificar
             }
             else
             {
-                MessageBox.Show("Seleccionar venta y estrellas", "Error");
+                MessageBox.Show("Seleccionar venta, estrellas y completar detalle", "Error");
             }
         }
-
-        
+            
     }
 }

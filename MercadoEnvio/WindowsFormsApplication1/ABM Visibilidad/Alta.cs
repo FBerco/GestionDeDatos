@@ -35,9 +35,14 @@ namespace GDD.ABM_Visibilidad
             if (textBoxesValidos())
             {
                 Visibilidad nuevaVisibilidad = new Visibilidad();
+                int costoPublicacion, porcentajeProducto;
+                if (String.IsNullOrEmpty(txtComisionTipoPublicacion.Text)) { costoPublicacion = 0; }
+                    else { costoPublicacion = System.Int32.Parse(txtComisionTipoPublicacion.Text); }
+                if (String.IsNullOrEmpty(txtComsionProductoVendido.Text)) { porcentajeProducto = 0; }
+                    else { porcentajeProducto = System.Int32.Parse(txtComsionProductoVendido.Text); }
                 nuevaVisibilidad.Detalle = txtNombreVisibilidad.Text;
-                nuevaVisibilidad.CostoPublicacion = System.Int32.Parse(txtComisionTipoPublicacion.Text);
-                nuevaVisibilidad.PorcentajeProducto = System.Int32.Parse(txtComsionProductoVendido.Text);
+                nuevaVisibilidad.CostoPublicacion = costoPublicacion;
+                nuevaVisibilidad.PorcentajeProducto = porcentajeProducto;
                 if (txtComisionEnvioProducto.Enabled)
                 {
                     nuevaVisibilidad.CostoEnvio = System.Int32.Parse(txtComisionEnvioProducto.Text);
@@ -56,48 +61,60 @@ namespace GDD.ABM_Visibilidad
         #region validaciones
         private Boolean textBoxesValidos() 
         {
-            if (nadaNulo()) { return nadaNegativo() && ingresadosTipoDeTextoCorrectamente(); } else { return false; }
+            return porcentajeNoMayorAl100() ;
         }
-        
-        private Boolean nadaNulo()
+
+        private Boolean porcentajeNoMayorAl100()
         {
-            return  !String.IsNullOrEmpty(txtNombreVisibilidad.Text) &&
-                    !String.IsNullOrEmpty(txtComsionProductoVendido.Text) &&
-                    !String.IsNullOrEmpty(txtComisionTipoPublicacion.Text) &&
-                    siHayEnvioNoEsNulo();
+            if (!String.IsNullOrEmpty(txtComsionProductoVendido.Text))
+            {
+                return System.Int32.Parse(txtComsionProductoVendido.Text) <= 100;
+            }
+            else return true;
         }
 
-        private Boolean siHayEnvioNoEsNulo()
-        {
-            if (txtComisionEnvioProducto.Enabled) { return !String.IsNullOrEmpty(txtComisionEnvioProducto.Text); }
-        else {return true;}
-        }
+            #region Solo se ingresan los tipos de datos correctos en los textboxes
+            private void txtComisionTipoPublicacion_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+            }
 
-        private Boolean nadaNegativo()
-        {
-            return
-            System.Int32.Parse(txtComsionProductoVendido.Text) > 0 &&
-            System.Int32.Parse(txtComisionTipoPublicacion.Text) >= 0 &&
-            siHayEnvioNoEsNegativo();
-        }
+            private void txtComsionProductoVendido_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+            }
 
-        private Boolean siHayEnvioNoEsNegativo()
-        {
-            if (txtComisionEnvioProducto.Enabled) { return System.Int32.Parse(txtComisionEnvioProducto.Text) > 0 ; }
-            else { return true; }
-        }
+            private void txtComisionEnvioProducto_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+            }
 
-        private Boolean ingresadosTipoDeTextoCorrectamente() {
-            return nombreVisibilidadValido() && porcentajeNoMayorAl100();
-        }
+            private void txtNombreVisibilidad_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if ((char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten letras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+            }
+            #endregion
 
-        private Boolean nombreVisibilidadValido() { return txtNombreVisibilidad.TextLength <= 20; }
-
-        private Boolean porcentajeNoMayorAl100() { return System.Int32.Parse(txtComsionProductoVendido.Text) <= 100 ; }
-        
-        
-        
-        
         #endregion
 
         private void guardarVisibilidad(Visibilidad unaVisibilidad)
@@ -126,6 +143,7 @@ namespace GDD.ABM_Visibilidad
             txtComsionProductoVendido.Clear();
             chbTieneEnvio.Checked = false;
             txtComisionEnvioProducto.Enabled = false;
+            btnGuardarNuevaVisibilidad.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -135,46 +153,6 @@ namespace GDD.ABM_Visibilidad
             this.Hide();
         }
 
-        private void txtComisionTipoPublicacion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
-
-        private void txtComsionProductoVendido_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
-
-        private void txtComisionEnvioProducto_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
-
-        private void txtNombreVisibilidad_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten letras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
-
         
-    }   
+     }   
 }

@@ -8,5 +8,6 @@ namespace Clases
         public DateTime Fecha { get; set; }
         public int PublicacionId { get; set; }
         public int ClienteId { get; set; }
+        public bool ConEnvio { get; set; }
     }
 }

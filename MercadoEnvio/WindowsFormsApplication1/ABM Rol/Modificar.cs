@@ -31,58 +31,49 @@ namespace GDD.ABM_Rol
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            var rolAsignado = (Rol)cmbRoles.SelectedItem;
             if (txtNombre.Text != string.Empty)
             {
-                var rol = DBHelper.ExecuteReader("Rol_Exists", new Dictionary<string, object>() { { "@rol", txtNombre.Text } }).ToRol();
-                if (rol == null)
-                {
-                    try
-                    {                   
-                        var rolAsignado = (Rol)cmbRoles.SelectedItem;
-                        if (txtNombre.Text != rolAsignado.Nombre.Trim())
-                        {
-                            DBHelper.ExecuteNonQuery("Rol_ModifyName", new Dictionary<string, object>() { { "@nombre", txtNombre.Text }, { "@id", rolAsignado.Id } });
-                        }
-
-                        foreach (var item in lstFunciones.Items)
-                        {
-                            var nombre = (string)item;
-                            if (lstFunciones.CheckedItems.Contains(item))
-                            {                           
-                                //Si está chequeado y no estaba, lo agrego   
-                                if (!funcionesXRol.Exists(x => x.Descripcion == nombre))
-                                {
-                                    DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@rol", rolAsignado.Id }, { "@funcion", funciones.First(x => x.Descripcion == nombre).Id } });
-                                }
-                            }
-                            else
-                            {
-                                //No esta chequedado y si estaba, lo borro
-                                if (funcionesXRol.Exists(x => x.Descripcion == nombre))
-                                {
-                                    DBHelper.ExecuteNonQuery("RolXFuncion_Remove", new Dictionary<string, object>() { { "@rol", ((Rol)cmbRoles.SelectedItem).Id }, { "@funcion", funciones.First(x => x.Descripcion == nombre).Id } });
-                                }
-                            }
-                        }
-                        MessageBox.Show("Modificado con exito");
-                        SetRoles();
-                        txtNombre.Text = "";
-                    }
-                    catch 
+                try
+                {                   
+                    if (txtNombre.Text != rolAsignado.Nombre.Trim())
                     {
-                        MessageBox.Show("Hubo un error en la modificacion", "Error");
+                        DBHelper.ExecuteNonQuery("Rol_ModifyName", new Dictionary<string, object>() { { "@nombre", txtNombre.Text }, { "@id", rolAsignado.Id } });
                     }
-                }                
-                else
+
+                    foreach (var item in lstFunciones.Items)
+                    {
+                        var nombre = (string)item;
+                        if (lstFunciones.CheckedItems.Contains(item))
+                        {                           
+                            //Si está chequeado y no estaba, lo agrego   
+                            if (!funcionesXRol.Exists(x => x.Descripcion == nombre))
+                            {
+                                DBHelper.ExecuteNonQuery("RolXFuncion_Add", new Dictionary<string, object>() { { "@rol", rolAsignado.Id }, { "@funcion", funciones.First(x => x.Descripcion == nombre).Id } });
+                            }
+                        }
+                        else
+                        {
+                            //No esta chequedado y si estaba, lo borro
+                            if (funcionesXRol.Exists(x => x.Descripcion == nombre))
+                            {
+                                DBHelper.ExecuteNonQuery("RolXFuncion_Remove", new Dictionary<string, object>() { { "@rol", ((Rol)cmbRoles.SelectedItem).Id }, { "@funcion", funciones.First(x => x.Descripcion == nombre).Id } });
+                            }
+                        }
+                    }
+                    MessageBox.Show("Modificado con exito");
+                    SetRoles();
+                    txtNombre.Text = "";
+                }
+                catch 
                 {
-                    MessageBox.Show("Ya existe el rol");
-                }   
+                    MessageBox.Show("Hubo un error en la modificacion", "Error");
+                }                
             }
             else
             {
                 MessageBox.Show("No puede quedar vacío el nombre del rol");
             }
-
         }
 
         private void frmModificar_FormClosing(object sender, FormClosingEventArgs e)
@@ -90,6 +81,14 @@ namespace GDD.ABM_Rol
             var home = new frmHome();
             home.Show();
             Hide();
+        }
+
+        private void btnActivar_Click(object sender, EventArgs e)
+        {
+            var rolAsignado = (Rol)cmbRoles.SelectedItem;
+            DBHelper.ExecuteNonQuery("Rol_Activate", new Dictionary<string, object>() { { "@rol", rolAsignado.Id }});
+            MessageBox.Show("Rol activado nuevamente");
+            btnActivar.Visible = false;
         }
 
         private void cmbRoles_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,6 +102,8 @@ namespace GDD.ABM_Rol
                 //Chequeo aquellas que tiene seleccionada
                 lstFunciones.Items.Add(fun.Descripcion, funcionesXRol.Exists(x => x.Id == fun.Id));
             }
+            txtNombre.Text = rol.Nombre;
+            btnActivar.Visible = !rol.Activo;
         }        
     }
 }

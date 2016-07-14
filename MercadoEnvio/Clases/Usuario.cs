@@ -6,12 +6,14 @@ namespace Clases
         public string Username { get; set; }
         public string Password { get; set; }
         public bool Activo { get; set; }
+        public int Intentos { get; set; }
+        public bool Habilitado { get; set; }
     }
 
     public class Empresa : Usuario
     {
         public int Id { get; set; }
-        public int RazonSocial { get; set; }
+        public string RazonSocial { get; set; }
         public string Mail { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }

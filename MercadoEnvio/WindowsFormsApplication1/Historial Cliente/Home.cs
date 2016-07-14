@@ -14,43 +14,67 @@ namespace GDD.Historial_Cliente
 {
     public partial class frmHome : Form
     {
+
+        public frmHome(Usuario us)
+        {
+            InitializeComponent();
+            usuario = us;
+
+        }
+
+        private void frmHome_Load(object sender, EventArgs e)
+        {
+            inicializarAtributos();
+            paginaActual = 1;
+            ultimaPagina = getUltimaPagina();
+            lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+            llenarDataGridViewSegunPagina(paginaActual);
+            llenarResumenDeCalificaciones();
+            llenarOperacionesCalificadas();
+            llenarOperacionesSinCalificar();
+            llenarCalificacionPromedio();
+            llenarCalificacionMasAlta();
+            llenarCalificacionMasBaja();
+            llenarCantidadDeTransacciones();
+            llenarCantidadDeCompras();
+            llenarCantidadDeSubastas();
+        }
+
+        #region Atributos
+       
         private Usuario usuario;
         private Cliente cliente;
         private List<Venta> listaDeComprasQueParticipo;
         private List<Venta> comprasSinCalificar;
         private List<Oferta> listaDeSubastasQueParticipo;
         private List<Calificacion> calificaciones;
-        
+        private int ultimaFilaInsertada;
+        private List<ElementoHistorial> listaDeTodasLasComprasYSubastas;
+        private int paginaActual;
+        private int ultimaPagina;
+        private int cantXPagina = 21;
 
-        public frmHome(Usuario us)
-        {
-            InitializeComponent();
-            usuario = us;
-        }
-
-        private void frmHome_Load(object sender, EventArgs e)
-        {
-            inicializarAtributos();
-            llenarHistorialConCompras();
-            llenarHistorialConSubastas();
-            llenarResumenDeCalificaciones();
-            llenarOperacionesSinCalificar();
-            llenarCalificacionPromedio();
-            llenarCalificacionMasAlta();
-            llenarCalificacionMasBaja();
-        }
-
-        #region Metodos
-            
-            private void inicializarAtributos() 
+        private void inicializarAtributos()
         {
             cliente = getCliente();
             listaDeComprasQueParticipo = getCompras();
             listaDeSubastasQueParticipo = getSubastas();
             calificaciones = getCalificacionesSegunCliente();
+            listaDeTodasLasComprasYSubastas = getListaDeTodasLasComprasYSubastas();
         }
-        
-            #region Get Valores
+
+        #endregion
+               
+        #region Get Valores
+
+                private int getCantidadDeOperacionesSinCalificar()
+                {
+                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
+                    diccionario.Add("@clieID", cliente.Id);
+                    comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario).ToVentas();
+                    return comprasSinCalificar.Count();
+                }
+
                 private Cliente getCliente() 
                 {
                     Dictionary<String, Object> diccionario = new Dictionary<String, Object>();
@@ -79,42 +103,70 @@ namespace GDD.Historial_Cliente
                     return DBHelper.ExecuteReader("Calificacion_GetCalificacionesSegunCliente", diccionario).ToCalificaciones();
                 }
 
-                private int getCantidadDeOperacionesSinCalificar() 
+                private List<ElementoHistorial> getListaDeTodasLasComprasYSubastas()
                 {
-                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                    diccionario.Add("@clieID", cliente.Id);
-                    comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario).ToVentas();
-                    return comprasSinCalificar.Count();
-                }
-            #endregion
-
-            #region Llenar forms
-                private void llenarHistorialConCompras() 
-                {
+                    List<ElementoHistorial> lista = new List<ElementoHistorial>();
                     foreach (var compra in listaDeComprasQueParticipo)
                     {
-                        ListViewItem lista = new ListViewItem("Compra inmediata");
-                        lista.SubItems.Add(compra.PublicacionId.ToString());
-                        lista.SubItems.Add(compra.Fecha.ToString());
-                        lista.SubItems.Add(compra.Cantidad.ToString());
-                        lista.SubItems.Add("-");
-                        lvHistorial.Items.Add(lista);
+                        lista.Add(new ElementoHistorial
+                        {
+                            Tipo = "Compra Inmediata",
+                            PublicacionID = compra.PublicacionId.ToString(),
+                            Fecha = compra.Fecha,   //modificado recien (.ToString())
+                            Cantidad = compra.Cantidad.ToString(),
+                            Monto = "-"
+                        });
                     }
-                }
-
-                private void llenarHistorialConSubastas() 
-                {
                     foreach (var subasta in listaDeSubastasQueParticipo)
                     {
-                        ListViewItem lista = new ListViewItem("Subasta");
-                        lista.SubItems.Add(subasta.PublicacionId.ToString());
-                        lista.SubItems.Add(subasta.Fecha.ToString());
-                        lista.SubItems.Add("-");
-                        lista.SubItems.Add(subasta.Monto.ToString());
-                        lvHistorial.Items.Add(lista);
+                        lista.Add(new ElementoHistorial
+                        {
+                            Tipo = "Subasta",
+                            PublicacionID = subasta.PublicacionId.ToString(),
+                            Fecha = subasta.Fecha,  //idem arriba
+                            Cantidad = "-",
+                            Monto = subasta.Monto.ToString()
+                        });
                     }
+                    return lista;
                 }
 
+                private int getUltimaPagina()
+                {
+                    Double cantElementos = listaDeTodasLasComprasYSubastas.Count;
+                    Double cantDePaginas = cantElementos / cantXPagina;
+                    int parteEntera = (int)cantDePaginas;
+                    ultimaPagina = parteEntera;
+                    if (cantDePaginas - parteEntera > 0) ultimaPagina++;
+                    return ultimaPagina;
+                }
+
+            #endregion
+        
+        #region Llenar forms
+
+
+                private void llenarDataGridViewSegunPagina(int numeroPagina)
+                {
+                    dgvHistorial.Rows.Clear();
+                    List<ElementoHistorial> elementosAMostrar = new List<ElementoHistorial>();
+                    int ultimaCantidadDeElementos = (listaDeTodasLasComprasYSubastas.Count - 1) - ((ultimaPagina - 1) * cantXPagina);
+                    if (numeroPagina == ultimaPagina)
+                    {
+                        elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange((ultimaPagina - 1) * cantXPagina, ultimaCantidadDeElementos);
+                    }
+                    else
+                    {
+                        elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange(((numeroPagina - 1) * cantXPagina), cantXPagina);
+                    }
+                    int fila = 0;
+                    foreach (var elem in elementosAMostrar)
+                    {
+                        dgvHistorial.Rows.Insert(fila, elem.Tipo, elem.PublicacionID, elem.Fecha.ToString(), elem.Cantidad, elem.Monto);
+                        fila++;
+                    }
+                }
+        
                 private void llenarResumenDeCalificaciones() 
                 {
                     foreach (var calificacion in calificaciones) 
@@ -125,6 +177,11 @@ namespace GDD.Historial_Cliente
                     }
                 }
 
+                private void llenarOperacionesCalificadas() 
+                {
+                    txtOperacionesCalificadas.Text = calificaciones.Count.ToString();
+                }
+        
                 private void llenarOperacionesSinCalificar() 
                 {
                     txtOperacionesSinCalificar.Text = getCantidadDeOperacionesSinCalificar().ToString();
@@ -146,8 +203,88 @@ namespace GDD.Historial_Cliente
                 {
                     txtCalificacionMasBaja.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Min().ToString();
                 }
+
+                private void llenarCantidadDeTransacciones() 
+                {
+                    var cantidad = (listaDeComprasQueParticipo.Count + listaDeSubastasQueParticipo.Count);
+                    txtCantTransacciones.Text = cantidad.ToString();
+                }
+
+                private void llenarCantidadDeCompras() 
+                {
+                    txtCantCompras.Text = listaDeComprasQueParticipo.Count.ToString();
+                }
+
+                private void llenarCantidadDeSubastas() 
+                {
+                    txtCantSubastas.Text = listaDeSubastasQueParticipo.Count.ToString();
+                }
+
+                
             #endregion
+        
+        #region Botones
+
+            private void btnPrevPage_Click(object sender, EventArgs e)
+                {
+                    if (!(paginaActual - 1 == 0))
+                    {
+                        paginaActual = paginaActual - 1;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                    else
+                    {
+                        paginaActual = 1;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                }
+
+            private void btnNextPage_Click(object sender, EventArgs e)
+                {
+                    if ((paginaActual + 1 > ultimaPagina))
+                    {
+                        paginaActual = ultimaPagina;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                    else
+                    {
+                        paginaActual = paginaActual + 1;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                }
+
+            private void btnOkIrAPagina_Click(object sender, EventArgs e)
+                {
+                    int paginaNueva = System.Int32.Parse(txtIrAPagina.Text);
+                    if (paginaNueva > ultimaPagina || paginaNueva == 0) { MessageBox.Show("No existe la pagina", "Error"); }
+                    else
+                    {
+                        paginaActual = paginaNueva;
+                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                        llenarDataGridViewSegunPagina(paginaActual);
+                    }
+                    txtIrAPagina.Clear();
+                }
 
         #endregion
+
+        #region Validaciones
+
+                private void txtIrAPagina_KeyPress(object sender, KeyPressEventArgs e)
+                {
+                    if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                    {
+                        MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        e.Handled = true;
+                        return;
+                    }
+                }
+
+        #endregion
+   
     }
 }

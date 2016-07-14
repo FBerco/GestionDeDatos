@@ -5,6 +5,8 @@ using Clases;
 using Helpers;
 using System.Windows.Forms;
 using System.Text;
+using System.Globalization;
+using System.Configuration;
 
 namespace GDD.Generar_Publicación
 {
@@ -17,7 +19,7 @@ namespace GDD.Generar_Publicación
         private Usuario usuario;
         private List<Rubro> rubros;
         private List<Visibilidad> visibilidades;
-        private DateTime fecha = new DateTime(2016, 7, 5);
+        private DateTime fecha = DateTime.Parse(ConfigurationManager.AppSettings["fecha"]);
         //Para alta
         public frmPublicacion(Usuario us)
         {
@@ -51,10 +53,6 @@ namespace GDD.Generar_Publicación
             {
                 visibilidades.Remove(gratis);
             }
-            //if (publicacion != null && publicacion.VisibilidadId != gratis.Id)
-            //{
-            //    visibilidades.Remove(gratis);
-            //}
             cmbVisibilidad.DataSource = visibilidades;
             cmbVisibilidad.DisplayMember = "Detalle";            
             cmbRubro.DataSource = rubros = DBHelper.ExecuteReader("Rubro_GetAll").ToRubros();
@@ -74,7 +72,7 @@ namespace GDD.Generar_Publicación
             }
             fecha = publicacion.FechaInicio;
             txtDescripcion.Text = publicacion.Descripcion;
-            txtPrecio.Text = publicacion.Precio.ToString();
+            txtPrecio.Text = publicacion.Precio.ToString("0.00");
             txtStock.Text = publicacion.Stock.ToString();
             dtpFecha.CustomFormat = "yyyy-M-d HH:mm:ss";
             dtpFecha.Format = DateTimePickerFormat.Custom;
@@ -114,7 +112,28 @@ namespace GDD.Generar_Publicación
             cmbRubro.SelectedItem = rubros.First(x => x.Id == publicacion.Rubro);
         }
         private void btnConfirmar_Click(object sender, EventArgs e)
-        {            
+        {
+            var stock = Convert.ToInt32(txtStock.Text);
+            decimal precio;
+            if (!decimal.TryParse(txtPrecio.Text, NumberStyles.Currency, new CultureInfo("es-AR"), out precio))
+            {
+                MessageBox.Show("Ingrese un numero correcto. No es un numero de tipo decimal");
+                return;
+            }
+            //Cuento el punto mas los decimales
+            else if (txtPrecio.Text.Contains(",") && txtPrecio.Text.Substring(txtPrecio.Text.IndexOf(',')).Length > 3) {
+                MessageBox.Show("Ingrese un precio con dos decimales por favor.");
+                return;
+            }
+            else if (precio < 1)
+            {
+                MessageBox.Show("Precio debe ser mayor o igual a $1");
+            }
+            if (stock < 1)
+            {
+                MessageBox.Show("Stock debe ser mayor o igual a 1");
+            }
+
             int estado = 4;
             if (rdbActiva.Checked)
             {
@@ -141,8 +160,8 @@ namespace GDD.Generar_Publicación
                 { "@descripcion", txtDescripcion.Text},
                 { "@rubro", ((Rubro)cmbRubro.SelectedItem).Id},
                 { "@estado", estado},
-                { "@stock", Convert.ToInt32(txtStock.Text)},
-                { "@precio", Convert.ToDecimal(txtPrecio.Text)},
+                { "@stock", stock},
+                { "@precio", precio},
                 { "@visibilidad", ((Visibilidad)cmbVisibilidad.SelectedItem).Id}
             };
             
@@ -161,7 +180,7 @@ namespace GDD.Generar_Publicación
                 MessageBox.Show("Modificado con exito con exito");
             }
             //Genero factura
-            if (estado == 1 && DBHelper.ExecuteReader("Factura_GetByPublicacion", new Dictionary<string, object>() { { "@publicacion", publicacion.Id }}).ToPublicacion() == null) {
+            if (estado == 1 && DBHelper.ExecuteReader("Factura_GetByPublicacion", new Dictionary<string, object>() { { "@publicacion", publicacion.Id }}).ToFactura() == null) {
                 GenerarFacturar((Visibilidad)cmbVisibilidad.SelectedItem);
             }
 
@@ -171,7 +190,7 @@ namespace GDD.Generar_Publicación
         private void LoadHome() {
             frmHome home = new frmHome(usuario);
             home.Show();
-            Close();
+            Hide();
         }
 
         private void GenerarFacturar(Visibilidad visi)
@@ -179,18 +198,21 @@ namespace GDD.Generar_Publicación
             List<ItemFactura> items = new List<ItemFactura>() {
                 //Item por porcentaje
                 new ItemFactura() {
-                    Cantidad = 1,
-                    PrecioUnitario =  Convert.ToDouble(Convert.ToDecimal(txtPrecio.Text) * visi.PorcentajeProducto)
+                    Cantidad = 0,
+                    PrecioUnitario =  Convert.ToDecimal(txtPrecio.Text) * visi.PorcentajeProducto,
+                    Detalle = "ItemPorcentaje"
                 },
                 //Costo publicacion
                 new ItemFactura() {
                     Cantidad = 1,
-                    PrecioUnitario =  visi.CostoPublicacion
+                    PrecioUnitario =  visi.CostoPublicacion,
+                    Detalle = "CostoPublicacion"
                 },
                 //Costo envio
                 new ItemFactura() {
-                    Cantidad = 1,
-                    PrecioUnitario =  visi.CostoEnvio
+                    Cantidad = 0,
+                    PrecioUnitario =  visi.CostoEnvio,
+                    Detalle = "CostoEnvio"
                 },
             };
             var fechaString = fecha.ToString("dd/MM/yyyy HH:mm:ss");
@@ -198,7 +220,7 @@ namespace GDD.Generar_Publicación
             var factura = DBHelper.ExecuteReader("Factura_GetLast").ToFactura();
             foreach (var item in items)
             {
-                DBHelper.ExecuteNonQuery("ItemFactura_Add", new Dictionary<string, object> { {"@factura", factura.Numero }, {"@cantidad", item.Cantidad }, { "@precio", item.PrecioUnitario } });
+                DBHelper.ExecuteNonQuery("ItemFactura_Add", new Dictionary<string, object> { {"@factura", factura.Numero }, {"@cantidad", item.Cantidad }, { "@precio", item.PrecioUnitario }, { "@detalle", item.Detalle} });
             }
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Factura ID:" + factura.Numero);
@@ -208,12 +230,11 @@ namespace GDD.Generar_Publicación
             sb.AppendLine("Costo publicacion: $" + visi.CostoPublicacion);
             sb.AppendLine("Costo envio: $" + visi.CostoEnvio);
             MessageBox.Show(sb.ToString());
-            LoadHome();
         }
                 
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ',') )
             {
                 e.Handled = true;
             }
@@ -226,10 +247,6 @@ namespace GDD.Generar_Publicación
                 e.Handled = true;
             }
         }
-
-        private void frmPublicacion_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            LoadHome();
-        }
+        
     }
 }

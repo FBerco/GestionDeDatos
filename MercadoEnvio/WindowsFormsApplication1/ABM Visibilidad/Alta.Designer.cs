@@ -42,12 +42,13 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 22);
+            this.label1.Location = new System.Drawing.Point(15, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 13);
             this.label1.TabIndex = 0;
@@ -56,7 +57,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 54);
+            this.label2.Location = new System.Drawing.Point(15, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(174, 13);
             this.label2.TabIndex = 1;
@@ -65,7 +66,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 86);
+            this.label3.Location = new System.Drawing.Point(15, 86);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(170, 13);
             this.label3.TabIndex = 2;
@@ -74,7 +75,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 137);
+            this.label4.Location = new System.Drawing.Point(15, 137);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(175, 13);
             this.label4.TabIndex = 3;
@@ -83,6 +84,7 @@
             // txtNombreVisibilidad
             // 
             this.txtNombreVisibilidad.Location = new System.Drawing.Point(243, 19);
+            this.txtNombreVisibilidad.MaxLength = 20;
             this.txtNombreVisibilidad.Name = "txtNombreVisibilidad";
             this.txtNombreVisibilidad.Size = new System.Drawing.Size(173, 20);
             this.txtNombreVisibilidad.TabIndex = 4;
@@ -91,6 +93,7 @@
             // txtComisionTipoPublicacion
             // 
             this.txtComisionTipoPublicacion.Location = new System.Drawing.Point(243, 51);
+            this.txtComisionTipoPublicacion.MaxLength = 6;
             this.txtComisionTipoPublicacion.Name = "txtComisionTipoPublicacion";
             this.txtComisionTipoPublicacion.Size = new System.Drawing.Size(173, 20);
             this.txtComisionTipoPublicacion.TabIndex = 5;
@@ -99,6 +102,7 @@
             // txtComsionProductoVendido
             // 
             this.txtComsionProductoVendido.Location = new System.Drawing.Point(243, 83);
+            this.txtComsionProductoVendido.MaxLength = 3;
             this.txtComsionProductoVendido.Name = "txtComsionProductoVendido";
             this.txtComsionProductoVendido.Size = new System.Drawing.Size(173, 20);
             this.txtComsionProductoVendido.TabIndex = 6;
@@ -108,6 +112,7 @@
             // 
             this.txtComisionEnvioProducto.Enabled = false;
             this.txtComisionEnvioProducto.Location = new System.Drawing.Point(243, 134);
+            this.txtComisionEnvioProducto.MaxLength = 6;
             this.txtComisionEnvioProducto.Name = "txtComisionEnvioProducto";
             this.txtComisionEnvioProducto.Size = new System.Drawing.Size(173, 20);
             this.txtComisionEnvioProducto.TabIndex = 7;
@@ -165,11 +170,22 @@
             this.richTextBox1.TabIndex = 12;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point(15, 102);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "(0% - 100%)";
+            // 
             // frmAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(599, 236);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnLimpiar);
@@ -206,5 +222,6 @@
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label5;
     }
 }

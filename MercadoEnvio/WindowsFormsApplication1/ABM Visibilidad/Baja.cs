@@ -23,40 +23,38 @@ namespace GDD.ABM_Visibilidad
 
         private void frmBaja_Load(object sender, EventArgs e)
         {
-            visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
-            foreach (Visibilidad visibilidad in visibilidades)
-            {
-                cmbNombreVisibilidad.Items.Add(visibilidad.Detalle);
-            }
+            LoadVisibilidades();
+        }
+
+        private void LoadVisibilidades()
+        {
+            cmbNombreVisibilidad.DataSource = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
+            cmbNombreVisibilidad.DisplayMember = "Detalle";
         }
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-            String nombreVisibilidadElegida = cmbNombreVisibilidad.SelectedItem.ToString();
-            Visibilidad visibilidadElegida = visibilidades.Find(visibilidad => visibilidad.Detalle == nombreVisibilidadElegida);
-            if (sePuedeDarDeBaja(visibilidadElegida))
+            Visibilidad visibilidadElegida = (Visibilidad)cmbNombreVisibilidad.SelectedItem;
+            if (!estaAsociadaAAlgunUsuario(visibilidadElegida))
             { 
                 darDeBaja(visibilidadElegida);
                 MessageBox.Show(string.Concat("Se dio de baja: ",visibilidadElegida.Detalle));
             } 
-            else { MessageBox.Show("La visibilidad seleccionada esta asociada a un usuario. No se puede dar de baja"); }
-            //TENEMOS QUE VER SI LA BAJA ES LOGICA O LO BORRAMOS EFECTIVAMENTE DE LA TABLA
+            else {
+                MessageBox.Show("La visibilidad seleccionada esta asociada a un usuario. No se puede dar de baja");
+            }
+            LoadVisibilidades();
         }
 
-        private Boolean sePuedeDarDeBaja(Visibilidad unaVisiblidad)
-        {
-            return !estaAsociadaAAlgunUsuario(unaVisiblidad);
-        }
-
-        private Boolean estaAsociadaAAlgunUsuario(Visibilidad unaVisibilidad)
+        private bool estaAsociadaAAlgunUsuario(Visibilidad unaVisibilidad)
         {
             List<Visibilidad> visibilidadesAsociadasAUnUsuario = DBHelper.ExecuteReader("Visibilidad_GetVisibilidadesAsociadas").ToVisibilidades();
-            return visibilidadesAsociadasAUnUsuario.Contains(unaVisibilidad);
+            return visibilidadesAsociadasAUnUsuario.ConvertAll(visi => visi.Detalle).Contains(unaVisibilidad.Detalle);
         }
 
         private void darDeBaja(Visibilidad unaVisibilidad)
         {
-            Dictionary<String,Object> nuevoDiccionario = new Dictionary<String,Object>();
+            Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
             nuevoDiccionario.Add("@visi_id", unaVisibilidad.Id);
             DBHelper.ExecuteNonQuery("Visibilidad_Baja", nuevoDiccionario);
         }
@@ -66,6 +64,6 @@ namespace GDD.ABM_Visibilidad
             frmHome home = new frmHome();
             home.Show();
             this.Hide();
-        }
+        }       
     }
 }

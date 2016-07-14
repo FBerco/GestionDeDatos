@@ -64,10 +64,10 @@
             // txtComisionXTipoPublicacion
             // 
             this.txtComisionXTipoPublicacion.Location = new System.Drawing.Point(243, 60);
+            this.txtComisionXTipoPublicacion.MaxLength = 6;
             this.txtComisionXTipoPublicacion.Name = "txtComisionXTipoPublicacion";
             this.txtComisionXTipoPublicacion.Size = new System.Drawing.Size(100, 20);
             this.txtComisionXTipoPublicacion.TabIndex = 3;
-            this.txtComisionXTipoPublicacion.TextChanged += new System.EventHandler(this.txtComisionXTipoPublicacion_TextChanged);
             this.txtComisionXTipoPublicacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComisionXTipoPublicacion_KeyPress);
             // 
             // label3
@@ -82,14 +82,16 @@
             // txtComisionXProductoVendido
             // 
             this.txtComisionXProductoVendido.Location = new System.Drawing.Point(243, 91);
+            this.txtComisionXProductoVendido.MaxLength = 3;
             this.txtComisionXProductoVendido.Name = "txtComisionXProductoVendido";
             this.txtComisionXProductoVendido.Size = new System.Drawing.Size(100, 20);
-            this.txtComisionXProductoVendido.TabIndex = 5;
+            this.txtComisionXProductoVendido.TabIndex = 3;
             this.txtComisionXProductoVendido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComisionXProductoVendido_KeyPress);
             // 
             // txtComisionXEnvioProducto
             // 
             this.txtComisionXEnvioProducto.Location = new System.Drawing.Point(242, 141);
+            this.txtComisionXEnvioProducto.MaxLength = 6;
             this.txtComisionXEnvioProducto.Name = "txtComisionXEnvioProducto";
             this.txtComisionXEnvioProducto.Size = new System.Drawing.Size(100, 20);
             this.txtComisionXEnvioProducto.TabIndex = 6;
@@ -106,12 +108,12 @@
             // 
             // cmbNombreVisibilidad
             // 
+            this.cmbNombreVisibilidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNombreVisibilidad.FormattingEnabled = true;
             this.cmbNombreVisibilidad.Location = new System.Drawing.Point(243, 27);
             this.cmbNombreVisibilidad.Name = "cmbNombreVisibilidad";
             this.cmbNombreVisibilidad.Size = new System.Drawing.Size(100, 21);
             this.cmbNombreVisibilidad.TabIndex = 8;
-            this.cmbNombreVisibilidad.SelectedIndexChanged += new System.EventHandler(this.cmbNombreVisibilidad_SelectedIndexChanged);
             // 
             // btnGuardarCambios
             // 
@@ -135,9 +137,9 @@
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(24, 181);
+            this.btnBack.Location = new System.Drawing.Point(19, 203);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(43, 44);
+            this.btnBack.Size = new System.Drawing.Size(43, 23);
             this.btnBack.TabIndex = 11;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;

@@ -20,6 +20,8 @@ namespace GDD.ABM_Usuario
         {
             InitializeComponent();
             usuario = us;
+            ckbEstado.Visible = false;
+            lblEstado.Visible = false;
         }
         public frmCliente(Cliente cl)
         {
@@ -37,6 +39,10 @@ namespace GDD.ABM_Usuario
             dtpFecha.Value = cl.FechaNacimiento;
             ckbEstado.Checked = cl.Activo;
             btnContraseña.Visible = true;
+            if (!cliente.Habilitado)
+            {
+                btnHabilitar.Visible = true;
+            }
         }
 
         private void frmCliente_Load(object sender, EventArgs e)
@@ -58,8 +64,8 @@ namespace GDD.ABM_Usuario
                     { "@Mail",  txtMail.Text  },
                     { "@Telefono", txtTelefono.Text  },
                     { "@Direccion",txtDireccion.Text  },
-                    { "@CodPostal", txtCodPostal.Text },
-                    { "@Fecha", dtpFecha.Text},
+                    { "@CodPostal", Convert.ToInt32(txtCodPostal.Text) },
+                    { "@Fecha", dtpFecha.Value},
                 };
                 if (usuario != null)
                 {
@@ -70,24 +76,13 @@ namespace GDD.ABM_Usuario
                     Modificar(cli);
                 }
             }
-            else
-            {
-                MessageBox.Show("Complete los campos correctamente");
-            }
         }
 
         private void Modificar(Dictionary<string, object> cli)
         {
             cli.Add("@Username", cliente.Username);
             DBHelper.ExecuteNonQuery("Cliente_Modify", cli);
-            if (ckbEstado.Checked != cliente.Activo)
-            {
-                DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", cliente.Username } });
-            }
-            else
-            {
-                DBHelper.ExecuteNonQuery("Usuario_Desactivo", new Dictionary<string, object>() { { "@Username", cliente.Username } });
-            }
+            DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", cliente.Username }, { "Activo", ckbEstado.Checked } });
             MessageBox.Show("Modificado con exito");
             Hide();
         }
@@ -104,15 +99,21 @@ namespace GDD.ABM_Usuario
         private bool DatosCompletados()
         {
             int result;
-            return txtNombre.Text != null &&
-                txtApellido.Text != null &&
-                txtDni.Text != null && int.TryParse(txtDni.Text, out result) &&
-                txtTipoDoc.Text != null &&
-                txtMail.Text != null &&
-                txtTelefono.Text != null &&
-                txtDireccion.Text != null &&
-                txtCodPostal.Text != null && int.TryParse(txtCodPostal.Text, out result) &&
-                dtpFecha.Text != null;
+            if(txtNombre.Text == string.Empty || txtApellido.Text == string.Empty|| txtDni.Text == string.Empty ||  txtTipoDoc.Text== string.Empty || txtMail.Text == string.Empty ||
+                txtTelefono.Text == string.Empty || txtDireccion.Text == string.Empty || txtCodPostal.Text == string.Empty || dtpFecha.Text == string.Empty){
+               MessageBox.Show("Complete todos los campos por favor");
+                return false;
+            }
+
+            if(!int.TryParse(txtDni.Text, out result)){
+                MessageBox.Show("El campo DNI debe ser numérico.");
+                return false;
+            }
+            if (!int.TryParse(txtCodPostal.Text, out result)) {
+                MessageBox.Show("El campo Codigo Postal debe ser numérico.");
+                return false;
+            }
+            return true;
         }
 
         private void btnContraseña_Click(object sender, EventArgs e)
@@ -120,5 +121,13 @@ namespace GDD.ABM_Usuario
             frmContraseña con = new frmContraseña(usuario);
             Show();
         }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            DBHelper.ExecuteNonQuery("Usuario_Habilitar", new Dictionary<string, object>() { { "@Username", cliente.Username } });
+            MessageBox.Show("Usuario habilitado nuevamente.");
+            btnHabilitar.Visible = false;
+        }
+
     }
 }

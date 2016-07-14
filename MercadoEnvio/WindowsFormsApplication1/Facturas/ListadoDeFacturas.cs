@@ -48,45 +48,41 @@ namespace GDD.Facturas
 
             private void btnListarFacturas_Click(object sender, EventArgs e)
             {
-                if (chbComisionPublicacion.Checked)
-                {
-                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                    diccionario.Add("@vendedorID", vendedorSeleccionado);
-                    todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoPublicacion", diccionario).ToFacturas();
-                }
-                else 
-                {
-                    if (chbVentas.Checked)
+                    if (chbComisionPublicacion.Checked)
                     {
                         Dictionary<String, Object> diccionario = new Dictionary<string, object>();
                         diccionario.Add("@vendedorID", vendedorSeleccionado);
-                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", diccionario).ToFacturas();
+                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoPublicacion", diccionario).ToFacturas();
                     }
                     else
                     {
-                        Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                        diccionario.Add("@vendedorID", vendedorSeleccionado);
-                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", diccionario).ToFacturas();
-                    }  
-                 
-                }
-                facturasFiltradas = filtrarFacturas();            
-                foreach (var factura in facturasFiltradas)
-                {
-                    ListViewItem lista = new ListViewItem(factura.Numero.ToString());
-                    lista.SubItems.Add(factura.Fecha.ToString());
-                    lista.SubItems.Add(factura.Total.ToString());
-                    lista.SubItems.Add(factura.PublicacionId.ToString());
-                    lvFacturas.Items.Add(lista);
-                }
-            
+                        if (chbVentas.Checked)
+                        {
+                            Dictionary<String, Object> diccionario = new Dictionary<string, object>();
+                            diccionario.Add("@vendedorID", vendedorSeleccionado);
+                            todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", diccionario).ToFacturas();
+                        }
+                        else
+                        {
+                            Dictionary<String, Object> diccionario = new Dictionary<string, object>();
+                            diccionario.Add("@vendedorID", vendedorSeleccionado);
+                            todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", diccionario).ToFacturas();
+                        }
+
+                    }
+                    facturasFiltradas = filtrarFacturas();
+                    foreach (var factura in facturasFiltradas)
+                    {
+                        ListViewItem lista = new ListViewItem(factura.Numero.ToString());
+                        lista.SubItems.Add(factura.Fecha.ToString());
+                        lista.SubItems.Add(factura.Total.ToString());
+                        lista.SubItems.Add(factura.PublicacionId.ToString());
+                        lvFacturas.Items.Add(lista);
+                    }
+                             
             }
 
-            
-
-            
-
-            #region filtrarFacturas
+           #region filtrarFacturas
 
             private List<Factura> filtrarFacturas()
             {
@@ -117,7 +113,7 @@ namespace GDD.Facturas
         #region Extras
            
             #region Validaciones
-        
+
                 #region Solo numeros en los txt que solo deberian tener numeros
 
                 private void txtImporteMinimo_KeyPress(object sender, KeyPressEventArgs e) 
@@ -142,8 +138,14 @@ namespace GDD.Facturas
 
                 #endregion
 
+                private Boolean listarPorOk() 
+                {
+                    return chbComisionPublicacion.Checked || chbEnvios.Checked || chbVentas.Checked;
+                }
+
+
             #endregion
-            
+
             #region Otros metodos
 
                 private void deshabilitarFiltros()
@@ -184,28 +186,39 @@ namespace GDD.Facturas
 
                 private void btnOKVendedor_Click(object sender, EventArgs e)
                 {
-                    Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
-                    vendedorSeleccionado = cmbUsuarioVendedor.SelectedItem.ToString();
-                    nuevoDiccionario.Add("@vendedorID", vendedorSeleccionado);
-                    todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", nuevoDiccionario).ToFacturas();
-                    deshabilitarUsuarioVendedor();
-                    habilitarListarPor();
-                    btnOKListarPor.Enabled = true;
+                    if (cmbUsuarioVendedor.SelectedItem == null) { MessageBox.Show("Seleccione un vendedor", "Error"); }
+                    else
+                    {
+                        Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
+                        vendedorSeleccionado = cmbUsuarioVendedor.SelectedItem.ToString();
+                        nuevoDiccionario.Add("@vendedorID", vendedorSeleccionado);
+                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", nuevoDiccionario).ToFacturas();
+                        deshabilitarUsuarioVendedor();
+                        habilitarListarPor();
+                        btnOKListarPor.Enabled = true;
+                    }
                 }
 
                 private void btnOKListarPor_Click(object sender, EventArgs e)
                 {
-                    habilitarFiltros();
-                    btnOKFiltros.Enabled = true;
-                    btnOKListarPor.Enabled = false;
-                    deshabilitarListarPor();
+                    if (listarPorOk())
+                    {
+                        habilitarFiltros();
+                        btnOKFiltros.Enabled = true;
+                        btnOKListarPor.Enabled = false;
+                        deshabilitarListarPor();
+                    }
+                    else 
+                    {
+                        MessageBox.Show("Ingrese una opcion para listar"); 
+                    }
                 }
-        
+           
                 private void btnOKFiltros_Click(object sender, EventArgs e)
                 {
-                    btnListarFacturas.Enabled = true;
-                    deshabilitarFiltros();
-                    btnOKFiltros.Enabled = false;
+                        btnListarFacturas.Enabled = true;
+                        deshabilitarFiltros();
+                        btnOKFiltros.Enabled = false;
                 }
 
                 private void btnLimpiar_Click(object sender, EventArgs e)
@@ -256,12 +269,9 @@ namespace GDD.Facturas
                 }
                 #endregion                
 
-                
+            
+            
 
         #endregion
-
-
-
-
     }
 }

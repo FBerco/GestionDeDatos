@@ -45,32 +45,36 @@
             this.lblTextoAccion = new System.Windows.Forms.Label();
             this.btnTodos = new System.Windows.Forms.Button();
             this.btnNinguno = new System.Windows.Forms.Button();
+            this.rdbEnvio = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.SuspendLayout();
             // 
             // clbRubros
             // 
             this.clbRubros.FormattingEnabled = true;
-            this.clbRubros.Location = new System.Drawing.Point(175, 40);
+            this.clbRubros.Location = new System.Drawing.Point(131, 32);
+            this.clbRubros.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.clbRubros.Name = "clbRubros";
-            this.clbRubros.Size = new System.Drawing.Size(203, 276);
+            this.clbRubros.Size = new System.Drawing.Size(153, 214);
             this.clbRubros.Sorted = true;
             this.clbRubros.TabIndex = 0;
             // 
             // lblTextoDescripcion
             // 
             this.lblTextoDescripcion.AutoSize = true;
-            this.lblTextoDescripcion.Location = new System.Drawing.Point(12, 15);
+            this.lblTextoDescripcion.Location = new System.Drawing.Point(9, 12);
+            this.lblTextoDescripcion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTextoDescripcion.Name = "lblTextoDescripcion";
-            this.lblTextoDescripcion.Size = new System.Drawing.Size(140, 17);
+            this.lblTextoDescripcion.Size = new System.Drawing.Size(104, 13);
             this.lblTextoDescripcion.TabIndex = 1;
             this.lblTextoDescripcion.Text = "Filtrar por descipcion";
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(175, 12);
+            this.txtDescripcion.Location = new System.Drawing.Point(131, 10);
+            this.txtDescripcion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(203, 22);
+            this.txtDescripcion.Size = new System.Drawing.Size(153, 20);
             this.txtDescripcion.TabIndex = 2;
             // 
             // dgvPublicaciones
@@ -79,22 +83,24 @@
             this.dgvPublicaciones.AllowUserToDeleteRows = false;
             this.dgvPublicaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPublicaciones.Location = new System.Drawing.Point(384, 12);
+            this.dgvPublicaciones.Location = new System.Drawing.Point(288, 10);
+            this.dgvPublicaciones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvPublicaciones.MultiSelect = false;
             this.dgvPublicaciones.Name = "dgvPublicaciones";
             this.dgvPublicaciones.ReadOnly = true;
             this.dgvPublicaciones.RowHeadersWidth = 20;
             this.dgvPublicaciones.RowTemplate.Height = 24;
             this.dgvPublicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPublicaciones.Size = new System.Drawing.Size(923, 650);
+            this.dgvPublicaciones.Size = new System.Drawing.Size(692, 528);
             this.dgvPublicaciones.TabIndex = 4;
             this.dgvPublicaciones.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvPublicaciones_MouseClick);
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(12, 370);
+            this.btnFiltrar.Location = new System.Drawing.Point(9, 301);
+            this.btnFiltrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(366, 35);
+            this.btnFiltrar.Size = new System.Drawing.Size(274, 28);
             this.btnFiltrar.TabIndex = 5;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
@@ -103,18 +109,20 @@
             // btnAccionar
             // 
             this.btnAccionar.Enabled = false;
-            this.btnAccionar.Location = new System.Drawing.Point(12, 627);
+            this.btnAccionar.Location = new System.Drawing.Point(9, 509);
+            this.btnAccionar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAccionar.Name = "btnAccionar";
-            this.btnAccionar.Size = new System.Drawing.Size(366, 35);
+            this.btnAccionar.Size = new System.Drawing.Size(274, 28);
             this.btnAccionar.TabIndex = 6;
             this.btnAccionar.UseVisualStyleBackColor = true;
             this.btnAccionar.Click += new System.EventHandler(this.btnAccionar_Click);
             // 
             // btnInicio
             // 
-            this.btnInicio.Location = new System.Drawing.Point(545, 668);
+            this.btnInicio.Location = new System.Drawing.Point(409, 543);
+            this.btnInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnInicio.Name = "btnInicio";
-            this.btnInicio.Size = new System.Drawing.Size(67, 51);
+            this.btnInicio.Size = new System.Drawing.Size(50, 41);
             this.btnInicio.TabIndex = 7;
             this.btnInicio.Text = "<<";
             this.btnInicio.UseVisualStyleBackColor = true;
@@ -122,9 +130,10 @@
             // 
             // btnFin
             // 
-            this.btnFin.Location = new System.Drawing.Point(1065, 668);
+            this.btnFin.Location = new System.Drawing.Point(799, 543);
+            this.btnFin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnFin.Name = "btnFin";
-            this.btnFin.Size = new System.Drawing.Size(67, 51);
+            this.btnFin.Size = new System.Drawing.Size(50, 41);
             this.btnFin.TabIndex = 8;
             this.btnFin.Text = ">>";
             this.btnFin.UseVisualStyleBackColor = true;
@@ -132,9 +141,10 @@
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Location = new System.Drawing.Point(992, 668);
+            this.btnSiguiente.Location = new System.Drawing.Point(744, 543);
+            this.btnSiguiente.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(67, 51);
+            this.btnSiguiente.Size = new System.Drawing.Size(50, 41);
             this.btnSiguiente.TabIndex = 9;
             this.btnSiguiente.Text = ">";
             this.btnSiguiente.UseVisualStyleBackColor = true;
@@ -142,9 +152,10 @@
             // 
             // btnAnterior
             // 
-            this.btnAnterior.Location = new System.Drawing.Point(618, 668);
+            this.btnAnterior.Location = new System.Drawing.Point(464, 543);
+            this.btnAnterior.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(67, 51);
+            this.btnAnterior.Size = new System.Drawing.Size(50, 41);
             this.btnAnterior.TabIndex = 10;
             this.btnAnterior.Text = "<";
             this.btnAnterior.UseVisualStyleBackColor = true;
@@ -153,35 +164,40 @@
             // lblTextoPagina
             // 
             this.lblTextoPagina.AutoSize = true;
-            this.lblTextoPagina.Location = new System.Drawing.Point(803, 685);
+            this.lblTextoPagina.Location = new System.Drawing.Point(602, 557);
+            this.lblTextoPagina.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTextoPagina.Name = "lblTextoPagina";
-            this.lblTextoPagina.Size = new System.Drawing.Size(52, 17);
+            this.lblTextoPagina.Size = new System.Drawing.Size(40, 13);
             this.lblTextoPagina.TabIndex = 11;
             this.lblTextoPagina.Text = "Página";
             // 
             // lblPagina
             // 
             this.lblPagina.AutoSize = true;
-            this.lblPagina.Location = new System.Drawing.Point(861, 685);
+            this.lblPagina.Location = new System.Drawing.Point(646, 557);
+            this.lblPagina.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPagina.Name = "lblPagina";
-            this.lblPagina.Size = new System.Drawing.Size(16, 17);
+            this.lblPagina.Size = new System.Drawing.Size(13, 13);
             this.lblPagina.TabIndex = 12;
             this.lblPagina.Text = "1";
             // 
             // txtAccion
             // 
             this.txtAccion.Enabled = false;
-            this.txtAccion.Location = new System.Drawing.Point(175, 588);
+            this.txtAccion.Location = new System.Drawing.Point(131, 478);
+            this.txtAccion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtAccion.Name = "txtAccion";
-            this.txtAccion.Size = new System.Drawing.Size(203, 22);
+            this.txtAccion.Size = new System.Drawing.Size(153, 20);
             this.txtAccion.TabIndex = 13;
+            this.txtAccion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAccion_KeyPress);
             // 
             // lblTextoRubro
             // 
             this.lblTextoRubro.AutoSize = true;
-            this.lblTextoRubro.Location = new System.Drawing.Point(12, 40);
+            this.lblTextoRubro.Location = new System.Drawing.Point(9, 32);
+            this.lblTextoRubro.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTextoRubro.Name = "lblTextoRubro";
-            this.lblTextoRubro.Size = new System.Drawing.Size(107, 17);
+            this.lblTextoRubro.Size = new System.Drawing.Size(77, 13);
             this.lblTextoRubro.TabIndex = 3;
             this.lblTextoRubro.Text = "Filtrar por rubro";
             // 
@@ -189,16 +205,18 @@
             // 
             this.lblTextoAccion.AutoSize = true;
             this.lblTextoAccion.Enabled = false;
-            this.lblTextoAccion.Location = new System.Drawing.Point(12, 591);
+            this.lblTextoAccion.Location = new System.Drawing.Point(9, 480);
+            this.lblTextoAccion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTextoAccion.Name = "lblTextoAccion";
-            this.lblTextoAccion.Size = new System.Drawing.Size(0, 17);
+            this.lblTextoAccion.Size = new System.Drawing.Size(0, 13);
             this.lblTextoAccion.TabIndex = 14;
             // 
             // btnTodos
             // 
-            this.btnTodos.Location = new System.Drawing.Point(302, 322);
+            this.btnTodos.Location = new System.Drawing.Point(226, 262);
+            this.btnTodos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnTodos.Name = "btnTodos";
-            this.btnTodos.Size = new System.Drawing.Size(76, 35);
+            this.btnTodos.Size = new System.Drawing.Size(57, 28);
             this.btnTodos.TabIndex = 15;
             this.btnTodos.Text = "Todos";
             this.btnTodos.UseVisualStyleBackColor = true;
@@ -206,19 +224,33 @@
             // 
             // btnNinguno
             // 
-            this.btnNinguno.Location = new System.Drawing.Point(175, 322);
+            this.btnNinguno.Location = new System.Drawing.Point(131, 262);
+            this.btnNinguno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNinguno.Name = "btnNinguno";
-            this.btnNinguno.Size = new System.Drawing.Size(75, 35);
+            this.btnNinguno.Size = new System.Drawing.Size(56, 28);
             this.btnNinguno.TabIndex = 16;
             this.btnNinguno.Text = "Ninguno";
             this.btnNinguno.UseVisualStyleBackColor = true;
             this.btnNinguno.Click += new System.EventHandler(this.btnNinguno_Click);
             // 
+            // rdbEnvio
+            // 
+            this.rdbEnvio.AutoSize = true;
+            this.rdbEnvio.Enabled = false;
+            this.rdbEnvio.Location = new System.Drawing.Point(131, 447);
+            this.rdbEnvio.Name = "rdbEnvio";
+            this.rdbEnvio.Size = new System.Drawing.Size(73, 17);
+            this.rdbEnvio.TabIndex = 17;
+            this.rdbEnvio.TabStop = true;
+            this.rdbEnvio.Text = "Con envio";
+            this.rdbEnvio.UseVisualStyleBackColor = true;
+            // 
             // frmHome
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1319, 731);
+            this.ClientSize = new System.Drawing.Size(989, 594);
+            this.Controls.Add(this.rdbEnvio);
             this.Controls.Add(this.btnNinguno);
             this.Controls.Add(this.btnTodos);
             this.Controls.Add(this.lblTextoAccion);
@@ -236,7 +268,6 @@
             this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.lblTextoDescripcion);
             this.Controls.Add(this.clbRubros);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmHome";
             this.Text = "Comprar - Ofertar";
             this.Load += new System.EventHandler(this.frmHome_Load);
@@ -265,5 +296,6 @@
         private System.Windows.Forms.Label lblTextoAccion;
         private System.Windows.Forms.Button btnTodos;
         private System.Windows.Forms.Button btnNinguno;
+        private System.Windows.Forms.RadioButton rdbEnvio;
     }
 }

@@ -89,7 +89,7 @@ namespace GDD
         
         private void ProcesarSubastasVencidas()
         {
-            var publicaciones = DBHelper.ExecuteReader("Publicacion_FinalizarSubastasPorVencimiento", new Dictionary<string, object>() { { "@hoy", ConfigurationManager.AppSettings["fecha"] } }).ToPublicaciones();
+            var publicaciones = DBHelper.ExecuteReader("Publicacion_SubastasAFinalizarPorVencimiento", new Dictionary<string, object>() { { "@hoy", ConfigurationManager.AppSettings["fecha"] } }).ToPublicaciones();
 
             foreach (var publ in publicaciones)
             {

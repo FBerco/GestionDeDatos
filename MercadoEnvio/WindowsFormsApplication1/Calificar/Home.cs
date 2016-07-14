@@ -66,7 +66,10 @@ namespace GDD.Calificar
                     parametros.Add("@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]));
                     DBHelper.ExecuteNonQuery("Calificacion_Add", parametros);
                     MessageBox.Show("Calificado con exito", "Exito");
+                    dgvComprasACalificar.DataSource = null;
+                    dgvUltimas5.DataSource = null;
                     llenarDataGridViews();
+                    llenarResumenCalificaciones();
                 }
                 else
                 {
@@ -97,22 +100,11 @@ namespace GDD.Calificar
         {
             dgvComprasACalificar.DataSource = null;
             dgvUltimas5.DataSource = null;
-            llenarDgvUltimas5();
-            llenarDgvCompras();
+            dgvComprasACalificar.DataSource = comprasSinCalificar;
+            dgvUltimas5.DataSource = comprasInmediatasCalificadas.Concat(subastasCalificadas).
+                                        OrderByDescending(elem => elem.Fecha).ToList<Calificacion>().GetRange(0,5);
         }
-
-        private void llenarDgvCompras()
-        {
-            dgvComprasACalificar.DataSource = comprasSinCalificar;            
-        }
-
-        private void llenarDgvUltimas5()
-        {
-            List<Calificacion> listaAux = comprasInmediatasCalificadas.Concat(subastasCalificadas).
-                                        OrderByDescending(elem => elem.Fecha).ToList<Calificacion>();
-            dgvUltimas5.DataSource = listaAux.GetRange(0, 5);
-        }
-
+        
         private void llenarResumenCalificaciones()
         {
             llenarResumenCalificacionesCompraInmediata();
@@ -121,37 +113,52 @@ namespace GDD.Calificar
             llenarTotalDeEstrellasOtrogadas();
         }
 
-        private void llenarResumenCalificacionesCompraInmediata()
-        {
-            txt1EstrellaCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 1).ToString();
-            txt2EstrellasCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 2).ToString();
-            txt3EstrellasCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 3).ToString();
-            txt4EstrellasCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 4).ToString();
-            txt5EstrellasCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 5).ToString();
-        }
+            private void llenarResumenCalificacionesCompraInmediata()
+            {
+                txt1EstrellaCompra.Clear();
+                txt2EstrellasCompra.Clear();
+                txt3EstrellasCompra.Clear();
+                txt4EstrellasCompra.Clear();
+                txt5EstrellasCompra.Clear();                
+                txt1EstrellaCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 1).ToString();
+                txt2EstrellasCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 2).ToString();
+                txt3EstrellasCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 3).ToString();
+                txt4EstrellasCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 4).ToString();
+                txt5EstrellasCompra.Text = cantidadDeCalificacionesSegunEstrellas(comprasInmediatasCalificadas, 5).ToString();
+            }
 
-        private void llenarResumenCalificacionesSubasta()
-        {
-            txt1EstrellaSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 1).ToString();
-            txt2EstrellasSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 2).ToString();
-            txt3EstrellasSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 3).ToString();
-            txt4EstrellasSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 4).ToString();
-            txt5EstrellasSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 5).ToString();
-        }
+            private void llenarResumenCalificacionesSubasta()
+            {
+                txt1EstrellaSubasta.Clear();
+                txt2EstrellasSubasta.Clear();
+                txt3EstrellasSubasta.Clear();
+                txt4EstrellasSubasta.Clear();
+                txt5EstrellasSubasta.Clear();
+                txt1EstrellaSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 1).ToString();
+                txt2EstrellasSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 2).ToString();
+                txt3EstrellasSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 3).ToString();
+                txt4EstrellasSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 4).ToString();
+                txt5EstrellasSubasta.Text = cantidadDeCalificacionesSegunEstrellas(subastasCalificadas, 5).ToString();
+            }
 
-        private void llenarCantidadDeComprasYSubastasRealizadas()
-        {
-            txtComprasRealizadas.Text = getComprasRealizadas().Count.ToString();
-            txtSubastasRealizadas.Text = getSubastasGanadas().Count.ToString();
-        }
+            private void llenarCantidadDeComprasYSubastasRealizadas()
+            {
+                txtComprasRealizadas.Clear();
+                txtSubastasRealizadas.Clear();
+                txtComprasRealizadas.Text = getComprasRealizadas().Count.ToString();
+                txtSubastasRealizadas.Text = getSubastasGanadas().Count.ToString();
+            }
 
-        private void llenarTotalDeEstrellasOtrogadas()
-        {
-            txtTotalEstrellasOtrogadasCompra.Text = comprasInmediatasCalificadas.Sum<Calificacion>(vent => vent.Estrellas).ToString();
-            txtTotalEstrellasOtrogadasSubasta.Text = subastasCalificadas.Sum<Calificacion>(sub => sub.Estrellas).ToString();
-            txtTotalDeEstrellas.Text = (comprasInmediatasCalificadas.Sum<Calificacion>(vent => vent.Estrellas) +
-                subastasCalificadas.Sum<Calificacion>(sub => sub.Estrellas)).ToString();
-        }
+            private void llenarTotalDeEstrellasOtrogadas()
+            {
+                txtTotalDeEstrellas.Clear();
+                txtTotalEstrellasOtrogadasCompra.Clear();
+                txtTotalEstrellasOtrogadasSubasta.Clear();
+                txtTotalEstrellasOtrogadasCompra.Text = comprasInmediatasCalificadas.Sum<Calificacion>(vent => vent.Estrellas).ToString();
+                txtTotalEstrellasOtrogadasSubasta.Text = subastasCalificadas.Sum<Calificacion>(sub => sub.Estrellas).ToString();
+                txtTotalDeEstrellas.Text = (comprasInmediatasCalificadas.Sum<Calificacion>(vent => vent.Estrellas) +
+                    subastasCalificadas.Sum<Calificacion>(sub => sub.Estrellas)).ToString();
+            }
 
         #endregion
 

@@ -60,15 +60,15 @@ namespace GDD.Facturas
             {
                 var vendedorSeleccionado = ((Usuario)cmbUsuarioVendedor.SelectedItem).Username;
                 todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
-                if (chbComisionPublicacion.Checked)
+                if (rdbComisionPublicacion.Checked)
                 {
                     todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoPublicacion", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
                 }
-                else if(chbVentas.Checked)
+                else if(rdbVentas.Checked)
                 {
                     todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
                 }
-                else if(chbEnvios.Checked)
+                else if(rdbEnvios.Checked)
                 {
                     todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
                 }
@@ -199,36 +199,7 @@ namespace GDD.Facturas
             }
         
             #endregion
-
-            #region Checkboxes
-            private void chbComisionPublicacion_CheckedChanged(object sender, EventArgs e)
-            {
-                if (chbComisionPublicacion.Checked)
-                {
-                    chbVentas.CheckState = CheckState.Unchecked;
-                    chbEnvios.CheckState = CheckState.Unchecked;
-                }
-            }
-
-            private void chbEnvios_CheckedChanged(object sender, EventArgs e)
-            {
-                if (chbEnvios.Checked)
-                {
-                    chbComisionPublicacion.CheckState = CheckState.Unchecked;
-                    chbVentas.CheckState = CheckState.Unchecked;
-                }
-            }
-
-            private void chbVentas_CheckedChanged(object sender, EventArgs e)
-            {
-                if (chbVentas.Checked)
-                {
-                    chbComisionPublicacion.CheckState = CheckState.Unchecked;
-                    chbEnvios.CheckState = CheckState.Unchecked;
-                }
-            }
-        #endregion
-
+        
         #endregion
 
         private void chkFecha_CheckedChanged(object sender, EventArgs e)

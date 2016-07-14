@@ -173,18 +173,25 @@ namespace GDD.ComprarOfertar
                     }
                     else
                     {
-                        var parametros = new Dictionary<string, object>()
+                        if (cantidad > 0)
+                        {                        
+                            var parametros = new Dictionary<string, object>()
+                            {
+                                { "@cliente", GetClienteIdByUsername()},
+                                { "@publicacion", publ.Id},
+                                { "@cantidad", cantidad},
+                                { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
+                            };
+                            DBHelper.ExecuteNonQuery("Venta_Add", parametros);
+                            MessageBox.Show("Se ha concretado la venta!");
+                            btnFiltrar_Click(false, new EventArgs());
+                            //Por trigger bajo el stock y si hace falta finalizar la publicacion, lo hace.
+                            GenerarItemsFactura(publ.Id, cantidad);
+                        }
+                        else
                         {
-                            { "@cliente", GetClienteIdByUsername()},
-                            { "@publicacion", publ.Id},
-                            { "@cantidad", cantidad},
-                            { "@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]) }
-                        };
-                        DBHelper.ExecuteNonQuery("Venta_Add", parametros);
-                        MessageBox.Show("Se ha concretado la venta!");
-                        btnFiltrar_Click(false, new EventArgs());
-                        //Por trigger bajo el stock y si hace falta finalizar la publicacion, lo hace.
-                        GenerarItemsFactura(publ.Id, cantidad);
+                            MessageBox.Show("Debe ser minimo una unidad para comprar");
+                        }
                     }
                 }
                 else if (btnAccionar.Text == "OFERTAR")

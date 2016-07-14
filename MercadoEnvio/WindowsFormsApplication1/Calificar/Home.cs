@@ -84,8 +84,11 @@ namespace GDD.Calificar
 
         private void dgvComprasACalificar_MouseClick(object sender, MouseEventArgs e)
         {
-            compraACalificar = (Venta)dgvComprasACalificar.SelectedRows[0].DataBoundItem;
-            btnCalificar.Enabled = true;
+            if (dgvComprasACalificar.SelectedRows.Count == 1)
+            {
+                compraACalificar = (Venta)dgvComprasACalificar.SelectedRows[0].DataBoundItem;
+                btnCalificar.Enabled = true;
+            }
         }
 
         private int cantidadDeCalificacionesSegunEstrellas(List<Calificacion> unaLista, int cantEstrellas) 
@@ -100,12 +103,53 @@ namespace GDD.Calificar
             dgvComprasACalificar.DataSource = null;
             dgvUltimas5.DataSource = null;
             dgvComprasACalificar.DataSource = comprasSinCalificar;
-            List<Calificacion> aMostrar = comprasInmediatasCalificadas;
-            if (comprasInmediatasCalificadas.Count>5)
+            dgvComprasACalificar.Columns.Clear();
+            dgvComprasACalificar.AutoGenerateColumns = false;
+            dgvComprasACalificar.Columns.Add(new DataGridViewTextBoxColumn()
             {
-                comprasInmediatasCalificadas.Concat(subastasCalificadas).OrderByDescending(elem => elem.Fecha).ToList().Take(5);
+                DataPropertyName = "Fecha",
+                HeaderText = "Fecha",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvComprasACalificar.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "PublicacionId",
+                HeaderText = "Publicacion ID",
+                Width = 100,
+                ReadOnly = true
+            });
+
+            List<Calificacion> lista = comprasInmediatasCalificadas.Concat(subastasCalificadas).OrderByDescending(elem => elem.Fecha).ToList();
+            if (lista.Count < 5) {
+                dgvUltimas5.DataSource = lista;
             }
-            dgvUltimas5.DataSource = aMostrar;
+            else {
+                dgvUltimas5.DataSource = lista.GetRange(0, 5);
+            }
+            dgvUltimas5.Columns.Clear();
+            dgvUltimas5.AutoGenerateColumns = false;
+            dgvUltimas5.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Detalle",
+                HeaderText = "Detalle",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvUltimas5.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Estrellas",
+                HeaderText = "Estrellas",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvUltimas5.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Fecha",
+                HeaderText = "Fecha",
+                Width = 100,
+                ReadOnly = true
+            });
         }
         
         private void llenarResumenCalificaciones()

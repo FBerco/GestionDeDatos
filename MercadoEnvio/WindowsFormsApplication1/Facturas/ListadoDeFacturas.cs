@@ -78,18 +78,22 @@ namespace GDD.Facturas
                     facturasFiltradas = filtrarFacturas();
                     if (facturasFiltradas != null)
                     {
-                        foreach (var factura in facturasFiltradas)
+                        if (facturasFiltradas.Count > 0)
                         {
-                            ListViewItem lista = new ListViewItem(factura.Numero.ToString());
-                            lista.SubItems.Add(factura.Fecha.ToString());
-                            lista.SubItems.Add(factura.Total.ToString());
-                            lista.SubItems.Add(factura.PublicacionId.ToString());
-                            lvFacturas.Items.Add(lista);
+                            foreach (var factura in facturasFiltradas)
+                            {
+                                ListViewItem lista = new ListViewItem(factura.Numero.ToString());
+                                lista.SubItems.Add(factura.Fecha.ToString());
+                                lista.SubItems.Add(factura.Total.ToString());
+                                lista.SubItems.Add(factura.PublicacionId.ToString());
+                                lvFacturas.Items.Add(lista);
+                            }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No hay facturas aplicando esos filtros");
+                        else
+                        {
+
+                            MessageBox.Show("No hay facturas aplicando esos filtros");
+                        }
                     }                   
                 }
                 else
@@ -127,7 +131,7 @@ namespace GDD.Facturas
                 {
                     var montoMin = Convert.ToInt32(txtImporteMinimo.Text);
                     var montoMax = Convert.ToInt32(txtImporteMaximo.Text);
-                    if (montoMin <= 0 || montoMax <= 0)
+                    if (!(montoMin <= 0 || montoMax <= 0))
                     {
                         if (montoMin < montoMax)
                         {

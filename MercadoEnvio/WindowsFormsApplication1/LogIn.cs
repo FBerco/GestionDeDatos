@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Configuration;
 using Helpers;
 using Clases;
 using System.Security.Cryptography;
@@ -16,6 +17,7 @@ namespace GDD
         public LogIn()
         {
             InitializeComponent();
+            finalizarSubastasVencidas();
         }
         
 
@@ -68,6 +70,15 @@ namespace GDD
                 main.Show();
                 Hide();
             }
-        }        
+        }    
+        
+        private void finalizarSubastasVencidas()
+        {
+            var parametros = new Dictionary<string, object>()
+            {
+                { "@hoy", ConfigurationManager.AppSettings["fecha"] }
+            };
+            DBHelper.ExecuteNonQuery("Publicacion_FinalizarSubastasPorVencimiento", parametros);
+        }    
     }
 }

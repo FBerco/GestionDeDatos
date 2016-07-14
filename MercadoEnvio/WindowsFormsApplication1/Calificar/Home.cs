@@ -66,6 +66,7 @@ namespace GDD.Calificar
                     };                    
                     DBHelper.ExecuteNonQuery("Calificacion_Add", parametros);
                     MessageBox.Show("Calificado con exito", "Exito");
+                    btnCalificar.Enabled = false;
                     inicializarAtributos();
                     llenarDataGridViews();
                     llenarResumenCalificaciones();

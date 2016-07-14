@@ -45,7 +45,7 @@
             this.lblTextoAccion = new System.Windows.Forms.Label();
             this.btnTodos = new System.Windows.Forms.Button();
             this.btnNinguno = new System.Windows.Forms.Button();
-            this.rdbEnvio = new System.Windows.Forms.RadioButton();
+            this.rdbEnvio = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +53,7 @@
             // 
             this.clbRubros.FormattingEnabled = true;
             this.clbRubros.Location = new System.Drawing.Point(131, 32);
-            this.clbRubros.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clbRubros.Margin = new System.Windows.Forms.Padding(2);
             this.clbRubros.Name = "clbRubros";
             this.clbRubros.Size = new System.Drawing.Size(153, 214);
             this.clbRubros.Sorted = true;
@@ -72,7 +72,7 @@
             // txtDescripcion
             // 
             this.txtDescripcion.Location = new System.Drawing.Point(131, 10);
-            this.txtDescripcion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDescripcion.Margin = new System.Windows.Forms.Padding(2);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(153, 20);
             this.txtDescripcion.TabIndex = 2;
@@ -84,7 +84,7 @@
             this.dgvPublicaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPublicaciones.Location = new System.Drawing.Point(288, 10);
-            this.dgvPublicaciones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvPublicaciones.Margin = new System.Windows.Forms.Padding(2);
             this.dgvPublicaciones.MultiSelect = false;
             this.dgvPublicaciones.Name = "dgvPublicaciones";
             this.dgvPublicaciones.ReadOnly = true;
@@ -98,7 +98,7 @@
             // btnFiltrar
             // 
             this.btnFiltrar.Location = new System.Drawing.Point(9, 301);
-            this.btnFiltrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnFiltrar.Margin = new System.Windows.Forms.Padding(2);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(274, 28);
             this.btnFiltrar.TabIndex = 5;
@@ -110,7 +110,7 @@
             // 
             this.btnAccionar.Enabled = false;
             this.btnAccionar.Location = new System.Drawing.Point(9, 509);
-            this.btnAccionar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAccionar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccionar.Name = "btnAccionar";
             this.btnAccionar.Size = new System.Drawing.Size(274, 28);
             this.btnAccionar.TabIndex = 6;
@@ -120,7 +120,7 @@
             // btnInicio
             // 
             this.btnInicio.Location = new System.Drawing.Point(409, 543);
-            this.btnInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInicio.Margin = new System.Windows.Forms.Padding(2);
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Size = new System.Drawing.Size(50, 41);
             this.btnInicio.TabIndex = 7;
@@ -131,7 +131,7 @@
             // btnFin
             // 
             this.btnFin.Location = new System.Drawing.Point(799, 543);
-            this.btnFin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnFin.Margin = new System.Windows.Forms.Padding(2);
             this.btnFin.Name = "btnFin";
             this.btnFin.Size = new System.Drawing.Size(50, 41);
             this.btnFin.TabIndex = 8;
@@ -142,7 +142,7 @@
             // btnSiguiente
             // 
             this.btnSiguiente.Location = new System.Drawing.Point(744, 543);
-            this.btnSiguiente.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSiguiente.Margin = new System.Windows.Forms.Padding(2);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(50, 41);
             this.btnSiguiente.TabIndex = 9;
@@ -153,7 +153,7 @@
             // btnAnterior
             // 
             this.btnAnterior.Location = new System.Drawing.Point(464, 543);
-            this.btnAnterior.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAnterior.Margin = new System.Windows.Forms.Padding(2);
             this.btnAnterior.Name = "btnAnterior";
             this.btnAnterior.Size = new System.Drawing.Size(50, 41);
             this.btnAnterior.TabIndex = 10;
@@ -185,7 +185,7 @@
             // 
             this.txtAccion.Enabled = false;
             this.txtAccion.Location = new System.Drawing.Point(131, 478);
-            this.txtAccion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtAccion.Margin = new System.Windows.Forms.Padding(2);
             this.txtAccion.Name = "txtAccion";
             this.txtAccion.Size = new System.Drawing.Size(153, 20);
             this.txtAccion.TabIndex = 13;
@@ -214,7 +214,7 @@
             // btnTodos
             // 
             this.btnTodos.Location = new System.Drawing.Point(226, 262);
-            this.btnTodos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTodos.Margin = new System.Windows.Forms.Padding(2);
             this.btnTodos.Name = "btnTodos";
             this.btnTodos.Size = new System.Drawing.Size(57, 28);
             this.btnTodos.TabIndex = 15;
@@ -225,7 +225,7 @@
             // btnNinguno
             // 
             this.btnNinguno.Location = new System.Drawing.Point(131, 262);
-            this.btnNinguno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNinguno.Margin = new System.Windows.Forms.Padding(2);
             this.btnNinguno.Name = "btnNinguno";
             this.btnNinguno.Size = new System.Drawing.Size(56, 28);
             this.btnNinguno.TabIndex = 16;
@@ -236,12 +236,10 @@
             // rdbEnvio
             // 
             this.rdbEnvio.AutoSize = true;
-            this.rdbEnvio.Enabled = false;
             this.rdbEnvio.Location = new System.Drawing.Point(131, 447);
             this.rdbEnvio.Name = "rdbEnvio";
-            this.rdbEnvio.Size = new System.Drawing.Size(73, 17);
-            this.rdbEnvio.TabIndex = 17;
-            this.rdbEnvio.TabStop = true;
+            this.rdbEnvio.Size = new System.Drawing.Size(74, 17);
+            this.rdbEnvio.TabIndex = 18;
             this.rdbEnvio.Text = "Con envio";
             this.rdbEnvio.UseVisualStyleBackColor = true;
             // 
@@ -296,6 +294,6 @@
         private System.Windows.Forms.Label lblTextoAccion;
         private System.Windows.Forms.Button btnTodos;
         private System.Windows.Forms.Button btnNinguno;
-        private System.Windows.Forms.RadioButton rdbEnvio;
+        private System.Windows.Forms.CheckBox rdbEnvio;
     }
 }

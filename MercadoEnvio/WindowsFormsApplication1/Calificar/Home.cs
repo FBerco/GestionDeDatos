@@ -101,8 +101,12 @@ namespace GDD.Calificar
             dgvComprasACalificar.DataSource = null;
             dgvUltimas5.DataSource = null;
             dgvComprasACalificar.DataSource = comprasSinCalificar;
-            dgvUltimas5.DataSource = comprasInmediatasCalificadas.Concat(subastasCalificadas).
-                                        OrderByDescending(elem => elem.Fecha).ToList<Calificacion>().GetRange(0,5);
+            List<Calificacion> aMostrar = comprasInmediatasCalificadas;
+            if (comprasInmediatasCalificadas.Count>5)
+            {
+                comprasInmediatasCalificadas.Concat(subastasCalificadas).OrderByDescending(elem => elem.Fecha).ToList().GetRange(0, 5);
+            }
+            dgvUltimas5.DataSource = aMostrar;
         }
         
         private void llenarResumenCalificaciones()

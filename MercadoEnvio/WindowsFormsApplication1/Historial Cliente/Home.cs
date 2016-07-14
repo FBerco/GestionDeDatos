@@ -30,14 +30,7 @@ namespace GDD.Historial_Cliente
             lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
             llenarDataGridViewSegunPagina(paginaActual);
             llenarResumenDeCalificaciones();
-            llenarOperacionesCalificadas();
-            llenarOperacionesSinCalificar();
-            llenarCalificacionPromedio();
-            llenarCalificacionMasAlta();
-            llenarCalificacionMasBaja();
-            llenarCantidadDeTransacciones();
-            llenarCantidadDeCompras();
-            llenarCantidadDeSubastas();
+            llenarCampos();
         }
 
         #region Atributos
@@ -56,235 +49,186 @@ namespace GDD.Historial_Cliente
 
         private void inicializarAtributos()
         {
-            cliente = getCliente();
-            listaDeComprasQueParticipo = getCompras();
-            listaDeSubastasQueParticipo = getSubastas();
-            calificaciones = getCalificacionesSegunCliente();
+            cliente = DBHelper.ExecuteReader("Cliente_GetClienteSegunUsuario", new Dictionary<string, object>() { { "@username", usuario.Username } }).ToCliente();
+            listaDeComprasQueParticipo = DBHelper.ExecuteReader("Ventas_GetVentasSegunCliente", new Dictionary<string, object>() { { "@clieID", cliente.Id } }).ToVentas();
+            //Por que es un listado de ofertas y el listado de compras es de ventas?
+            listaDeSubastasQueParticipo = DBHelper.ExecuteReader("Oferta_GetOfertasSegunCliente", new Dictionary<string, object>() { { "@clieID", cliente.Id } }).ToOfertas();
+            calificaciones = DBHelper.ExecuteReader("Calificacion_GetCalificacionesSegunCliente", new Dictionary<string, object>() { { "@clieID", cliente.Id } }).ToCalificaciones();
             listaDeTodasLasComprasYSubastas = getListaDeTodasLasComprasYSubastas();
         }
-
         #endregion
                
         #region Get Valores
 
-                private int getCantidadDeOperacionesSinCalificar()
+        private int getCantidadDeOperacionesSinCalificar()
+        {
+            comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", new Dictionary<string, object> { { "@clieID", cliente.Id } }).ToVentas();
+            return comprasSinCalificar.Count();
+        }
+        
+        private List<ElementoHistorial> getListaDeTodasLasComprasYSubastas()
+        {
+            List<ElementoHistorial> lista = new List<ElementoHistorial>();
+            foreach (var compra in listaDeComprasQueParticipo)
+            {
+                lista.Add(new ElementoHistorial
                 {
-                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                    diccionario.Add("@clieID", cliente.Id);
-                    comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario).ToVentas();
-                    return comprasSinCalificar.Count();
-                }
-
-                private Cliente getCliente() 
+                    Tipo = "Compra Inmediata",
+                    PublicacionID = compra.PublicacionId.ToString(),
+                    Fecha = compra.Fecha,   //modificado recien (.ToString())
+                    Cantidad = compra.Cantidad.ToString(),
+                    Monto = "-"
+                });
+            }
+            foreach (var subasta in listaDeSubastasQueParticipo)
+            {
+                lista.Add(new ElementoHistorial
                 {
-                    Dictionary<String, Object> diccionario = new Dictionary<String, Object>();
-                    diccionario.Add("@username",usuario.Username);
-                    return DBHelper.ExecuteReader("Cliente_GetClienteSegunUsuario", diccionario).ToCliente();
-                }
+                    Tipo = "Subasta",
+                    PublicacionID = subasta.PublicacionId.ToString(),
+                    Fecha = subasta.Fecha,  //idem arriba
+                    Cantidad = "-",
+                    Monto = subasta.Monto.ToString()
+                });
+            }
+            return lista;
+        }
 
-                private List<Venta> getCompras() 
-                {
-                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                    diccionario.Add("@clieID", cliente.Id);
-                    return DBHelper.ExecuteReader("Ventas_GetVentasSegunCliente", diccionario).ToVentas();
-                }
+        private int getUltimaPagina()
+        {
+            Double cantElementos = listaDeTodasLasComprasYSubastas.Count;
+            Double cantDePaginas = cantElementos / cantXPagina;
+            int parteEntera = (int)cantDePaginas;
+            ultimaPagina = parteEntera;
+            if (cantDePaginas - parteEntera > 0) ultimaPagina++;
+            return ultimaPagina;
+        }
 
-                private List<Oferta> getSubastas() 
-                {
-                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                    diccionario.Add("@clieID", cliente.Id);
-                    return DBHelper.ExecuteReader("Oferta_GetOfertasSegunCliente", diccionario).ToOfertas();
-                }
-
-                private List<Calificacion> getCalificacionesSegunCliente() 
-                {
-                    Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                    diccionario.Add("@clieID", cliente.Id);
-                    return DBHelper.ExecuteReader("Calificacion_GetCalificacionesSegunCliente", diccionario).ToCalificaciones();
-                }
-
-                private List<ElementoHistorial> getListaDeTodasLasComprasYSubastas()
-                {
-                    List<ElementoHistorial> lista = new List<ElementoHistorial>();
-                    foreach (var compra in listaDeComprasQueParticipo)
-                    {
-                        lista.Add(new ElementoHistorial
-                        {
-                            Tipo = "Compra Inmediata",
-                            PublicacionID = compra.PublicacionId.ToString(),
-                            Fecha = compra.Fecha,   //modificado recien (.ToString())
-                            Cantidad = compra.Cantidad.ToString(),
-                            Monto = "-"
-                        });
-                    }
-                    foreach (var subasta in listaDeSubastasQueParticipo)
-                    {
-                        lista.Add(new ElementoHistorial
-                        {
-                            Tipo = "Subasta",
-                            PublicacionID = subasta.PublicacionId.ToString(),
-                            Fecha = subasta.Fecha,  //idem arriba
-                            Cantidad = "-",
-                            Monto = subasta.Monto.ToString()
-                        });
-                    }
-                    return lista;
-                }
-
-                private int getUltimaPagina()
-                {
-                    Double cantElementos = listaDeTodasLasComprasYSubastas.Count;
-                    Double cantDePaginas = cantElementos / cantXPagina;
-                    int parteEntera = (int)cantDePaginas;
-                    ultimaPagina = parteEntera;
-                    if (cantDePaginas - parteEntera > 0) ultimaPagina++;
-                    return ultimaPagina;
-                }
-
-            #endregion
+        #endregion
         
         #region Llenar forms
-
-
-                private void llenarDataGridViewSegunPagina(int numeroPagina)
-                {
-                    dgvHistorial.Rows.Clear();
-                    List<ElementoHistorial> elementosAMostrar = new List<ElementoHistorial>();
-                    int ultimaCantidadDeElementos = (listaDeTodasLasComprasYSubastas.Count - 1) - ((ultimaPagina - 1) * cantXPagina);
-                    if (numeroPagina == ultimaPagina)
-                    {
-                        elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange((ultimaPagina - 1) * cantXPagina, ultimaCantidadDeElementos);
-                    }
-                    else
-                    {
-                        elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange(((numeroPagina - 1) * cantXPagina), cantXPagina);
-                    }
-                    int fila = 0;
-                    foreach (var elem in elementosAMostrar)
-                    {
-                        dgvHistorial.Rows.Insert(fila, elem.Tipo, elem.PublicacionID, elem.Fecha.ToString(), elem.Cantidad, elem.Monto);
-                        fila++;
-                    }
-                }
         
-                private void llenarResumenDeCalificaciones() 
-                {
-                    foreach (var calificacion in calificaciones) 
-                    {
-                        ListViewItem lista = new ListViewItem(calificacion.Fecha.ToString());
-                        lista.SubItems.Add(calificacion.Estrellas.ToString());
-                        lvResumenCalificaciones.Items.Add(lista);
-                    }
-                }
-
-                private void llenarOperacionesCalificadas() 
-                {
-                    txtOperacionesCalificadas.Text = calificaciones.Count.ToString();
-                }
+        private void llenarDataGridViewSegunPagina(int numeroPagina)
+        {
+            dgvHistorial.Rows.Clear();
+            List<ElementoHistorial> elementosAMostrar = new List<ElementoHistorial>();
+            int ultimaCantidadDeElementos = (listaDeTodasLasComprasYSubastas.Count - 1) - ((ultimaPagina - 1) * cantXPagina);
+            if (numeroPagina == ultimaPagina)
+            {
+                elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange((ultimaPagina - 1) * cantXPagina, ultimaCantidadDeElementos);
+            }
+            else
+            {
+                elementosAMostrar = listaDeTodasLasComprasYSubastas.GetRange(((numeroPagina - 1) * cantXPagina), cantXPagina);
+            }
+            int fila = 0;
+            foreach (var elem in elementosAMostrar)
+            {
+                dgvHistorial.Rows.Insert(fila, elem.Tipo, elem.PublicacionID, elem.Fecha.ToString(), elem.Cantidad, elem.Monto);
+                fila++;
+            }
+        }
         
-                private void llenarOperacionesSinCalificar() 
-                {
-                    txtOperacionesSinCalificar.Text = getCantidadDeOperacionesSinCalificar().ToString();
-                }
+        private void llenarResumenDeCalificaciones() 
+        {
+            foreach (var calificacion in calificaciones) 
+            {
+                ListViewItem lista = new ListViewItem(calificacion.Fecha.ToString());
+                lista.SubItems.Add(calificacion.Estrellas.ToString());
+                lvResumenCalificaciones.Items.Add(lista);
+            }
+        }
 
-                private void llenarCalificacionPromedio() 
-                {
-                    double promedio = calificaciones.Select(calificacion => calificacion.Estrellas).Average();
-                    String mostrar = promedio.ToString();
-                    txtCalificacionPromedio.Text = mostrar.Substring(0,4); 
-                }
+        private void llenarCampos() {
+            //llenarOperacionesCalificadas
+            txtOperacionesCalificadas.Text = calificaciones.Count.ToString();
+            
+            //llenarOperacionesSinCalificar
+            txtOperacionesSinCalificar.Text = getCantidadDeOperacionesSinCalificar().ToString();
+            
+            //llenarCalificacionPromedio
+            double promedio = calificaciones.Select(calificacion => calificacion.Estrellas).Average();
+            txtCalificacionPromedio.Text = promedio.ToString().Substring(0, 4);
 
-                private void llenarCalificacionMasAlta() 
-                {
-                    txtCalificacionMasAlta.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Max().ToString();
-                }
+            //llenarCalificacionMasAlta
+            txtCalificacionMasAlta.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Max().ToString();
 
-                private void llenarCalificacionMasBaja() 
-                {
-                    txtCalificacionMasBaja.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Min().ToString();
-                }
+            //llenarCalificacionMasBaja
+            txtCalificacionMasBaja.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Min().ToString();
 
-                private void llenarCantidadDeTransacciones() 
-                {
-                    var cantidad = (listaDeComprasQueParticipo.Count + listaDeSubastasQueParticipo.Count);
-                    txtCantTransacciones.Text = cantidad.ToString();
-                }
+            //llenarCantidadDeTransacciones
+            txtCantTransacciones.Text = (listaDeComprasQueParticipo.Count + listaDeSubastasQueParticipo.Count).ToString();
 
-                private void llenarCantidadDeCompras() 
-                {
-                    txtCantCompras.Text = listaDeComprasQueParticipo.Count.ToString();
-                }
+            //llenarCantidadDeCompras
+            txtCantCompras.Text = listaDeComprasQueParticipo.Count.ToString();
 
-                private void llenarCantidadDeSubastas() 
-                {
-                    txtCantSubastas.Text = listaDeSubastasQueParticipo.Count.ToString();
-                }
-
-                
-            #endregion
+            //llenarCantidadDeSubastas
+            txtCantSubastas.Text = listaDeSubastasQueParticipo.Count.ToString();
+        }
+                    
+        #endregion
         
         #region Botones
 
-            private void btnPrevPage_Click(object sender, EventArgs e)
-                {
-                    if (!(paginaActual - 1 == 0))
-                    {
-                        paginaActual = paginaActual - 1;
-                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                        llenarDataGridViewSegunPagina(paginaActual);
-                    }
-                    else
-                    {
-                        paginaActual = 1;
-                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                        llenarDataGridViewSegunPagina(paginaActual);
-                    }
-                }
+        private void btnPrevPage_Click(object sender, EventArgs e)
+        {
+            if (!(paginaActual - 1 == 0))
+            {
+                paginaActual = paginaActual - 1;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+            else
+            {
+                paginaActual = 1;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+        }
 
-            private void btnNextPage_Click(object sender, EventArgs e)
-                {
-                    if ((paginaActual + 1 > ultimaPagina))
-                    {
-                        paginaActual = ultimaPagina;
-                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                        llenarDataGridViewSegunPagina(paginaActual);
-                    }
-                    else
-                    {
-                        paginaActual = paginaActual + 1;
-                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                        llenarDataGridViewSegunPagina(paginaActual);
-                    }
-                }
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            if ((paginaActual + 1 > ultimaPagina))
+            {
+                paginaActual = ultimaPagina;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+            else
+            {
+                paginaActual = paginaActual + 1;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+        }
 
-            private void btnOkIrAPagina_Click(object sender, EventArgs e)
-                {
-                    int paginaNueva = System.Int32.Parse(txtIrAPagina.Text);
-                    if (paginaNueva > ultimaPagina || paginaNueva == 0) { MessageBox.Show("No existe la pagina", "Error"); }
-                    else
-                    {
-                        paginaActual = paginaNueva;
-                        lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
-                        llenarDataGridViewSegunPagina(paginaActual);
-                    }
-                    txtIrAPagina.Clear();
-                }
+        private void btnOkIrAPagina_Click(object sender, EventArgs e)
+        {
+            int paginaNueva = System.Int32.Parse(txtIrAPagina.Text);
+            if (paginaNueva > ultimaPagina || paginaNueva == 0) { MessageBox.Show("No existe la pagina", "Error"); }
+            else
+            {
+                paginaActual = paginaNueva;
+                lblPaginaActual.Text = String.Concat("Pagina ", paginaActual.ToString(), " de ", ultimaPagina.ToString());
+                llenarDataGridViewSegunPagina(paginaActual);
+            }
+            txtIrAPagina.Clear();
+        }
 
         #endregion
 
         #region Validaciones
 
-                private void txtIrAPagina_KeyPress(object sender, KeyPressEventArgs e)
-                {
-                    if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-                    {
-                        MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        e.Handled = true;
-                        return;
-                    }
-                }
+        private void txtIrAPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
 
-        #endregion
-   
+        #endregion   
     }
 }

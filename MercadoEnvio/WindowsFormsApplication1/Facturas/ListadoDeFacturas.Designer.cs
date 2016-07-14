@@ -56,7 +56,6 @@
             this.total = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.publicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvFacturas = new System.Windows.Forms.ListView();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -311,15 +310,6 @@
             this.lvFacturas.UseCompatibleStateImageBehavior = false;
             this.lvFacturas.View = System.Windows.Forms.View.Details;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 231);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(10, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "-";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -347,7 +337,6 @@
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnListarFacturas);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.dtpFechaFinal);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dtpFechaInicial);
@@ -397,7 +386,6 @@
         private System.Windows.Forms.ColumnHeader publicacion;
         private System.Windows.Forms.ListView lvFacturas;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
     }
 }

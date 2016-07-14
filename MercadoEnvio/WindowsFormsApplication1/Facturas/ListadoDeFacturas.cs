@@ -244,39 +244,33 @@ namespace GDD.Facturas
             #endregion
 
             #region Checkboxes
-                private void chbComisionPublicacion_CheckedChanged(object sender, EventArgs e)
+            private void chbComisionPublicacion_CheckedChanged(object sender, EventArgs e)
+            {
+                if (chbComisionPublicacion.Checked)
                 {
-                    if (chbComisionPublicacion.Checked)
-                    {
-                        chbVentas.CheckState = CheckState.Unchecked;
-                        chbEnvios.CheckState = CheckState.Unchecked;
-                    }
+                    chbVentas.CheckState = CheckState.Unchecked;
+                    chbEnvios.CheckState = CheckState.Unchecked;
                 }
+            }
 
-                private void chbEnvios_CheckedChanged(object sender, EventArgs e)
+            private void chbEnvios_CheckedChanged(object sender, EventArgs e)
+            {
+                if (chbEnvios.Checked)
                 {
-                    if (chbEnvios.Checked)
-                    {
-                        chbComisionPublicacion.CheckState = CheckState.Unchecked;
-                        chbVentas.CheckState = CheckState.Unchecked;
-                    }
+                    chbComisionPublicacion.CheckState = CheckState.Unchecked;
+                    chbVentas.CheckState = CheckState.Unchecked;
                 }
+            }
 
-                private void chbVentas_CheckedChanged(object sender, EventArgs e)
+            private void chbVentas_CheckedChanged(object sender, EventArgs e)
+            {
+                if (chbVentas.Checked)
                 {
-                    if (chbVentas.Checked)
-                    {
-                        chbComisionPublicacion.CheckState = CheckState.Unchecked;
-                        chbEnvios.CheckState = CheckState.Unchecked;
-                    }
+                    chbComisionPublicacion.CheckState = CheckState.Unchecked;
+                    chbEnvios.CheckState = CheckState.Unchecked;
                 }
+            }
+            #endregion
         #endregion
-
-        #endregion
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

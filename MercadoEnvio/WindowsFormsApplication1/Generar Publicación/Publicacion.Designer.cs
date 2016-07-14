@@ -49,6 +49,7 @@
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.cmbRubro = new System.Windows.Forms.ComboBox();
             this.cmbVisibilidad = new System.Windows.Forms.ComboBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.gbPublicacion.SuspendLayout();
             this.gbEstado.SuspendLayout();
             this.SuspendLayout();
@@ -254,11 +255,22 @@
             this.cmbVisibilidad.Size = new System.Drawing.Size(121, 21);
             this.cmbVisibilidad.TabIndex = 20;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(125, 312);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.TabIndex = 21;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // frmPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 389);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.cmbVisibilidad);
             this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.btnConfirmar);
@@ -308,5 +320,6 @@
         private System.Windows.Forms.ComboBox cmbVisibilidad;
         private System.Windows.Forms.RadioButton rdbFinalizada;
         private System.Windows.Forms.RadioButton rdbPausada;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

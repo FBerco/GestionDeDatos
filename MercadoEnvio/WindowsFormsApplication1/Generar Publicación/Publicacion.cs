@@ -113,6 +113,11 @@ namespace GDD.Generar_Publicación
         }
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtStock.Text) || string.IsNullOrEmpty(txtPrecio.Text))
+            {
+                MessageBox.Show("Campo Stock y Precio no pueden estar vacios");
+                return;
+            }
             var stock = Convert.ToInt32(txtStock.Text);
             decimal precio;
             if (!decimal.TryParse(txtPrecio.Text, NumberStyles.Currency, new CultureInfo("es-AR"), out precio))
@@ -247,6 +252,12 @@ namespace GDD.Generar_Publicación
                 e.Handled = true;
             }
         }
-        
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtDescripcion.Text = string.Empty;
+            txtPrecio.Text = string.Empty;
+            txtStock.Text = string.Empty;
+        }
     }
 }

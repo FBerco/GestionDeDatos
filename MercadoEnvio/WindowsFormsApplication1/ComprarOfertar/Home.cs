@@ -154,7 +154,7 @@ namespace GDD.ComprarOfertar
             }
             else
             {
-                MessageBox.Show("Seleccione una publicacion por favor.");
+                MessageBox.Show("No hay una publicación seleccionada.");
             }
         }
 

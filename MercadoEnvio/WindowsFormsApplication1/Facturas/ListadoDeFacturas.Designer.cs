@@ -38,9 +38,8 @@
             this.dtpFechaInicial = new System.Windows.Forms.DateTimePicker();
             this.dtpFechaFinal = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.btnListarFacturas = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -57,7 +56,8 @@
             this.total = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.publicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvFacturas = new System.Windows.Forms.ListView();
-            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmbUsuarioVendedor
@@ -144,25 +144,6 @@
             this.label3.TabIndex = 18;
             this.label3.Text = "Fecha final";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 231);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(10, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "-";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 194);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(238, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "3. SELECCIONAR FILTROS (OPCIONAL)";
-            // 
             // shapeContainer1
             // 
             this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
@@ -174,6 +155,15 @@
             this.shapeContainer1.Size = new System.Drawing.Size(997, 344);
             this.shapeContainer1.TabIndex = 22;
             this.shapeContainer1.TabStop = false;
+            // 
+            // lineShape1
+            // 
+            this.lineShape1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.lineShape1.Name = "lineShape1";
+            this.lineShape1.X1 = 17;
+            this.lineShape1.X2 = 312;
+            this.lineShape1.Y1 = 81;
+            this.lineShape1.Y2 = 81;
             // 
             // lineShape2
             // 
@@ -321,14 +311,24 @@
             this.lvFacturas.UseCompatibleStateImageBehavior = false;
             this.lvFacturas.View = System.Windows.Forms.View.Details;
             // 
-            // lineShape1
+            // label4
             // 
-            this.lineShape1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.lineShape1.Name = "lineShape1";
-            this.lineShape1.X1 = 17;
-            this.lineShape1.X2 = 312;
-            this.lineShape1.Y1 = 81;
-            this.lineShape1.Y2 = 81;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 231);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(10, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "-";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(13, 194);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(238, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "3. SELECCIONAR FILTROS (OPCIONAL)";
             // 
             // frmListadoDeFacturas
             // 
@@ -379,8 +379,6 @@
         private System.Windows.Forms.DateTimePicker dtpFechaInicial;
         private System.Windows.Forms.DateTimePicker dtpFechaFinal;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private System.Windows.Forms.Button btnListarFacturas;
         private System.Windows.Forms.Button btnLimpiar;
@@ -399,5 +397,7 @@
         private System.Windows.Forms.ColumnHeader publicacion;
         private System.Windows.Forms.ListView lvFacturas;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

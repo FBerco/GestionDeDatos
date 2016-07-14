@@ -9,7 +9,7 @@ namespace GDD
     public partial class Main : Form
     {
         public static Usuario usuario { get; private set; }
-        public Rol rol;
+        public static Rol rol;
         public Main(Usuario us, Rol ro)
         {
             InitializeComponent();
@@ -87,7 +87,8 @@ namespace GDD
         }
         static void Facturas(object sender, EventArgs e)
         {
-            var home = new Facturas.frmListadoDeFacturas();
+            var esAdmin = rol.Nombre.Trim() == "Administrador";
+            var home = new Facturas.frmListadoDeFacturas(usuario, esAdmin);
             home.Show();
         }
         static void GenerarPublicacion(object sender, EventArgs e)

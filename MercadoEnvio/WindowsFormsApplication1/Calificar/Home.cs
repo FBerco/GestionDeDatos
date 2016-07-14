@@ -100,9 +100,53 @@ namespace GDD.Calificar
             dgvComprasACalificar.DataSource = null;
             dgvUltimas5.DataSource = null;
             dgvComprasACalificar.DataSource = comprasSinCalificar;
+            dgvComprasACalificar.Columns.Clear();
+            dgvComprasACalificar.AutoGenerateColumns = false;
+            dgvComprasACalificar.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Fecha",
+                HeaderText = "Fecha",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvComprasACalificar.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "PublicacionId",
+                HeaderText = "Publicacion ID",
+                Width = 100,
+                ReadOnly = true
+            });
+
             List<Calificacion> lista = comprasInmediatasCalificadas.Concat(subastasCalificadas).OrderByDescending(elem => elem.Fecha).ToList();
-            if (lista.Count < 5) { dgvUltimas5.DataSource = lista; }
-            else { dgvUltimas5.DataSource = lista.GetRange(0, 5); }            
+            if (lista.Count < 5) {
+                dgvUltimas5.DataSource = lista;
+            }
+            else {
+                dgvUltimas5.DataSource = lista.GetRange(0, 5);
+            }
+            dgvUltimas5.Columns.Clear();
+            dgvUltimas5.AutoGenerateColumns = false;
+            dgvUltimas5.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Detalle",
+                HeaderText = "Detalle",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvUltimas5.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Estrellas",
+                HeaderText = "Estrellas",
+                Width = 100,
+                ReadOnly = true
+            });
+            dgvUltimas5.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Fecha",
+                HeaderText = "Fecha",
+                Width = 100,
+                ReadOnly = true
+            });
         }
         
         private void llenarResumenCalificaciones()

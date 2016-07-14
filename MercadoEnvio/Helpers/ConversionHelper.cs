@@ -360,7 +360,7 @@ namespace Helpers
                 list.Add(new Estadistica()
                 {
                     Username = (string)rdr["username"],
-                    Extra =  Convert.ToInt32(rdr["extra"])
+                    Extra =  Convert.ToDouble(rdr["extra"])
                 });
             }
             DBHelper.DB.Close();

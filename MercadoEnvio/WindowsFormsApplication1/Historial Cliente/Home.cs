@@ -156,17 +156,27 @@ namespace GDD.Historial_Cliente
             
             //llenarOperacionesSinCalificar
             txtOperacionesSinCalificar.Text = getCantidadDeOperacionesSinCalificar().ToString();
+
+            if (calificaciones.Count > 0)
+            {
+                //llenarCalificacionPromedio
+                double promedio = calificaciones.Select(calificacion => calificacion.Estrellas).Average();
+                txtCalificacionPromedio.Text = promedio.ToString().Substring(0, 4);
+
+                //llenarCalificacionMasAlta
+                txtCalificacionMasAlta.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Max().ToString();
+
+                //llenarCalificacionMasBaja
+                txtCalificacionMasBaja.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Min().ToString();
+
+            }
+            else
+            {
+                txtCalificacionPromedio.Text = "0";
+                txtCalificacionMasAlta.Text = "0";
+                txtCalificacionMasBaja.Text = "0";
+            }
             
-            //llenarCalificacionPromedio
-            double promedio = calificaciones.Select(calificacion => calificacion.Estrellas).Average();
-            txtCalificacionPromedio.Text = promedio.ToString().Substring(0, 4);
-
-            //llenarCalificacionMasAlta
-            txtCalificacionMasAlta.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Max().ToString();
-
-            //llenarCalificacionMasBaja
-            txtCalificacionMasBaja.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Min().ToString();
-
             //llenarCantidadDeTransacciones
             txtCantTransacciones.Text = (listaDeComprasQueParticipo.Count + listaDeSubastasQueParticipo.Count).ToString();
 

@@ -106,7 +106,7 @@ namespace GDD.ComprarOfertar
             if (paginaActual == ultimaPagina)
             {
                 int mod = publicaciones.Count % publicacionesXpagina;
-                if (mod != 0)
+                if (mod != 0 || publicaciones.Count == 0)
                 {
                     retorno = publicaciones.GetRange(paginaActual * publicacionesXpagina, mod);
                 }

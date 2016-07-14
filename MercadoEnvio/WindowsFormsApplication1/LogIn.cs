@@ -14,12 +14,10 @@ namespace GDD
     {
         public Usuario usuario;
         public List<Rol> roles;
-        private Dictionary<string, int> intentos;
         public LogIn()
         {
             InitializeComponent();
-            finalizarSubastasVencidas();
-            intentos = new Dictionary<string, int>();
+            ProcesarSubastasVencidas();
         }
         
 
@@ -89,17 +87,10 @@ namespace GDD
             }
         }    
         
-        private void finalizarSubastasVencidas()
+        private void ProcesarSubastasVencidas()
         {
-            var parametros = new Dictionary<string, object>()
-            {
-                { "@hoy", ConfigurationManager.AppSettings["fecha"] }
-            };
-            DBHelper.ExecuteNonQuery("Publicacion_FinalizarSubastasPorVencimiento", parametros);
-        }
+            var publicaciones = DBHelper.ExecuteReader("Publicacion_FinalizarSubastasPorVencimiento", new Dictionary<string, object>() { { "@hoy", ConfigurationManager.AppSettings["fecha"] } }).ToPublicaciones();
 
-        private void GenerarItemsFactura(List<Publicacion> publicaciones)
-        {
             foreach (var publ in publicaciones)
             {
                 var factura = DBHelper.ExecuteReader("Factura_GetByPublicacion", new Dictionary<string, object>() { { "@publicacion", publ.Id } }).ToFactura();
@@ -108,7 +99,7 @@ namespace GDD
                 var itemEnvio = items.FirstOrDefault(x => x.Detalle == "CostoEnvio");
                 if (itemEnvio != null)
                 {
-                    DBHelper.ExecuteNonQuery("ItemFactura_ModificarCantidad", new Dictionary<string, object>() { { "@item", itemEnvio.Id }, { "@cantidad", publ.Stock} });
+                    DBHelper.ExecuteNonQuery("ItemFactura_ModificarCantidad", new Dictionary<string, object>() { { "@item", itemEnvio.Id }, { "@cantidad", publ.Stock } });
                 }
                 //Item porcentaje
                 ItemFactura itemPorcentaje = items.FirstOrDefault(x => x.Detalle == "ItemPorcentaje");
@@ -135,6 +126,9 @@ namespace GDD
                     }
                 }
                 DBHelper.ExecuteNonQuery("Factura_ActualizarTotal", new Dictionary<string, object>() { { "@factura", factura.Numero }, { "@total", total } });
+
+                //Doy como finalizada la publicacion
+                DBHelper.ExecuteNonQuery("Publicacion_Finalizar", new Dictionary<string, object>() { { "@publicacion", publ.Id} });
             }
         }
     }

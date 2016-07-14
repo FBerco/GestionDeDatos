@@ -15,12 +15,11 @@ namespace GDD.Facturas
     public partial class frmListadoDeFacturas : Form
     {
         #region Atributos
-        
+                
         private List<Usuario>   listaDeUsuariosVendedores;
         private List<Factura>   todasLasFacturasDelUsuarioVendedor;
         private String          vendedorSeleccionado;
         private List<Factura>   facturasFiltradas;
-
 
         #endregion
         
@@ -50,23 +49,17 @@ namespace GDD.Facturas
             {
                     if (chbComisionPublicacion.Checked)
                     {
-                        Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                        diccionario.Add("@vendedorID", vendedorSeleccionado);
-                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoPublicacion", diccionario).ToFacturas();
+                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoPublicacion", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
                     }
                     else
                     {
                         if (chbVentas.Checked)
                         {
-                            Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                            diccionario.Add("@vendedorID", vendedorSeleccionado);
-                            todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", diccionario).ToFacturas();
+                            todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
                         }
                         else
                         {
-                            Dictionary<String, Object> diccionario = new Dictionary<string, object>();
-                            diccionario.Add("@vendedorID", vendedorSeleccionado);
-                            todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", diccionario).ToFacturas();
+                            todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
                         }
 
                     }
@@ -78,16 +71,14 @@ namespace GDD.Facturas
                         lista.SubItems.Add(factura.Total.ToString());
                         lista.SubItems.Add(factura.PublicacionId.ToString());
                         lvFacturas.Items.Add(lista);
-                    }
-                             
+                    }                             
             }
 
-           #region filtrarFacturas
+            #region filtrarFacturas
 
             private List<Factura> filtrarFacturas()
             {
-               return todasLasFacturasDelUsuarioVendedor.FindAll(factura => estaDentroDelRangoDeFechas(factura)
-                        && estaDentroDelRangoDeImporte(factura));
+                return todasLasFacturasDelUsuarioVendedor.FindAll(factura => estaDentroDelRangoDeFechas(factura) && estaDentroDelRangoDeImporte(factura));
             }
 
             private Boolean estaDentroDelRangoDeFechas(Factura unaFactura) 
@@ -103,9 +94,6 @@ namespace GDD.Facturas
                 return (System.Decimal.Parse(txtImporteMinimo.Text) <= unaFactura.Total) 
                     && (unaFactura.Total <= System.Decimal.Parse(txtImporteMaximo.Text));
             }
-
-                 
-
             #endregion
 
         #endregion
@@ -267,11 +255,7 @@ namespace GDD.Facturas
                         chbEnvios.CheckState = CheckState.Unchecked;
                     }
                 }
-                #endregion                
-
-            
-            
-
+                #endregion 
         #endregion
     }
 }

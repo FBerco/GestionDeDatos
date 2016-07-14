@@ -44,7 +44,7 @@
             this.lblTextoRubro = new System.Windows.Forms.Label();
             this.lblTextoAccion = new System.Windows.Forms.Label();
             this.btnTodos = new System.Windows.Forms.Button();
-            this.btnNinguno = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.rdbEnvio = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.SuspendLayout();
@@ -65,9 +65,9 @@
             this.lblTextoDescripcion.Location = new System.Drawing.Point(9, 12);
             this.lblTextoDescripcion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTextoDescripcion.Name = "lblTextoDescripcion";
-            this.lblTextoDescripcion.Size = new System.Drawing.Size(104, 13);
+            this.lblTextoDescripcion.Size = new System.Drawing.Size(107, 13);
             this.lblTextoDescripcion.TabIndex = 1;
-            this.lblTextoDescripcion.Text = "Filtrar por descipcion";
+            this.lblTextoDescripcion.Text = "Filtrar por descripción";
             // 
             // txtDescripcion
             // 
@@ -222,16 +222,16 @@
             this.btnTodos.UseVisualStyleBackColor = true;
             this.btnTodos.Click += new System.EventHandler(this.btnTodos_Click);
             // 
-            // btnNinguno
+            // btnLimpiar
             // 
-            this.btnNinguno.Location = new System.Drawing.Point(131, 262);
-            this.btnNinguno.Margin = new System.Windows.Forms.Padding(2);
-            this.btnNinguno.Name = "btnNinguno";
-            this.btnNinguno.Size = new System.Drawing.Size(56, 28);
-            this.btnNinguno.TabIndex = 16;
-            this.btnNinguno.Text = "Ninguno";
-            this.btnNinguno.UseVisualStyleBackColor = true;
-            this.btnNinguno.Click += new System.EventHandler(this.btnNinguno_Click);
+            this.btnLimpiar.Location = new System.Drawing.Point(131, 262);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(56, 28);
+            this.btnLimpiar.TabIndex = 16;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnNinguno_Click);
             // 
             // rdbEnvio
             // 
@@ -249,7 +249,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(989, 594);
             this.Controls.Add(this.rdbEnvio);
-            this.Controls.Add(this.btnNinguno);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnTodos);
             this.Controls.Add(this.lblTextoAccion);
             this.Controls.Add(this.txtAccion);
@@ -293,7 +293,7 @@
         private System.Windows.Forms.Label lblTextoRubro;
         private System.Windows.Forms.Label lblTextoAccion;
         private System.Windows.Forms.Button btnTodos;
-        private System.Windows.Forms.Button btnNinguno;
+        private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.CheckBox rdbEnvio;
     }
 }

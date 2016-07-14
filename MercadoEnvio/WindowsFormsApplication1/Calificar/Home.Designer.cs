@@ -28,28 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCalificar = new System.Windows.Forms.Button();
             this.txtDetalle = new System.Windows.Forms.TextBox();
-            this.cmbVentas = new System.Windows.Forms.ComboBox();
             this.cmbEstrellas = new System.Windows.Forms.ComboBox();
+            this.dgvComprasACalificar = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvComprasACalificar)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Compras a calificar";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 131);
+            this.label2.Location = new System.Drawing.Point(53, 197);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 2;
@@ -58,7 +50,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 237);
+            this.label3.Location = new System.Drawing.Point(54, 243);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 3;
@@ -66,7 +58,7 @@
             // 
             // btnCalificar
             // 
-            this.btnCalificar.Location = new System.Drawing.Point(136, 294);
+            this.btnCalificar.Location = new System.Drawing.Point(144, 298);
             this.btnCalificar.Name = "btnCalificar";
             this.btnCalificar.Size = new System.Drawing.Size(75, 23);
             this.btnCalificar.TabIndex = 4;
@@ -76,20 +68,11 @@
             // 
             // txtDetalle
             // 
-            this.txtDetalle.Location = new System.Drawing.Point(136, 230);
+            this.txtDetalle.Location = new System.Drawing.Point(213, 240);
             this.txtDetalle.Multiline = true;
             this.txtDetalle.Name = "txtDetalle";
             this.txtDetalle.Size = new System.Drawing.Size(100, 20);
             this.txtDetalle.TabIndex = 6;
-            // 
-            // cmbVentas
-            // 
-            this.cmbVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbVentas.FormattingEnabled = true;
-            this.cmbVentas.Location = new System.Drawing.Point(181, 24);
-            this.cmbVentas.Name = "cmbVentas";
-            this.cmbVentas.Size = new System.Drawing.Size(121, 21);
-            this.cmbVentas.TabIndex = 7;
             // 
             // cmbEstrellas
             // 
@@ -101,26 +84,47 @@
             "3",
             "4",
             "5"});
-            this.cmbEstrellas.Location = new System.Drawing.Point(181, 123);
+            this.cmbEstrellas.Location = new System.Drawing.Point(213, 194);
             this.cmbEstrellas.Name = "cmbEstrellas";
             this.cmbEstrellas.Size = new System.Drawing.Size(121, 21);
             this.cmbEstrellas.TabIndex = 8;
+            // 
+            // dgvComprasACalificar
+            // 
+            this.dgvComprasACalificar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvComprasACalificar.Location = new System.Drawing.Point(14, 38);
+            this.dgvComprasACalificar.Name = "dgvComprasACalificar";
+            this.dgvComprasACalificar.ReadOnly = true;
+            this.dgvComprasACalificar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvComprasACalificar.Size = new System.Drawing.Size(350, 119);
+            this.dgvComprasACalificar.TabIndex = 9;
+            this.dgvComprasACalificar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvComprasACalificar_MouseClick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(134, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Compras a calificar";
             // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 350);
+            this.ClientSize = new System.Drawing.Size(373, 350);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dgvComprasACalificar);
             this.Controls.Add(this.cmbEstrellas);
-            this.Controls.Add(this.cmbVentas);
             this.Controls.Add(this.txtDetalle);
             this.Controls.Add(this.btnCalificar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "frmHome";
             this.Text = "Calificar";
             this.Load += new System.EventHandler(this.frmHome_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvComprasACalificar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,12 +132,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCalificar;
         private System.Windows.Forms.TextBox txtDetalle;
-        private System.Windows.Forms.ComboBox cmbVentas;
         private System.Windows.Forms.ComboBox cmbEstrellas;
+        private System.Windows.Forms.DataGridView dgvComprasACalificar;
+        private System.Windows.Forms.Label label1;
     }
 }

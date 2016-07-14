@@ -25,33 +25,42 @@ namespace GDD.Calificar
         #region Atributos
         
         private Usuario usuario;
-        private List<Venta> ventasSinCalificar;
+        private List<Venta> comprasSinCalificar;
         private Cliente cliente;
+        private Venta compraACalificar;
         
         #endregion
 
         private void frmHome_Load(object sender, EventArgs e)
         {
-            llenarCmbCompras();
+
+            btnCalificar.Enabled = false;
+            llenarDgvCompras();
+                              
         }
 
-        private void llenarCmbCompras() 
+        private void llenarDgvCompras() 
         {
             Dictionary<String, Object> diccionario = new Dictionary<string, object>();
             Dictionary<String, Object> diccionario2 = new Dictionary<string, object>();
             diccionario.Add("@username", usuario.Username);
             cliente = DBHelper.ExecuteReader("Cliente_GetClienteSegunUsuario", diccionario).ToCliente();
-            diccionario2.Add("@clieID", cliente.Id);
-            ventasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario2).ToVentas();
-            foreach (var venta in ventasSinCalificar)
+            if (cliente == null)
             {
-                cmbVentas.Items.Add(venta.Id);
+                MessageBox.Show("No puede calificar ya que no es cliente.", "Error");
+                //COMO HACER PARA QUE NO SE ABRA EL FRM CALIFICAR 
             }
+            else
+            {
+                diccionario2.Add("@clieID", cliente.Id);
+                comprasSinCalificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", diccionario2).ToVentas();
+                dgvComprasACalificar.DataSource = comprasSinCalificar;
+            }        
         }
 
         private void btnCalificar_Click(object sender, EventArgs e)
         {
-            var venta = cmbVentas.SelectedItem;
+            var venta = compraACalificar;
             var estrellas = cmbEstrellas.SelectedItem;
             if (venta != null && estrellas != null)
             {
@@ -60,13 +69,13 @@ namespace GDD.Calificar
                 {
                     Dictionary<string, object> parametros = new Dictionary<string, object>();
                     parametros.Add("@estrellas", estrellas);
-                    parametros.Add("@ventaID", venta);
+                    parametros.Add("@ventaID", venta.Id);
                     parametros.Add("@detalle", detalle);
                     parametros.Add("@fecha", DateTime.Parse(ConfigurationManager.AppSettings["fecha"]));
                     DBHelper.ExecuteNonQuery("Calificacion_Add", parametros);
                     MessageBox.Show("Calificado con exito", "Exito");
-                    cmbVentas.Items.Clear();
-                    llenarCmbCompras();
+                    dgvComprasACalificar.DataSource = null;
+                    llenarDgvCompras();
                 }
                 else
                 {
@@ -79,6 +88,11 @@ namespace GDD.Calificar
                 MessageBox.Show("Seleccionar venta, estrellas y completar detalle", "Error");
             }
         }
-            
+
+        private void dgvComprasACalificar_MouseClick(object sender, MouseEventArgs e)
+        {
+            compraACalificar = (Venta)dgvComprasACalificar.SelectedRows[0].DataBoundItem;
+            btnCalificar.Enabled = true;
+        }       
     }
 }

@@ -5,8 +5,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using Helpers;
 using Clases;
-using System.Security.Cryptography;
-using System.Text;
+using System.Threading;
 
 namespace GDD
 {
@@ -17,10 +16,10 @@ namespace GDD
         public LogIn()
         {
             InitializeComponent();
-            ProcesarSubastasVencidas();
+            var th = new Thread(ProcesarSubastasVencidas);
+            th.Start();
         }
         
-
         private void btnLoguear_Click(object sender, EventArgs e)
         {
             var username = txtUsername.Text;
@@ -87,7 +86,7 @@ namespace GDD
             }
         }    
         
-        private void ProcesarSubastasVencidas()
+        private static void ProcesarSubastasVencidas()
         {
             var publicaciones = DBHelper.ExecuteReader("Publicacion_SubastasAFinalizarPorVencimiento", new Dictionary<string, object>() { { "@hoy", ConfigurationManager.AppSettings["fecha"] } }).ToPublicaciones();
 

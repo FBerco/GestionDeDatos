@@ -5,8 +5,6 @@ using System.Windows.Forms;
 using System.Configuration;
 using Helpers;
 using Clases;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace GDD
 {
@@ -14,15 +12,12 @@ namespace GDD
     {
         public Usuario usuario;
         public List<Rol> roles;
-        private Dictionary<string, int> intentos;
         public LogIn()
         {
-            InitializeComponent();
-            finalizarSubastasVencidas();
-            intentos = new Dictionary<string, int>();
+            InitializeComponent();            
+            //ProcesarSubastasVencidas();            
         }
         
-
         private void btnLoguear_Click(object sender, EventArgs e)
         {
             var username = txtUsername.Text;
@@ -89,13 +84,49 @@ namespace GDD
             }
         }    
         
-        private void finalizarSubastasVencidas()
+        private void ProcesarSubastasVencidas()
         {
-            var parametros = new Dictionary<string, object>()
+            var publicaciones = DBHelper.ExecuteReader("Publicacion_SubastasAFinalizarPorVencimiento", new Dictionary<string, object>() { { "@hoy", ConfigurationManager.AppSettings["fecha"] } }).ToPublicaciones();
+
+            foreach (var publ in publicaciones)
             {
-                { "@hoy", ConfigurationManager.AppSettings["fecha"] }
-            };
-            DBHelper.ExecuteNonQuery("Publicacion_FinalizarSubastasPorVencimiento", parametros);
-        }    
+                var factura = DBHelper.ExecuteReader("Factura_GetByPublicacion", new Dictionary<string, object>() { { "@publicacion", publ.Id } }).ToFactura();
+                var items = DBHelper.ExecuteReader("ItemFactura_GetByFactura", new Dictionary<string, object>() { { "@factura", factura.Numero } }).ToItemFacturas();
+                //Actualizo item de envio
+                var itemEnvio = items.FirstOrDefault(x => x.Detalle == "CostoEnvio");
+                if (itemEnvio != null)
+                {
+                    DBHelper.ExecuteNonQuery("ItemFactura_ModificarCantidad", new Dictionary<string, object>() { { "@item", itemEnvio.Id }, { "@cantidad", publ.Stock } });
+                }
+                //Item porcentaje
+                ItemFactura itemPorcentaje = items.FirstOrDefault(x => x.Detalle == "ItemPorcentaje");
+                if (itemPorcentaje != null)
+                {
+                    DBHelper.ExecuteNonQuery("ItemFactura_ModificarCantidad", new Dictionary<string, object>() { { "@item", itemPorcentaje.Id }, { "@cantidad", publ.Stock } });
+                }
+
+                //Actualizo el total de facturas
+                decimal total = 0;
+                foreach (var item in items)
+                {
+                    if (itemPorcentaje != null && item.Detalle == itemPorcentaje.Detalle)
+                    {
+                        total = total + itemPorcentaje.PrecioUnitario * publ.Stock;
+                    }
+                    else if (itemEnvio != null && item.Detalle == itemEnvio.Detalle)
+                    {
+                        total = total + itemEnvio.PrecioUnitario * publ.Stock;
+                    }
+                    else
+                    {
+                        total = total + item.PrecioUnitario * item.Cantidad;
+                    }
+                }
+                DBHelper.ExecuteNonQuery("Factura_ActualizarTotal", new Dictionary<string, object>() { { "@factura", factura.Numero }, { "@total", total } });
+
+                //Doy como finalizada la publicacion
+                DBHelper.ExecuteNonQuery("Publicacion_Finalizar", new Dictionary<string, object>() { { "@publicacion", publ.Id} });
+            }
+        }
     }
 }

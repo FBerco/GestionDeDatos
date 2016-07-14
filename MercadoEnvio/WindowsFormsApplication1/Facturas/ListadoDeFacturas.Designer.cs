@@ -44,9 +44,6 @@
             this.btnListarFacturas = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.chbComisionPublicacion = new System.Windows.Forms.CheckBox();
-            this.chbVentas = new System.Windows.Forms.CheckBox();
-            this.chbEnvios = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.numero = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.fecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -56,6 +53,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.chkFecha = new System.Windows.Forms.CheckBox();
             this.chkMonto = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdbComisionPublicacion = new System.Windows.Forms.RadioButton();
+            this.rdbEnvios = new System.Windows.Forms.RadioButton();
+            this.rdbVentas = new System.Windows.Forms.RadioButton();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbUsuarioVendedor
@@ -79,7 +81,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 226);
+            this.label2.Location = new System.Drawing.Point(16, 271);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 5;
@@ -88,7 +90,7 @@
             // txtImporteMinimo
             // 
             this.txtImporteMinimo.Enabled = false;
-            this.txtImporteMinimo.Location = new System.Drawing.Point(92, 296);
+            this.txtImporteMinimo.Location = new System.Drawing.Point(92, 341);
             this.txtImporteMinimo.Name = "txtImporteMinimo";
             this.txtImporteMinimo.Size = new System.Drawing.Size(46, 20);
             this.txtImporteMinimo.TabIndex = 9;
@@ -97,7 +99,7 @@
             // txtImporteMaximo
             // 
             this.txtImporteMaximo.Enabled = false;
-            this.txtImporteMaximo.Location = new System.Drawing.Point(152, 296);
+            this.txtImporteMaximo.Location = new System.Drawing.Point(152, 341);
             this.txtImporteMaximo.Name = "txtImporteMaximo";
             this.txtImporteMaximo.Size = new System.Drawing.Size(46, 20);
             this.txtImporteMaximo.TabIndex = 10;
@@ -106,7 +108,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(140, 299);
+            this.label6.Location = new System.Drawing.Point(140, 344);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(10, 13);
             this.label6.TabIndex = 11;
@@ -115,7 +117,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 299);
+            this.label7.Location = new System.Drawing.Point(16, 344);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 13);
             this.label7.TabIndex = 12;
@@ -124,7 +126,7 @@
             // dtpFechaInicial
             // 
             this.dtpFechaInicial.Enabled = false;
-            this.dtpFechaInicial.Location = new System.Drawing.Point(88, 223);
+            this.dtpFechaInicial.Location = new System.Drawing.Point(88, 268);
             this.dtpFechaInicial.Name = "dtpFechaInicial";
             this.dtpFechaInicial.Size = new System.Drawing.Size(229, 20);
             this.dtpFechaInicial.TabIndex = 17;
@@ -132,7 +134,7 @@
             // dtpFechaFinal
             // 
             this.dtpFechaFinal.Enabled = false;
-            this.dtpFechaFinal.Location = new System.Drawing.Point(88, 249);
+            this.dtpFechaFinal.Location = new System.Drawing.Point(88, 294);
             this.dtpFechaFinal.Name = "dtpFechaFinal";
             this.dtpFechaFinal.Size = new System.Drawing.Size(229, 20);
             this.dtpFechaFinal.TabIndex = 19;
@@ -140,45 +142,16 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 252);
+            this.label3.Location = new System.Drawing.Point(16, 297);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 18;
             this.label3.Text = "Fecha final";
-            // 
-            // shapeContainer1
-            // 
-            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
-            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.shapeContainer1.Name = "shapeContainer1";
-            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
-            this.lineShape1,
-            this.lineShape2});
-            this.shapeContainer1.Size = new System.Drawing.Size(997, 414);
-            this.shapeContainer1.TabIndex = 22;
-            this.shapeContainer1.TabStop = false;
-            // 
-            // lineShape1
-            // 
-            this.lineShape1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.lineShape1.Name = "lineShape1";
-            this.lineShape1.X1 = 17;
-            this.lineShape1.X2 = 312;
-            this.lineShape1.Y1 = 81;
-            this.lineShape1.Y2 = 81;
-            // 
-            // lineShape2
-            // 
-            this.lineShape2.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.lineShape2.Name = "lineShape2";
-            this.lineShape2.X1 = 16;
-            this.lineShape2.X2 = 311;
-            this.lineShape2.Y1 = 180;
-            this.lineShape2.Y2 = 180;
+            
             // 
             // btnListarFacturas
             // 
-            this.btnListarFacturas.Location = new System.Drawing.Point(99, 322);
+            this.btnListarFacturas.Location = new System.Drawing.Point(99, 367);
             this.btnListarFacturas.Name = "btnListarFacturas";
             this.btnListarFacturas.Size = new System.Drawing.Size(82, 23);
             this.btnListarFacturas.TabIndex = 23;
@@ -188,7 +161,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(18, 322);
+            this.btnLimpiar.Location = new System.Drawing.Point(18, 367);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 24;
@@ -200,44 +173,11 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(13, 101);
+            this.label8.Location = new System.Drawing.Point(16, 76);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(186, 13);
             this.label8.TabIndex = 37;
             this.label8.Text = "2. SELECCIONAR LISTAR POR";
-            // 
-            // chbComisionPublicacion
-            // 
-            this.chbComisionPublicacion.AutoSize = true;
-            this.chbComisionPublicacion.Location = new System.Drawing.Point(19, 126);
-            this.chbComisionPublicacion.Name = "chbComisionPublicacion";
-            this.chbComisionPublicacion.Size = new System.Drawing.Size(140, 17);
-            this.chbComisionPublicacion.TabIndex = 38;
-            this.chbComisionPublicacion.Text = "Comisión de publicación";
-            this.chbComisionPublicacion.UseVisualStyleBackColor = true;
-            this.chbComisionPublicacion.CheckedChanged += new System.EventHandler(this.chbComisionPublicacion_CheckedChanged);
-            // 
-            // chbVentas
-            // 
-            this.chbVentas.AutoSize = true;
-            this.chbVentas.Location = new System.Drawing.Point(19, 149);
-            this.chbVentas.Name = "chbVentas";
-            this.chbVentas.Size = new System.Drawing.Size(59, 17);
-            this.chbVentas.TabIndex = 39;
-            this.chbVentas.Text = "Ventas";
-            this.chbVentas.UseVisualStyleBackColor = true;
-            this.chbVentas.CheckedChanged += new System.EventHandler(this.chbVentas_CheckedChanged);
-            // 
-            // chbEnvios
-            // 
-            this.chbEnvios.AutoSize = true;
-            this.chbEnvios.Location = new System.Drawing.Point(165, 126);
-            this.chbEnvios.Name = "chbEnvios";
-            this.chbEnvios.Size = new System.Drawing.Size(58, 17);
-            this.chbEnvios.TabIndex = 40;
-            this.chbEnvios.Text = "Envios";
-            this.chbEnvios.UseVisualStyleBackColor = true;
-            this.chbEnvios.CheckedChanged += new System.EventHandler(this.chbEnvios_CheckedChanged);
             // 
             // label9
             // 
@@ -287,7 +227,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 178);
+            this.label5.Location = new System.Drawing.Point(13, 217);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(238, 13);
             this.label5.TabIndex = 21;
@@ -296,7 +236,7 @@
             // chkFecha
             // 
             this.chkFecha.AutoSize = true;
-            this.chkFecha.Location = new System.Drawing.Point(18, 202);
+            this.chkFecha.Location = new System.Drawing.Point(18, 247);
             this.chkFecha.Name = "chkFecha";
             this.chkFecha.Size = new System.Drawing.Size(81, 17);
             this.chkFecha.TabIndex = 43;
@@ -307,7 +247,7 @@
             // chkMonto
             // 
             this.chkMonto.AutoSize = true;
-            this.chkMonto.Location = new System.Drawing.Point(18, 279);
+            this.chkMonto.Location = new System.Drawing.Point(18, 324);
             this.chkMonto.Name = "chkMonto";
             this.chkMonto.Size = new System.Drawing.Size(101, 17);
             this.chkMonto.TabIndex = 44;
@@ -315,17 +255,58 @@
             this.chkMonto.UseVisualStyleBackColor = true;
             this.chkMonto.CheckedChanged += new System.EventHandler(this.chkMonto_CheckedChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rdbVentas);
+            this.groupBox1.Controls.Add(this.rdbEnvios);
+            this.groupBox1.Controls.Add(this.rdbComisionPublicacion);
+            this.groupBox1.Location = new System.Drawing.Point(16, 104);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.TabIndex = 45;
+            this.groupBox1.TabStop = false;
+            // 
+            // rdbComisionPublicacion
+            // 
+            this.rdbComisionPublicacion.AutoSize = true;
+            this.rdbComisionPublicacion.Checked = true;
+            this.rdbComisionPublicacion.Location = new System.Drawing.Point(17, 19);
+            this.rdbComisionPublicacion.Name = "rdbComisionPublicacion";
+            this.rdbComisionPublicacion.Size = new System.Drawing.Size(142, 17);
+            this.rdbComisionPublicacion.TabIndex = 0;
+            this.rdbComisionPublicacion.TabStop = true;
+            this.rdbComisionPublicacion.Text = "Comisión por publicación";
+            this.rdbComisionPublicacion.UseVisualStyleBackColor = true;
+            // 
+            // rdbEnvios
+            // 
+            this.rdbEnvios.AutoSize = true;
+            this.rdbEnvios.Location = new System.Drawing.Point(17, 42);
+            this.rdbEnvios.Name = "rdbEnvios";
+            this.rdbEnvios.Size = new System.Drawing.Size(59, 17);
+            this.rdbEnvios.TabIndex = 1;
+            this.rdbEnvios.Text = "Envíos";
+            this.rdbEnvios.UseVisualStyleBackColor = true;
+            // 
+            // rdbVentas
+            // 
+            this.rdbVentas.AutoSize = true;
+            this.rdbVentas.Location = new System.Drawing.Point(17, 65);
+            this.rdbVentas.Name = "rdbVentas";
+            this.rdbVentas.Size = new System.Drawing.Size(58, 17);
+            this.rdbVentas.TabIndex = 2;
+            this.rdbVentas.Text = "Ventas";
+            this.rdbVentas.UseVisualStyleBackColor = true;
+            // 
             // frmListadoDeFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 414);
+            this.ClientSize = new System.Drawing.Size(997, 434);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chkMonto);
             this.Controls.Add(this.chkFecha);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.chbEnvios);
-            this.Controls.Add(this.chbVentas);
-            this.Controls.Add(this.chbComisionPublicacion);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.lvFacturas);
             this.Controls.Add(this.btnLimpiar);
@@ -345,6 +326,8 @@
             this.Name = "frmListadoDeFacturas";
             this.Text = "Listado de Facturas";
             this.Load += new System.EventHandler(this.frmHome_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -367,9 +350,6 @@
         private System.Windows.Forms.Button btnLimpiar;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox chbComisionPublicacion;
-        private System.Windows.Forms.CheckBox chbVentas;
-        private System.Windows.Forms.CheckBox chbEnvios;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ColumnHeader numero;
         private System.Windows.Forms.ColumnHeader fecha;
@@ -380,5 +360,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkFecha;
         private System.Windows.Forms.CheckBox chkMonto;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rdbVentas;
+        private System.Windows.Forms.RadioButton rdbEnvios;
+        private System.Windows.Forms.RadioButton rdbComisionPublicacion;
     }
 }

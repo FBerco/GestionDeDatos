@@ -161,6 +161,14 @@ namespace GDD.ComprarOfertar
       
         private void btnAccionar_Click(object sender, EventArgs e)
         {
+            //Me fijo si tiene mas de 3 compras sin calificar
+            var cliente = DBHelper.ExecuteReader("Cliente_GetByUsername", new Dictionary<string, object>() { { "@username", usuario.Username } }).ToCliente();
+            var ventasSinClasificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", new Dictionary<string, object>() { { "@clieID", cliente.Id } }).ToVentas();
+            if (ventasSinClasificar.Count >= 3)
+            {
+                MessageBox.Show(string.Format("Tenes {0} ventas sin calificar. No esta permitido comprar n", ventasSinClasificar.Count));
+                return;
+            }
             if (txtAccion.Text != "")
             {
                 PublicacionShow publ = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
@@ -174,7 +182,7 @@ namespace GDD.ComprarOfertar
                     else
                     {
                         if (cantidad > 0)
-                        {                        
+                        {                 
                             var parametros = new Dictionary<string, object>()
                             {
                                 { "@cliente", GetClienteIdByUsername()},

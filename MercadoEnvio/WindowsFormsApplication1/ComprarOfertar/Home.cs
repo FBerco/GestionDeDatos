@@ -134,21 +134,28 @@ namespace GDD.ComprarOfertar
         
         private void dgvPublicaciones_MouseClick(object sender, MouseEventArgs e)
         {
-            PublicacionShow publicacion = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
-            if (publicacion.Tipo == "Subasta")
+            if (dgvPublicaciones.SelectedRows.Count == 1)
             {
-                lblTextoAccion.Text = "Ofertar por el monto:";
-                btnAccionar.Text = "OFERTAR";
+                PublicacionShow publicacion = (PublicacionShow)dgvPublicaciones.SelectedRows[0].DataBoundItem;
+                if (publicacion.Tipo == "Subasta")
+                {
+                    lblTextoAccion.Text = "Ofertar por el monto:";
+                    btnAccionar.Text = "OFERTAR";
+                }
+                else
+                {
+                    lblTextoAccion.Text = "Cantidad a comprar:";
+                    btnAccionar.Text = "COMPRAR";
+                }
+                lblTextoAccion.Enabled = true;
+                txtAccion.Enabled = true;
+                btnAccionar.Enabled = true;
+                rdbEnvio.Enabled = true;
             }
             else
             {
-                lblTextoAccion.Text = "Cantidad a comprar:";
-                btnAccionar.Text = "COMPRAR";
+                MessageBox.Show("Seleccione una publicacion por favor.");
             }
-            lblTextoAccion.Enabled = true;
-            txtAccion.Enabled = true;
-            btnAccionar.Enabled = true;
-            rdbEnvio.Enabled = true;
         }
 
       

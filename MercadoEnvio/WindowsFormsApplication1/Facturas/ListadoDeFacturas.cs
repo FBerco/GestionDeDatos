@@ -18,7 +18,6 @@ namespace GDD.Facturas
                 
         private List<Usuario>   listaDeUsuariosVendedores;
         private List<Factura>   todasLasFacturasDelUsuarioVendedor;
-        private String          vendedorSeleccionado;
         private List<Factura>   facturasFiltradas;
         private Usuario usuario;
         private bool esAdmin;
@@ -34,23 +33,16 @@ namespace GDD.Facturas
 
         private void frmHome_Load(object sender, EventArgs e)
         {
-            deshabilitarFiltros();
-            btnListarFacturas.Enabled = false;
-            btnOKFiltros.Enabled = false;
-            btnOKListarPor.Enabled = false;
-            deshabilitarListarPor();
             //Si es admin le muestro todos, sino le muestro solo el de el
             if (esAdmin)
             {
-                listaDeUsuariosVendedores = DBHelper.ExecuteReader("Usuario_GetVendedores").ToUsuarios();
-                foreach (var usua in listaDeUsuariosVendedores)
-                {
-                    cmbUsuarioVendedor.Items.Add(usua.Username);
-                }
+                cmbUsuarioVendedor.DataSource = DBHelper.ExecuteReader("Usuario_GetVendedores").ToUsuarios();
+                cmbUsuarioVendedor.DisplayMember = "Username";
             }
             else
             {
-                cmbUsuarioVendedor.Items.Add(usuario.Username);
+                cmbUsuarioVendedor.DataSource = new List<Usuario>() { usuario };
+                cmbUsuarioVendedor.DisplayMember = "Username";
                 cmbUsuarioVendedor.SelectedIndex = 0;
                 cmbUsuarioVendedor.Enabled = false;
             }                    
@@ -58,189 +50,152 @@ namespace GDD.Facturas
 
         #region Funciones Principales
 
-            private void btnListarFacturas_Click(object sender, EventArgs e)
+        private void btnListarFacturas_Click(object sender, EventArgs e)
+        {
+            if (cmbUsuarioVendedor.SelectedItem != null)
             {
+                var vendedorSeleccionado = ((Usuario)cmbUsuarioVendedor.SelectedItem).Username;
+                todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
                 if (chbComisionPublicacion.Checked)
                 {
                     todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoPublicacion", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
                 }
+                else if(chbVentas.Checked)
+                {
+                    todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
+                }
+                else if(chbEnvios.Checked)
+                {
+                    todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
+                }
                 else
                 {
-                    if (chbVentas.Checked)
+                    MessageBox.Show("Seleccione una manera de listar las facturas por favor.");
+                    return;
+                }
+                if (todasLasFacturasDelUsuarioVendedor.Count > 0)
+                {                
+                    facturasFiltradas = filtrarFacturas();
+                    if (facturasFiltradas != null)
                     {
-                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByPorcentajeProducto", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
+                        foreach (var factura in facturasFiltradas)
+                        {
+                            ListViewItem lista = new ListViewItem(factura.Numero.ToString());
+                            lista.SubItems.Add(factura.Fecha.ToString());
+                            lista.SubItems.Add(factura.Total.ToString());
+                            lista.SubItems.Add(factura.PublicacionId.ToString());
+                            lvFacturas.Items.Add(lista);
+                        }
                     }
                     else
                     {
-                        todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturaSegunVendedorYCliente_OrderByCostoEnvio", new Dictionary<string, object>() { { "@vendedorID", vendedorSeleccionado } }).ToFacturas();
+                        MessageBox.Show("No hay facturas aplicando esos filtros");
+                    }                   
+                }
+                else
+                {
+                    MessageBox.Show("Este vendedor no tiene facturas asignadas");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un vendedor por favor.");
+                return;
+            }                               
+        }
+        
+        private List<Factura> filtrarFacturas()
+        {
+            var resultado = todasLasFacturasDelUsuarioVendedor;
+            if (chkFecha.Checked)
+            {
+                var fechaInicial = dtpFechaInicial.Value;
+                var fechaFinal = dtpFechaFinal.Value;
+                if (fechaInicial <= fechaFinal)
+                {
+                    todasLasFacturasDelUsuarioVendedor = resultado.Where(x => fechaInicial <= x.Fecha && x.Fecha <= fechaFinal).ToList();
+                }
+                else
+                {
+                    MessageBox.Show("Fecha inicio debe ser menor a la fecha final.");
+                    return null;
+                }
+            }
+            if (chkMonto.Checked)
+            {
+                if (!string.IsNullOrEmpty(txtImporteMinimo.Text) && !string.IsNullOrEmpty(txtImporteMaximo.Text))
+                {
+                    var montoMin = Convert.ToInt32(txtImporteMinimo.Text);
+                    var montoMax = Convert.ToInt32(txtImporteMaximo.Text);
+                    if (montoMin <= 0 || montoMax <= 0)
+                    {
+                        if (montoMin < montoMax)
+                        {
+                            todasLasFacturasDelUsuarioVendedor = resultado.Where(x => montoMax <= x.Total && x.Total <= montoMax).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("El monto minimo debe ser menor al maximo");
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Por favor ingrese valores positivos.");
+                        return null;
                     }
                 }
-                facturasFiltradas = filtrarFacturas();
-                foreach (var factura in facturasFiltradas)
+                else
                 {
-                    ListViewItem lista = new ListViewItem(factura.Numero.ToString());
-                    lista.SubItems.Add(factura.Fecha.ToString());
-                    lista.SubItems.Add(factura.Total.ToString());
-                    lista.SubItems.Add(factura.PublicacionId.ToString());
-                    lvFacturas.Items.Add(lista);
-                }                             
+                    MessageBox.Show("Por favor ingrese valor minimo y maximo.");
+                    return null;
+                }               
             }
-
-            #region filtrarFacturas
-
-            private List<Factura> filtrarFacturas()
-            {
-                return todasLasFacturasDelUsuarioVendedor.FindAll(factura => estaDentroDelRangoDeFechas(factura) && estaDentroDelRangoDeImporte(factura));
-            }
-
-            private Boolean estaDentroDelRangoDeFechas(Factura unaFactura) 
-            {
-                return (dtpFechaInicial.Value <= unaFactura.Fecha) && (unaFactura.Fecha <= dtpFechaFinal.Value);
-            }
-
-            private Boolean estaDentroDelRangoDeImporte(Factura unaFactura) 
-            {
-                if (String.IsNullOrEmpty(txtImporteMinimo.Text) && String.IsNullOrEmpty(txtImporteMaximo.Text)) return true;
-                if (String.IsNullOrEmpty(txtImporteMaximo.Text)) return System.Decimal.Parse(txtImporteMinimo.Text) <= unaFactura.Total;
-                if (String.IsNullOrEmpty(txtImporteMinimo.Text)) return unaFactura.Total <= System.Decimal.Parse(txtImporteMaximo.Text);
-                return (System.Decimal.Parse(txtImporteMinimo.Text) <= unaFactura.Total) 
-                    && (unaFactura.Total <= System.Decimal.Parse(txtImporteMaximo.Text));
-            }
-            #endregion
-
+            return resultado;
+        }
+        
         #endregion
 
         #region Extras
            
             #region Validaciones
-
-                #region Solo numeros en los txt que solo deberian tener numeros
-
-                private void txtImporteMinimo_KeyPress(object sender, KeyPressEventArgs e) 
+            private void txtImporteMinimo_KeyPress(object sender, KeyPressEventArgs e) 
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 {
-                    if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-                    {
-                        MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        e.Handled = true;
-                        return;
-                    }
+                    e.Handled = true;
                 }
-                private void txtImporteMaximo_KeyPress(object sender, KeyPressEventArgs e)
+            }
+            private void txtImporteMaximo_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 {
-                    if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-                    {
-                        MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        e.Handled = true;
-                        return;
-                    }
+                    e.Handled = true;
                 }
-
-
-                #endregion
-
-                private Boolean listarPorOk() 
-                {
-                    return chbComisionPublicacion.Checked || chbEnvios.Checked || chbVentas.Checked;
-                }
-
-
+            }
             #endregion
 
             #region Otros metodos
 
             private void deshabilitarFiltros()
             {
-                dtpFechaFinal.Enabled = false;
-                dtpFechaInicial.Enabled = false;
-                txtImporteMaximo.Enabled = false;
-                txtImporteMinimo.Enabled = false;
+                chkFecha.Checked = false;
+                chkMonto.Checked = false;
             }
 
             private void habilitarFiltros()
             {
-                dtpFechaFinal.Enabled = true;
-                dtpFechaInicial.Enabled = true;
-                txtImporteMaximo.Enabled = true;
-                txtImporteMinimo.Enabled = true;
+                chkFecha.Checked = true;
+                chkMonto.Checked = true;
             }
-
-            private void deshabilitarListarPor() 
-            {
-                chbComisionPublicacion.Enabled = false;
-                chbEnvios.Enabled = false;
-                chbVentas.Enabled = false;
-            }
-
-            private void habilitarListarPor() 
-            {
-                chbComisionPublicacion.Enabled = true;
-                chbEnvios.Enabled = true;
-                chbVentas.Enabled = true;
-            }
-
-            private void deshabilitarUsuarioVendedor()
-            {
-                cmbUsuarioVendedor.Enabled = false;
-                btnOKVendedor.Enabled = false;
-            }
-
-            private void btnOKVendedor_Click(object sender, EventArgs e)
-            {
-                if (cmbUsuarioVendedor.SelectedItem == null)
-                {
-                    MessageBox.Show("Seleccione un vendedor", "Error");
-                }
-                else
-                {
-                    Dictionary<string, object> nuevoDiccionario = new Dictionary<string, object>();
-                    vendedorSeleccionado = cmbUsuarioVendedor.SelectedItem.ToString();
-                    nuevoDiccionario.Add("@vendedorID", vendedorSeleccionado);
-                    todasLasFacturasDelUsuarioVendedor = DBHelper.ExecuteReader("Factura_GetFacturasSegunVendedor", nuevoDiccionario).ToFacturas();
-                    deshabilitarUsuarioVendedor();
-                    habilitarListarPor();
-                    btnOKListarPor.Enabled = true;
-                }
-            }
-
-            private void btnOKListarPor_Click(object sender, EventArgs e)
-            {
-                if (listarPorOk())
-                {
-                    habilitarFiltros();
-                    btnOKFiltros.Enabled = true;
-                    btnOKListarPor.Enabled = false;
-                    deshabilitarListarPor();
-                }
-                else 
-                {
-                    MessageBox.Show("Ingrese una opcion para listar"); 
-                }
-            }
-           
-            private void btnOKFiltros_Click(object sender, EventArgs e)
-            {
-                btnListarFacturas.Enabled = true;
-                deshabilitarFiltros();
-                btnOKFiltros.Enabled = false;
-            }
-
+        
             private void btnLimpiar_Click(object sender, EventArgs e)
             {
-                lvFacturas.Items.Clear();
-                btnListarFacturas.Enabled = false;
-                btnOKFiltros.Enabled = false;
-                limpiarFiltros();
-                deshabilitarFiltros();
-                btnOKVendedor.Enabled = true;
-                cmbUsuarioVendedor.Enabled = true;
+                lvFacturas.Items.Clear();               
+                chkFecha.Checked = false;
+                chkMonto.Checked = false;
             }
-
-            private void limpiarFiltros()
-            {
-                txtImporteMaximo.Clear();
-                txtImporteMinimo.Clear();
-            }
-
+        
             #endregion
 
             #region Checkboxes
@@ -270,7 +225,36 @@ namespace GDD.Facturas
                     chbEnvios.CheckState = CheckState.Unchecked;
                 }
             }
-            #endregion
         #endregion
+
+        #endregion
+
+        private void chkFecha_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkFecha.Checked)
+            {
+                dtpFechaInicial.Enabled = true;
+                dtpFechaFinal.Enabled = true;                
+            }
+            else
+            {
+                dtpFechaInicial.Enabled = false;
+                dtpFechaFinal.Enabled = false;
+            }
+        }
+
+        private void chkMonto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMonto.Checked)
+            {
+                txtImporteMinimo.Enabled = true;
+                txtImporteMaximo.Enabled = true;
+            }
+            else
+            {
+                txtImporteMinimo.Enabled = false;
+                txtImporteMaximo.Enabled = false;
+            }
+        }
     }
 }

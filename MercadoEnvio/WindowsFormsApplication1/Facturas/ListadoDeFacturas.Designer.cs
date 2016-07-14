@@ -43,13 +43,10 @@
             this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.btnListarFacturas = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnOKVendedor = new System.Windows.Forms.Button();
-            this.btnOKFiltros = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.chbComisionPublicacion = new System.Windows.Forms.CheckBox();
             this.chbVentas = new System.Windows.Forms.CheckBox();
             this.chbEnvios = new System.Windows.Forms.CheckBox();
-            this.btnOKListarPor = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.numero = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.fecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -57,6 +54,8 @@
             this.publicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvFacturas = new System.Windows.Forms.ListView();
             this.label5 = new System.Windows.Forms.Label();
+            this.chkFecha = new System.Windows.Forms.CheckBox();
+            this.chkMonto = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmbUsuarioVendedor
@@ -80,7 +79,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 218);
+            this.label2.Location = new System.Drawing.Point(16, 226);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 5;
@@ -88,7 +87,8 @@
             // 
             // txtImporteMinimo
             // 
-            this.txtImporteMinimo.Location = new System.Drawing.Point(92, 267);
+            this.txtImporteMinimo.Enabled = false;
+            this.txtImporteMinimo.Location = new System.Drawing.Point(92, 296);
             this.txtImporteMinimo.Name = "txtImporteMinimo";
             this.txtImporteMinimo.Size = new System.Drawing.Size(46, 20);
             this.txtImporteMinimo.TabIndex = 9;
@@ -96,7 +96,8 @@
             // 
             // txtImporteMaximo
             // 
-            this.txtImporteMaximo.Location = new System.Drawing.Point(152, 267);
+            this.txtImporteMaximo.Enabled = false;
+            this.txtImporteMaximo.Location = new System.Drawing.Point(152, 296);
             this.txtImporteMaximo.Name = "txtImporteMaximo";
             this.txtImporteMaximo.Size = new System.Drawing.Size(46, 20);
             this.txtImporteMaximo.TabIndex = 10;
@@ -105,7 +106,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(140, 270);
+            this.label6.Location = new System.Drawing.Point(140, 299);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(10, 13);
             this.label6.TabIndex = 11;
@@ -114,7 +115,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 270);
+            this.label7.Location = new System.Drawing.Point(16, 299);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 13);
             this.label7.TabIndex = 12;
@@ -122,14 +123,16 @@
             // 
             // dtpFechaInicial
             // 
-            this.dtpFechaInicial.Location = new System.Drawing.Point(88, 215);
+            this.dtpFechaInicial.Enabled = false;
+            this.dtpFechaInicial.Location = new System.Drawing.Point(88, 223);
             this.dtpFechaInicial.Name = "dtpFechaInicial";
             this.dtpFechaInicial.Size = new System.Drawing.Size(229, 20);
             this.dtpFechaInicial.TabIndex = 17;
             // 
             // dtpFechaFinal
             // 
-            this.dtpFechaFinal.Location = new System.Drawing.Point(88, 241);
+            this.dtpFechaFinal.Enabled = false;
+            this.dtpFechaFinal.Location = new System.Drawing.Point(88, 249);
             this.dtpFechaFinal.Name = "dtpFechaFinal";
             this.dtpFechaFinal.Size = new System.Drawing.Size(229, 20);
             this.dtpFechaFinal.TabIndex = 19;
@@ -137,7 +140,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 244);
+            this.label3.Location = new System.Drawing.Point(16, 252);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 18;
@@ -151,7 +154,7 @@
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.lineShape1,
             this.lineShape2});
-            this.shapeContainer1.Size = new System.Drawing.Size(997, 344);
+            this.shapeContainer1.Size = new System.Drawing.Size(997, 414);
             this.shapeContainer1.TabIndex = 22;
             this.shapeContainer1.TabStop = false;
             // 
@@ -175,7 +178,7 @@
             // 
             // btnListarFacturas
             // 
-            this.btnListarFacturas.Location = new System.Drawing.Point(99, 311);
+            this.btnListarFacturas.Location = new System.Drawing.Point(99, 322);
             this.btnListarFacturas.Name = "btnListarFacturas";
             this.btnListarFacturas.Size = new System.Drawing.Size(82, 23);
             this.btnListarFacturas.TabIndex = 23;
@@ -185,33 +188,13 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(18, 311);
+            this.btnLimpiar.Location = new System.Drawing.Point(18, 322);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 24;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnOKVendedor
-            // 
-            this.btnOKVendedor.Location = new System.Drawing.Point(237, 29);
-            this.btnOKVendedor.Name = "btnOKVendedor";
-            this.btnOKVendedor.Size = new System.Drawing.Size(75, 42);
-            this.btnOKVendedor.TabIndex = 29;
-            this.btnOKVendedor.Text = "Siguiente paso";
-            this.btnOKVendedor.UseVisualStyleBackColor = true;
-            this.btnOKVendedor.Click += new System.EventHandler(this.btnOKVendedor_Click);
-            // 
-            // btnOKFiltros
-            // 
-            this.btnOKFiltros.Location = new System.Drawing.Point(237, 267);
-            this.btnOKFiltros.Name = "btnOKFiltros";
-            this.btnOKFiltros.Size = new System.Drawing.Size(75, 40);
-            this.btnOKFiltros.TabIndex = 36;
-            this.btnOKFiltros.Text = "Siguiente paso";
-            this.btnOKFiltros.UseVisualStyleBackColor = true;
-            this.btnOKFiltros.Click += new System.EventHandler(this.btnOKFiltros_Click);
             // 
             // label8
             // 
@@ -255,16 +238,6 @@
             this.chbEnvios.Text = "Envios";
             this.chbEnvios.UseVisualStyleBackColor = true;
             this.chbEnvios.CheckedChanged += new System.EventHandler(this.chbEnvios_CheckedChanged);
-            // 
-            // btnOKListarPor
-            // 
-            this.btnOKListarPor.Location = new System.Drawing.Point(237, 112);
-            this.btnOKListarPor.Name = "btnOKListarPor";
-            this.btnOKListarPor.Size = new System.Drawing.Size(75, 43);
-            this.btnOKListarPor.TabIndex = 41;
-            this.btnOKListarPor.Text = "Siguiente paso";
-            this.btnOKListarPor.UseVisualStyleBackColor = true;
-            this.btnOKListarPor.Click += new System.EventHandler(this.btnOKListarPor_Click);
             // 
             // label9
             // 
@@ -314,26 +287,47 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 194);
+            this.label5.Location = new System.Drawing.Point(13, 178);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(238, 13);
             this.label5.TabIndex = 21;
             this.label5.Text = "3. SELECCIONAR FILTROS (OPCIONAL)";
             // 
+            // chkFecha
+            // 
+            this.chkFecha.AutoSize = true;
+            this.chkFecha.Location = new System.Drawing.Point(18, 202);
+            this.chkFecha.Name = "chkFecha";
+            this.chkFecha.Size = new System.Drawing.Size(81, 17);
+            this.chkFecha.TabIndex = 43;
+            this.chkFecha.Text = "Filtrar fecha";
+            this.chkFecha.UseVisualStyleBackColor = true;
+            this.chkFecha.CheckedChanged += new System.EventHandler(this.chkFecha_CheckedChanged);
+            // 
+            // chkMonto
+            // 
+            this.chkMonto.AutoSize = true;
+            this.chkMonto.Location = new System.Drawing.Point(18, 279);
+            this.chkMonto.Name = "chkMonto";
+            this.chkMonto.Size = new System.Drawing.Size(101, 17);
+            this.chkMonto.TabIndex = 44;
+            this.chkMonto.Text = "Filtrar por monto";
+            this.chkMonto.UseVisualStyleBackColor = true;
+            this.chkMonto.CheckedChanged += new System.EventHandler(this.chkMonto_CheckedChanged);
+            // 
             // frmListadoDeFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 344);
+            this.ClientSize = new System.Drawing.Size(997, 414);
+            this.Controls.Add(this.chkMonto);
+            this.Controls.Add(this.chkFecha);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.btnOKListarPor);
             this.Controls.Add(this.chbEnvios);
             this.Controls.Add(this.chbVentas);
             this.Controls.Add(this.chbComisionPublicacion);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.btnOKFiltros);
             this.Controls.Add(this.lvFacturas);
-            this.Controls.Add(this.btnOKVendedor);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnListarFacturas);
             this.Controls.Add(this.label5);
@@ -372,13 +366,10 @@
         private System.Windows.Forms.Button btnListarFacturas;
         private System.Windows.Forms.Button btnLimpiar;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
-        private System.Windows.Forms.Button btnOKVendedor;
-        private System.Windows.Forms.Button btnOKFiltros;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chbComisionPublicacion;
         private System.Windows.Forms.CheckBox chbVentas;
         private System.Windows.Forms.CheckBox chbEnvios;
-        private System.Windows.Forms.Button btnOKListarPor;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ColumnHeader numero;
         private System.Windows.Forms.ColumnHeader fecha;
@@ -387,5 +378,7 @@
         private System.Windows.Forms.ListView lvFacturas;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox chkFecha;
+        private System.Windows.Forms.CheckBox chkMonto;
     }
 }

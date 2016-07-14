@@ -84,8 +84,11 @@ namespace GDD.Calificar
 
         private void dgvComprasACalificar_MouseClick(object sender, MouseEventArgs e)
         {
-            compraACalificar = (Venta)dgvComprasACalificar.SelectedRows[0].DataBoundItem;
-            btnCalificar.Enabled = true;
+            if (dgvComprasACalificar.SelectedRows.Count == 1)
+            {
+                compraACalificar = (Venta)dgvComprasACalificar.SelectedRows[0].DataBoundItem;
+                btnCalificar.Enabled = true;
+            }
         }
 
         private int cantidadDeCalificacionesSegunEstrellas(List<Calificacion> unaLista, int cantEstrellas) 

@@ -21,9 +21,13 @@ namespace GDD.Facturas
         private List<Factura>   facturasFiltradas;
         private Usuario usuario;
         private bool esAdmin;
+        private int facturasXpagina = 14;
+        private int paginaActual = 0;
+        private int ultimaPagina = 0;
+        private List<Factura> facturas;
 
         #endregion
-        
+
         public frmListadoDeFacturas(Usuario us, bool administrador)
         {
             InitializeComponent();
@@ -80,14 +84,8 @@ namespace GDD.Facturas
                     {
                         if (facturasFiltradas.Count > 0)
                         {
-                            foreach (var factura in facturasFiltradas)
-                            {
-                                ListViewItem lista = new ListViewItem(factura.Numero.ToString());
-                                lista.SubItems.Add(factura.Fecha.ToString());
-                                lista.SubItems.Add(factura.Total.ToString());
-                                lista.SubItems.Add(factura.PublicacionId.ToString());
-                                lvFacturas.Items.Add(lista);
-                            }
+                            // lleno dgvFacturas
+                            LoadFacturas(facturasFiltradas);
                         }
                         else
                         {
@@ -117,7 +115,7 @@ namespace GDD.Facturas
                 var fechaFinal = dtpFechaFinal.Value;
                 if (fechaInicial <= fechaFinal)
                 {
-                    todasLasFacturasDelUsuarioVendedor = resultado.Where(x => fechaInicial <= x.Fecha && x.Fecha <= fechaFinal).ToList();
+                    resultado = resultado.Where(x => fechaInicial <= x.Fecha && x.Fecha <= fechaFinal).ToList();
                 }
                 else
                 {
@@ -135,7 +133,7 @@ namespace GDD.Facturas
                     {
                         if (montoMin < montoMax)
                         {
-                            todasLasFacturasDelUsuarioVendedor = resultado.Where(x => montoMax <= x.Total && x.Total <= montoMax).ToList();
+                            resultado = resultado.Where(x => montoMin <= x.Total && x.Total <= montoMax).ToList();
                         }
                         else
                         {
@@ -195,7 +193,7 @@ namespace GDD.Facturas
         
             private void btnLimpiar_Click(object sender, EventArgs e)
             {
-                lvFacturas.Items.Clear();               
+                dgvFacturas.DataSource = null;               
                 chkFecha.Checked = false;
                 chkMonto.Checked = false;
             }
@@ -259,6 +257,87 @@ namespace GDD.Facturas
                 txtImporteMinimo.Enabled = false;
                 txtImporteMaximo.Enabled = false;
             }
+        }
+
+
+        private List<Factura> actualizarPagina()
+        {
+            List<Factura> retorno;
+            lblPagina.Text = (paginaActual + 1).ToString();
+            btnInicio.Enabled = true;
+            btnAnterior.Enabled = true;
+            btnSiguiente.Enabled = true;
+            btnFin.Enabled = true;
+            if (paginaActual == ultimaPagina)
+            {
+                int mod = facturas.Count % facturasXpagina;
+                if (mod != 0 || facturas.Count == 0)
+                {
+                    retorno = facturas.GetRange(paginaActual * facturasXpagina, mod);
+                }
+                else
+                {
+                    ultimaPagina -= 1;
+                    paginaActual = ultimaPagina;
+                    retorno = facturas.GetRange(paginaActual * facturasXpagina, facturasXpagina);
+                }
+                btnSiguiente.Enabled = false;
+                btnFin.Enabled = false;
+            }
+            else
+            {
+                retorno = facturas.GetRange(paginaActual * facturasXpagina, facturasXpagina);
+                if (paginaActual == 0)
+                {
+                    btnInicio.Enabled = false;
+                    btnAnterior.Enabled = false;
+                }
+            }
+            if (ultimaPagina == 0)
+            {
+
+                btnInicio.Enabled = false;
+                btnAnterior.Enabled = false;
+            }
+
+            return retorno;
+        }
+
+        private void btnInicio_Click(object sender, EventArgs e)
+        {
+            paginaActual = 0;
+            dgvFacturas.DataSource = null;
+            dgvFacturas.DataSource = actualizarPagina();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            paginaActual -= 1;
+            dgvFacturas.DataSource = null;
+            dgvFacturas.DataSource = actualizarPagina();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            paginaActual += 1;
+            dgvFacturas.DataSource = null;
+            dgvFacturas.DataSource = actualizarPagina();
+        }
+
+        private void btnFin_Click(object sender, EventArgs e)
+        {
+            paginaActual = ultimaPagina;
+            dgvFacturas.DataSource = null;
+            dgvFacturas.DataSource = actualizarPagina();
+        }
+
+        private void LoadFacturas(List<Factura> facturas)
+        {
+            this.facturas = facturas;
+            paginaActual = 0;
+            ultimaPagina = (int)Math.Floor(Convert.ToDouble(facturas.Count / facturasXpagina));
+            dgvFacturas.DataSource = null;
+            dgvFacturas.DataSource = actualizarPagina();
         }
     }
 }

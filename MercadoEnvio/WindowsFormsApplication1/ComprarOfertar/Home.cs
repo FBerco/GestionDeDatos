@@ -285,6 +285,7 @@ namespace GDD.ComprarOfertar
         private void btnNinguno_Click(object sender, EventArgs e)
         {
             SeleccionarRubros(false);
+            txtAccion.Text = txtDescripcion.Text = string.Empty;
         }
 
         private void SeleccionarRubros(bool selected)

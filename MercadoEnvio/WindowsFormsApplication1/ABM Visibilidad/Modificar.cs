@@ -35,40 +35,39 @@ namespace GDD.ABM_Visibilidad
         }
 
         #region Funciones principales
-            private void btnGuardarCambios_Click(object sender, EventArgs e)
-            {
-        
-               if(textBoxesValidos())
-               { 
-                    Dictionary<String, Object> mod = new Dictionary<String, Object>();
-                    mod.Add("@visi_detalle_mod", cmbNombreVisibilidad.SelectedItem.ToString());
-                    mod.Add("@visi_porcentaje_prod", txtComisionXProductoVendido.Text);
-                    mod.Add("@visi_costo_publicacion", txtComisionXTipoPublicacion.Text);
-                    mod.Add("@visi_costo_envio", txtComisionXEnvioProducto.Text);
-                    DBHelper.ExecuteNonQuery("Visibilidad_Update", mod);
-                    btnGuardarCambios.Enabled = false;
-                    txtComisionXEnvioProducto.Enabled = false;
-                    txtComisionXTipoPublicacion.Enabled = false;
-                    txtComisionXProductoVendido.Enabled = false;
-                    chbTieneEnvio.Enabled = false;
-                    MessageBox.Show("Visibilidad modificada exitosamente!");
-               }else { MessageBox.Show("Ingrese campos validos."); }
-            }
-
-            private void btnLimpiar_Click(object sender, EventArgs e)
-            {
+        private void btnGuardarCambios_Click(object sender, EventArgs e)
+        {        
+            if(textBoxesValidos())
+            { 
+                Dictionary<String, Object> mod = new Dictionary<String, Object>();
+                mod.Add("@visi_detalle_mod", cmbNombreVisibilidad.SelectedItem.ToString());
+                mod.Add("@visi_porcentaje_prod", txtComisionXProductoVendido.Text);
+                mod.Add("@visi_costo_publicacion", txtComisionXTipoPublicacion.Text);
+                mod.Add("@visi_costo_envio", txtComisionXEnvioProducto.Text);
+                DBHelper.ExecuteNonQuery("Visibilidad_Update", mod);
                 btnGuardarCambios.Enabled = false;
-                txtComisionXEnvioProducto.Clear();
-                txtComisionXProductoVendido.Clear();
-                txtComisionXTipoPublicacion.Clear();
-                cmbNombreVisibilidad.Enabled = true;
-                btnOKVisibilidad.Enabled = true;
-                txtComisionXProductoVendido.Enabled = false;
-                txtComisionXTipoPublicacion.Enabled = false;
                 txtComisionXEnvioProducto.Enabled = false;
+                txtComisionXTipoPublicacion.Enabled = false;
+                txtComisionXProductoVendido.Enabled = false;
                 chbTieneEnvio.Enabled = false;
-                chbTieneEnvio.CheckState = CheckState.Unchecked;
-            }
+                MessageBox.Show("Visibilidad modificada exitosamente!");
+            }else { MessageBox.Show("Ingrese campos validos."); }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            btnGuardarCambios.Enabled = false;
+            txtComisionXEnvioProducto.Clear();
+            txtComisionXProductoVendido.Clear();
+            txtComisionXTipoPublicacion.Clear();
+            cmbNombreVisibilidad.Enabled = true;
+            btnOKVisibilidad.Enabled = true;
+            txtComisionXProductoVendido.Enabled = false;
+            txtComisionXTipoPublicacion.Enabled = false;
+            chbTieneEnvio.Enabled = false;
+            chbTieneEnvio.CheckState = CheckState.Unchecked;
+            txtComisionXEnvioProducto.Enabled = false;
+        }
         #endregion
 
         #region Extras

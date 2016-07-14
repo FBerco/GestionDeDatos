@@ -167,6 +167,9 @@ namespace GDD.ABM_Usuario
             }
         }
 
-        
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtApellido.Text = txtCuit.Text = txtDni.Text = txtMailCliente.Text = txtMailEmpresa.Text = txtNombre.Text = txtRazonSocial.Text = string.Empty;
+        }
     }
 }

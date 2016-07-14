@@ -22,7 +22,7 @@ namespace GDD.Calificar
             cliente = getCliente();
             if (cliente == null) { MessageBox.Show("No puede calificar ya que no es cliente.", "Error"); }
             else { InitializeComponent(); }
-        }
+        }   //despues ver si esta bien esto
 
         #region Atributos
         
@@ -49,8 +49,6 @@ namespace GDD.Calificar
             comprasInmediatasCalificadas = getComprasInmediatasCalificadas();
             subastasCalificadas = getSubastasCalificadas();
         }
-
-        
 
         private void btnCalificar_Click(object sender, EventArgs e)
         {

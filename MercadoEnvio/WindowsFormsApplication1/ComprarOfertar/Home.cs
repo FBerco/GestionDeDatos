@@ -176,7 +176,7 @@ namespace GDD.ComprarOfertar
                         DBHelper.ExecuteNonQuery("Venta_Add", parametros);
                         MessageBox.Show("Se ha concretado la venta!");
                         btnFiltrar_Click(false, new EventArgs());
-
+                        //Por trigger bajo el stock y si hace falta finalizar la publicacion, lo hace.
                         GenerarItemsFactura(publ.Id, cantidad);
                     }
                 }
@@ -347,7 +347,7 @@ namespace GDD.ComprarOfertar
                 });
             }
             DBHelper.DB.Close();
-            return list; //.Where(x => x.Usuario != usuario.Username).ToList()
+            return list.Where(x => x.Usuario != usuario.Username).ToList(); 
         }
     }
 }

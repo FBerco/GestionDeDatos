@@ -347,7 +347,7 @@ namespace GDD.ComprarOfertar
                 });
             }
             DBHelper.DB.Close();
-            return list; //.Where(x => x.Usuario != usuario.Username).ToList()
+            return list.Where(x => x.Usuario != usuario.Username).ToList(); 
         }
     }
 }

@@ -166,7 +166,7 @@ namespace GDD.ComprarOfertar
             var ventasSinClasificar = DBHelper.ExecuteReader("Venta_GetVentasSinCalificarSegunCliente", new Dictionary<string, object>() { { "@clieID", cliente.Id } }).ToVentas();
             if (ventasSinClasificar.Count >= 3)
             {
-                MessageBox.Show(string.Format("Tenes {0} ventas sin calificar. No esta permitido comprar n", ventasSinClasificar.Count));
+                MessageBox.Show(string.Format("Tiene {0} ventas sin calificar. No esta permitido continuar comprando hasta que no sean calificadas", ventasSinClasificar.Count));
                 return;
             }
             if (txtAccion.Text != "")

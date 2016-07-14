@@ -114,7 +114,7 @@ namespace GDD.Listado_Estadistico
                 parametros.Add("@Visibilidad", DBNull.Value);
             }
             var estadistica = DBHelper.ExecuteReader("Estadisticas_MayorNoVendido", parametros).ToEstadisticas();
-            CargarGrilla(estadistica);
+            CargarGrilla(estadistica, "Cantidad productos vendidos");
         }
 
         private void MayorCantidadProductosComprados(Rubro rubr = null)
@@ -129,22 +129,22 @@ namespace GDD.Listado_Estadistico
                 parametros.Add("@Rubro", DBNull.Value);
             }
             var estadistica = DBHelper.ExecuteReader("Estadisticas_ClientesComprados", parametros).ToEstadisticas();
-            CargarGrilla(estadistica);
+            CargarGrilla(estadistica, "Cantidad productos comprados");
         }
      
         private void MayorCantidadFacturas()
         {
             var estadistica = DBHelper.ExecuteReader("Estadisticas_MayorFacturas", GetDiccionario()).ToEstadisticas();
-            CargarGrilla(estadistica);
+            CargarGrilla(estadistica, "Cantidad de facturas");
         }
 
         private void MayorMontoFacturado()
         {
             var estadistica = DBHelper.ExecuteReader("Estadisticas_MayorFacturado", GetDiccionario()).ToEstadisticas();
-            CargarGrilla(estadistica);
+            CargarGrilla(estadistica, "Monto facturado ($)");
         }
 
-        private void CargarGrilla(List<Estadistica> estadistica) {
+        private void CargarGrilla(List<Estadistica> estadistica, string nombreColumnaExtra) {
             dgvResultado.DataSource = estadistica;
             dgvResultado.Columns.Clear();
             dgvResultado.AutoGenerateColumns = false;
@@ -159,7 +159,7 @@ namespace GDD.Listado_Estadistico
             dgvResultado.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "Extra",
-                HeaderText = "Extra",
+                HeaderText = nombreColumnaExtra,
                 Width = 100,
                 ReadOnly = true
             });

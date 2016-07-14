@@ -14,12 +14,10 @@ namespace GDD.Historial_Cliente
 {
     public partial class frmHome : Form
     {
-
         public frmHome(Usuario us)
         {
             InitializeComponent();
             usuario = us;
-
         }
 
         private void frmHome_Load(object sender, EventArgs e)

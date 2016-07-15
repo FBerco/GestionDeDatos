@@ -148,23 +148,29 @@ namespace GDD.ABM_Usuario
 
         private void dgvCliente_DoubleClick(object sender, EventArgs e)
         {
-            var cli = (Cliente)dgvCliente.CurrentRow.DataBoundItem;
-            if (cli != null)
+            if (dgvCliente.SelectedRows.Count == 1)
             {
-                frmCliente cliente = new frmCliente(cli);
-                cliente.Show();
-                Close();
+                var cli = (Cliente)dgvCliente.CurrentRow.DataBoundItem;
+                if (cli != null)
+                {
+                    frmCliente cliente = new frmCliente(cli);
+                    cliente.Show();
+                    Close();
+                }
             }
         }
 
         private void dgvEmpresa_DoubleClick(object sender, EventArgs e)
         {
-            var emp = (Empresa)dgvEmpresa.CurrentRow.DataBoundItem;
-            if (emp != null)
+            if (dgvEmpresa.SelectedRows.Count == 1)
             {
-                frmEmpresa empresa = new frmEmpresa(emp);
-                empresa.Show();
-                Close();
+                var emp = (Empresa)dgvEmpresa.CurrentRow.DataBoundItem;
+                if (emp != null)
+                {
+                    frmEmpresa empresa = new frmEmpresa(emp);
+                    empresa.Show();
+                    Close();
+                }
             }
         }
 

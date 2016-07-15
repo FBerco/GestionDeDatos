@@ -35,18 +35,18 @@ namespace GDD.ABM_Visibilidad
         private void btnBaja_Click(object sender, EventArgs e)
         {
             Visibilidad visibilidadElegida = (Visibilidad)cmbNombreVisibilidad.SelectedItem;
-            if (!estaAsociadaAAlgunUsuario(visibilidadElegida))
+            if (!AsociadaAAlgunaPublicacion(visibilidadElegida))
             { 
                 darDeBaja(visibilidadElegida);
                 MessageBox.Show(string.Concat("Se dio de baja: ",visibilidadElegida.Detalle));
             } 
             else {
-                MessageBox.Show("La visibilidad seleccionada esta asociada a un usuario. No se puede dar de baja");
+                MessageBox.Show("La visibilidad seleccionada esta asociada a una publicacion. No se puede dar de baja");
             }
             LoadVisibilidades();
         }
 
-        private bool estaAsociadaAAlgunUsuario(Visibilidad unaVisibilidad)
+        private bool AsociadaAAlgunaPublicacion(Visibilidad unaVisibilidad)
         {
             List<Visibilidad> visibilidadesAsociadasAUnUsuario = DBHelper.ExecuteReader("Visibilidad_GetVisibilidadesAsociadas").ToVisibilidades();
             return visibilidadesAsociadasAUnUsuario.ConvertAll(visi => visi.Detalle).Contains(unaVisibilidad.Detalle);

@@ -58,6 +58,12 @@ namespace GDD.ABM_Usuario
         {
             if (DatosCompletados())
             {
+                var empresa = DBHelper.ExecuteReader("Empresa_GetByCuitORazonSocial", new Dictionary<string, object>() { { "@RazonSocial", txtRazonSocial.Text }, { "@Cuit", txtCuit.Text } }).ToEmpresa();
+                if (empresa != null)
+                {
+                    MessageBox.Show("Ya existe una empresa con esa razon social o cuit. Ingrese otros por favor");
+                    return;
+                }
                 var emp = new Dictionary<string, object>() {
                     { "@RazonSocial", txtRazonSocial.Text },
                     { "@Mail" , txtMail.Text },
@@ -124,6 +130,14 @@ namespace GDD.ABM_Usuario
             DBHelper.ExecuteNonQuery("Usuario_Habilitar", new Dictionary<string, object>() { { "@Username", empresa.Username } });
             MessageBox.Show("Usuario habilitado nuevamente.");
             btnHabilitar.Visible = false;
+        }
+
+        private void txtCodPostal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -45,14 +45,7 @@ namespace GDD.Generar_Publicación
         }
 
         private void CargarRubrosYVisibilidades() {
-            visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();
-            var gratis = visibilidades.First(x => x.Detalle == "Gratis");
-            //Me fijo si tiene publicaciones
-            //No muestro visibilidad gratis si no tiene permitido
-            if (DBHelper.ExecuteReader("Publicacion_GetByUsername", new Dictionary<string, object>() { { "@Username", usuario.Username } }).ToPublicaciones().Count != 0)
-            {
-                visibilidades.Remove(gratis);
-            }
+            visibilidades = DBHelper.ExecuteReader("Visibilidad_GetAll").ToVisibilidades();           
             cmbVisibilidad.DataSource = visibilidades;
             cmbVisibilidad.DisplayMember = "Detalle";            
             cmbRubro.DataSource = rubros = DBHelper.ExecuteReader("Rubro_GetAll").ToRubros();
@@ -172,7 +165,8 @@ namespace GDD.Generar_Publicación
                 { "@precio", precio},
                 { "@visibilidad", ((Visibilidad)cmbVisibilidad.SelectedItem).Id}
             };
-            
+
+            var primeraPublicacion = DBHelper.ExecuteReader("Publicacion_GetByUsername", new Dictionary<string, object>() { { "@Username", usuario.Username } }).ToPublicaciones().Count == 0;
             //Alta
             if (publicacion == null)
             {
@@ -189,7 +183,7 @@ namespace GDD.Generar_Publicación
             }
             //Genero factura
             if (estado == 1 && DBHelper.ExecuteReader("Factura_GetByPublicacion", new Dictionary<string, object>() { { "@publicacion", publicacion.Id }}).ToFactura() == null) {
-                GenerarFacturar((Visibilidad)cmbVisibilidad.SelectedItem);
+                GenerarFacturar((Visibilidad)cmbVisibilidad.SelectedItem, primeraPublicacion);
             }
 
             LoadHome();
@@ -201,8 +195,13 @@ namespace GDD.Generar_Publicación
             Hide();
         }
 
-        private void GenerarFacturar(Visibilidad visi)
+        private void GenerarFacturar(Visibilidad visi, bool primeraPublicacion)
         {
+            if (primeraPublicacion)
+            {
+                visi.CostoEnvio = visi.CostoPublicacion = visi.CostoEnvio = 0;
+                MessageBox.Show("Al ser tu primer publicacion, no te cobramos ningun costo!");
+            }
             List<ItemFactura> items = new List<ItemFactura>() {
                 //Item por porcentaje
                 new ItemFactura() {

@@ -126,5 +126,11 @@ namespace GDD.Generar_Publicación
                 ReadOnly = true
             }); 
         }
+
+        private void btnMostrarTodas_Click(object sender, EventArgs e)
+        {
+
+            CargarGrilla(DBHelper.ExecuteReader("Publicacion_GetByUsername", new Dictionary<string, object> { { "@username", usuario.Username } }).ToPublicaciones());
+        }
     }
 }

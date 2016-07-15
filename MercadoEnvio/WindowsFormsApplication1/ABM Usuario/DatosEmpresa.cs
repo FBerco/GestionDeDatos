@@ -15,7 +15,7 @@ namespace GDD.ABM_Usuario
     public partial class frmEmpresa : Form
     {
         private Usuario usuario;
-        private Empresa empresa;
+        public Empresa empresa;
         private frmHome frmHome;
 
         //Cuando vengo del alta
@@ -65,13 +65,7 @@ namespace GDD.ABM_Usuario
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (DatosCompletados())
-            {
-                var empresa = DBHelper.ExecuteReader("Empresa_GetByCuitORazonSocial", new Dictionary<string, object>() { { "@RazonSocial", txtRazonSocial.Text }, { "@Cuit", txtCuit.Text } }).ToEmpresa();
-                if (empresa != null)
-                {
-                    MessageBox.Show("Ya existe una empresa con esa razon social o cuit. Ingrese otros por favor");
-                    return;
-                }
+            {             
                 var emp = new Dictionary<string, object>() {
                     { "@RazonSocial", txtRazonSocial.Text },
                     { "@Mail" , txtMail.Text },
@@ -83,8 +77,9 @@ namespace GDD.ABM_Usuario
                     { "@NombreContacto" , txtNombre.Text},
                     { "@RubroId" ,  ((Rubro)cmbRubro.SelectedItem).Id}
                 };
+                //Me fijo si alta o modificacion
                 if (usuario != null)
-                {
+                {                    
                     Alta(emp);
                 }
                 else
@@ -95,19 +90,31 @@ namespace GDD.ABM_Usuario
             }
         }
 
-        private void Modificar(Dictionary<string, object> emp)
+        private void Modificar(Dictionary<string, object> parametros)
         {
-            emp.Add("@Username", empresa.Username);
-            DBHelper.ExecuteNonQuery("Empresa_Modify", emp);
+            var empr = DBHelper.ExecuteReader("Empresa_GetByCuitORazonSocial", new Dictionary<string, object>() { { "@RazonSocial", txtRazonSocial.Text }, { "@Cuit", txtCuit.Text }, { "@Username", empresa.Username } }).ToEmpresa();
+            if (empr != null)
+            {
+                MessageBox.Show("Ya existe una empresa con esa razon social o cuit. Ingrese otros por favor");
+                return;
+            }
+            parametros.Add("@Username", empresa.Username);
+            DBHelper.ExecuteNonQuery("Empresa_Modify", parametros);
             DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", empresa.Username }, { "Activo", ckbEstado.Checked } });            
             MessageBox.Show("Modificado con exito");
         }
 
-        private void Alta(Dictionary<string, object> emp) {
-
-            emp.Add("@Username", usuario.Username);
+        private void Alta(Dictionary<string, object> parametros)
+        {
+            var empr = DBHelper.ExecuteReader("Empresa_GetByCuitORazonSocial", new Dictionary<string, object>() { { "@RazonSocial", txtRazonSocial.Text }, { "@Cuit", txtCuit.Text }, { "@Username", usuario.Username} }).ToEmpresa();
+            if (empr != null)
+            {
+                MessageBox.Show("Ya existe una empresa con esa razon social o cuit. Ingrese otros por favor");
+                return;
+            }
+            parametros.Add("@Username", usuario.Username);
             DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
-            DBHelper.ExecuteNonQuery("Empresa_Add", emp);
+            DBHelper.ExecuteNonQuery("Empresa_Add", parametros);
             MessageBox.Show("Ingresado con exitos");
         }
 

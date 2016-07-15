@@ -236,6 +236,7 @@
             // rdbEnvio
             // 
             this.rdbEnvio.AutoSize = true;
+            this.rdbEnvio.Enabled = false;
             this.rdbEnvio.Location = new System.Drawing.Point(131, 447);
             this.rdbEnvio.Name = "rdbEnvio";
             this.rdbEnvio.Size = new System.Drawing.Size(74, 17);

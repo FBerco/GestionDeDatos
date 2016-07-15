@@ -192,6 +192,8 @@ namespace GDD.ComprarOfertar
                             };
                             DBHelper.ExecuteNonQuery("Venta_Add", parametros);
                             MessageBox.Show("Se ha concretado la venta!");
+                            lblTextoAccion.Text = btnAccionar.Text = txtAccion.Text = string.Empty;
+                            btnAccionar.Enabled = rdbEnvio.Enabled = txtAccion.Enabled= false;
                             btnFiltrar_Click(false, new EventArgs());
                             //Por trigger bajo el stock y si hace falta finalizar la publicacion, lo hace.
                             GenerarItemsFactura(publ.Id, cantidad);
@@ -209,7 +211,7 @@ namespace GDD.ComprarOfertar
                         Monto = Convert.ToInt32(txtAccion.Text),
                         PublicacionId = publ.Id,
                         ClienteId = GetClienteIdByUsername()
-                    };                    
+                    };
 
                     if (oferta.Monto > publ.Precio)
                     {

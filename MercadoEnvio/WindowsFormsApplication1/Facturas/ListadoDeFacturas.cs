@@ -196,6 +196,10 @@ namespace GDD.Facturas
                 dgvFacturas.DataSource = null;               
                 chkFecha.Checked = false;
                 chkMonto.Checked = false;
+                btnAnterior.Enabled = false;
+                btnFin.Enabled = false;
+                btnInicio.Enabled = false;
+                btnSiguiente.Enabled = false;
             }
         
             #endregion

@@ -62,14 +62,7 @@ namespace GDD.Generar_Publicación
         private void CargarDatos() 
         {
             CargarRubrosYVisibilidades();
-            if (publicacion.Tipo == "Subasta")
-            {
-                rdbSubasta.Checked = true;
-            }
-            else
-            {
-                rdbCompra.Checked = true;
-            }
+            
             rdbCompra.Enabled = rdbSubasta.Enabled = false;
             fecha = publicacion.FechaInicio;
             txtDescripcion.Text = publicacion.Descripcion;
@@ -108,6 +101,15 @@ namespace GDD.Generar_Publicación
                     rdbPausada.Enabled = false;
                     rdbFinalizada.Enabled = false;
                     break;
+            }
+            if (publicacion.Tipo == "Subasta")
+            {
+                rdbSubasta.Checked = true;
+                rdbFinalizada.Enabled = false;
+            }
+            else
+            {
+                rdbCompra.Checked = true;
             }
             cmbVisibilidad.SelectedItem = visibilidades.First(x => x.Id == publicacion.VisibilidadId);
             cmbRubro.SelectedItem = rubros.First(x => x.Id == publicacion.Rubro);

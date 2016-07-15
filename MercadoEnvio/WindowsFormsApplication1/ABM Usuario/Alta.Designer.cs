@@ -69,6 +69,7 @@
             // 
             this.txtPassword.Location = new System.Drawing.Point(101, 43);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 4;
             // 
@@ -127,6 +128,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmAlta";
             this.Text = "Alta";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAlta_FormClosing);
             this.Load += new System.EventHandler(this.Alta_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

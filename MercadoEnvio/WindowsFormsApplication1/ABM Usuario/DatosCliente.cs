@@ -16,6 +16,7 @@ namespace GDD.ABM_Usuario
     {
         private Usuario usuario;
         private Cliente cliente;
+
         public frmCliente(Usuario us)
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace GDD.ABM_Usuario
         public frmCliente(Cliente cl)
         {
             InitializeComponent();
-            cl.Activo = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", cl.Username } }).ToUsuario().Activo;
+            cl.Habilitado = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", cl.Username } }).ToUsuario().Habilitado;
             cliente = cl;
             txtNombre.Text = cl.Nombre;
             txtApellido.Text = cl.Apellido;
@@ -75,6 +76,8 @@ namespace GDD.ABM_Usuario
                 {
                     Modificar(cli);
                 }
+
+                Close();
             }
         }
 
@@ -84,7 +87,6 @@ namespace GDD.ABM_Usuario
             DBHelper.ExecuteNonQuery("Cliente_Modify", cli);
             DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", cliente.Username }, { "Activo", ckbEstado.Checked } });
             MessageBox.Show("Modificado con exito");
-            Hide();
         }
 
         private void Alta(Dictionary<string, object> cli)
@@ -93,7 +95,6 @@ namespace GDD.ABM_Usuario
             DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
             DBHelper.ExecuteNonQuery("Cliente_Add", cli);
             MessageBox.Show("Ingresado con exitos");
-            Hide();
         }
 
         private bool DatosCompletados()
@@ -118,7 +119,11 @@ namespace GDD.ABM_Usuario
 
         private void btnContraseña_Click(object sender, EventArgs e)
         {
-            frmContraseña con = new frmContraseña(usuario);
+            var usua = new Usuario()
+            {
+                Username = cliente.Username
+            };
+            frmContraseña con = new frmContraseña(usua);
             con.Show();
         }
 
@@ -129,5 +134,10 @@ namespace GDD.ABM_Usuario
             btnHabilitar.Visible = false;
         }
 
+        private void frmCliente_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            frmHome home = new frmHome();
+            home.Show();
+        }
     }
 }

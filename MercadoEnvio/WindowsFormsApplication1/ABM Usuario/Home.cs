@@ -12,16 +12,14 @@ using System.Windows.Forms;
 namespace GDD.ABM_Usuario
 {
     public partial class frmHome : Form
-    {
-        private Usuario usuario;        
-        public frmHome(Usuario us)
+    {   
+        public frmHome()
         {
             InitializeComponent();
-            usuario = us;
         }
 
         private void frmHome_Load(object sender, EventArgs e)
-        {
+        {           
             LoadClientes(DBHelper.ExecuteReader("Cliente_GetAll").ToClientes());
             LoadEmpresas(DBHelper.ExecuteReader("Empresa_GetAll").ToEmpresas());
         }
@@ -92,6 +90,7 @@ namespace GDD.ABM_Usuario
         {
             frmAlta alta = new frmAlta();
             alta.Show();
+            Close();
         }
                 
         private void btnCliente_Click(object sender, EventArgs e)
@@ -154,6 +153,7 @@ namespace GDD.ABM_Usuario
             {
                 frmCliente cliente = new frmCliente(cli);
                 cliente.Show();
+                Close();
             }
         }
 
@@ -164,6 +164,7 @@ namespace GDD.ABM_Usuario
             {
                 frmEmpresa empresa = new frmEmpresa(emp);
                 empresa.Show();
+                Close();
             }
         }
 

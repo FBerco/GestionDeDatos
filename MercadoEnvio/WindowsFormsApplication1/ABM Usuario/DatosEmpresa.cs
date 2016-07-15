@@ -16,7 +16,8 @@ namespace GDD.ABM_Usuario
     {
         private Usuario usuario;
         private Empresa empresa;
-        
+        private frmHome frmHome;
+
         //Cuando vengo del alta
         public frmEmpresa(Usuario us)
         {
@@ -30,7 +31,7 @@ namespace GDD.ABM_Usuario
         public frmEmpresa(Empresa emp)
         {
             InitializeComponent();
-            emp.Activo = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", emp.Username } }).ToUsuario().Activo;
+            emp.Habilitado = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", emp.Username } }).ToUsuario().Habilitado;
             empresa = emp;
             txtCiudad.Text = emp.Ciudad;
             txtCodPostal.Text = emp.CodigoPostal.ToString();
@@ -46,6 +47,11 @@ namespace GDD.ABM_Usuario
             {
                 btnHabilitar.Visible = true;
             }
+        }
+
+        public frmEmpresa(Usuario us, frmHome frmHome) : this(us)
+        {
+            this.frmHome = frmHome;
         }
 
         private void frmEmpresa_Load(object sender, EventArgs e)
@@ -83,6 +89,7 @@ namespace GDD.ABM_Usuario
                 {
                     Modificar(emp);
                 }
+                Close();
             }
         }
 
@@ -92,7 +99,6 @@ namespace GDD.ABM_Usuario
             DBHelper.ExecuteNonQuery("Empresa_Modify", emp);
             DBHelper.ExecuteNonQuery("Usuario_Activo", new Dictionary<string, object>() { { "@Username", empresa.Username }, { "Activo", ckbEstado.Checked } });            
             MessageBox.Show("Modificado con exito");
-            Hide();
         }
 
         private void Alta(Dictionary<string, object> emp) {
@@ -101,7 +107,6 @@ namespace GDD.ABM_Usuario
             DBHelper.ExecuteNonQuery("Usuario_Add", new Dictionary<string, object> { { "@Username", usuario.Username }, { "@Password", usuario.Password } });
             DBHelper.ExecuteNonQuery("Empresa_Add", emp);
             MessageBox.Show("Ingresado con exitos");
-            Hide();
         }
 
         private bool DatosCompletados() {
@@ -121,7 +126,11 @@ namespace GDD.ABM_Usuario
 
         private void btnContraseña_Click(object sender, EventArgs e)
         {
-            frmContraseña con = new frmContraseña(usuario);
+            var usua = new Usuario()
+            {
+                Username = empresa.Username
+            };
+            frmContraseña con = new frmContraseña(usua);
             con.Show();
         }
 
@@ -138,6 +147,12 @@ namespace GDD.ABM_Usuario
             {
                 e.Handled = true;
             }
+        }
+
+        private void frmEmpresa_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            frmHome home = new frmHome();
+            home.Show();
         }
     }
 }

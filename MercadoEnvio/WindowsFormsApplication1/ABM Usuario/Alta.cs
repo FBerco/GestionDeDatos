@@ -14,11 +14,12 @@ namespace GDD.ABM_Usuario
 {
     public partial class frmAlta : Form
     {
+       
         public frmAlta()
         {
             InitializeComponent();
         }
-
+        
         private void Alta_Load(object sender, EventArgs e)
         {
 
@@ -56,6 +57,12 @@ namespace GDD.ABM_Usuario
             {
                 MessageBox.Show("Complete los campos.");
             }
+        }
+
+        private void frmAlta_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            frmHome home = new frmHome();
+            home.Show();
         }
     }
 }

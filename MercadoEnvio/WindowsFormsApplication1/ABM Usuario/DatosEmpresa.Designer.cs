@@ -281,6 +281,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmEmpresa";
             this.Text = "DatosEmpresa";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmEmpresa_FormClosing);
             this.Load += new System.EventHandler(this.frmEmpresa_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

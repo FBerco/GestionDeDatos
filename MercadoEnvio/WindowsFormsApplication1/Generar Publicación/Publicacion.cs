@@ -70,6 +70,7 @@ namespace GDD.Generar_Publicación
             {
                 rdbCompra.Checked = true;
             }
+            rdbCompra.Enabled = rdbSubasta.Enabled = false;
             fecha = publicacion.FechaInicio;
             txtDescripcion.Text = publicacion.Descripcion;
             txtPrecio.Text = publicacion.Precio.ToString("0.00");

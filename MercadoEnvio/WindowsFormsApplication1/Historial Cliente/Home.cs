@@ -161,7 +161,8 @@ namespace GDD.Historial_Cliente
             {
                 //llenarCalificacionPromedio
                 double promedio = calificaciones.Select(calificacion => calificacion.Estrellas).Average();
-                txtCalificacionPromedio.Text = promedio.ToString().Substring(0, 4);
+                string prom = promedio.ToString();
+                txtCalificacionPromedio.Text = prom.Substring(0, Math.Min(prom.Length, 4));
 
                 //llenarCalificacionMasAlta
                 txtCalificacionMasAlta.Text = calificaciones.Select(calificacion => calificacion.Estrellas).Max().ToString();

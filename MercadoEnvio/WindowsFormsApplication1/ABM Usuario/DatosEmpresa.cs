@@ -31,7 +31,9 @@ namespace GDD.ABM_Usuario
         public frmEmpresa(Empresa emp)
         {
             InitializeComponent();
-            emp.Habilitado = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", emp.Username } }).ToUsuario().Habilitado;
+            var usu = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", emp.Username } }).ToUsuario();
+            emp.Habilitado = usu.Habilitado;
+            emp.Activo = usu.Activo;
             empresa = emp;
             txtCiudad.Text = emp.Ciudad;
             txtCodPostal.Text = emp.CodigoPostal.ToString();

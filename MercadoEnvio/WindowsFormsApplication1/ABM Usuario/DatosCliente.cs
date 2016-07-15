@@ -27,7 +27,9 @@ namespace GDD.ABM_Usuario
         public frmCliente(Cliente cl)
         {
             InitializeComponent();
-            cl.Habilitado = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", cl.Username } }).ToUsuario().Habilitado;
+            var usu = DBHelper.ExecuteReader("Usuario_Get", new Dictionary<string, object>() { { "@usuario", cl.Username } }).ToUsuario();
+            cl.Habilitado = usu.Habilitado;
+            cl.Activo = usu.Activo;
             cliente = cl;
             txtNombre.Text = cl.Nombre;
             txtApellido.Text = cl.Apellido;

@@ -90,7 +90,7 @@ namespace GDD
         }
         static void Facturas(object sender, EventArgs e)
         {
-            var esAdmin = rol.Nombre.Trim() == "Administrador";
+            var esAdmin = rol.Id == 1;
             var home = new Facturas.frmListadoDeFacturas(usuario, esAdmin);
             home.Show();
         }
@@ -113,6 +113,12 @@ namespace GDD
         static void CambiarContraseña(object sender, EventArgs e)
         {
             var home = new ABM_Usuario.frmContraseña(usuario);
+            home.Show();
+        }
+
+        static void CerrarSesion(object sender, EventArgs e)
+        {
+            var home = new LogIn();
             home.Show();
         }
 

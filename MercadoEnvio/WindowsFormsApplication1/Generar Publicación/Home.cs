@@ -40,24 +40,30 @@ namespace GDD.Generar_Publicación
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            var publicacion = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
-            if (publicacion != null)
+            if (dgvPublicaciones.SelectedRows.Count == 1)
             {
-                //Finalizado
-                if (publicacion.Estado == 3)
+                var publicacion = (Publicacion)dgvPublicaciones.CurrentRow.DataBoundItem;
+                if (publicacion != null)
                 {
-                    MessageBox.Show("Esta publicacion está finalizada, no se puede editar", "Error");
-                    return;
+                    //Finalizado
+                    if (publicacion.Estado == 3)
+                    {
+                        MessageBox.Show("Esta publicacion está finalizada, no se puede editar", "Error");
+                        return;
+                    }
+                    frmPublicacion alta = new frmPublicacion(usuario, publicacion);
+                    alta.Show();
+                    Close();
                 }
-                frmPublicacion alta = new frmPublicacion(usuario, publicacion);
-                alta.Show();
-                Close();
+                else
+                {
+                    MessageBox.Show("Seleccione publicacion a modificar", "Error");
+                }
             }
             else
             {
-                MessageBox.Show("Seleccione publicacion a modificar", "Error");
+                MessageBox.Show("Ninguna publicacion se encuentra seleccionada", "Error");
             }
-
         }
 
         public int ObtenerIdEstado(string nombreEstado) 

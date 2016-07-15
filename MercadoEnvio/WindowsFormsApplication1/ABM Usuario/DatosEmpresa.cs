@@ -120,14 +120,48 @@ namespace GDD.ABM_Usuario
 
         private bool DatosCompletados() {
             int result;
-            if (txtRazonSocial.Text == string.Empty || txtMail.Text == string.Empty || txtTelefono.Text == string.Empty || txtDireccion.Text == string.Empty || txtCodPostal.Text == string.Empty || txtCiudad.Text == string.Empty || txtCuit.Text == string.Empty || txtNombre.Text == string.Empty || cmbRubro.SelectedItem == null)
+            StringBuilder sb = new StringBuilder();
+            if (txtRazonSocial.Text == string.Empty)
             {
-                MessageBox.Show("Complete todos los campos por favor");
-                return false;
+                sb.AppendLine("Complete razon social.");
+            }
+            if (txtTelefono.Text == string.Empty) {
+                sb.AppendLine("Complete telefono.");
+            }
+            if (txtMail.Text == string.Empty) {
+                sb.AppendLine("Complete mail.");
+            }
+            if (txtDireccion.Text == string.Empty)
+            {
+                sb.AppendLine("Complete direccion.");
+            }
+            if (txtCodPostal.Text == string.Empty)
+            {
+                sb.AppendLine("Complete codigo postal.");
+            }
+            if (txtCiudad.Text == string.Empty)
+            {
+                sb.AppendLine("Complete ciudad.");
+            }
+            if (txtCuit.Text == string.Empty)
+            {
+                sb.AppendLine("Complete cuit.");
+            }
+            if (txtNombre.Text == string.Empty)
+            {
+                sb.AppendLine("Complete nombre.");
+            }
+            if (cmbRubro.SelectedItem == null)
+            {
+                sb.AppendLine("Seleccione rubro.");
+            }
+            if (!int.TryParse(txtCodPostal.Text, out result)) {
+                sb.AppendLine("Codigo Postal debe ser numerico");
             }
 
-            if (!int.TryParse(txtCodPostal.Text, out result)) {
-                MessageBox.Show("Codigo Postal debe ser numerico");
+            if (!string.IsNullOrEmpty(sb.ToString()))
+            {
+                MessageBox.Show(sb.ToString());
                 return false;
             }
             return true;

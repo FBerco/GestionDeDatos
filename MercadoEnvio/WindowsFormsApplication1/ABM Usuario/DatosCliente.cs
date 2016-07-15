@@ -102,18 +102,54 @@ namespace GDD.ABM_Usuario
         private bool DatosCompletados()
         {
             int result;
-            if(txtNombre.Text == string.Empty || txtApellido.Text == string.Empty|| txtDni.Text == string.Empty ||  txtTipoDoc.Text== string.Empty || txtMail.Text == string.Empty ||
-                txtTelefono.Text == string.Empty || txtDireccion.Text == string.Empty || txtCodPostal.Text == string.Empty || dtpFecha.Text == string.Empty){
-               MessageBox.Show("Complete todos los campos por favor");
-                return false;
+            StringBuilder sb = new StringBuilder();
+            if (txtNombre.Text == string.Empty)
+            {
+                sb.AppendLine("Complete nombre.");
             }
 
-            if(!int.TryParse(txtDni.Text, out result)){
-                MessageBox.Show("El campo DNI debe ser numérico.");
-                return false;
+            if (txtApellido.Text == string.Empty)
+            {
+                sb.AppendLine("Complete apellido.");
+            }
+            if (txtDni.Text == string.Empty)
+            {
+                sb.AppendLine("Complete dni.");
+            }
+            if (txtTipoDoc.Text == string.Empty)
+            {
+                sb.AppendLine("Complete tipo doc.");
+            }
+            if (txtMail.Text == string.Empty)
+            {
+                sb.AppendLine("Complete mail.");
+            }
+            if (txtTelefono.Text == string.Empty)
+            {
+                sb.AppendLine("Complete telefono.");
+            }
+            if (txtDireccion.Text == string.Empty)
+            {
+                sb.AppendLine("Complete direccion.");
+            }
+            if (txtCodPostal.Text == string.Empty)
+            {
+                sb.AppendLine("Complete codigo postal.");
+            }
+            if (dtpFecha.Text == string.Empty)
+            {
+                sb.AppendLine("Complete fecha.");
+            }
+
+            if (!int.TryParse(txtDni.Text, out result)){
+                sb.AppendLine("El campo DNI debe ser numérico.");
             }
             if (!int.TryParse(txtCodPostal.Text, out result)) {
-                MessageBox.Show("El campo Codigo Postal debe ser numérico.");
+                sb.AppendLine("El campo Codigo Postal debe ser numérico.");
+            }
+            if (!string.IsNullOrEmpty(sb.ToString()))
+            {
+                MessageBox.Show(sb.ToString());
                 return false;
             }
             return true;

@@ -224,7 +224,6 @@ namespace GDD.ComprarOfertar
                             { "@envio", rdbEnvio.Checked }
                         };
                         DBHelper.ExecuteNonQuery("Oferta_Add", parametros);
-                        btnFiltrar_Click(false, new EventArgs());
                         MessageBox.Show("Se ha concretado la oferta!");
                         lblTextoAccion.Text = btnAccionar.Text = txtAccion.Text = string.Empty;
                         btnAccionar.Enabled = rdbEnvio.Enabled = txtAccion.Enabled = false;

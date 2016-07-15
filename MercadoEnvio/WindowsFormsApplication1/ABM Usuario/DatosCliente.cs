@@ -119,7 +119,7 @@ namespace GDD.ABM_Usuario
         private void btnContraseña_Click(object sender, EventArgs e)
         {
             frmContraseña con = new frmContraseña(usuario);
-            Show();
+            con.Show();
         }
 
         private void btnHabilitar_Click(object sender, EventArgs e)

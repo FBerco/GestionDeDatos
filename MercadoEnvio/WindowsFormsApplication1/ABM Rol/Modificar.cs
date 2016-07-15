@@ -63,7 +63,6 @@ namespace GDD.ABM_Rol
                     }
                     MessageBox.Show("Modificado con exito");
                     SetRoles();
-                    txtNombre.Text = "";
                 }
                 catch 
                 {
